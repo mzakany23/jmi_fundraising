@@ -1,0 +1,5 @@
+#background header
+.nabar-inverse
+
+#links
+#9d9d9d
