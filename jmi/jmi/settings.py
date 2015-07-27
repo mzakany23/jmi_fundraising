@@ -1,4 +1,4 @@
-from env_var import DATABASE, SERVER
+from env_var import DATABASE, SERVER, STRIPE_API_KEY
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -18,16 +18,23 @@ ALLOWED_HOSTS = []
 
 SERVER = SERVER
 
+STRIPE_API = STRIPE_API_KEY
 # Application definition
 
 INSTALLED_APPS = (
+    'wpadmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home'
+    'home',
+    'account',
+    'product',
+    'fundraiser',
+    'address',
+    'shipment',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -38,6 +45,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
 )
 
 ROOT_URLCONF = 'jmi.urls'
@@ -90,4 +102,15 @@ STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR),'static','static'),
 )
 
-
+WPADMIN = {
+    'admin': {
+        'title': 'Jose Madrid Salsa Fundraising',
+        'menu': {
+            'top': 'wpadmin.menu.menus.BasicTopMenu',
+            'left': 'wpadmin.menu.menus.BasicLeftMenu',
+        },
+        'dashboard': {
+            'breadcrumbs': True,
+        },
+    }
+}

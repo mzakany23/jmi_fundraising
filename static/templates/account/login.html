@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block account %}
+<!-- ==========================
+    	FORMS - START 
+    =========================== -->
+	<section class="content-full bg-color-2">
+    	
+        
+    	
+    	<div class="container">
+        	<div class="forms-only">
+        		
+                <form>
+                    <fieldset>
+                    	<h2>Sign in</h2>
+                        
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="email">Your email:<span>*</span></label>
+                                <div class="input-group">
+                                  	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                  	<input type="email" class="form-control " placeholder="Your email:" id="email" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="password">Your password:<span>*</span></label>
+                                <div class="input-group">
+                                  	<span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                	<input type="password" class="form-control " placeholder="Your password:" id="password" required>
+                                </div>
+                            </div>
+                        </div>
+                                              
+                        <div class="pull-left">
+                            <button type="submit" id="send" class="btn btn-primary"><i class="fa fa-check"></i>Confirm</button>
+                        </div>
+                        
+                        <div class="pull-right">
+                       		<a href="#" id="reset-password-toggle">Did you forget your password?</a>
+                        </div>
+                        
+                    </fieldset>
+                </form>
+                
+                <form id="reset-password">
+                    <fieldset>
+                    	<h3>Did you forget your password?</h3>
+                        
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="email2">Your email:<span>*</span></label>
+                                <div class="input-group">
+                                  	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                  	<input type="email" class="form-control " placeholder="Your email:" id="email2" required>
+                                </div>
+                            </div>
+                        </div>
+                                              
+                        <div class="pull-left">
+                            <button type="submit" id="send2" class="btn btn-primary"><i class="fa fa-check"></i>Reset Password</button>
+                        </div>
+                        
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>    
+    <!-- ==========================
+    	FORMS - END 
+    =========================== -->
+{% endblock %}

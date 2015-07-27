@@ -3,3 +3,6 @@
 
 #links
 #9d9d9d
+
+Sublime snippet location
+/Library/Application Support/Sublime Text 2/Packages/User

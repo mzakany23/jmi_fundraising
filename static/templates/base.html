@@ -39,47 +39,41 @@
         
         <button id="page-boxed-toggle" class="btn btn-primary">Boxed Page</button>
     </div>
+
     <!-- ==========================
         COLOR SWITCHER - END
     =========================== -->
     
     <div id="page-wrapper" class="">
     
-  <!-- ==========================
+    <!-- ==========================
       HEADER - START
     =========================== -->
     {% include 'layouts/partials/_header.html' %}
     <!-- ==========================
       HEADER - END 
     =========================== -->
-        
-    <!-- ==========================
-      PORTFOLIO - START 
-    =========================== -->
-    {% include 'layouts/partials/_salsas.html' %}
-    <!-- ==========================
-      PORTFOLIO - END 
-    =========================== --> 
     
+    <!-- ==========================
+      ACCOUNT - START 
+    =========================== -->
+    {% block account %}{% endblock %}
+    <!-- ==========================
+      ACCOUNT - END 
+    =========================== -->
+
     <!-- ==========================
       INTRODUCTION - START 
     =========================== -->
-    <section class="content" id="section-introduction">
-      <div class="container">
-            <h2 style='font-weight: 200;'>Jose Madrid Salsa</h2>
-            <h2>Fundraising</h2>
-            <p><b>Multi-purpose Modern Theme</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec lorem quis est ultrices volutpat. Donec id urna posuere nisl tincidunt laoreet. Aliquam erat volutpat. Duis eu sapien auctor, bibendum ante ut, volutpat purus.  </p>
-        </div>
-    </section>
+    {% block introduction %}{% endblock %}
     <!-- ==========================
       INTRODUCTION - END 
     =========================== -->
 
-
-  <!-- ==========================
+    <!-- ==========================
       FEATURES - START 
     =========================== -->
-    {% include 'layouts/partials/_fundraising-steps.html' %}
+    {% block features %}{% endblock %}
     <!-- ==========================
       FEATURES - END 
     =========================== -->
@@ -87,14 +81,11 @@
    <!-- ==========================
       PRICING - START 
     =========================== -->
-    {% include 'layouts/partials/_fundraising-pricing-tables.html' %}
+    {% block pricing %}{% endblock %}
     <!-- ==========================
       PRICING - END 
     =========================== -->
    
-    
-    
-    
     
               
     <!-- ==========================

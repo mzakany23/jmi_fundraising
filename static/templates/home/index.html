@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block content %}
 
+{% block fundraising_steps %}
+	{% include 'layouts/partials/_fundraising-steps.html' %}
 {% endblock %}
+
+{% block introduction %}
+	{% include 'layouts/partials/_introduction.html' %}
+{% endblock %}
+
+{% block features %}
+	{% include 'layouts/partials/_fundraising-steps.html' %}
+{% endblock %}
+
+{% block pricing %}
+	{% include 'layouts/partials/_fundraising-pricing-tables.html' %}
+{% endblock %}
+

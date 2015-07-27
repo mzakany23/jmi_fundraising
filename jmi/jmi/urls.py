@@ -13,6 +13,13 @@ urlpatterns += patterns('',
 
 )
 
+# account
+urlpatterns += patterns('account.views',
+	url(r'^login', 'auth_login', name='auth_login'),
+	url(r'^/logout', 'auth_logout', name='auth_logout'),
+	url(r'^/create', 'auth_create_account', name='auth_create_account'),
+)
+
 # media
 urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})

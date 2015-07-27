@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <div class="top-header hidden-xs hidden-sm">
       <div class="container">
           <div class="pull-left">
@@ -11,7 +12,7 @@
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                 </ul>
-                <div class="header-item"><a href="signin.html" class="pull-right"><i class="fa fa-user"></i>Sign in</a></div>
+                <div class="header-item"><a href="{% url 'auth_login' %}" class="pull-right"><i class="fa fa-user"></i>Sign in</a></div>
             </div>
         </div>
     </div>
@@ -19,12 +20,12 @@
   <header class="navbar yamm navbar-default navbar-static-top">
       <div class="container">
             <div class="navbar-header">
-                <a href="index.html" class="navbar-brand"><img src="{% static 'image/logo.png' %}" alt=""></a>
+                <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'image/logo.png' %}" alt=""></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse navbar-right">
               <ul class="nav navbar-nav navbar-main-menu">
-                    <li class="dropdown active">
+                    <!-- <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="index.html"><i class="fa fa-angle-double-right"></i>Default Option</a></li>
@@ -39,12 +40,12 @@
                             <li><a href="index-event.html"><i class="fa fa-angle-double-right"></i>Event<span class="label label-danger">new</span></a></li>
                         </ul>
                     </li>
-                    
-                    <li>
-                        <a href="features.html">Features</a>
+                     -->
+                    <li class='active'>
+                        <a href="features.html">Create Fundraiser</a>
                     </li>
                     
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Eshop <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="products1.html"><i class="fa fa-angle-double-right"></i>Grid Without Sidebar<span class="label label-warning">updated</span></a></li>
@@ -54,9 +55,9 @@
                             <li><a href="productdetail.html"><i class="fa fa-angle-double-right"></i>Product Detail<span class="label label-warning">updated</span></a></li>
                             <li><a href="shoppingcart.html"><i class="fa fa-angle-double-right"></i>Shopping Cart</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="portfolio1.html"><i class="fa fa-angle-double-right"></i>Portfolio 2 Column Grid</a></li>
@@ -70,9 +71,9 @@
                             <li><a href="portfolio-post2.html"><i class="fa fa-angle-double-right"></i>Portfolio Post 2 (video)</a></li>
                             <li><a href="portfolio-post3.html"><i class="fa fa-angle-double-right"></i>Portfolio Post 3 (audio)</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     
-                    <li class="dropdown">
+                   <!--  <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="blog1.html"><i class="fa fa-angle-double-right"></i>Blog Without Sidebar</a></li>
@@ -87,17 +88,17 @@
                             <li><a href="blog7.html"><i class="fa fa-angle-double-right"></i>Blog 3 Column Grid (isotope)</a></li>
                             <li><a href="blog8.html"><i class="fa fa-angle-double-right"></i>Blog Timeline</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="contact1.html"><i class="fa fa-angle-double-right"></i>Contact 1</a></li>
                             <li><a href="contact2.html"><i class="fa fa-angle-double-right"></i>Contact 2</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     
-                    <li class="dropdown yamm-fw hidden-xs hidden-sm">
+                   <!--  <li class="dropdown yamm-fw hidden-xs hidden-sm">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wide Menu <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li>
@@ -135,8 +136,8 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    <li class="dropdown">
+                     -->
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                           <li><a href="about.html"><i class="fa fa-angle-double-right"></i>About</a></li>
@@ -155,8 +156,32 @@
                             <li><a href="signin.html"><i class="fa fa-angle-double-right"></i>Sign In</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul> -->
                 
+                 <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a href="blog1.html"><i class="fa fa-angle-double-right"></i>Create Fundraiser</a>
+                          </li>
+                          <li>
+                            <a href="blog1.html"><i class="fa fa-angle-double-right"></i>Profile</a>
+                          </li>
+
+                           <li>
+                            <a href="blog1.html"><i class="fa fa-angle-double-right"></i>Edit Profile</a>
+                          </li>
+
+                          <li>
+                            <a href="blog1.html"><i class="fa fa-angle-double-right"></i>Account Settings</a>
+                          </li>
+
+                          <li>
+                            <a href="blog1.html"><i class="fa fa-angle-double-right"></i>Log Out</a>
+                          </li>
+                            
+                        </ul>
+                    </li>
                 <ul class="nav navbar-nav hidden-xs hidden-sm">
                     <li class="dropdown shopping-cart-toggle">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i><span class="shopping-cart-counter">5</span></a>
