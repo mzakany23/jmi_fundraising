@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+def create_fundraiser(request):
+	context = {}
+	template = 'fundraiser/index.html'
+	return render(request,template,context)

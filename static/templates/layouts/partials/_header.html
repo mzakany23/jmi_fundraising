@@ -12,7 +12,19 @@
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                 </ul>
-                <div class="header-item"><a href="{% url 'auth_login' %}" class="pull-right"><i class="fa fa-user"></i>Sign in</a></div>
+
+                <div class="header-item">
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'auth_logout' %}" class="pull-right">
+                    <i class="fa fa-user"></i>Logout
+                  </a>
+                  {% else %}
+                  <a href="{% url 'auth_login' %}" class="pull-right">
+                    <i class="fa fa-user"></i>Login
+                  </a>
+                  {% endif %}
+                </div>
+
             </div>
         </div>
     </div>
@@ -42,7 +54,7 @@
                     </li>
                      -->
                     <li class='active'>
-                        <a href="features.html">Create Fundraiser</a>
+                        <a href="{% url 'create_fundraiser' %}">Create Fundraiser</a>
                     </li>
                     
                     <!-- <li class="dropdown">
@@ -158,6 +170,7 @@
                     </li>
                 </ul> -->
                 
+                {% if user.is_authenticated %}
                  <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
@@ -182,7 +195,9 @@
                             
                         </ul>
                     </li>
-                <ul class="nav navbar-nav hidden-xs hidden-sm">
+                
+                {% endif %}
+                <ul class="nav navbar-nav hidden-xs hidden-sm" style='margin-left: 25px;'>
                     <li class="dropdown shopping-cart-toggle">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i><span class="shopping-cart-counter">5</span></a>
                         <ul class="dropdown-menu navbar-shopping-cart">

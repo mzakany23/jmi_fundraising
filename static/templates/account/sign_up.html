@@ -1,68 +1,87 @@
-{% load staticfiles
- %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block sign_up %}
 <!-- ==========================
     	FORMS - START 
     =========================== -->
 	<section class="content-full bg-color-2">
     	
-        <header class="navbar navbar-default navbar-static-top">
-            <div class="pull-left">
-                <a href="index.html" class="btn btn-primary btn-lg"><i class="fa fa-chevron-left"></i>Back to Homepage</a>
-            </div>
-            <div class="pull-right">
-                <ul class="brands brands-inline brands-md brands-circle main">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                </ul>
-            </div>
-        </header>
-    	
     	<div class="container">
         	<div class="forms-only">
-        		<h1>Roxie</h1>
-                <form>
+        		
+                <form method="POST" action="{% url 'auth_create_account' %}">
+                    {% csrf_token %}
+
                     <fieldset>
-                    	<h2>Create new account</h2>
-                        <p>Already have an account? Then you can <a href="signin.html">sign in</a> with your existing username and password.</p>
+                    	<h2>Create New Account</h2>
+                        <p>Already have an account? Then you can <a href="{% url 'auth_login' %}">sign in</a> with your existing username and password.</p>
+
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="name">Your name:<span>*</span></label>
+                                {{ register_form.errors.organization }}
+                                <label for="name">Organization:<span></span></label>
                                 <div class="input-group">
-                                  	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                	<input type="text" class="form-control " placeholder="Your name:" id="name" required>
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    {{ register_form.organization }}
                                 </div>
                             </div>                               
                         </div>
+                        <div class="form-group">
+                            <div class="row">
+                                
+                                    <div class="col-md-6">
+                                        {{ register_form.errors.first_name }}
+                                        <label for="name">First Name:<span>*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            {{ register_form.first_name }}
+                                         </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        {{ register_form.errors.last_name }}
+                                        <label for="name">Last Name:<span>*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            {{ register_form.last_name }}
+                                        </div>
+                                    </div>
+
+                            </div>
+                            
+                        </div>
                         
                         <div class="row">
                             <div class="form-group col-sm-12">
+                                {{ register_form.errors.email }}
                                 <label for="email">Your email:<span>*</span></label>
                                 <div class="input-group">
                                   	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                	<input type="email" class="form-control " placeholder="Your email:" id="email" required>
+                                	{{ register_form.email }}
                                 </div>
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="form-group col-sm-6">
+                                {{ register_form.errors.password }}
                                 <label for="password">Your password:<span>*</span></label>
                                 <div class="input-group">
                                   	<span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                	<input type="password" class="form-control " placeholder="Your password:" id="password" required>
+                                	{{ register_form.password }}
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
+                                {{ register_form.errors.confirm_password }}
                                 <label for="password2">Confirm password:<span>*</span></label>
                                 <div class="input-group">
                                   	<span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                	<input type="password" class="form-control " placeholder="Your password:" id="password2" required>
+                                	{{ register_form.confirm_password }}
                                 </div>
                             </div>
                         </div>
                         
-                        <p>I agree to the Terms and Conditions and Privacy Policy, including the use of cookies.</p>
                         
                         <div class="pull-left">
                        		<span class="form-info"><span class="required">*</span> These fields are required</span>
@@ -80,3 +99,4 @@
     <!-- ==========================
     	FORMS - END 
     =========================== -->
+{% endblock %}

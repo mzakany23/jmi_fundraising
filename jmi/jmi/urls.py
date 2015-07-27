@@ -4,24 +4,28 @@ from django.conf import settings
 
 # base
 urlpatterns = patterns('',
-    url(r'^$', 'home.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
 )
 
 # home 
-urlpatterns += patterns('',
-
+urlpatterns += patterns('home.views',
+	url(r'^$', 'home', name='home'),
 )
 
 # account
 urlpatterns += patterns('account.views',
-	url(r'^login', 'auth_login', name='auth_login'),
-	url(r'^/logout', 'auth_logout', name='auth_logout'),
-	url(r'^/create', 'auth_create_account', name='auth_create_account'),
+	url(r'^account/login', 'auth_login', name='auth_login'),
+	url(r'^account/logout', 'auth_logout', name='auth_logout'),
+	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
 )
 
 # media
 urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
+)
+
+# fundraiser
+urlpatterns += patterns('fundraiser.views',
+	url(r'^lets-do-a-fundraiser', 'create_fundraiser', name='create_fundraiser'),
 )
 

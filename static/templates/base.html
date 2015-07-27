@@ -21,7 +21,7 @@
     <!-- ==========================
     COLOR SWITCHER - START
     =========================== -->
-    <div id="color-switcher">
+    <!-- <div id="color-switcher">
         <div id="toggle-switcher"><i class="fa fa-gear"></i></div>
         <span>Color Scheme:</span>
         <ul class="list-unstyled list-inline">
@@ -38,7 +38,7 @@
         </ul>
         
         <button id="page-boxed-toggle" class="btn btn-primary">Boxed Page</button>
-    </div>
+    </div> -->
 
     <!-- ==========================
         COLOR SWITCHER - END
@@ -54,14 +54,35 @@
       HEADER - END 
     =========================== -->
     
+    {% if messages %}
+
+      {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
     <!-- ==========================
-      ACCOUNT - START 
+      AUTH - START 
     =========================== -->
-    {% block account %}{% endblock %}
+    {% block login %}{% endblock %}
+    {% block sign_up %}{% endblock %}
     <!-- ==========================
-      ACCOUNT - END 
+      AUTH - END 
     =========================== -->
 
+    
+    <!-- ==========================
+      JUMBOTRON - START 
+    =========================== -->
+    {% block jumbotron %}{% endblock %}
+    <!-- ==========================
+      JUMBOTRON - END 
+    =========================== -->
+
+    {% block start_fundraiser %}{% endblock %}
     <!-- ==========================
       INTRODUCTION - START 
     =========================== -->
@@ -86,7 +107,6 @@
       PRICING - END 
     =========================== -->
    
-    
               
     <!-- ==========================
       FOOTER - START 

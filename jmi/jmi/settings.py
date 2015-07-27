@@ -50,6 +50,7 @@ MIDDLEWARE_CLASSES = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
 )
 
 ROOT_URLCONF = 'jmi.urls'
@@ -60,17 +61,23 @@ WSGI_APPLICATION = 'jmi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DATABASE['name'],
-        'HOST': DATABASE['host'],
-        'PORT': DATABASE['port'],
-        'USER': DATABASE['user'],
-        'PASSWORD': DATABASE['password']
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': DATABASE['name'],
+#         'HOST': DATABASE['host'],
+#         'PORT': DATABASE['port'],
+#         'USER': DATABASE['user'],
+#         'PASSWORD': DATABASE['password']
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
