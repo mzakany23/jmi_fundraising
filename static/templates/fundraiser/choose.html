@@ -1,12 +1,11 @@
 {% extends 'fundraiser/index.html' %}
+
 {% load staticfiles %}
 
-{% block about_fundraiser %}
-		<!-- ==========================
-    	FORMS - START 
-    =========================== -->
-		<section>
-			<h1>Tell us about your fundraiser</h1>
+
+{% block choose_salsas %}
+
+<h1>Tell us about your fundraiser</h1>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Organization Name:</label>
 			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Organization Name">
@@ -22,14 +21,11 @@
           <div class="row">
               <div class="col-md-3">
                   <!--<button type="submit" class="btn btn-danger btn-lg btn-block">Continue</button>-->
-                  <a href="{% url 'choose_fundraiser' %}" class="btn btn-danger btn-lg btn-block">Continue</a>
+                  <a href="{% url 'create_shipment' %}" class="btn btn-danger btn-lg btn-block">Continue</a>
               </div>
               
           </div>
       </div>
-     <!-- end shopping cart footer -->      
-    </section>    
-    <!-- ==========================
-    	FORMS - END 
-    =========================== -->
+     <!-- end shopping cart footer -->
 {% endblock %}
+

@@ -1189,7 +1189,7 @@ body .brands.main li a:hover {
 /* JUMBOTRON 5 */
 
 .jumbotron5 {
-	background-image: url(../image/image_01.jpg);
+	background-image: url(../image/placeholder.jpg);
 	padding:0;
 	height:500px;
 	background-position:center center;
@@ -3816,7 +3816,7 @@ body .blog-timeline .blog-post:hover .blog-post-info .month {
 	background-color: #F9F9F9;
 	box-shadow:0 1px 1px 0 rgba(0,0,0,0.1);
 	padding:25px 25px;
-	margin-top:50px;
+	margin-top:25px;
 }
 
 .shopping-cart-footer .btn {

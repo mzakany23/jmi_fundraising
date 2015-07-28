@@ -26,6 +26,8 @@ urlpatterns += patterns('',
 
 # fundraiser
 urlpatterns += patterns('fundraiser.views',
-	url(r'^lets-do-a-fundraiser', 'create_fundraiser', name='create_fundraiser'),
+	url(r'^lets-do-a-fundraiser', 'describe_fundraiser', name='describe_fundraiser'),
+	url(r'^pick-salsas', 'choose_fundraiser', name='choose_fundraiser'),
+	url(r'^fundraiser-shipment', 'create_shipment', name='create_shipment'),
 )
 

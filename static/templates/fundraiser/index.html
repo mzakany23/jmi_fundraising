@@ -7,48 +7,24 @@
     	ESHOP - START 
     =========================== -->
     <section class="content bg-color-2" id="eshop">
-    	<div class="container">
+        <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+    	
             
-            <div class="shopping-cart-header row">
-                <div class="col-md-3 active">
-                    <i class="fa fa-bullhorn"></i>
-                    <p>Describe</p>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-user"></i>
-                    <p>Address</p>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-money"></i>
-                    <p>Payment Method</p>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-check"></i>
-                    <p>Summary</p>
-                </div>
-            </div>
+            {% include 'fundraiser/partials/_checkout-header.html' %}
             
             <div class="shopping-cart">
                 <form action="shoppingcart-part1.html">
                   
                     {% block about_fundraiser %}{% endblock %}
-                   	
+                   	{% block choose_salsas %}{% endblock %}
+                    {% block shipment %}{% endblock %}
                     
-                    <!-- SHOPPING CART FOOTER -->
-                    <div class="shopping-cart-footer">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <!--<button type="submit" class="btn btn-danger btn-lg btn-block">Continue</button>-->
-                                <a href="shoppingcart-part1.html" class="btn btn-danger btn-lg btn-block">Continue</a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                   <!-- end shopping cart footer -->
-
                 </form>
             </div>
             
+        
+        </div>
         </div>
     </section>
     <!-- ==========================

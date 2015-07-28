@@ -1,12 +1,11 @@
 {% extends 'fundraiser/index.html' %}
+
 {% load staticfiles %}
 
-{% block about_fundraiser %}
-		<!-- ==========================
-    	FORMS - START 
-    =========================== -->
-		<section>
-			<h1>Tell us about your fundraiser</h1>
+
+{% block shipment %}
+
+<h1>Tell us about your fundraiser</h1>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Organization Name:</label>
 			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Organization Name">
@@ -27,9 +26,6 @@
               
           </div>
       </div>
-     <!-- end shopping cart footer -->      
-    </section>    
-    <!-- ==========================
-    	FORMS - END 
-    =========================== -->
+     <!-- end shopping cart footer -->
 {% endblock %}
+

@@ -1,0 +1,37 @@
+{% load staticfiles %}
+
+<div class="shopping-cart-header row">
+    <div class="col-md-3" id='describe'>
+        <a href="{% url 'describe_fundraiser' %}"><i class="fa fa-bullhorn"></i>
+        <p>Describe</p>
+        </a>
+    </div>
+
+    <div class="col-md-3" id='choose'>
+        <i class="fa fa-heart"></i>
+        <p>Options</p>
+    </div>
+    <div class="col-md-3" id='shipment'>
+        <i class="fa fa-bus"></i>
+        <p>Shipment</p>
+    </div>
+    <div class="col-md-3">
+        <i class="fa fa-money"></i>
+        <p>Pay</p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var urlName = location.pathname.split("/")[1]
+        
+        if(urlName == 'lets-do-a-fundraiser'){
+            $('#describe').addClass('active')
+        }else if(urlName == 'pick-salsas'){
+            $('#choose').addClass('active')
+        }else if(urlName == 'fundraiser-shipment'){
+            $('#shipment').addClass('active')
+        }
+    });
+</script>

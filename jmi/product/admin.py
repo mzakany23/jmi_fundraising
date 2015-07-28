@@ -5,7 +5,7 @@ class ProductAdmin(admin.ModelAdmin):
 	
 	fields = ['product_code','slug','title','image','description','price','category','created','updated']
 	readonly_fields = ('product_code','slug','created','updated')
-
+	ordering = ['title']
 	class Meta:
 		model = Product
 
