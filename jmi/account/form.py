@@ -30,6 +30,14 @@ class RegisterUserForm(forms.Form):
 		"type" : "text",
 	}))
 
+	username = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'username',
+		"name" : "username",
+		"class" : "form-control",
+		"placeholder" : "Pick a username 30 characters or fewer",
+		"type" : "text",
+	}))
+
 	first_name = forms.CharField(widget=forms.TextInput(attrs={
 		'id' : 'name',
 		"name" : "name",
@@ -53,6 +61,7 @@ class RegisterUserForm(forms.Form):
 		"placeholder" : "Enter Email",
 		"type" : "email",
 	}))
+
 	password = forms.CharField(widget=forms.TextInput(attrs={
 		'id' : 'password',
 		"name" : "password",
@@ -61,19 +70,20 @@ class RegisterUserForm(forms.Form):
 		"type" : "password",
 	}))
 
-	confirm_password = forms.CharField(widget=forms.TextInput(attrs={
-		'id' : 'password-confirm',
-		"name" : "password-confirm",
+	confirm = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'confirm',
+		"name" : "confirm",
 		"class" : "form-control",
 		"placeholder" : "Confirm Password",
 		"type" : "password",
 	}))
 
-	def clean_password(self):
+	def clean_confirm(self):
 		cleaned_data = super(RegisterUserForm,self).clean()
 		password_1 = cleaned_data.get('password')
-		password_2 = cleaned_data.get('confirm_password')
+		password_2 = cleaned_data.get('confirm')
 
+	
 		if password_1 != password_2:
 			raise forms.ValidationError(
 				'passwords do not match.'

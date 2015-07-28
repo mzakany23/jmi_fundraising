@@ -121,3 +121,6 @@ WPADMIN = {
         },
     }
 }
+
+BROKER_URL = 'redis://localhost:6379/0'
+BROKER_TRANSPORT = 'redis'

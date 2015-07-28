@@ -27,6 +27,18 @@
                                 </div>
                             </div>                               
                         </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                {{ register_form.errors.username }}
+                                <label for="name">Username:<span></span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    {{ register_form.username }}
+                                </div>
+                            </div>                               
+                        </div>
+
                         <div class="form-group">
                             <div class="row">
                                 
@@ -73,11 +85,11 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                {{ register_form.errors.confirm_password }}
+                                {{ register_form.errors.confirm }}
                                 <label for="password2">Confirm password:<span>*</span></label>
                                 <div class="input-group">
                                   	<span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                	{{ register_form.confirm_password }}
+                                	{{ register_form.confirm }}
                                 </div>
                             </div>
                         </div>
