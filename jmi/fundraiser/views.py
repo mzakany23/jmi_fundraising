@@ -1,9 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-def create_fundraiser(request):
-	pass
-	
 
 def describe_fundraiser(request):
 	context = {}
