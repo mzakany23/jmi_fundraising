@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block start_fundraiser %}
+
+ <!-- ==========================
+    	ESHOP - START 
+    =========================== -->
+    <section class="content bg-color-2" id="eshop">
+        <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+    	
+            
+            {% include 'fundraiser/partials/_checkout-header.html' %}
+            
+            <div class="shopping-cart">
+                <form action="shoppingcart-part1.html">
+                  
+                    {% block about_fundraiser %}{% endblock %}
+                   	{% block choose_salsas %}{% endblock %}
+                    {% block shipment %}{% endblock %}
+                    
+                </form>
+            </div>
+            
+        
+        </div>
+        </div>
+    </section>
+    <!-- ==========================
+    	ESHOP - END 
+    =========================== --> 
+
+{% endblock %}

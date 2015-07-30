@@ -1,0 +1,17 @@
+amqp==1.4.6
+anyjson==0.3.3
+billiard==3.3.0.20
+celery==3.1.18
+Django==1.7.7
+django-celery==3.1.16
+django-wpadmin==1.7.4
+kombu==3.0.26
+Pillow==2.9.0
+pip==7.1.0
+psycopg2==2.6.1
+py==1.4.30
+pytz==2015.4
+redis==2.10.3
+requests==2.7.0
+setuptools==11.0
+stripe==1.23.0

@@ -1,0 +1,33 @@
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from django.conf import settings
+
+# base
+urlpatterns = patterns('',
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+# home 
+urlpatterns += patterns('home.views',
+	url(r'^$', 'home', name='home'),
+)
+
+# account
+urlpatterns += patterns('account.views',
+	url(r'^account/login', 'auth_login', name='auth_login'),
+	url(r'^account/logout', 'auth_logout', name='auth_logout'),
+	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
+)
+
+# media
+urlpatterns += patterns('',
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
+)
+
+# fundraiser
+urlpatterns += patterns('fundraiser.views',
+	url(r'^lets-do-a-fundraiser', 'describe_fundraiser', name='describe_fundraiser'),
+	url(r'^pick-salsas', 'choose_fundraiser', name='choose_fundraiser'),
+	url(r'^fundraiser-shipment', 'create_shipment', name='create_shipment'),
+)
+
