@@ -4,7 +4,7 @@ from product.models import Product
 
 from models import Fundraiser,FundraiserCategory,FundraiserType
 
-from test_helper import create_products,create_fundraisers
+from test_helper import create_products,create_fundraisers,get_some_products
 
 
 
@@ -12,24 +12,20 @@ class FundraiserTest(TestCase):
 	
 	def setUp(self):
 		create_products(8,['Mild','Medium','Hot'])
-		create_fundraisers(4)
+		product_set = get_some_products(4)
+		create_fundraisers(1,product_set)
 
 		self.fundraiser = Fundraiser.objects.first()
 
 	def test_create_fundraiser(self):
 		assert self.fundraiser.__class__ == Fundraiser
 	
-	def test_new_fundraiser_has_empty_selections(self):
-		assert self.fundraiser.selections() == None
-
-	def test_add_selection_to_fundraiser(self):
-		product = Product.objects.first()
-		self.fundraiser.type.selections.add(product)
-		assert len(self.fundraiser.type.selections.values()) > 0
-
+	def test_fundraiser_has_only_4_possible_selections(self):
+		assert len(self.fundraiser.type.selections.values_list()) == 4
 	
 		
-
+	def test_fundraiser_has_one_shipment_initiated_by_default(self):
+		assert len(self.fundraiser.shipments()) == 1
 		
 
 	

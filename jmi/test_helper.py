@@ -24,11 +24,11 @@ def create_products(num,categories):
 
 			cat_sel += 1
 
-def create_fundraisers(num):
+def create_fundraisers(num,product_set):
 	
 	User.objects.create(username='testUser',password='password',email='test@email.com')
 
-	created_fundraiser_types = __create_fundraiser_types(3)
+	created_fundraiser_types = __create_fundraiser_types(3,product_set)
 
 	fr_sel = 0
 
@@ -44,11 +44,8 @@ def create_fundraisers(num):
 
 		fr.save()
 
-	
-
-
-
-
+def get_some_products(num):
+	return Product.objects.all()[:num]
 
 
 # private
@@ -56,5 +53,29 @@ def create_fundraisers(num):
 def __create_product_categories(categories):
 	return [Category.objects.create(title=category_name) for category_name in categories]
 
-def __create_fundraiser_types(num):
-	return [FundraiserType.objects.create(title=u'Option %s' % i) for i in range(num)]
+def __create_fundraiser_types(num,ps):
+	types = []
+	products = Product.objects.all()
+	if ps:
+		for i in range(num):
+			
+			p = FundraiserType(
+				title=u'Option %s' % i,
+			)
+
+			p.save()
+			for product in ps:
+				p.selections.add(product)
+
+
+			types.append(p)
+		return types
+	else:
+		return []
+
+
+
+
+
+
+

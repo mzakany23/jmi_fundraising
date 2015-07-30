@@ -1,12 +1,11 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-
 from product.models import Product
+
 
 class Fundraiser(models.Model):
 	type      = models.ForeignKey('FundraiserType',null=True,blank=True)
-	shipments = models.ForeignKey(Shipment,blank=True,null=True)
 	title     = models.CharField(max_length=40)
 	account   = models.ForeignKey(User)
 	created   = models.DateTimeField(auto_now_add=True,auto_now=False)
@@ -15,18 +14,9 @@ class Fundraiser(models.Model):
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
-	def selections(self):
-		sel = self.type.selections.values_list()
-		if sel:
-			return sel
-		else:
-			return None
-
-	def add_selection(self,sel):
-		self.type.selections.add(sel)
+	def shipments(self):
+		return self.shipment_set.all()
 	
-
-
 class FundraiserCategory(models.Model):
 	title        = models.CharField(max_length=40,blank=True,null=True)
 
