@@ -1,0 +1,58 @@
+{% extends 'fundraiser/index.html' %}
+{% load staticfiles %}
+
+{% block choose_salsas %}
+
+<h1 class='text-center'>Choose Salsas</h1>
+<h2>{{ fundraiser_type }}</h2>
+
+
+<form method="POST" action="{% url 'choose_salsas' %}">
+	{% csrf_token %}
+<div class="row">
+	{% for type in fundraiser_type.selections.all %}
+ <!-- SHOPPING CART ITEM -->
+  <div class="shopping-cart-item">
+      <!-- <a href="#" class="delete"><i class="fa fa-times"></i></a> -->
+      <input type='hidden' name='product' value="{{ type.id }}">
+      <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
+      
+      <div class="row">
+          <div class="col-md-2">
+              <img src="{{ settings.server }}/media/{{ type.image }}" class="img-responsive" alt="">
+          </div>
+          <div class="col-md-5">
+              <h3>{{ type.title }}</h3>
+              <!-- <p>Code: #12542354</p> -->
+          </div>
+          <div class="col-md-1">
+              <input name='quantity' type="text" class="form-control" value="0">
+          </div>
+          <div class="col-md-2">
+              <p class="small-price">Quantity</p>
+          </div>
+          <!-- <divd class="col-md-2">
+              <p class="total-price">$120</p>
+          </div> -->
+      </div>
+  </div>
+  {% endfor %}
+  
+</div>     
+
+<div class="row">
+<!-- SHOPPING CART FOOTER -->
+      <div class="shopping-cart-footer">
+          <div class="row">
+              <div class="col-md-3">
+                  <button id='submitButton' type="submit" class="btn btn-danger btn-lg btn-block">Continue</button>
+                  <!-- <a href="{% url 'create_shipment' %}" class="btn btn-danger btn-lg btn-block">Continue</a> -->
+              </div>
+              
+          </div>
+      </div>
+</div>
+</form>
+     <!-- end shopping cart footer -->
+
+{% endblock %}

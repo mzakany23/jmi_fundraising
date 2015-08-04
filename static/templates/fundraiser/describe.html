@@ -5,6 +5,9 @@
 		<!-- ==========================
     	FORMS - START 
     =========================== -->
+    
+    {% if not session_fundraiser %}
+
 		<section>
 			<h1>Tell us about your fundraiser</h1>
       <form method="POST" action="{% url 'describe_fundraiser' %}">
@@ -22,44 +25,13 @@
 			    {{ form.organization }}
 			  </div>
 
-        
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Contact First Name:</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Contact First Name">
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Contact Last Name:</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Contact Last Name">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Contact Phone:</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
-              </div>
-            </div>
-        </div> -->
-
-
 			  <div class="form-group">
           {{ form.description.errors }}
 			    <label for="exampleInputEmail1">Tell Us a little About Your Fundraiser:</label>
 			    {{ form.description }}
 			  </div>
 
-        <!-- <div class="form-group">
-          <label for="exampleInputFile">(Optional) Photo Upload</label>
-          <input type="file" id="exampleInputFile">
-        </div> -->
-
+       
 			<!-- SHOPPING CART FOOTER -->
       <div class="shopping-cart-footer">
           <div class="row">
@@ -72,6 +44,9 @@
       </form>
      <!-- end shopping cart footer -->      
     </section>    
+    {% else %}
+    <h1>{{ session_fundraiser }}</h1>
+    {% endif %}
     <!-- ==========================
     	FORMS - END 
     =========================== -->

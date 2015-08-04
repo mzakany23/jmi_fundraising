@@ -1,8 +1,4 @@
-#background header
-.nabar-inverse
-
-#links
-#9d9d9d
-
-Sublime snippet location
-/Library/Application Support/Sublime Text 2/Packages/User
+shipment method off fundraiser
+for how many salsa selections
+make a form for the selection
+need to account for id

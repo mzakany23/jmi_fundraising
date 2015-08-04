@@ -35,6 +35,7 @@ class FundraiserCategory(models.Model):
 		return self.title
 
 class FundraiserType(models.Model):
+	slug       = models.SlugField(blank=True,null=True)
 	image      = models.ImageField(upload_to='fundraiser_types',blank=True,null=True)
 	title      = models.CharField(max_length=40)
 	selections = models.ManyToManyField(Product,blank=True,null=True)
@@ -43,10 +44,23 @@ class FundraiserType(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def selection_count(self):
+		return self.selections.count()
+
+	  
 
 # -----------------------------------------------------------------------------------
 # signals
 # -----------------------------------------------------------------------------------
+
+# on fundraisertype save
+def create_fundraiser_type_slug(sender,instance,created,*args,**kwargs):
+	if created:
+		try:
+			instance.slug = "fundraiser-type-%s" %instance.id
+			instance.save()
+		except:
+			pass
 
 
 # create profile too
@@ -89,6 +103,7 @@ def delete_profile_and_stripe_account(sender,instance,*args,**kwargs):
 		pass
 	
 
+post_save.connect(create_fundraiser_type_slug,sender=FundraiserType)
 post_save.connect(create_profile_receiver,sender=Fundraiser)
 pre_save.connect(update_profile_receiver,sender=Fundraiser)
 pre_delete.connect(delete_profile_and_stripe_account,sender=Fundraiser)

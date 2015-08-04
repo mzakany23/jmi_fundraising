@@ -13,6 +13,7 @@ class FundraiserCategoryAdmin(admin.ModelAdmin):
 
 
 class FundraiserTypeAdmin(admin.ModelAdmin): 
+	readonly_fields = ['slug']
 	class Meta:
 		model = FundraiserType
 
