@@ -114,23 +114,22 @@ def choose_salsas(request):
 
 			if session_shipment:
 
-				for i in range(length):
-					if int(quantity[i]) > 0:
-						sel, created = Selection.objects.get_or_create(
-							shipment=session_shipment,
-							product=Product.objects.get(id=product[i]),
-							quantity=quantity[i]
-						)
-						
-						if not created:
-							sel.shipment = session_shipment
-							sel.product=Product.objects.get(id=product[i])
-							sel.quantity=quantity[i]
-							sel.save()
+				for i in range(length):	
+					sel, created = Selection.objects.get_or_create(
+						shipment=session_shipment,
+						product=Product.objects.get(id=product[i]),
+					)
+
+					if created:
+						sel.quantity = quantity[i]
+						sel.save()
+					else:
+						sel.quantity=quantity[i]
+						sel.save()
 
 
 			return HttpResponseRedirect(reverse('create_shipment'))
-				
+
 	context = {}
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
