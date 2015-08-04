@@ -105,14 +105,32 @@ def choose_salsas(request):
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(fund_type,)))
 		else:
 			# create and save the selections to the shipment
+			try:
+				session_fundraiser = Fundraiser.objects.get(id=request.session['current_fundraiser'])
+				session_shipment = Shipment.objects.get(fundraiser=session_fundraiser)
+			except:
+				session_fundraiser = None
+				session_shipment = None
+
+			if session_shipment:
+
+				for i in range(length):
+					if int(quantity[i]) > 0:
+						sel, created = Selection.objects.get_or_create(
+							shipment=session_shipment,
+							product=Product.objects.get(id=product[i]),
+							quantity=quantity[i]
+						)
+						
+						if not created:
+							sel.shipment = session_shipment
+							sel.product=Product.objects.get(id=product[i])
+							sel.quantity=quantity[i]
+							sel.save()
+
+
 			return HttpResponseRedirect(reverse('create_shipment'))
-
-
-		# for i in range(length):
-		# 	print product[i]
-		# 	print quantity[i]
-
-	
+				
 	context = {}
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
