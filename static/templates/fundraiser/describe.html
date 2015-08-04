@@ -1,53 +1,12 @@
 {% extends 'fundraiser/index.html' %}
 {% load staticfiles %}
 
-{% block about_fundraiser %}
-		<!-- ==========================
-    	FORMS - START 
-    =========================== -->
-    
+
+{% block start_describing_fundraiser %}
     {% if not session_fundraiser %}
-
-		<section>
-			<h1>Tell us about your fundraiser</h1>
-      <form method="POST" action="{% url 'describe_fundraiser' %}">
-        {% csrf_token %}
-        
-        <div class="form-group">
-          {{ form.title.errors }}
-          <label for="exampleInputEmail1">Fundraiser Title:</label>
-          {{ form.title }}
-        </div>			  
-
-        <div class="form-group">
-          {{ form.organization.errors }}
-			    <label for="exampleInputEmail1">Organization Name:</label>
-			    {{ form.organization }}
-			  </div>
-
-			  <div class="form-group">
-          {{ form.description.errors }}
-			    <label for="exampleInputEmail1">Tell Us a little About Your Fundraiser:</label>
-			    {{ form.description }}
-			  </div>
-
-       
-			<!-- SHOPPING CART FOOTER -->
-      <div class="shopping-cart-footer">
-          <div class="row">
-              <div class="col-md-3">
-                  <button type='submit' class="btn btn-danger btn-lg btn-block">Continue</button>
-              </div>
-              
-          </div>
-      </div>
-      </form>
-     <!-- end shopping cart footer -->      
-    </section>    
+      {% include 'fundraiser/partials/_describe_regardless.html' %}
     {% else %}
-    <h1>{{ session_fundraiser }}</h1>
+      {% include 'fundraiser/partials/_describe_signed_in.html' %}
     {% endif %}
-    <!-- ==========================
-    	FORMS - END 
-    =========================== -->
 {% endblock %}
+

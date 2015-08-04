@@ -11,8 +11,10 @@
     </div>
 
     <div class="col-md-3 {% if request.resolver_match.url_name == 'choose_fundraiser' or request.resolver_match.url_name == 'chosen_fundraiser_type'  %}active{% endif %}" id='choose'>
-        <i class="fa fa-heart"></i>
-        <p>Options</p>
+        <a href="{% url 'choose_fundraiser' %}">
+            <i class="fa fa-heart"></i>
+            <p>Options</p>
+        </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'create_shipment' %}active{% endif %}" id='shipment'>
         <i class="fa fa-bus"></i>

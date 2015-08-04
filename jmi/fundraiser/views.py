@@ -1,4 +1,5 @@
 import json
+
 from django import forms
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -16,6 +17,8 @@ from home.views import get_home_variables
 
 from form import FundraiserDescribeForm
 
+
+
 def describe_fundraiser(request):
 	form = FundraiserDescribeForm(request.POST or None)
 	
@@ -25,6 +28,7 @@ def describe_fundraiser(request):
 		organization  = form.cleaned_data['organization']
 		description   = form.cleaned_data['description']
 
+		
 		try:
 			fr = Fundraiser.objects.get(title=title)
 		except:
@@ -47,6 +51,7 @@ def describe_fundraiser(request):
 
 	context = {'form' : form}
 	template = 'fundraiser/describe.html'
+
 	return render(request,template,context,context_instance=RequestContext(request, processors=[get_home_variables]))
 	
 def choose_fundraiser(request):
@@ -66,7 +71,18 @@ def chosen_fundraiser_type(request,slug):
 	except:
 		fundraiser_type = None
 
-	
+	try:
+		session_fundraiser = Fundraiser.objects.get(id=request.session['current_fundraiser'])
+	except:
+		session_fundraiser = None
+
+	print fundraiser_type
+	print session_fundraiser
+
+	if session_fundraiser and fundraiser_type:
+		session_fundraiser.type = fundraiser_type
+		session_fundraiser.save()
+
 	context = {
 		'fundraiser_type' : fundraiser_type, 
 	}
@@ -102,12 +118,37 @@ def choose_salsas(request):
 	return render(request,template,context)
 
 
-
-
 def create_shipment(request):
 	context = {}
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
+
+def get_back_on_track(request):
+	try:
+		current_fundraiser = Fundraiser.objects.get(id=request.session['current_fundraiser']) 
+	except:
+		current_fundraiser = None
+
+	try:
+		shipments = Shipment.objects.filter(fundraiser=current_fundraiser)
+		selections = shipments.selection_set.all()
+	except:
+		shipments = None
+		selections = None
+
+	if current_fundraiser:
+
+		if current_fundraiser.type is None:
+			return HttpResponseRedirect(reverse('choose_fundraiser'))
+		elif selections is None:
+			fund_type = current_fundraiser.type
+			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(fund_type.slug,)))
+		else:
+			return HttpResponseRedirect(reverse('create_shipment'))
+
+	context = {}
+	template = 'fundraiser/shipment.html'
+	return render(request,template,context)	
 
 def get_fundraiser_selections_via_ajax(request,id):
 	try:

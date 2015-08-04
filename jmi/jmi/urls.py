@@ -27,10 +27,11 @@ urlpatterns += patterns('',
 # fundraiser
 urlpatterns += patterns('fundraiser.views',
 	url(r'^lets-do-a-fundraiser', 'describe_fundraiser', name='describe_fundraiser'),
-	url(r'^pick-fundraiser/$', 'choose_fundraiser', name='choose_fundraiser'),
-	url(r'^pick-fundraiser/(?P<slug>[-\w]+)/$', 'chosen_fundraiser_type', name='chosen_fundraiser_type'),
+	url(r'^fundraiser/$', 'choose_fundraiser', name='choose_fundraiser'),
+	url(r'^fundraiser/(?P<slug>[-\w]+)/$', 'chosen_fundraiser_type', name='chosen_fundraiser_type'),
 	url(r'^pick-salsas/$', 'choose_salsas', name='choose_salsas'),
 	url(r'^fundraiser-shipment', 'create_shipment', name='create_shipment'),
+	url(r'^fundraiser-get-back-on-track/$', 'get_back_on_track', name='get_back_on_track'),
 	url(r'^type-selection/(?P<id>\d+)$','get_fundraiser_selections_via_ajax',name='get_fundraiser_selections_via_ajax'),
 )
 

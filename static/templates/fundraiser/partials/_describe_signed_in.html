@@ -1,0 +1,27 @@
+<!-- ==========================
+    	PORTFOLIO POST - START 
+    =========================== -->
+    <section class="content bg-color-2" id="portfolio">
+            
+    		<!-- BLOG POST -->
+            <div class="blog-post">
+                <div class="blog-post-detail">
+                    <span><i class="fa fa-calendar"></i>{{ session_fundraiser }} created: {{ session_fundraiser.created }}</span>
+                    
+                </div>
+                <div class="blog-post-body">
+                    <h3>You have a fundraiser started...</h3>
+                    <h3><a href="{% url 'get_back_on_track' %}">{{ session_fundraiser }}</a></h3>
+                    
+                        <div class="pull-right">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+        
+    </section>
+    <!-- ==========================
+    	PORTFOLIO POST - END 
+    =========================== --> 
