@@ -89,7 +89,7 @@ def choose_salsas(request):
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(fund_type,)))
 		else:
 			# create and save the selections to the shipment
-			pass
+			return HttpResponseRedirect(reverse('create_shipment'))
 
 
 		# for i in range(length):
