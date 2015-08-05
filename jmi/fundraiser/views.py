@@ -218,10 +218,13 @@ def create_shipment(request):
 	return render(request,template,context)
 
 def checkout(request):
-	print request.POST
+	
 	context = {}
 	template = 'fundraiser/checkout.html'
-	return render(request,template,context)
+	return render(
+		request,template,context,
+		context_instance=RequestContext(request, processors=[get_home_variables])
+	)
 
 def get_back_on_track(request):
 	''' 

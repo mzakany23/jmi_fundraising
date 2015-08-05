@@ -13,6 +13,15 @@ class Shipment(models.Model):
 	def __unicode__(self):
 		return str(self.fundraiser)
 
+	def shipping_cost(self):
+		pass
+
+	def pre_tax_cost(self):
+		pass
+
+	def total_jars(self):
+		pass
+
 class Selection(models.Model):
 	shipment   = models.ForeignKey(Shipment)
 	product    = models.ForeignKey(Product)

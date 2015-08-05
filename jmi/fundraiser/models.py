@@ -27,8 +27,23 @@ class Fundraiser(models.Model):
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
-	def shipments(self):
-		return self.shipment_set.all()
+	
+	def shipment(self):
+		try:
+			shipment = self.shipment_set.first()
+		except:
+			shipment = None
+
+		return shipment
+	
+	def selections(self):
+		try:
+			shipment = self.shipment_set.first()
+			selections = shipment.selection_set.all()
+		except:
+			selections = None
+
+		return selections
 
 	
 

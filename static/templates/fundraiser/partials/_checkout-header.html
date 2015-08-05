@@ -17,16 +17,21 @@
         </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'create_shipment' %}active{% endif %}" id='shipment'>
-        <a href="">
+        <a href="{% url 'create_shipment' %}">
             <i class="fa fa-bus"></i>
             <p>Shipment</p>
         </a>
     </div>
-    <div class="col-md-3 {% if request.resolver_match.url_name == 'lets-do-a-fundraiser' %}active{% endif %}">
-        <a href="">
+    <div class="col-md-3 {% if request.resolver_match.url_name == 'checkout' %}active{% endif %}">
+        {% if ready_to_checkout %}
+        <a href="{% url 'checkout' %}">
             <i class="fa fa-money"></i>
             <p>Checkout</p>
         </a>
+        {% else %}
+            <i class="fa fa-money"></i>
+            <p>Checkout</p>
+        {% endif %}
     </div>
 </div>
 

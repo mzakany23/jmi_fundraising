@@ -9,6 +9,9 @@
  <!-- ==========================
     	ESHOP - START 
     =========================== -->
+    {% if already_has_shipment %}
+        {% include 'fundraiser/partials/_shipment_exists.html' %}
+    {% else %}
     <section class="content bg-color-2" id="eshop">
             <div class="shopping-cart">
                 <form method="POST" class="form-horizontal form-address" action="{% url 'create_shipment' %}">
@@ -143,6 +146,7 @@
             
         
     </section>
+    {% endif %}
     <!-- ==========================
     	ESHOP - END 
     =========================== --> 
