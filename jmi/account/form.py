@@ -19,7 +19,7 @@ class LoginForm(forms.Form):
 		"type" : "password",
 	}))
 
-	
+
 
 class RegisterUserForm(forms.Form):
 	organization = forms.CharField(required=False,widget=forms.TextInput(attrs={

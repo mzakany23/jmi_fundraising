@@ -1,4 +1,8 @@
-from django.db.models.signals import post_save, pre_save, pre_delete
+import stripe
+from django.conf import settings
+from django.utils.text import slugify
+
+from django.db.models.signals import post_save, post_delete, pre_save, pre_delete
 
 from django.db import models
 
@@ -62,26 +66,20 @@ def create_fundraiser_type_slug(sender,instance,created,*args,**kwargs):
 		except:
 			pass
 
-
-# create profile too
-def create_profile_receiver(sender,instance,created,*args,**kwargs):
+# create stripe id after have email address
+def create_stripe_id_receiver(sender,instance,created,*args,**kwargs):
 	if created:
-		# instance == User
 		try:
-			profile = Profile()
-			profile.slug = instance	
-			profile.contact = instance
+			email_address = instance.profile.email
 			stripe.api_key = settings.STRIPE_API['key']
-			new_stripe_id = stripe.Customer.create(email=instance.email)
+			new_stripe_id = stripe.Customer.create(email=email_address)
 			profile.stripe_id = str(new_stripe_id['id'])
-			profile.save()
 		except:
 			pass
-
 # make sure stripe has an email address
 def update_profile_receiver(instance,*args,**kwargs):
 	try:
-		profile = Profile.objects.get(contact=instance)
+		profile = Profile.objects.get(profile=instance.profile)
 
 		if instance.email and profile:
 			stripe.api_key = settings.STRIPE_API['key']
@@ -101,10 +99,9 @@ def delete_profile_and_stripe_account(sender,instance,*args,**kwargs):
 		profile.delete()
 	except:
 		pass
-	
+
 
 post_save.connect(create_fundraiser_type_slug,sender=FundraiserType)
-post_save.connect(create_profile_receiver,sender=Fundraiser)
 pre_save.connect(update_profile_receiver,sender=Fundraiser)
 pre_delete.connect(delete_profile_and_stripe_account,sender=Fundraiser)
 

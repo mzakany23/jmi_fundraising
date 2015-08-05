@@ -17,12 +17,16 @@
         </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'create_shipment' %}active{% endif %}" id='shipment'>
-        <i class="fa fa-bus"></i>
-        <p>Shipment</p>
+        <a href="">
+            <i class="fa fa-bus"></i>
+            <p>Shipment</p>
+        </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'lets-do-a-fundraiser' %}active{% endif %}">
-        <i class="fa fa-money"></i>
-        <p>Pay</p>
+        <a href="">
+            <i class="fa fa-money"></i>
+            <p>Checkout</p>
+        </a>
     </div>
 </div>
 

@@ -27,45 +27,4 @@ class FundraiserDescribeForm(forms.Form):
 		"placeholder" : "Tell us about your Fundraiser",
 		"type" : "text",
 	}))
-	# first_name = forms.CharField(widget=forms.TextInput(attrs={
-	# 	"name" : "firstName",
-	# 	"id" : "firstName",
-	# 	"class" : "form-control",
-	# 	"size" : "20",
-	# 	"placeholder" : "First Name",
-	# 	"type" : "text",
-	# }))
-
-	# last_name = forms.CharField(widget=forms.TextInput(attrs={
-	# 	"name" : "lastName",
-	# 	"id" : "lastName",
-	# 	"class" : "form-control",
-	# 	"size" : "20",
-	# 	"placeholder" : "Last Name",
-	# 	"type" : "text",
-	# }))
-	# phone_number = forms.CharField(widget=forms.TextInput(attrs={
-	# 	"name" : "phoneNumber",
-	# 	"id" : "phoneNumber",
-	# 	"class" : "form-control",
-	# 	"size" : "20",
-	# 	"placeholder" : "Phone",
-	# 	"type" : "text",
-	# }))
-	# email = forms.EmailField(widget=forms.TextInput(attrs={
-	# 	"name" : "email",
-	# 	"id" : "email",
-	# 	"class" : "form-control",
-	# 	"size" : "20",
-	# 	"placeholder" : "Email",
-	# 	"type" : "text",
-	# }))
-	# org_photo = forms.CharField(widget=forms.TextInput(attrs={
-	# 	"name" : "photo",
-	# 	"id" : "photo",
-	# 	"class" : "form-control",
-	# 	"size" : "20",
-	# 	"placeholder" : "Org Pic",
-	# 	"type" : "text",
-	# }))
 	

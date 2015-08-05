@@ -1,0 +1,64 @@
+<div class="row">
+                            <div class="col-md-3">
+                                <h3>Billing Address</h3>
+                            </div>  
+                            <div class="col-md-9">
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="checkbox billing-address-checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" id="billing-address-toggle">
+                                                Fill Billing Address
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                    <div id="billing-address">
+
+                                        
+                                    <div class="form-group">
+                                        <label for="address2" class="col-sm-3 control-label">Address:<span>*</span></label>
+                                        <div class="col-sm-9">
+                                            <!-- <input type="text" class="form-control" placeholder="Address:" id="address2" required> -->
+                                            {{ billing_address_form.street }}
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="city2" class="col-sm-3 control-label">City:<span>*</span></label>
+                                        <div class="col-sm-9">
+                                            <!-- <input type="text" class="form-control" placeholder="City:" id="city2" required> -->
+                                            {{ billing_address_form.city }}
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="zip2" class="col-sm-3 control-label">ZIP Code:<span>*</span></label>
+                                        <div class="col-sm-9">
+                                            <!-- <input type="text" class="form-control" placeholder="ZIP Code:" id="zip2" required> -->
+                                            {{ billing_address_form.zip_code }}
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="state2" class="col-sm-3 control-label">State:<span>*</span></label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="state2">
+                                                <option>Select a country</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                 
+                        </div>
+                        
+                        <p class="conditions">I agree to the Terms and Conditions and Privacy Policy, including the use of cookies.</p>
+                        
+                        <div class="pull-left">
+                            <span class="form-info"><span class="required">*</span> These fields are required</span>
+                        </div>
