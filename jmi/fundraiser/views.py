@@ -218,9 +218,16 @@ def create_shipment(request):
 	return render(request,template,context)
 
 def checkout(request):
-	
 	context = {}
 	template = 'fundraiser/checkout.html'
+	return render(
+		request,template,context,
+		context_instance=RequestContext(request, processors=[get_home_variables])
+	)
+
+def process_checkout(request):
+	context = {}
+	template = 'fundraiser/checkout-invoice.html'
 	return render(
 		request,template,context,
 		context_instance=RequestContext(request, processors=[get_home_variables])

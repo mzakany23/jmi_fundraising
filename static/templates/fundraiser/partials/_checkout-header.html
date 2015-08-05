@@ -22,7 +22,7 @@
             <p>Shipment</p>
         </a>
     </div>
-    <div class="col-md-3 {% if request.resolver_match.url_name == 'checkout' %}active{% endif %}">
+    <div class="col-md-3 {% if request.resolver_match.url_name == 'checkout' or request.resolver_match.url_name == 'process_checkout' %}active{% endif %}">
         {% if ready_to_checkout %}
         <a href="{% url 'checkout' %}">
             <i class="fa fa-money"></i>

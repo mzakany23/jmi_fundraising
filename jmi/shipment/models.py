@@ -14,13 +14,29 @@ class Shipment(models.Model):
 		return str(self.fundraiser)
 
 	def shipping_cost(self):
-		pass
+		if self.free_shipping():
+			return "FREE Shipping!"
+		else:
+			return '%.2f' % 30.00
 
 	def pre_tax_cost(self):
-		pass
-
+		price = float(self.fundraiser.type.jar_price)
+		qty   = self.total_jars()
+		return '%.2f' % float(price*qty)
+		
 	def total_jars(self):
-		pass
+		total = 0
+		for selection in self.selection_set.all():
+			total += selection.quantity
+		return total
+
+	def free_shipping(self):
+		return True if self.total_jars() >= 96 else False
+
+	def total_cost_with_shipping(self):
+		return '%.2f' % (float(self.pre_tax_cost()) + float(self.shipping_cost()))
+
+
 
 class Selection(models.Model):
 	shipment   = models.ForeignKey(Shipment)

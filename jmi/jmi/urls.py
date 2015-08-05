@@ -33,6 +33,7 @@ urlpatterns += patterns('fundraiser.views',
 	url(r'^fundraiser-shipment', 'create_shipment', name='create_shipment'),
 	url(r'^fundraiser-get-back-on-track/$', 'get_back_on_track', name='get_back_on_track'),
 	url(r'^checkout/$', 'checkout', name='checkout'),
+	url(r'^summary-invoice/$', 'process_checkout', name='process_checkout'),
 	url(r'^type-selection/(?P<id>\d+)$','get_fundraiser_selections_via_ajax',name='get_fundraiser_selections_via_ajax'),
 )
 
