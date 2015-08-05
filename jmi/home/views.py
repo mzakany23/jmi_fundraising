@@ -32,7 +32,7 @@ def get_home_variables(request):
 		current_shipment = None
 
 	try:
-		if current_shipment:
+		if current_shipment.address:
 			already_has_shipment = True
 		else:
 			already_has_shipment = False

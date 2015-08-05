@@ -34,7 +34,10 @@ class Shipment(models.Model):
 		return True if self.total_jars() >= 96 else False
 
 	def total_cost_with_shipping(self):
-		return '%.2f' % (float(self.pre_tax_cost()) + float(self.shipping_cost()))
+		if self.free_shipping():
+			return '%.2f' % float(self.pre_tax_cost())
+		else:
+			return '%.2f' % (float(self.pre_tax_cost()) + float(self.shipping_cost()))
 
 
 
