@@ -23,10 +23,13 @@ class Fundraiser(models.Model):
 	account      = models.ForeignKey(User,blank=True,null=True)
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated      = models.DateTimeField(auto_now_add=False,auto_now=True)
+	slug         = models.SlugField(blank=True,null=True)
 
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
+	def organization(self):
+		return self.profile.organization
 
 	def shipment(self):
 		try:
@@ -35,7 +38,8 @@ class Fundraiser(models.Model):
 			shipment = None
 
 		return shipment
-	
+
+
 	def selections(self):
 		try:
 			shipment = self.shipment_set.first()
@@ -44,7 +48,7 @@ class Fundraiser(models.Model):
 			selections = None
 
 		return selections
-
+	
 	
 
 class FundraiserCategory(models.Model):

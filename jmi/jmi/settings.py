@@ -35,6 +35,8 @@ INSTALLED_APPS = (
     'fundraiser',
     'address',
     'shipment',
+    'marketing',
+    'comments'
 )
 
 MIDDLEWARE_CLASSES = (

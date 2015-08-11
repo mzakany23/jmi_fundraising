@@ -27,4 +27,6 @@ class FundraiserDescribeForm(forms.Form):
 		"placeholder" : "Tell us about your Fundraiser",
 		"type" : "text",
 	}))
+
+
 	
