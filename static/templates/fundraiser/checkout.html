@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% block checkout %}
-
 <!-- ==========================
       ESHOP - START 
     =========================== -->
@@ -42,83 +41,38 @@
       
         <!-- BLOG POST -->
         <h3>Payment Method</h3>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-amex"></i>Credit Card
+        <div id='checkoutErrors' style="display: none;"class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          Make sure to select a payment type!
+        </div>
 
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        {% include 'fundraiser/partials/_credit-card-form.html' %}
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Check
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        <!-- ==========================
-      ESHOP - START 
-    =========================== -->
-   
-            
-            <div class="shopping-cart">
-                
-                <form class="form-payment" action="shoppingcart-part3.html">
+        <div class="shopping-cart">
+                <form class="form-payment" action="{% url 'checkout' %}">
                     <fieldset>
                         <div class="row">
-                          <div class="col-md-6">
-                            <h3>Payment Method</h3>
-                          </div>
-                          <div class="col-md-6">
-                          
-                                <h3>Make Checks Payable to:</h3>
-                                <h4>insert address here</h4>
-                                
-                            
-                          </div>
-                        </div>
-                        <div class="row">
-                            
+                            <div class="col-sm-3">
+                                <div class="form-group">
+
+                                    <div class="radio"><label><input type="radio" name="paymentRadio" id="paymentmethod1" value="credit">Credit Card</label></div>
+                                </div>
+                            </div>
                             
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <div class="radio"><label><input type="radio" name="paymentmethods" id="paymentmethod4" value="option4">Check Payment</label></div>
+                                    <div class="radio"><label><input type="radio" name="paymentRadio" id="paymentmethod2" value="check">Check Payment</label></div>
                                 </div>
                             </div>
-
-
                         </div>
                         
-                       
-                    </fieldset>
-                </form>
-            </div>
+                        <div style='display:none' id='creditCardForm'>{% include 'fundraiser/partials/_credit-card-form.html' %}</div>
+                        <div style='display:none' id='checkPaymentForm'>{% include 'fundraiser/partials/_check_description.html' %}</div>
                         
-        
+                    </fieldset>
+                
+            </div>
+              
+
     
-    <!-- ==========================
-      ESHOP - END 
-    =========================== --> 
-
-      </div>
-    </div>
-  </div>
-  
-</div>
-
-        
     
     <!-- ==========================
       PORTFOLIO POST - END 
@@ -128,18 +82,16 @@
                 <div class="shopping-cart-footer">
                     <div class="row">
                         <div class="col-md-5">
-                            <form method="POST" action="{% url 'checkout' %}">
-                              {% csrf_token %}
+                            
                                 <fieldset>
                                     <div class="form-group">
                                       <label for="discount">Discount Code</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="discount" placeholder="Discount code" required>
-                                            <span class="input-group-btn"><button class="btn btn-primary" type="button">Submit</button></span>
+                                         {% include 'fundraiser/partials/_discount.html' %}
                                         </div>
                                     </div>
                                 </fieldset>
-                            </form>
+                            
                         </div>
                         <div class="col-md-2 col-md-offset-2 col-xs-7">
                             <p class="total-price-title">Subtotal:</p>
@@ -157,20 +109,79 @@
                             
                         </div>
                         <div class="col-md-5 col-md-offset-7">
-                            <form method="POST" action="{% url 'process_checkout' %}">
-                              {% csrf_token %}
-                              <button type="submit" class="btn btn-danger btn-lg btn-block">Confirm Order</button>
+                              <button id='pageSubmit'type="submit" class="btn btn-danger btn-lg btn-block">Confirm Order</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
                 
-            
         
     </section>
     <!-- ==========================
       ESHOP - END 
     =========================== --> 
 
+{% csrf_token %}
+
+<script type="text/javascript">
+  Stripe.setPublishableKey({{ stripe_api_key.pwd }});
+</script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+  
+  var state;
+
+  $('#paymentmethod1').change(function(e){
+    $('#checkPaymentForm').hide()
+    state = $('#paymentmethod1').val()
+    if (state == 'credit') {
+      $('#creditCardForm').show('slow')
+    } 
+  });
+
+  $('#paymentmethod2').change(function(e){
+    state = $('#paymentmethod2').val()
+    if (state == 'check') {
+      $('#creditCardForm').hide()
+      $('#checkPaymentForm').show('slow')
+    }else{
+      $('#checkPaymentForm').slideUp();
+    }
+  });  
+
+
+
+    $('#pageSubmit').click(function(e){
+      e.preventDefault();
+      
+      if (state == 'credit') {
+        // process stripe
+      } else if (state == 'check') {
+        csrf_token = $("input[name=csrfmiddlewaretoken]").val()
+        $.ajax({
+          type: "POST",
+          url: "/process-fundraiser/",
+          dataType: 'json',
+          data: {
+            csrfmiddlewaretoken: csrf_token,
+            type: 'check'
+          },
+          success: function(data){
+            window.location = "{% url 'process_checkout' %}";
+          },
+        });
+        return false;
+      } else {
+          $('#checkoutErrors').show('slow');
+      }
+      
+    })
+
+});
+
+</script>
 {% endblock %}

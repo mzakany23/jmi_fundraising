@@ -173,6 +173,15 @@ class ShipmentFundraiser:
 		profile.save()
 		
 
+class FundraiserCheckoutHelper:
+	def __init__(self,request):
+		self.request = request
+
+	def process_stripe_payment(self,form):
+		pass
+
+	def process_discount(self):
+		pass
 
 
 

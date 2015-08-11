@@ -1,0 +1,5 @@
+ <form method="POST" action="{% url 'checkout' %}">
+  {% csrf_token %}
+  <input name='discount' type="text" class="form-control" id="discount" placeholder="Discount code" required>
+  <span class="input-group-btn"><button class="btn btn-primary" type="submit">Submit</button></span>
+</form>

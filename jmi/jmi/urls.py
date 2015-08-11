@@ -2,6 +2,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 
+from api.fundraiser.views import FundraiserProcessView
+
+
 # base
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -40,5 +43,10 @@ urlpatterns += patterns('fundraiser.views',
 # admin-dashboard
 urlpatterns += patterns('dashboard.views',
 	url(r'^dashboard/$', 'dashboard_index', name='dashboard_index'),
+)
+
+# api
+urlpatterns += patterns('api.fundraiser.views',
+	url(r'^process-fundraiser/',FundraiserProcessView.as_view()),
 )
 

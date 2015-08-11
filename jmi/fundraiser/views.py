@@ -14,6 +14,7 @@ from account.models import Profile
 from shipment.models import Shipment, Selection
 from product.models import Product
 from address.models import Address
+from marketing.models import GenericDiscount,SingleDiscount
 
 # helper
 from home.views import get_home_variables
@@ -99,7 +100,6 @@ def choose_salsas(request):
 
 
 def create_shipment(request):
-	
 	shipment_profile_form = ShipmentProfileForm(request.POST or None)
 	shipment_address_form = AddressForm(request.POST or None)
 	billing_address_form  = AddressForm(request.POST or None)
@@ -163,10 +163,19 @@ def create_shipment(request):
 
 
 def checkout(request):
-	
+	post = request.POST or None
+	if post: 
+		discount = post['discount']
+		# process discount and return to checkout
+
 	session_fundraiser = SessionVariable(request,'current_fundraiser')
 	
-	context = {}
+	try:
+		stripe_api_key = settings.STRIPE_API_KEY 
+	except:
+		stripe_api_key = None
+
+	context = {'stripe_api_key' : stripe_api_key}
 	template = 'fundraiser/checkout.html'
 	return render(
 		request,template,context,

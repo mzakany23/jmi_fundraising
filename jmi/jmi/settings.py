@@ -18,7 +18,6 @@ ALLOWED_HOSTS = []
 
 SERVER = SERVER
 
-STRIPE_API = STRIPE_API_KEY
 # Application definition
 
 INSTALLED_APPS = (
@@ -29,6 +28,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'home',
     'account',
     'product',

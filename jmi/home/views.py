@@ -39,7 +39,7 @@ def get_home_variables(request):
 	except:
 		already_has_shipment = False
 
-	
+
 	return {
 			'session_fundraiser' : session_fundraiser,
 			'ready_to_checkout' : ready_to_checkout,

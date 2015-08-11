@@ -20,4 +20,7 @@ class Profile(models.Model):
 	def __unicode__(self):
 		return str(self.organization)
 
+	def has_stripe_id(self):
+		return self.has_stripe_id
+
 
