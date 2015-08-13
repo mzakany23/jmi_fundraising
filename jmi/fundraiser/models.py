@@ -23,10 +23,18 @@ class Fundraiser(models.Model):
 	account      = models.ForeignKey(User,blank=True,null=True)
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated      = models.DateTimeField(auto_now_add=False,auto_now=True)
+	discount     = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 	slug         = models.SlugField(blank=True,null=True)
 
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
+
+	def total_cost(self):
+		shipment_cost = 0
+		for shipment in self.shipment_set.all():
+			shipment_cost += shipment.get_total_cost()
+		return shipment_cost - self.discount
+
 
 	def organization(self):
 		return self.profile.organization

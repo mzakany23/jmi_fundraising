@@ -1,4 +1,4 @@
- <form method="POST" action="{% url 'checkout' %}">
+ <form method="POST" action="{% url 'process_discount' %}">
   {% csrf_token %}
   <input name='discount' type="text" class="form-control" id="discount" placeholder="Discount code" required>
   <span class="input-group-btn"><button class="btn btn-primary" type="submit">Submit</button></span>

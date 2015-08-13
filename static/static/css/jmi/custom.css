@@ -1,3 +1,9 @@
+
+.jmi-card-error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
 .jmi-large-header {
   font-family: 'Pacifico', cursive;
   font-size: 50px;

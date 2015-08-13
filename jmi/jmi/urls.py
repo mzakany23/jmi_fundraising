@@ -40,6 +40,11 @@ urlpatterns += patterns('fundraiser.views',
 	url(r'^type-selection/(?P<id>\d+)$','get_fundraiser_selections_via_ajax',name='get_fundraiser_selections_via_ajax'),
 )
 
+# marketing
+urlpatterns += patterns('marketing.views',
+	url(r'^valid-discount/','process_discount',name='process_discount'),
+)
+
 # admin-dashboard
 urlpatterns += patterns('dashboard.views',
 	url(r'^dashboard/$', 'dashboard_index', name='dashboard_index'),
@@ -47,6 +52,6 @@ urlpatterns += patterns('dashboard.views',
 
 # api
 urlpatterns += patterns('api.fundraiser.views',
-	url(r'^process-fundraiser/',FundraiserProcessView.as_view()),
+	url(r'^process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 )
 

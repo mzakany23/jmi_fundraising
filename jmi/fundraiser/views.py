@@ -130,24 +130,24 @@ def create_shipment(request):
 			zip_code=zip_code
 		)
 
-		profile  = SessionVariable(request,'current_fundraiser').session_fundraiser_profile()
+		session_fundraiser  = SessionVariable(request,'current_fundraiser').session_fundraiser()
 		session_shipment    = SessionVariable(request,'current_fundraiser').session_shipment()
 
 
-		if profile is None:
+		if session_fundraiser.profile is None:
 			messages.error(
 				request, "Your profile was deleted from logging out, you'll have to recreate it.")
 			return HttpResponseRedirect(reverse('describe_fundraiser'))
 		else:
-			shipment.address = address
-			shipment.save()
+			session_shipment.address = address
+			session_shipment.save()
 
-			profile.first_name   = first_name
-			profile.last_name    = last_name
-			profile.phone_number = phone
-			profile.email        = email
-			profile.address      = address
-			profile.save()
+			session_fundraiser.profile.first_name   = first_name
+			session_fundraiser.profile.last_name    = last_name
+			session_fundraiser.profile.phone_number = phone
+			session_fundraiser.profile.email        = email
+			session_fundraiser.profile.address      = address
+			session_fundraiser.profile.save()
 
 			return HttpResponseRedirect(reverse('checkout'))
 	
@@ -163,7 +163,9 @@ def create_shipment(request):
 
 
 def checkout(request):
+	
 	post = request.POST or None
+
 	if post: 
 		discount = post['discount']
 		# process discount and return to checkout
@@ -183,7 +185,7 @@ def checkout(request):
 	)
 
 def process_checkout(request):
-	context = {}
+	context = {'works' : 'hey this works'}
 	template = 'fundraiser/checkout-invoice.html'
 	return render(
 		request,template,context,

@@ -8,14 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('fundraiser', '0015_fundraiser_slug'),
-        ('marketing', '0002_discount_special_code'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='discount',
-            name='fundraiser',
-            field=models.ForeignKey(blank=True, to='fundraiser.Fundraiser', null=True),
+            model_name='fundraiser',
+            name='discount',
+            field=models.DecimalField(default=0.0, max_digits=10, decimal_places=2),
             preserve_default=True,
         ),
     ]

@@ -5,9 +5,7 @@
 <!-- ==========================
       ESHOP - START 
     =========================== -->
-    <section class="content bg-color-2" id="eshop">
-      
-            
+    <section class="content bg-color-2" id="eshop">            
             <div class="shopping-cart">
                 <h3>Item Summary</h3>
                 
@@ -47,7 +45,7 @@
         </div>
 
         <div class="shopping-cart">
-                <form class="form-payment" action="{% url 'checkout' %}">
+                <form class="form-payment" id='payment-form 'action="{% url 'checkout' %}">
                     <fieldset>
                         <div class="row">
                             <div class="col-sm-3">
@@ -64,7 +62,9 @@
                             </div>
                         </div>
                         
-                        <div style='display:none' id='creditCardForm'>{% include 'fundraiser/partials/_credit-card-form.html' %}</div>
+                        <div style='display:none' id='creditCardForm'>
+                          {% include 'fundraiser/partials/_credit-card-form.html' %}
+                        </div>
                         <div style='display:none' id='checkPaymentForm'>{% include 'fundraiser/partials/_check_description.html' %}</div>
                         
                     </fieldset>
@@ -123,65 +123,10 @@
     =========================== --> 
 
 {% csrf_token %}
-
-<script type="text/javascript">
-  Stripe.setPublishableKey({{ stripe_api_key.pwd }});
-</script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-
-$(function(){
-  
-  var state;
-
-  $('#paymentmethod1').change(function(e){
-    $('#checkPaymentForm').hide()
-    state = $('#paymentmethod1').val()
-    if (state == 'credit') {
-      $('#creditCardForm').show('slow')
-    } 
-  });
-
-  $('#paymentmethod2').change(function(e){
-    state = $('#paymentmethod2').val()
-    if (state == 'check') {
-      $('#creditCardForm').hide()
-      $('#checkPaymentForm').show('slow')
-    }else{
-      $('#checkPaymentForm').slideUp();
-    }
-  });  
-
-
-
-    $('#pageSubmit').click(function(e){
-      e.preventDefault();
-      
-      if (state == 'credit') {
-        // process stripe
-      } else if (state == 'check') {
-        csrf_token = $("input[name=csrfmiddlewaretoken]").val()
-        $.ajax({
-          type: "POST",
-          url: "/process-fundraiser/",
-          dataType: 'json',
-          data: {
-            csrfmiddlewaretoken: csrf_token,
-            type: 'check'
-          },
-          success: function(data){
-            window.location = "{% url 'process_checkout' %}";
-          },
-        });
-        return false;
-      } else {
-          $('#checkoutErrors').show('slow');
-      }
-      
-    })
-
-});
-
+  Stripe.setPublishableKey("{{ stripe_api_key.pwd }}");
 </script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="{% static 'js/custom/checkout.js' %}"></script>
 {% endblock %}
