@@ -18,8 +18,10 @@ urlpatterns += patterns('home.views',
 # account
 urlpatterns += patterns('account.views',
 	url(r'^account/login', 'auth_login', name='auth_login'),
+	url(r'^account/simple-sign-up', 'auth_simple_sign_up', name='auth_simple_sign_up'),
 	url(r'^account/logout', 'auth_logout', name='auth_logout'),
 	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
+
 )
 
 # media

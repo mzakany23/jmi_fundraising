@@ -15,9 +15,14 @@ class FundraiserProcessView(APIView):
 		credit = post['type'] == 'credit'
 
 		if check:
-			print 'check'
+			# mark the fundraiser as check order
+			# mark as unpaid
+			pass
 		elif credit:
+			# mark the fundraiser as credit
+			# update the payment object
 			token = post['token']
+
 			# charge card
 			# send email confirm
 			# save anything else to the fundraiser

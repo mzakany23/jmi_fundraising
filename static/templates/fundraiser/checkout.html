@@ -239,12 +239,10 @@ $(function(){
           reportError('exp','* The expiration date appears to be invalid!');
         }
 
-        if (error){
-          console.log('error!');
-        }
+        
 
         if (error){
-          
+          console.log('there was an error processing your request.')  
         }else{
           Stripe.card.createToken({
             number: cc['number'],

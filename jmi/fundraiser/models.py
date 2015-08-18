@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from product.models import Product
 from account.models import Profile
 
+from helper.number_format_helper import NumberFormat
+
 
 class Fundraiser(models.Model):
 	title        = models.CharField(max_length=40,blank=True,null=True)
@@ -17,7 +19,7 @@ class Fundraiser(models.Model):
 	type         = models.ForeignKey('FundraiserType',null=True,blank=True)
 	status       = models.CharField(
 		max_length=40,
-		choices=(('in-process','in-process'),('done-unpaid','done-unpaid'),('done-paid','done-paid'),),blank=True,null=True
+		choices=(('paid','paid'),('unpaid','unpaid'),),blank=True,null=True
 	)
 	profile      = models.ForeignKey(Profile,blank=True,null=True)
 	account      = models.ForeignKey(User,blank=True,null=True)
@@ -29,7 +31,13 @@ class Fundraiser(models.Model):
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
-	def total_cost(self):
+	def selection(self):
+		return self.shipment().selection_set.all()
+
+	def is_discount(self):
+		return "Yes" if self.discount else 'No'
+
+	def total_cost(self):	
 		shipment_cost = 0.00
 		for shipment in self.shipment_set.all():
 			shipment_cost += shipment.pre_tax_cost()
@@ -44,9 +52,10 @@ class Fundraiser(models.Model):
 
 	def net_total(self):
 		if self.free_shipping():
-			return self.total_cost() - float(self.discount) + 30.00
-		else:
 			return self.total_cost() - float(self.discount)
+		else:
+			return self.total_cost() - float(self.discount) + 30.00
+			
 
 	def organization(self):
 		return self.profile.organization

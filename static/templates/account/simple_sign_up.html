@@ -1,0 +1,61 @@
+{% load staticfiles %}
+
+<div class="row">
+<div class="col-md-12">
+
+ <form method="POST" action="{% url 'auth_simple_sign_up' %}">
+  {% csrf_token %}
+  <div class="col-md-8 col-md-offset-2">
+  <fieldset>
+    <h2>Create new account</h2>
+    <!-- <p>Already have an account? Then you can <a href="signin.html">sign in</a> with your existing username and password.</p> -->
+    <div class="row">
+        <div class="form-group col-sm-12">
+            {{ form.errors.username }}
+            <label for="name">Your Username:<span>*</span></label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <!-- <input type="text" class="form-control " placeholder="Your name:" id="name" required> -->
+                {{ form.username }}
+            </div>
+        </div>                               
+    </div>
+    
+    
+    <div class="row">
+        <div class="form-group col-sm-6">
+            {{ form.errors.password }}
+            <label for="password">Your password:<span>*</span></label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <!-- <input type="password" class="form-control " placeholder="Your Username:" id="password" required> -->
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            {{ form.errors.confirm }}
+            <label for="password2">Confirm password:<span>*</span></label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <!-- <input type="password" class="form-control " placeholder="Your password:" id="password2" required> -->
+                {{ form.confirm }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- <p>I agree to the Terms and Conditions and Privacy Policy, including the use of cookies.</p> -->
+    
+    <div class="pull-left">
+        <span class="form-info"><span class="required">*</span> These fields are required</span>
+    </div>
+    
+    <div class="pull-right">
+        <button type="submit" id="send" class="btn btn-primary"><i class="fa fa-check"></i>Confirm</button>
+    </div>
+    
+</fieldset>
+</div>
+</form>
+
+</div>
+</div>

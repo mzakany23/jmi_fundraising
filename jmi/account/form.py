@@ -91,6 +91,43 @@ class RegisterUserForm(forms.Form):
 		return cleaned_data
 
 
+class SimpleSignUpForm(forms.Form):
+	username = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'username',
+		"name" : "username",
+		"class" : "form-control",
+		"placeholder" : "Pick a username 30 characters or fewer",
+		"type" : "text",
+	}))
+
+	
+	password = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'password',
+		"name" : "password",
+		"class" : "form-control",
+		"placeholder" : "Enter Password",
+		"type" : "password",
+	}))
+
+	confirm = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'confirm',
+		"name" : "confirm",
+		"class" : "form-control",
+		"placeholder" : "Confirm Password",
+		"type" : "password",
+	}))
+
+	def clean_confirm(self):
+		cleaned_data = super(SimpleSignUpForm,self).clean()
+		password_1 = cleaned_data.get('password')
+		password_2 = cleaned_data.get('confirm')
+
+	
+		if password_1 != password_2:
+			raise forms.ValidationError(
+				'passwords do not match.'
+			)
+		return cleaned_data
 
 
 

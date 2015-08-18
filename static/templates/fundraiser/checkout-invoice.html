@@ -12,78 +12,79 @@
             <!-- Simple Invoice - START -->
     
     <div class="row">
+        {% if not user.is_authenticated %}
         <div class="col-xs-12">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Create an Account to see this order?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        <div class="row">
-            
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Create an Account to see this order?
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <div class="row">
+                    {% include 'account/simple_sign_up.html' %}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+        {% endif %}
             <div class="text-center">
-                <h2>Invoice for purchase #33221</h2>
+                <h2>Invoice for purchase #000{{ session_fundraiser.id }}</h2>
             </div>
             <hr>
             <div class="row">
-                <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                <!-- <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
                     <div class="panel panel-default height">
                         <div class="panel-heading">Billing Details</div>
                         <div class="panel-body">
-                            <strong>David Peere:</strong><br>
-                            1111 Army Navy Drive<br>
-                            Arlington<br>
-                            VA<br>
-                            <strong>22 203</strong><br>
+                            <strong>{{ session_fundraiser.profile.contact_person }}:</strong><br>
+                            {{ session_fundraiser.shipment.address.street }}<br>
+                            {{ session_fundraiser.shipment.address.city }}<br>
+                            {{ session_fundraiser.shipment.address.state }}<br>
+                            {{ session_fundraiser.shipment.address.zip_code }}<br>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3 col-lg-3">
+                </div> -->
+                <div class="col-xs-12 col-md-4 col-lg-4">
                     <div class="panel panel-default height">
                         <div class="panel-heading">Payment Information</div>
                         <div class="panel-body">
                             <strong>Card Name:</strong> Visa<br>
-                            <strong>Card Number:</strong> ***** 332<br>
+                            <strong>Card Number:</strong> ***** 442<br>
                             <strong>Exp Date:</strong> 09/2020<br>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-md-4 col-lg-4">
                     <div class="panel panel-default height">
                         <div class="panel-heading">Order Preferences</div>
                         <div class="panel-body">
-                            <strong>Gift:</strong> No<br>
-                            <strong>Express Delivery:</strong> Yes<br>
-                            <strong>Insurance:</strong> No<br>
-                            <strong>Coupon:</strong> No<br>
+                            <strong>Notes:</strong>Notes<br>
+                            <strong>Coupon:</strong> {{ session_fundraiser.is_discount }}<br>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
+                <div class="col-xs-12 col-md-4 col-lg-4 pull-right">
                     <div class="panel panel-default height">
                         <div class="panel-heading">Shipping Address</div>
                         <div class="panel-body">
-                            <strong>David Peere:</strong><br>
-                            1111 Army Navy Drive<br>
-                            Arlington<br>
-                            VA<br>
-                            <strong>22 203</strong><br>
+                            <strong>{{ session_fundraiser.profile.contact_person }}:</strong><br>
+                            {{ session_fundraiser.shipment.address.street }}<br>
+                            {{ session_fundraiser.shipment.address.city }}<br>
+                            {{ session_fundraiser.shipment.address.state }}<br>
+                            {{ session_fundraiser.shipment.address.zip_code }}<br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -102,41 +103,39 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for selection in session_fundraiser.selections %}
                                 <tr>
-                                    <td>Samsung Galaxy S5</td>
-                                    <td class="text-center">$900</td>
-                                    <td class="text-center">1</td>
-                                    <td class="text-right">$900</td>
+                                    <td>{{ selection.product.title }}</td>
+                                    <td class="text-center">${{ selection.product.price }}</td>
+                                    <td class="text-center">{{ selection.quantity }}</td>
+                                    <td class="text-right">${{ selection.cost }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Samsung Galaxy S5 Extra Battery</td>
-                                    <td class="text-center">$30.00</td>
-                                    <td class="text-center">1</td>
-                                    <td class="text-right">$30.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Screen protector</td>
-                                    <td class="text-center">$7</td>
-                                    <td class="text-center">4</td>
-                                    <td class="text-right">$28</td>
-                                </tr>
+                                {% endfor %}
+                                
                                 <tr>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow text-center"><strong>Subtotal</strong></td>
-                                    <td class="highrow text-right">$958.00</td>
+                                    <td class="highrow text-right">${{ session_fundraiser.total_cost }}</td>
                                 </tr>
                                 <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Shipping</strong></td>
-                                    <td class="emptyrow text-right">$20</td>
+                                    <td class="emptyrow text-right">
+                                        {% if session_fundraiser.free_shipping %}
+                                        Free Shipping !
+                                        {% else %}
+                                        $30.00
+                                        {% endif %}
+
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                    <td class="emptyrow"><!-- <i class="fa fa-barcode iconbig"></i> --></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Total</strong></td>
-                                    <td class="emptyrow text-right">$978.00</td>
+                                    <td class="emptyrow text-right">${{ session_fundraiser.net_total }}</td>
                                 </tr>
                             </tbody>
                         </table>

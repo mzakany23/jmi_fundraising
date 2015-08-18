@@ -7,8 +7,8 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0015_fundraiser_slug'),
         ('account', '0007_remove_profile_description'),
+        ('fundraiser', '0019_auto_20150818_1612'),
     ]
 
     operations = [
@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('approved', models.BooleanField(default=False)),
-                ('title', models.TextField(max_length=140)),
+                ('title', models.CharField(max_length=40)),
+                ('comment', models.TextField(max_length=140, null=True, blank=True)),
                 ('account', models.ForeignKey(default=False, to='account.Profile', null=True)),
                 ('fundraiser', models.ForeignKey(to='fundraiser.Fundraiser')),
             ],

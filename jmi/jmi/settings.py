@@ -31,12 +31,13 @@ INSTALLED_APPS = (
     'rest_framework',
     'home',
     'account',
+    'comment',
     'product',
     'fundraiser',
     'address',
     'shipment',
     'marketing',
-    'comments'
+    'payment'
 )
 
 MIDDLEWARE_CLASSES = (

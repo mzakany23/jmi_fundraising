@@ -24,9 +24,10 @@ from helper.method_helper import return_all_objects
 
 # forms
 from django import forms
-from shipment.form import ShipmentProfileForm
 from form import FundraiserDescribeForm
+from shipment.form import ShipmentProfileForm
 from address.form import AddressForm,BillingAddressForm
+from account.form import SimpleSignUpForm
 
 
 
@@ -185,7 +186,8 @@ def checkout(request):
 	)
 
 def process_checkout(request):
-	context = {'works' : 'hey this works'}
+	form = SimpleSignUpForm(request.POST or None)
+	context = {'form' : form}
 	template = 'fundraiser/checkout-invoice.html'
 	return render(
 		request,template,context,

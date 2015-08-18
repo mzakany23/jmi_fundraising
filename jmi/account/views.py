@@ -4,7 +4,8 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from models import Profile
-from form import LoginForm,RegisterUserForm
+from form import LoginForm,RegisterUserForm,SimpleSignUpForm
+from helper.initialize_helper import SessionVariable
 
 
 def auth_login(request):
@@ -84,6 +85,37 @@ def auth_create_account(request):
 	return render(request,template,context)
 
 
+def auth_simple_sign_up(request):
+	form = SimpleSignUpForm(request.POST or None)
+	if form.is_valid():
+		
+		cleaned_form = form.cleaned_data
+		username     = cleaned_form['username']
+		password     = cleaned_form['password']
+		confirmation = cleaned_form['confirm']
+
+		
+		user,created = User.objects.get_or_create(username=username)
+		
+		if created:
+			user.password = password
+			user.save()
+			session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
+			session_fundraiser.account = user
+			session_fundraiser.save()
+			authenticated_user = authenticate(username=username,password=password)
+			login(request,authenticated_user)
+			title = str(user.username) + ', You have successfully signed up!'
+			messages.success(request,title)
+			return HttpResponseRedirect(reverse('process_checkout'))
+		else:
+			title = 'Username exists, pick a more unique username!'
+			messages.error(request,title)
+	else:
+		title = 'There was an error in creating your account. Make sure passwords match!'
+		messages.error(request,title)
+		return HttpResponseRedirect(reverse('process_checkout'))
+		
 
 
 

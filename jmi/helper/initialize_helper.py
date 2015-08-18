@@ -32,4 +32,3 @@ class SessionVariable:
 		except:
 			profile = None
 
-
