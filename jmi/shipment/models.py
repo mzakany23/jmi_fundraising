@@ -22,7 +22,7 @@ class Shipment(models.Model):
 	def pre_tax_cost(self):
 		price = float(self.fundraiser.type.jar_price)
 		qty   = self.total_jars()
-		return '%.2f' % float(price*qty)
+		return (price*qty)
 		
 	def total_jars(self):
 		total = 0
@@ -36,7 +36,7 @@ class Shipment(models.Model):
 	def get_total_cost(self):
 		total_cost = 0
 		for selection in self.selection_set.all():
-			total_cost += selection.product.price 
+			total_cost += float(selection.product.price )
 		return total_cost
 
 	def total_cost_with_shipping(self):

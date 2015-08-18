@@ -1,5 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
+
 from models import Discount
 
 from helper.initialize_helper import SessionVariable
@@ -14,9 +16,10 @@ def process_discount(request):
 		
 		if discount.is_valid():
 			discount.use_discount()
+			messages.success(
+				request, "Discount code accepted!")
 		else:
-			print 'nope'
+			messages.error(
+				request, "Invalid discount code.")
 			
-		
-
 	return HttpResponseRedirect(reverse('checkout'))

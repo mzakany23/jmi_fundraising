@@ -18,7 +18,7 @@ class GenericDiscount(models.Model):
 		return self.used > self.expires_after
 
 	def to_percent(self):
-		return self.percent*.01
+		return float(self.percent)*.01
 
 
 class SingleDiscount(GenericDiscount):
@@ -33,13 +33,17 @@ class Discount:
 		self.code = code 
 		self.type = None
 		self.discount  = None
-		self.session_fundraiser = SessionVariable(request,'current_fundraiser')
+		self.session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 
 	def check_if_generic_code(self):
 		try:
 			generic_code = GenericDiscount.objects.get(special_code=self.code)
-			self.type = 'generic'
-			self.discount = generic_code
+			if generic_code.active == False:
+				generic_code = False
+			else:
+
+				self.type = 'generic'
+				self.discount = generic_code
 		except:
 			generic_code = False	
 
@@ -48,8 +52,11 @@ class Discount:
 	def check_if_single_code(self):
 		try:
 			single_code = SingleDiscount.objects.get(special_code=self.code)
-			self.type = 'single'
-			self.discount = single_code
+			if single_code.active == False:
+				single_code = False
+			else:
+				self.type = 'single'
+				self.discount = single_code
 		except:
 			single_code = False	
 
@@ -62,15 +69,16 @@ class Discount:
 			return self.check_if_single_code()
 		else:
 			return False
+		
 
 	def set_discount(self):
 		if self.discount.percent and self.discount.dollars:
-			discount = self.session_fundraiser.total_cost() * self.discount.to_percent()
+			discount = (self.session_fundraiser.total_cost() * self.discount.to_percent())
 			discount += self.discount.dollars
 			self.session_fundraiser.discount = discount 
 			self.session_fundraiser.save()
 		elif self.discount.percent:
-			discount = self.session_fundraiser.total_cost() * self.discount.to_percent()
+			discount = (self.session_fundraiser.total_cost() * self.discount.to_percent())
 			self.session_fundraiser.discount = discount
 			self.session_fundraiser.save()
 		elif self.discount.dollars:
@@ -79,7 +87,8 @@ class Discount:
 		else:
 			return False
 
-	def use_discount(self,fundraiser):
+	def use_discount(self):
+
 		if self.type:
 			if self.discount.active == False:
 				return False
@@ -90,7 +99,7 @@ class Discount:
 				self.discount.used += 1
 				
 				self.set_discount()
-				
+
 				if self.discount.expired():
 					self.discount.active = False
 

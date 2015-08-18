@@ -92,7 +92,7 @@ $(function(){
       if (state == 'credit') {
         
         cc = getStripeFormValues()
-        console.log(cc);
+        
         if (!Stripe.card.validateCardNumber(cc['number'])){
           error = true;
           reportError('num','* The card number appears to be invalid!');

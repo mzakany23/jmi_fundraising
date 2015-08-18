@@ -9,7 +9,7 @@ from serializers import FundraiserFormSerializer
 class FundraiserProcessView(APIView):
 	
 	def post(self,request,format=None):
-		
+		print 'hello'
 		post   = request.POST
 		check  = post['type'] == 'check'
 		credit = post['type'] == 'credit'

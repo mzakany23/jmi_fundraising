@@ -30,11 +30,23 @@ class Fundraiser(models.Model):
 		return "Fundraiser: " + str(self.title)
 
 	def total_cost(self):
-		shipment_cost = 0
+		shipment_cost = 0.00
 		for shipment in self.shipment_set.all():
-			shipment_cost += shipment.get_total_cost()
-		return shipment_cost - self.discount
+			shipment_cost += shipment.pre_tax_cost()
+		return shipment_cost
 
+	def free_shipping(self):
+		count = 0
+		for shipment in self.shipment_set.all():
+			if shipment.free_shipping():
+				count += 1
+		return True if count > 0 else False
+
+	def net_total(self):
+		if self.free_shipping():
+			return self.total_cost() - float(self.discount) + 30.00
+		else:
+			return self.total_cost() - float(self.discount)
 
 	def organization(self):
 		return self.profile.organization
