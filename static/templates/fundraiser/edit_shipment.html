@@ -2,19 +2,11 @@
 
 {% load staticfiles %}
 
-{% block shipment %}
-
-
- <!-- ==========================
-    	ESHOP - START 
-    =========================== -->
-    {% if already_has_shipment %}
-        {% include 'fundraiser/partials/_shipment_exists.html' %}
-    {% else %}
-    <section class="content bg-color-2" id="eshop">
+{% block edit_shipment %}
+<section class="content bg-color-2" id="eshop">
             <div class="shopping-cart">
                 <form method="POST" class="form-horizontal form-address" action="{% url 'create_shipment' %}">
-                	{% csrf_token %}
+                  {% csrf_token %}
                     <fieldset>
                         <div class="row">
                             <div class="col-md-3">
@@ -22,7 +14,7 @@
                             </div>  
                             <div class="col-md-9">
                                 <div class="form-group">
-                                		{{ shipment_profile_form.first_name.errors }}
+                                    {{ shipment_profile_form.first_name.errors }}
                                     <label for="first-name1" class="col-sm-3 control-label">First name:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="First name:" id="first-name1" required> -->
@@ -31,7 +23,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                	{{ shipment_profile_form.last_name.errors }}
+                                  {{ shipment_profile_form.last_name.errors }}
                                     <label for="last-name2" class="col-sm-3 control-label">Last name:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="Last name:" id="last-name2" required> -->
@@ -49,7 +41,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                	{{ shipment_profile_form.email.errors }}
+                                  {{ shipment_profile_form.email.errors }}
                                     <label for="email2" class="col-sm-3 control-label">Email address:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="email" class="form-control" placeholder="Email address:" id="email2" required> -->
@@ -69,7 +61,7 @@
                             
                                 
                                 <div class="form-group">
-                                	{{ shipment_address_form.title.errors }}
+                                  {{ shipment_address_form.title.errors }}
                                     <label for="company1" class="col-sm-3 control-label">Title</label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="Company:" id="company1"> -->
@@ -78,7 +70,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                	{{ shipment_address_form.street.errors }}
+                                  {{ shipment_address_form.street.errors }}
                                     <label for="address1" class="col-sm-3 control-label">Address:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="Address:" id="address1" required> -->
@@ -87,7 +79,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                	{{ shipment_address_form.line_2.errors }}
+                                  {{ shipment_address_form.line_2.errors }}
                                     <label for="address1" class="col-sm-3 control-label">Address 2:<span></span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="Address:" id="address1" required> -->
@@ -96,7 +88,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                	{{ shipment_address_form.city.errors }}
+                                  {{ shipment_address_form.city.errors }}
                                     <label for="city1" class="col-sm-3 control-label">City:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="City:" id="city1" required> -->
@@ -105,7 +97,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                	{{ shipment_address_form.zip_code.errors }}
+                                  {{ shipment_address_form.zip_code.errors }}
                                     <label for="zip1" class="col-sm-3 control-label">ZIP Code:<span>*</span></label>
                                     <div class="col-sm-9">
                                         <!-- <input type="text" class="form-control" placeholder="ZIP Code:" id="zip1" required> -->
@@ -133,7 +125,7 @@
                         
                         
                         <div class="pull-right">
-                        	<!--<button type="submit" class="btn btn-danger btn-lg">Continue</button>-->
+                          <!--<button type="submit" class="btn btn-danger btn-lg">Continue</button>-->
                             <button type="submit" class="btn btn-danger btn-lg">Continue</button>
                         </div>
                         
@@ -143,11 +135,7 @@
             
         
     </section>
-    {% endif %}
-    <!-- ==========================
-    	ESHOP - END 
-    =========================== --> 
+
+
 {% endblock %}
-
-
 

@@ -30,7 +30,7 @@ from address.form import AddressForm,BillingAddressForm
 from account.form import SimpleSignUpForm
 
 
-
+# lets-do-a-fundraiser
 def describe_fundraiser(request):
 	form = FundraiserDescribeForm(request.POST or None)
 	
@@ -99,7 +99,7 @@ def choose_salsas(request):
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
 
-
+# fundraiser-shipment
 def create_shipment(request):
 	shipment_profile_form = ShipmentProfileForm(request.POST or None)
 	shipment_address_form = AddressForm(request.POST or None)
@@ -162,6 +162,25 @@ def create_shipment(request):
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
 
+def edit_shipment(request,id):
+	session_fundraiser  = SessionVariable(request,'current_fundraiser').session_fundraiser()
+
+	try:
+		shipment = Shipment.objects.get(id=id)
+	except:
+		shipment = None
+
+	
+	if shipment: 
+		profile_form = ShipmentProfileForm(request.POST or None,instance=session_fundraiser.profile)
+		address_form = AddressForm(request.POST or None, instance=shipment.address)
+		template = 'fundraiser/edit_shipment.html'
+		context = {'shipment_address_form' : address_form, 'shipment_profile_form' : profile_form}
+		return render(request,template,context)		
+	else:
+		title = 'There was not a found shipment.'
+		messages.error(request,title)
+		return HttpResponseRedirect(reverse('create_shipment'))
 
 def checkout(request):
 	

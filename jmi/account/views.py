@@ -111,6 +111,7 @@ def auth_simple_sign_up(request):
 		else:
 			title = 'Username exists, pick a more unique username!'
 			messages.error(request,title)
+			return HttpResponseRedirect(reverse('process_checkout'))
 	else:
 		title = 'There was an error in creating your account. Make sure passwords match!'
 		messages.error(request,title)

@@ -50,6 +50,7 @@ class DescribeFundraiser:
 		if created:
 			profile.slug = profile.organization + "-" + str(profile.id)
 			profile.save()
+			self.profile = profile
 
 		fundraiser, created = Fundraiser.objects.get_or_create(
 			title=self.title,

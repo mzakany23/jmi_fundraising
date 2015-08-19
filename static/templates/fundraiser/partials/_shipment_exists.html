@@ -6,17 +6,18 @@
     		<!-- BLOG POST -->
             <div class="blog-post">
                 <div class="blog-post-detail">
-                    <span><i class="fa fa-calendar"></i>{{ current_shipment }} created: {{ current_shipment.created }}</span>
+                    <span><i class="fa fa-calendar"></i>{{ current_shipment }}created: {{ current_shipment.created }}</span>
                     
                 </div>
                 <div class="blog-post-body">
-                    <h3>Current Shipment</h3>
-                    <h3><a href="{% url 'get_back_on_track' %}">{{ current_shipment.fundraiser }}</a></h3>
+                    <h3>Current Shipment <a href="{% url 'edit_shipment' current_shipment.id %}" style='font-weight: 300;'>(Edit Shipment)</a></h3> 
                     <p>{{ current_shipment.fundraiser.profile.organization }}</p>
                     <p>{{ current_shipment.address.street }}</p>
                     <p>{{ current_shipment.address.city }}</p>
                     <p>{{ current_shipment.address.state }}</p>
                     <p>{{ current_shipment.address.zip_code }}</p>
+
+                    <h3><a href="{% url 'get_back_on_track' %}">Go Back to order</a></h3>
                     
                        
                     </div>

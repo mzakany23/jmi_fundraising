@@ -14,8 +14,9 @@ class Shipment(models.Model):
 	created    = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated    = models.DateTimeField(auto_now_add=False,auto_now=True)
 
+	
 	def __unicode__(self):
-		return str(self.fundraiser)
+		return str(self.address)
 
 	def shipping_cost(self):
 		if self.free_shipping():
@@ -27,6 +28,10 @@ class Shipment(models.Model):
 		price = float(self.fundraiser.type.jar_price)
 		qty   = self.total_jars()
 		return (price*qty)
+
+	def pre_tax_cost_in_dollars(self):
+		cost = self.pre_tax_cost()
+		return '{:,.2f}'.format(cost)
 		
 	def total_jars(self):
 		total = 0
@@ -48,7 +53,6 @@ class Shipment(models.Model):
 			return '%.2f' % float(self.pre_tax_cost())
 		else:
 			return '%.2f' % (float(self.pre_tax_cost()) + float(self.shipping_cost()))
-
 
 
 class Selection(models.Model):

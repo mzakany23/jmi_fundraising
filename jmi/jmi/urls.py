@@ -31,12 +31,18 @@ urlpatterns += patterns('',
 
 # fundraiser
 urlpatterns += patterns('fundraiser.views',
+	# describe
 	url(r'^lets-do-a-fundraiser', 'describe_fundraiser', name='describe_fundraiser'),
+	# fundraiser type
 	url(r'^fundraiser/$', 'choose_fundraiser', name='choose_fundraiser'),
 	url(r'^fundraiser/(?P<slug>[-\w]+)/$', 'chosen_fundraiser_type', name='chosen_fundraiser_type'),
+	# choose salsas
 	url(r'^pick-salsas/$', 'choose_salsas', name='choose_salsas'),
+	# shipment
 	url(r'^fundraiser-shipment', 'create_shipment', name='create_shipment'),
+	url(r'^fundraiser/shipment/edit/(?P<id>\d+)$', 'edit_shipment', name='edit_shipment'),
 	url(r'^fundraiser-get-back-on-track/$', 'get_back_on_track', name='get_back_on_track'),
+	# checkout
 	url(r'^checkout/$', 'checkout', name='checkout'),
 	url(r'^summary-invoice/$', 'process_checkout', name='process_checkout'),
 	url(r'^type-selection/(?P<id>\d+)$','get_fundraiser_selections_via_ajax',name='get_fundraiser_selections_via_ajax'),
@@ -54,6 +60,6 @@ urlpatterns += patterns('dashboard.views',
 
 # api
 urlpatterns += patterns('api.fundraiser.views',
-	url(r'^process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
+	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 )
 

@@ -37,6 +37,9 @@ class Fundraiser(models.Model):
 	def is_discount(self):
 		return "Yes" if self.discount else 'No'
 
+	def discount_in_dollars(self):
+		return '{:,.2f}'.format(self.discount)
+
 	def total_cost(self):	
 		shipment_cost = 0.00
 		for shipment in self.shipment_set.all():
@@ -55,6 +58,10 @@ class Fundraiser(models.Model):
 			return self.total_cost() - float(self.discount)
 		else:
 			return self.total_cost() - float(self.discount) + 30.00
+
+	def net_total_in_dollars(self):
+		total = self.net_total()
+		return '{:,.2f}'.format(total)
 			
 
 	def organization(self):
@@ -141,7 +148,7 @@ def update_profile_receiver(instance,*args,**kwargs):
 # delete profile and stripe through their api
 def delete_profile_and_stripe_account(sender,instance,*args,**kwargs):
 	try:
-		profile = Profile.objects.get(contact=instance)	
+		profile = Profile.objects.get(id=instance.profile.id)	
 		stripe.api_key = settings.STRIPE_API['key']
 		cu = stripe.Customer.retrieve(profile.stripe_id)
 		cu.delete()
