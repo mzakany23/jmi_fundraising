@@ -60,7 +60,7 @@ class DescribeFundraiser:
 		)
 
 		self.request.session['current_fundraiser'] = fundraiser.id
-	
+		self.request.session['session_finalized_order'] = fundraiser.id
 
 
 class OptionFundraiser:

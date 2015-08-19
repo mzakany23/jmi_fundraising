@@ -1,4 +1,4 @@
-    {% extends 'fundraiser/index.html' %}
+{% extends 'fundraiser/index.html' %}
 {% load staticfiles %}
 
 {% block checkout %}
@@ -34,7 +34,7 @@
         </div>
         {% endif %}
             <div class="text-center">
-                <h2>Summary for Fundraiser Order #000{{ session_fundraiser.id }}</h2>
+                <h2>Summary for Fundraiser Order #000{{ finalized_order.id }}</h2>
             </div>
             <hr>
             <div class="row">
@@ -42,11 +42,11 @@
                     <div class="panel panel-default height">
                         <div class="panel-heading">Billing Details</div>
                         <div class="panel-body">
-                            <strong>{{ session_fundraiser.profile.contact_person }}:</strong><br>
-                            {{ session_fundraiser.shipment.address.street }}<br>
-                            {{ session_fundraiser.shipment.address.city }}<br>
-                            {{ session_fundraiser.shipment.address.state }}<br>
-                            {{ session_fundraiser.shipment.address.zip_code }}<br>
+                            <strong>{{ finalized_order.profile.contact_person }}:</strong><br>
+                            {{ finalized_order.shipment.address.street }}<br>
+                            {{ finalized_order.shipment.address.city }}<br>
+                            {{ finalized_order.shipment.address.state }}<br>
+                            {{ finalized_order.shipment.address.zip_code }}<br>
                         </div>
                     </div>
                 </div> -->
@@ -65,7 +65,7 @@
                         <div class="panel-heading">Order Preferences</div>
                         <div class="panel-body">
                             <strong>Notes:</strong>Notes<br>
-                            <strong>Coupon:</strong> {{ session_fundraiser.is_discount }}<br>
+                            <strong>Coupon:</strong> {{ finalized_order.is_discount }}<br>
                         </div>
                     </div>
                 </div>
@@ -73,11 +73,11 @@
                     <div class="panel panel-default height">
                         <div class="panel-heading">Shipping Address</div>
                         <div class="panel-body">
-                            <strong>{{ session_fundraiser.profile.contact_person }}:</strong><br>
-                            {{ session_fundraiser.shipment.address.street }}<br>
-                            {{ session_fundraiser.shipment.address.city }}<br>
-                            {{ session_fundraiser.shipment.address.state }}<br>
-                            {{ session_fundraiser.shipment.address.zip_code }}<br>
+                            <strong>{{ finalized_order.profile.contact_person }}:</strong><br>
+                            {{ finalized_order.shipment.address.street }}<br>
+                            {{ finalized_order.shipment.address.city }}<br>
+                            {{ finalized_order.shipment.address.state }}<br>
+                            {{ finalized_order.shipment.address.zip_code }}<br>
                         </div>
                     </div>
                 </div>
@@ -103,12 +103,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for selection in session_fundraiser.selections %}
+                                {% for selection in finalized_order.selections %}
                                 <tr>
                                     <td>{{ selection.product.title }}</td>
                                     <td class="text-center">${{ selection.product.price }}</td>
                                     <td class="text-center">{{ selection.quantity }}</td>
-                                    <td class="text-right">${{ selection.cost }}</td>
+                                    <td class="text-right">${{ selection.cost_in_dollars }}</td>
                                 </tr>
                                 {% endfor %}
                                 
@@ -116,14 +116,14 @@
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow text-center"><strong>Subtotal</strong></td>
-                                    <td class="highrow text-right">${{ session_fundraiser.total_cost }}</td>
+                                    <td class="highrow text-right">${{ finalized_order.total_cost_in_dollars }}</td>
                                 </tr>
                                 <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Shipping</strong></td>
                                     <td class="emptyrow text-right">
-                                        {% if session_fundraiser.free_shipping %}
+                                        {% if finalized_order.free_shipping %}
                                         Free Shipping !
                                         {% else %}
                                         $30.00
@@ -135,7 +135,7 @@
                                     <td class="emptyrow"><!-- <i class="fa fa-barcode iconbig"></i> --></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Total</strong></td>
-                                    <td class="emptyrow text-right">${{ session_fundraiser.net_total }}</td>
+                                    <td class="emptyrow text-right">${{ finalized_order.net_total_in_dollars }}</td>
                                 </tr>
                             </tbody>
                         </table>

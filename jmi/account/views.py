@@ -94,18 +94,25 @@ def auth_simple_sign_up(request):
 		password     = cleaned_form['password']
 		confirmation = cleaned_form['confirm']
 
-		
 		user,created = User.objects.get_or_create(username=username)
 		
 		if created:
-			user.password = password
+			user.set_password(password)
 			user.save()
 			session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
+			if session_fundraiser is None:
+				title = 'session expired. you have to restart or call back office.'
+				messages.error(request,user)
+				return HttpResponseRedirect(reverse('describe_fundraiser'))
+
 			session_fundraiser.account = user
 			session_fundraiser.save()
-			authenticated_user = authenticate(username=username,password=password)
-			login(request,authenticated_user)
-			title = str(user.username) + ', You have successfully signed up!'
+			
+			auth = authenticate(username=username,password=password)
+			
+			login(request,auth)
+
+			title = str(user.username) + ', You have successfully signed up! See your profile to manage your Organization.'
 			messages.success(request,title)
 			return HttpResponseRedirect(reverse('process_checkout'))
 		else:

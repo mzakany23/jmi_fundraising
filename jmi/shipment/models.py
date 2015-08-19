@@ -22,7 +22,7 @@ class Shipment(models.Model):
 		if self.free_shipping():
 			return "FREE Shipping!"
 		else:
-			return '%.2f' % 30.00
+			return '$%.2f' % 30.00
 
 	def pre_tax_cost(self):
 		price = float(self.fundraiser.type.jar_price)
@@ -64,12 +64,10 @@ class Selection(models.Model):
 		return str(self.shipment)
 
 	def cost(self):
-				
-		f = (float(self.quantity) * float(self.product.price))
+		return (float(self.quantity) * float(self.product.price))
 
-		result = NumberFormat(float=f)
-
-		return result.to_dollars()
+	def cost_in_dollars(self):
+		return '{:,.2f}'.format(self.cost())
 
 
 def create_shipment_receiver(sender,instance,created,*args,**kwargs):

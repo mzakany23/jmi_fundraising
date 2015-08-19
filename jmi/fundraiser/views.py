@@ -32,6 +32,11 @@ from account.form import SimpleSignUpForm
 
 # lets-do-a-fundraiser
 def describe_fundraiser(request):
+	try:
+		del request.session['session_finalized_order']
+	except:
+		request.session['session_finalized_order'] = None
+		
 	form = FundraiserDescribeForm(request.POST or None)
 	
 	describe = DescribeFundraiser(request,form)
@@ -77,9 +82,13 @@ def chosen_fundraiser_type(request,slug):
 	template = 'fundraiser/choose-salsas.html'
 	return render(request,template,context)
 
+# fundraiser/fundraiser-type-type-5
 def choose_salsas(request):
 	session_shipment = SessionVariable(request,'current_fundraiser').session_shipment()
-	print session_shipment
+	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
+	session_fundraiser.discount = 0
+	session_fundraiser.save()
+
 	salsas = ChooseSalsasFundraiser(request)
 	
 	if salsas.form_is_valid():
@@ -91,7 +100,12 @@ def choose_salsas(request):
 		else:
 
 			if session_shipment:
-				salsas.save_selections()
+				try:
+					salsas.save_selections()
+				except:
+					title = 'There was an error. Make sure you use only numbers in quantities!'
+					messages.error(request,title)
+					return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))
 
 			return HttpResponseRedirect(reverse('create_shipment'))
 
@@ -122,7 +136,7 @@ def create_shipment(request):
 		email      = p['email']
 		
 		
-		address, created = Address.objects.get_or_create(
+		address, created = Address.objects.filter(
 			title=title,
 			street=street,
 			line_2=line_2,
@@ -130,6 +144,7 @@ def create_shipment(request):
 			state=state,
 			zip_code=zip_code
 		)
+
 
 		session_fundraiser  = SessionVariable(request,'current_fundraiser').session_fundraiser()
 		session_shipment    = SessionVariable(request,'current_fundraiser').session_shipment()
@@ -141,6 +156,7 @@ def create_shipment(request):
 			return HttpResponseRedirect(reverse('describe_fundraiser'))
 		else:
 			session_shipment.address = address
+			session_shipment.title   = title
 			session_shipment.save()
 
 			session_fundraiser.profile.first_name   = first_name
@@ -205,13 +221,23 @@ def checkout(request):
 	)
 
 def process_checkout(request):
+	try:
+		request.session['finalized_order'] = request.session['current_fundraiser']
+		del request.session['current_fundraiser']
+	except:
+		pass
+
+	try:
+		finalized_order = Fundraiser.objects.get(id=request.session['session_finalized_order'])
+	except:
+		finalized_order = None
+
+	print request.session.keys()
+
 	form = SimpleSignUpForm(request.POST or None)
-	context = {'form' : form}
+	context = {'form' : form, 'finalized_order' : finalized_order}
 	template = 'fundraiser/checkout-invoice.html'
-	return render(
-		request,template,context,
-		context_instance=RequestContext(request, processors=[get_home_variables])
-	)
+	return render(request,template,context)
 
 def get_back_on_track(request):
 	''' 

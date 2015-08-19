@@ -4,7 +4,13 @@ from helper.form_helper import STATES,STATES_LIST
 from models import Address
 
 class AddressForm(ModelForm):
+	state = forms.ChoiceField(choices=STATES,widget=forms.Select(attrs={
+		"id" : "title",
+		"class" : "form-control",
+	}))
+
 	class Meta:
+
 		model = Address
 		fields = ['title','street','line_2','city','state','zip_code']
 		widgets = {
@@ -40,16 +46,6 @@ class AddressForm(ModelForm):
 				"placeholder" : "City",
 				"type" : "text",
 			}),
-			'state': forms.Select(attrs={
-				"name" : "state",
-				"id" : "state",
-				"class" : "form-control",
-				"size" : "20",
-				"placeholder" : "State",
-				"type" : "text",
-			},
-			choices=STATES,
-			),
 			'zip_code': forms.TextInput(attrs={
 				"name" : "zip_code",
 				"id" : "zip_code",

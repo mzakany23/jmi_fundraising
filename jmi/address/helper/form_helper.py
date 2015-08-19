@@ -1,4 +1,5 @@
 STATES = (
+	('None','None'),
 	('AK','AK'),
 	('AL','AL'),
 	('AR','AR'),

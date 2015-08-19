@@ -108,12 +108,7 @@
                                 <div class="form-group">
                                     <label for="state1" class="col-sm-3 control-label">State:<span>*</span></label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="state1">
-                                            <option>Select a State</option>
-                                            {% for state in shipment_address_form.all_states %}
-                                            <option>{{ state }}</option>
-                                            {% endfor %}
-                                        </select>
+                                        {{ shipment_address_form.state }}
                                     </div>
                                 </div>
                                 

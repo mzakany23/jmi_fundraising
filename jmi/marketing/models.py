@@ -32,7 +32,14 @@ class SingleDiscount(models.Model):
 	fundraiser = models.OneToOneField(Fundraiser,blank=True,null=True)
 	
 	def __unicode__(self):
-		return self.fundraiser
+		return self.title
+
+	def expired(self):
+		return self.used > self.expires_after
+
+	def to_percent(self):
+		return float(self.percent)*.01
+
 
 class Discount:
 	def __init__(self,request,code):

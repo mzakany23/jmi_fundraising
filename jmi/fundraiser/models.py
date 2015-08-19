@@ -46,6 +46,9 @@ class Fundraiser(models.Model):
 			shipment_cost += shipment.pre_tax_cost()
 		return shipment_cost
 
+	def total_cost_in_dollars(self):
+		return '{:,.2f}'.format(self.total_cost())
+
 	def free_shipping(self):
 		count = 0
 		for shipment in self.shipment_set.all():
