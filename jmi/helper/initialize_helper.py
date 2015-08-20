@@ -31,4 +31,7 @@ class SessionVariable:
 			profile = self.session_fundraiser().profile
 		except:
 			profile = None
+		return profile
+
+	
 

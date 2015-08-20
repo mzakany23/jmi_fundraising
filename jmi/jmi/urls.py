@@ -20,6 +20,7 @@ urlpatterns += patterns('account.views',
 	url(r'^account/login', 'auth_login', name='auth_login'),
 	url(r'^account/simple-sign-up', 'auth_simple_sign_up', name='auth_simple_sign_up'),
 	url(r'^account/logout', 'auth_logout', name='auth_logout'),
+	url(r'^account/fundraiser/login', 'auth_login_and_add_account_to_fundraiser', name='auth_login_and_add_account_to_fundraiser'),
 	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
 
 )

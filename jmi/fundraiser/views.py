@@ -237,9 +237,7 @@ def process_checkout(request):
 	except:
 		finalized_order = None
 
-	print request.session.keys()
-
-	form = SimpleSignUpForm(request.POST or None)
+	
 	context = {'form' : form, 'finalized_order' : finalized_order}
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)

@@ -21,6 +21,7 @@ class Fundraiser(models.Model):
 		max_length=40,
 		choices=(('paid','paid'),('unpaid','unpaid'),),blank=True,null=True
 	)
+	finalized    = models.BooleanField(default=False)
 	profile      = models.ForeignKey(Profile,blank=True,null=True)
 	account      = models.ForeignKey(User,blank=True,null=True)
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)

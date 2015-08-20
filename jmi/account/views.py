@@ -4,8 +4,35 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from models import Profile
+from fundraiser.models import Fundraiser
 from form import LoginForm,RegisterUserForm,SimpleSignUpForm
 from helper.initialize_helper import SessionVariable
+
+# class Account:
+# 	def __init__(self,request,**kwargs):
+# 		self.login_form = kwargs['login']
+# 		self.email      = kwargs['email']
+# 		self.username   = kwargs['username']
+# 		self.password   = kwargs['password']
+
+# 	def login_user_with_email(self):
+# 		if self.login_form.is_valid():
+# 			email_address = self.login_form.cleaned_data['email']
+# 			password      = self.login_form.cleaned_data['password']
+
+# 	def get_user_by_email(self,email):
+# 		try:
+# 			user      = User.objects.get(email=self.email)
+# 		except:
+# 			user_auth = None
+# 		return user
+
+# 	def authenticate_user(self):
+# 		user = self.get_user_by_email()
+# 		try:
+# 			user_auth = authenticate(username=user.username,password=password)
+# 		except:
+# 			user_auth = None
 
 
 def auth_login(request):
@@ -84,9 +111,13 @@ def auth_create_account(request):
 	template = 'account/sign_up.html'
 	return render(request,template,context)
 
+def auth_login_and_add_account_to_fundraiser(request):
+
+	pass
 
 def auth_simple_sign_up(request):
 	form = SimpleSignUpForm(request.POST or None)
+	
 	if form.is_valid():
 		
 		cleaned_form = form.cleaned_data
@@ -99,10 +130,10 @@ def auth_simple_sign_up(request):
 		if created:
 			user.set_password(password)
 			user.save()
-			session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
+			session_fundraiser = Fundraiser.objects.get(id=request.session['finalized_order'])
 			if session_fundraiser is None:
-				title = 'session expired. you have to restart or call back office.'
-				messages.error(request,user)
+				title = 'session expired. call back office to set up account.'
+				messages.error(request,title)
 				return HttpResponseRedirect(reverse('describe_fundraiser'))
 
 			session_fundraiser.account = user
