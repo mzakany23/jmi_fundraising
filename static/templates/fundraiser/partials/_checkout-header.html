@@ -3,28 +3,32 @@
 <div class="shopping-cart-header row">
     <div class="col-md-3 {% if request.resolver_match.url_name == 'describe_fundraiser' %}active{% endif %}" id='describe'>
 
-        <a href="{% url 'describe_fundraiser' %}">
+        <a >
+        <!-- <a href="{% url 'describe_fundraiser' %}"> -->
             <i class="fa fa-bullhorn">
             </i>
         <p>Describe</p>
         </a>
     </div>
-    
+
     <div class="col-md-3 {% if request.resolver_match.url_name == 'choose_fundraiser' or request.resolver_match.url_name == 'chosen_fundraiser_type'  %}active{% endif %}" id='choose'>
-        <a href="{% url 'choose_fundraiser' %}">
+        <a>
+        <!-- <a href="{% url 'choose_fundraiser' %}"> -->
             <i class="fa fa-heart"></i>
             <p>Options</p>
         </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'create_shipment' %}active{% endif %}" id='shipment'>
-        <a href="{% url 'create_shipment' %}">
+        <a >
+        <!-- <a href="{% url 'create_shipment' %}"> -->
             <i class="fa fa-bus"></i>
             <p>Shipment</p>
         </a>
     </div>
     <div class="col-md-3 {% if request.resolver_match.url_name == 'checkout' or request.resolver_match.url_name == 'process_checkout' %}active{% endif %}">
         {% if ready_to_checkout %}
-        <a href="{% url 'checkout' %}">
+        <a >
+        <!-- <a href="{% url 'checkout' %}"> -->
             <i class="fa fa-money"></i>
             <p>Checkout</p>
         </a>

@@ -5,13 +5,27 @@
 <!-- ==========================
       ESHOP - START 
     =========================== -->
-    <section class="content bg-color-2" id="eshop">            
+    <section class="content bg-color-2" id="eshop">      
             <div class="shopping-cart">
-                <h3>Item Summary</h3>
+                <h3>Need to tweak your order?</h3>
+                <div class="dropdown" style='margin-bottom: 50px;'>
+
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Order Navigation
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="{% url 'choose_fundraiser' %}">Option</a></li>
+                    <li><a href="{% url 'edit_shipment' session_shipment.id %}">Shipement</a></li>
+                  </ul>
+                </div>
+
+
                 
                 {% for item in session_fundraiser.selections %}
                 <!-- SHOPPING CART ITEM -->
                 <div class="shopping-cart-item">
+
                     <div class="row">
                         <div class="col-md-2">
                             <img src="{{ settings.server }}/media/{{ item.product.image }}" class="img-responsive" alt="">

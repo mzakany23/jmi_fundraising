@@ -113,6 +113,7 @@ def choose_salsas(request):
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)
 
+
 # fundraiser-shipment
 def create_shipment(request):
 	shipment_profile_form = ShipmentProfileForm(request.POST or None)
@@ -205,20 +206,14 @@ def edit_shipment(request,id):
 
 def checkout(request):
 	
-	post = request.POST or None
-
-	if post: 
-		discount = post['discount']
-		# process discount and return to checkout
-
-	session_fundraiser = SessionVariable(request,'current_fundraiser')
+	session_shipment = SessionVariable(request,'current_fundraiser').session_shipment()
 	
 	try:
 		stripe_api_key = settings.STRIPE_API_KEY 
 	except:
 		stripe_api_key = None
 
-	context = {'stripe_api_key' : stripe_api_key}
+	context = {'stripe_api_key' : stripe_api_key,'session_shipment' : session_shipment}
 	template = 'fundraiser/checkout.html'
 	return render(
 		request,template,context,
@@ -238,7 +233,7 @@ def process_checkout(request):
 		finalized_order = None
 
 	
-	context = {'form' : form, 'finalized_order' : finalized_order}
+	context = {'finalized_order' : finalized_order}
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

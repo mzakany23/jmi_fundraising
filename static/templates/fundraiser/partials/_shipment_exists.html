@@ -10,14 +10,15 @@
                     
                 </div>
                 <div class="blog-post-body">
-                    <h3>Current Shipment <a href="{% url 'edit_shipment' current_shipment.id %}" style='font-weight: 300;'>(Edit Shipment)</a></h3> 
-                    <p>{{ current_shipment.fundraiser.profile.organization }}</p>
-                    <p>{{ current_shipment.address.street }}</p>
-                    <p>{{ current_shipment.address.city }}</p>
-                    <p>{{ current_shipment.address.state }}</p>
-                    <p>{{ current_shipment.address.zip_code }}</p>
 
-                    <h3><a href="{% url 'get_back_on_track' %}">Continue</a></h3>
+                    <h3>Current Shipment <a href="{% url 'edit_shipment' current_shipment.id %}" style='font-weight: 300;'>(Edit Shipment)</a></h3> 
+                    {{ current_shipment.fundraiser.profile.organization }}<br>
+                    {{ current_shipment.address.street }}<br>
+                    {{ current_shipment.address.city }}<br>
+                    {{ current_shipment.address.state }},{{ current_shipment.address.zip_code }}<br>
+                    
+
+                    <h3><a href="{% url 'get_back_on_track' %}"><button class='btn btn-danger btn-lg'>Continue</button></a></h3>
                     
                        
                     </div>
