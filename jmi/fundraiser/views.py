@@ -118,11 +118,13 @@ def create_shipment(request):
 	shipment_profile_form = ShipmentProfileForm(request.POST or None)
 	shipment_address_form = AddressForm(request.POST or None)
 	billing_address_form  = AddressForm(request.POST or None)
-
+	
 	if shipment_profile_form.is_valid() and shipment_address_form.is_valid():
+
 		a = shipment_address_form.cleaned_data
 		p = shipment_profile_form.cleaned_data
-
+		
+		
 		title    = a['title']
 		street   = a['street']
 		line_2   = a['line_2']
@@ -136,7 +138,7 @@ def create_shipment(request):
 		email      = p['email']
 		
 		
-		address, created = Address.objects.filter(
+		address, created = Address.objects.get_or_create(
 			title=title,
 			street=street,
 			line_2=line_2,
@@ -167,7 +169,7 @@ def create_shipment(request):
 			session_fundraiser.profile.save()
 
 			return HttpResponseRedirect(reverse('checkout'))
-	
+
 
 	context = {
 		'shipment_profile_form' : shipment_profile_form,
@@ -179,24 +181,27 @@ def create_shipment(request):
 	return render(request,template,context)
 
 def edit_shipment(request,id):
-	session_fundraiser  = SessionVariable(request,'current_fundraiser').session_fundraiser()
+	session            = SessionVariable(request,'current_fundraiser')
+	session_fundraiser = session.session_fundraiser()
+	session_shipment   = session.session_shipment()
 
-	try:
-		shipment = Shipment.objects.get(id=id)
-	except:
-		shipment = None
-
+	profile_form = ShipmentProfileForm(request.POST or None,instance=session_fundraiser.profile)
+	address_form = AddressForm(request.POST or None, instance=session_shipment.address)
 	
-	if shipment: 
-		profile_form = ShipmentProfileForm(request.POST or None,instance=session_fundraiser.profile)
-		address_form = AddressForm(request.POST or None, instance=shipment.address)
-		template = 'fundraiser/edit_shipment.html'
-		context = {'shipment_address_form' : address_form, 'shipment_profile_form' : profile_form}
-		return render(request,template,context)		
-	else:
-		title = 'There was not a found shipment.'
-		messages.error(request,title)
+	if profile_form.is_valid() and address_form.is_valid():
+		profile_form.save()
+		address_form.save()
+		title = 'You have successfully updated your shipment.'
+		messages.success(request,title)
 		return HttpResponseRedirect(reverse('create_shipment'))
+
+	template = 'fundraiser/edit_shipment.html'
+	context = {
+		'shipment_address_form' : address_form, 
+		'shipment_profile_form' : profile_form,
+		'session_shipment' : session_shipment
+	}
+	return render(request,template,context)		
 
 def checkout(request):
 	

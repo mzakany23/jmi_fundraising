@@ -5,7 +5,7 @@
 {% block edit_shipment %}
 <section class="content bg-color-2" id="eshop">
             <div class="shopping-cart">
-                <form method="POST" class="form-horizontal form-address" action="{% url 'create_shipment' %}">
+                <form method="POST" class="form-horizontal form-address" action="{% url 'edit_shipment' session_shipment.id %}">
                   {% csrf_token %}
                     <fieldset>
                         <div class="row">

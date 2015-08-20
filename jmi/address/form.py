@@ -1,14 +1,13 @@
 from django import forms
-from django.forms import ModelForm
 from helper.form_helper import STATES,STATES_LIST
 from models import Address
 
-class AddressForm(ModelForm):
-	state = forms.ChoiceField(choices=STATES,widget=forms.Select(attrs={
+class AddressForm(forms.ModelForm):
+	state = forms.ChoiceField(required=True,choices=STATES,widget=forms.Select(attrs={
 		"id" : "title",
 		"class" : "form-control",
 	}))
-
+	
 	class Meta:
 
 		model = Address
@@ -23,7 +22,7 @@ class AddressForm(ModelForm):
 				"type" : "text",
 			}),
 			'street' : forms.TextInput(attrs={
-				"name" : "title",
+				"name" : "street",
 				"id" : "title",
 				"class" : "form-control",
 				"size" : "20",

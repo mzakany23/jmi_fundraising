@@ -8,10 +8,10 @@ from address.models import Address
 
 class Profile(models.Model):
 	organization = models.CharField(max_length=40,blank=True,null=True)
-	first_name   = models.CharField(max_length=20,blank=True,null=True)
-	last_name    = models.CharField(max_length=20,blank=True,null=True)
-	phone_number = models.CharField(max_length=10,blank=True,null=True)
-	email        = models.EmailField(max_length=40,blank=True,null=True)
+	first_name   = models.CharField(max_length=20,null=True)
+	last_name    = models.CharField(max_length=20,null=True)
+	phone_number = models.CharField(max_length=10,null=True)
+	email        = models.EmailField(max_length=40,null=True)
 	slug 		 = models.SlugField(blank=True,null=True)
 	org_photo    = models.ImageField(upload_to='organization_photos',blank=True,null=True)
 	address 	 = models.ForeignKey(Address,null=True,blank=True)
