@@ -2,7 +2,8 @@ from django.db import models
 from fundraiser.models import Fundraiser
 from helper.initialize_helper import SessionVariable
 
-class GenericDiscount(models.Model):
+
+class AbstractDiscount(models.Model):
 	title = models.CharField(max_length=40)
 	special_code = models.CharField(max_length=40,blank=True,null=True)
 	active = models.BooleanField(default=False)
@@ -10,9 +11,9 @@ class GenericDiscount(models.Model):
 	used = models.IntegerField(default=0)
 	percent = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 	dollars = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
-	
-	def __unicode__(self):
-		return self.title
+
+	class Meta:
+		abstract = True
 
 	def expired(self):
 		return self.used > self.expires_after
@@ -20,25 +21,16 @@ class GenericDiscount(models.Model):
 	def to_percent(self):
 		return float(self.percent)*.01
 
+class GenericDiscount(AbstractDiscount):
+	
+	def __unicode__(self):
+		return self.title
 
-class SingleDiscount(models.Model):
-	title = models.CharField(max_length=40)
-	special_code = models.CharField(max_length=40,blank=True,null=True)
-	active = models.BooleanField(default=False)
-	expires_after = models.IntegerField(default=10)
-	used = models.IntegerField(default=0)
-	percent = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
-	dollars = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+class SingleDiscount(AbstractDiscount):
 	fundraiser = models.OneToOneField(Fundraiser,blank=True,null=True)
 	
 	def __unicode__(self):
 		return self.title
-
-	def expired(self):
-		return self.used > self.expires_after
-
-	def to_percent(self):
-		return float(self.percent)*.01
 
 
 class Discount:
