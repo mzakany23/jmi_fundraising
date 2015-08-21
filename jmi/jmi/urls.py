@@ -22,6 +22,8 @@ urlpatterns += patterns('account.views',
 	url(r'^account/logout', 'auth_logout', name='auth_logout'),
 	url(r'^account/fundraiser/login', 'auth_login_and_add_account_to_fundraiser', name='auth_login_and_add_account_to_fundraiser'),
 	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
+	# profile
+	url(r'^profile', 'profile_show', name='profile_show'),
 
 )
 
@@ -52,6 +54,7 @@ urlpatterns += patterns('fundraiser.views',
 # marketing
 urlpatterns += patterns('marketing.views',
 	url(r'^valid-discount/','process_discount',name='process_discount'),
+	url(r'^view/','add_email_to_newsletter_list',name='add_email_to_newsletter_list'),
 )
 
 # admin-dashboard

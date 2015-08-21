@@ -2,8 +2,14 @@ from django import forms
 from django.forms import ModelForm
 
 class LoginForm(forms.Form):
-	
-	email = forms.EmailField(widget=forms.EmailInput(attrs={
+	username = forms.CharField(widget=forms.TextInput(attrs={
+		"name" : "username",
+		"id" : "username",
+		"class" : "form-control",
+		"placeholder" : "Your username:",
+		"type" : "username",
+	}))
+	email = forms.EmailField(required=False,widget=forms.EmailInput(attrs={
 		"name" : "email",
 		"id" : "email",
 		"class" : "form-control",

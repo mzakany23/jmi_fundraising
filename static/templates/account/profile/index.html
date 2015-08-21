@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block profile %}
+
+<!-- ==========================
+    	MEMBER PROFILE - START 
+    =========================== -->      
+    <section class="content bg-color-2" id="profile-single">
+    	<div class="container">
+            <div class="row">
+            
+            	<!-- Profile -->
+            	<div class="col-sm-7">
+                	<div class="profile-body">
+                        <h2>{{ session.user.username }}<small>{{ session.profile.organization }}</small></h2>
+                        {% if session.user_has_fundraiser %}
+                        <ul class="profile-contacts list-unstyled">
+                        	<li><span>e</span>{{ session.profile.email }}</li>
+                            <li><span>t</span>{{ session.profile.phone_number }}</li>
+                            <li><span>h</span>{{ session.profile.single_line_address }}</li>
+                        </ul>
+                        {% else %}
+                        <h3>No profile!</h3>
+                        
+                        {% endif %}
+					</div>
+                </div>
+                
+                <!-- Profile -->
+            	<div class="col-sm-5">
+
+                	<img src="{% static 'image/placeholder.jpg' %}" alt="" class="img-responsive">
+                    
+                </div>
+                                
+            </div>
+        </div>
+    </section>
+    <!-- ==========================
+    	MEMBER PROFILE - END 
+    =========================== -->
+
+{% endblock %}

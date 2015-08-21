@@ -49,12 +49,14 @@
                 <div class="col-md-4 hidden-xs hidden-sm">
                   <h3><i class="fa fa-envelope"></i>Some communication</h3>
                     <p class="contact-text">Add you email to our infrequent newsletters list. If we have something good to say you'll be the first to know.</p>
-                    <form>
+                    <form method="POST" action="{% url 'add_email_to_newsletter_list' %}">
+                        {% csrf_token %}
                       <fieldset>
                           <div class="form-group nospace">
                               <div class="input-group">
-                                    <input type="email" class="form-control" id="email" placeholder="Put your email" required>
-                                    <span class="input-group-btn"><button class="btn btn-primary" type="button">Submit</button></span>
+                                    {{ newsletter.errors }}
+                                    {{ newsletter_form.email }}
+                                    <span class="input-group-btn"><button class="btn btn-primary" type="submit">Submit</button></span>
                                 </div>
                             </div>
                         </fieldset>
@@ -66,7 +68,6 @@
                     <p>© Jose Madrid Salsa Inc. 2014 All right reserved.</p>
                 </div>
                 <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-                    
                     <li><a href="{% url 'describe_fundraiser' %}"><button class="btn btn-primary">Create Fundraiser</button></a></li>
                 </ul>
             </div>

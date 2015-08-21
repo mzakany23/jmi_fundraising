@@ -3,7 +3,7 @@ from django.template import *
 from django.conf import settings
 
 from fundraiser.models import Fundraiser
-
+from marketing.form import EmailNewsLetterForm
 
 def home(request):
 	context = {}
@@ -44,6 +44,7 @@ def get_home_variables(request):
 			'session_fundraiser' : session_fundraiser,
 			'ready_to_checkout' : ready_to_checkout,
 			'already_has_shipment' : already_has_shipment,
-			'current_shipment' : current_shipment
+			'current_shipment' : current_shipment,
+			'newsletter_form' : EmailNewsLetterForm
 	}
 

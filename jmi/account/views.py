@@ -7,43 +7,19 @@ from models import Profile
 from fundraiser.models import Fundraiser
 from form import LoginForm,RegisterUserForm,SimpleSignUpForm
 from helper.initialize_helper import SessionVariable
-
-# class Account:
-# 	def __init__(self,request,**kwargs):
-# 		self.login_form = kwargs['login']
-# 		self.email      = kwargs['email']
-# 		self.username   = kwargs['username']
-# 		self.password   = kwargs['password']
-
-# 	def login_user_with_email(self):
-# 		if self.login_form.is_valid():
-# 			email_address = self.login_form.cleaned_data['email']
-# 			password      = self.login_form.cleaned_data['password']
-
-# 	def get_user_by_email(self,email):
-# 		try:
-# 			user      = User.objects.get(email=self.email)
-# 		except:
-# 			user_auth = None
-# 		return user
-
-# 	def authenticate_user(self):
-# 		user = self.get_user_by_email()
-# 		try:
-# 			user_auth = authenticate(username=user.username,password=password)
-# 		except:
-# 			user_auth = None
+from django.contrib.auth.decorators import login_required
 
 
 def auth_login(request):
 	login_form = LoginForm(request.POST or None)
-	
+	print login_form.is_valid()
 	if login_form.is_valid():
-		email_address = login_form.cleaned_data['email']
+		username = login_form.cleaned_data['username']
+		# email_address = login_form.cleaned_data['email']
 		password      = login_form.cleaned_data['password']
 		
 		try:
-			user      = User.objects.get(email=email_address)
+			user      = User.objects.get(username=username)
 			user_auth = authenticate(username=user.username,password=password)
 		except:
 			user_auth = None
@@ -156,10 +132,15 @@ def auth_simple_sign_up(request):
 		return HttpResponseRedirect(reverse('process_checkout'))
 		
 
-
-
-
-
+# profile
+@login_required(login_url='/account/login')
+def profile_show(request):
+	user = SessionVariable(request)
+	print user.fundraisers()
+	print user.profile()
+	context = {'session' : user}
+	template = 'account/profile/index.html'
+	return render(request,template,context)
 
 
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import GenericDiscount,SingleDiscount
+from models import GenericDiscount,SingleDiscount,EmailNewsLetter
 
 class GenericDiscountAdmin(admin.ModelAdmin): 
 	class Meta:
@@ -14,4 +14,9 @@ class SingleDiscountAdmin(admin.ModelAdmin):
 
 admin.site.register(SingleDiscount,SingleDiscountAdmin)
 
+class EmailNewsLetterAdmin(admin.ModelAdmin): 
+	class Meta:
+		model = EmailNewsLetter
+
+admin.site.register(EmailNewsLetter,EmailNewsLetterAdmin)
 

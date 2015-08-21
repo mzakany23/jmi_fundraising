@@ -32,6 +32,11 @@ class SingleDiscount(AbstractDiscount):
 	def __unicode__(self):
 		return self.title
 
+class EmailNewsLetter(models.Model):
+	email = models.EmailField(max_length=40)
+
+	def __unicode__(self):
+		return self.email
 
 class Discount:
 	def __init__(self,request,code):

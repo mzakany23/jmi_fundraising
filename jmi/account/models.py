@@ -22,7 +22,15 @@ class Profile(models.Model):
 
 	def contact_person(self):
 		return self.first_name + ' ' + self.last_name
+	
 	def has_stripe_id(self):
 		return self.has_stripe_id
+
+	def single_line_address(self):
+		street = self.address.street
+		city   = self.address.city 
+		state  = self.address.state 
+		zip    = self.address.zip_code
+		return "%s %s %s, %s" % (street,city,state,zip)
 
 
