@@ -32,11 +32,20 @@ from account.form import SimpleSignUpForm
 
 # lets-do-a-fundraiser
 def describe_fundraiser(request):
+	
+	try:
+		order_step = request.session['order_step']
+	except:
+		order_step = None
+
+	if not order_step:
+		request.session['order_step'] = None
+
 	try:
 		del request.session['session_finalized_order']
 	except:
 		request.session['session_finalized_order'] = None
-		
+	
 	form = FundraiserDescribeForm(request.POST or None)
 	
 	describe = DescribeFundraiser(request,form)
@@ -54,6 +63,7 @@ def describe_fundraiser(request):
 			messages.error(request,title)
 			return HttpResponseRedirect(reverse('describe_fundraiser'))
 
+	
 	context = {'form' : form}
 	template = 'fundraiser/describe.html'
 
@@ -61,6 +71,8 @@ def describe_fundraiser(request):
 	
 
 def choose_fundraiser(request):
+	request.session['order_step'] = 'choose_fundraiser'
+
 	fundraiser_options = return_all_objects(FundraiserType)
 
 	context = {'types' : fundraiser_options,'settings' : settings}
@@ -68,6 +80,7 @@ def choose_fundraiser(request):
 	return render(request,template,context)
 
 def chosen_fundraiser_type(request,slug):
+	request.session['order_step'] = 'selections'
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 	fundraiser_type = OptionFundraiser().get_fundraiser_by_slug(slug)
 
@@ -84,6 +97,7 @@ def chosen_fundraiser_type(request,slug):
 
 # fundraiser/fundraiser-type-type-5
 def choose_salsas(request):
+	request.session['order_step'] = 'choose_salsas'
 	session_shipment = SessionVariable(request,'current_fundraiser').session_shipment()
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 	session_fundraiser.discount = 0
@@ -116,6 +130,7 @@ def choose_salsas(request):
 
 # fundraiser-shipment
 def create_shipment(request):
+	request.session['order_step'] = 'create_shipment'
 	shipment_profile_form = ShipmentProfileForm(request.POST or None)
 	shipment_address_form = AddressForm(request.POST or None)
 	billing_address_form  = AddressForm(request.POST or None)
@@ -182,6 +197,8 @@ def create_shipment(request):
 	return render(request,template,context)
 
 def edit_shipment(request,id):
+	request.session['order_step'] = 'checkout'
+
 	session            = SessionVariable(request,'current_fundraiser')
 	session_fundraiser = session.session_fundraiser()
 	session_shipment   = session.session_shipment()
@@ -205,7 +222,7 @@ def edit_shipment(request,id):
 	return render(request,template,context)		
 
 def checkout(request):
-	
+	request.session['order_step'] = 'checkout'
 	session_shipment = SessionVariable(request,'current_fundraiser').session_shipment()
 	
 	try:
@@ -221,6 +238,7 @@ def checkout(request):
 	)
 
 def process_checkout(request):
+	request.session['order_step'] = 'process_checkout'
 	try:
 		request.session['finalized_order'] = request.session['current_fundraiser']
 		del request.session['current_fundraiser']
@@ -243,24 +261,28 @@ def get_back_on_track(request):
 		be redirected to.
 	'''
 
-	current_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
-	selections = current_fundraiser.selections()
-
-	if current_fundraiser:
-
-		if current_fundraiser.type is None:
+	session = SessionVariable(request,'current_fundraiser')
+	
+	if session.has_fundraiser():
+		order_step = request.session['order_step']
+		if order_step == 'choose_fundraiser':
 			return HttpResponseRedirect(reverse('choose_fundraiser'))
-		elif selections is None:
-			fund_type = current_fundraiser.type
+		elif order_step == 'selections':
+			fund_type = session.session_fundraiser().type
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(fund_type.slug,)))
-		elif current_fundraiser.shipment_set.first():
-			return HttpResponseRedirect(reverse('checkout'))
-		else:
+		elif order_step == 'choose_salsas':
+			return HttpResponseRedirect(reverse('choose_salsas'))
+		elif order_step == 'create_shipment':
 			return HttpResponseRedirect(reverse('create_shipment'))
+		elif order_step == 'checkout':
+			return HttpResponseRedirect(reverse('checkout'))
+		elif order_step == 'process_checkout':
+			return HttpResponseRedirect(reverse('process_checkout'))
+		else:
+			return HttpResponseRedirect(reverse('describe_fundraiser'))
+	else:
+		return HttpResponseRedirect(reverse('describe_fundraiser'))
 
-	context = {}
-	template = 'fundraiser/shipment.html'
-	return render(request,template,context)	
 
 def get_fundraiser_selections_via_ajax(request,id):
 	try:

@@ -24,12 +24,13 @@ class FundraiserProcessView(APIView):
 
 		if check:
 			if session_fundraiser:
+
 				payment = Payment.objects.create(type='check')
 				payment.fundraiser = session_fundraiser
-				fundraiser.status = 'unpaid'
-				fundraiser.finalized = True
+				session_fundraiser.status = 'unpaid'
+				session_fundraiser.finalized = True
 				payment.save()
-				fundraiser.save()
+				session_fundraiser.save()
 
 				response = Response('Success', status=status.HTTP_200_OK)
 		elif credit:

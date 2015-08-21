@@ -5,6 +5,7 @@ from django.db.models.signals import post_save, post_delete, pre_save, pre_delet
 from django.utils.text import slugify
 from django.db import models
 from address.models import Address
+from django.contrib.auth.models import User 
 
 class Profile(models.Model):
 	organization = models.CharField(max_length=40,blank=True,null=True)
@@ -16,6 +17,7 @@ class Profile(models.Model):
 	org_photo    = models.ImageField(upload_to='organization_photos',blank=True,null=True)
 	address 	 = models.ForeignKey(Address,null=True,blank=True)
 	stripe_id    = models.CharField(max_length=100,blank=True,null=True)
+	account      = models.ForeignKey(User,null=True,blank=True)
 
 	def __unicode__(self):
 		return str(self.organization)

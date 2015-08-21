@@ -47,7 +47,7 @@ class DescribeFundraiser:
 	def create_fundraiser_with_profile(self):
 		profile, created = Profile.objects.get_or_create(organization=self.organization)
 
-		if created:
+		if created:	
 			profile.slug = profile.organization + "-" + str(profile.id)
 			profile.save()
 			self.profile = profile
@@ -59,6 +59,12 @@ class DescribeFundraiser:
 			status='in-process'
 		)
 
+		if created:
+			session = SessionVariable(self.request)
+			if session.user_is_logged_in():
+				fundraiser.account = session.user()
+				fundraiser.save()
+				
 		self.request.session['current_fundraiser'] = fundraiser.id
 		self.request.session['session_finalized_order'] = fundraiser.id
 

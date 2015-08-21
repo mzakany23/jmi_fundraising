@@ -21,7 +21,7 @@ class SessionUser(object):
 
 	def fundraisers(self):
 		try:
-			fundraisers = self.get_user().fundraiser_set.all()
+			fundraisers = self.user().fundraiser_set.all()
 		except:
 			fundraisers = None
 		return fundraisers
@@ -32,6 +32,13 @@ class SessionUser(object):
 	def shipments(self):
 		pass
 
+	def user_is_logged_in(self):
+		return self.user().is_authenticated()
+
+	def user_has_address(self):
+		return self.profile().address
+
+
 	# private
 	def __get_profile(self):
 		try:
@@ -39,13 +46,11 @@ class SessionUser(object):
 			profile = fundraiser.profile
 		except:
 			profile = None 
-		
+		return profile
 
-class SessionVariable(SessionUser):
-	def __init__(self,request,session_variable_name=None):
+class SessionFundraiser(object):
+	def __init__(self,request):
 		self.request = request
-		self.svn = session_variable_name
-		super(SessionVariable,self).__init__(request)
 
 	def session_fundraiser(self):
 		try:
@@ -55,6 +60,23 @@ class SessionVariable(SessionUser):
 
 		return session_fundraiser
 
+	def session_fundraiser_profile(self):
+		try:
+			profile = self.session_fundraiser().profile
+		except:
+			profile = None
+		return profile
+
+	def has_fundraiser(self):
+		return True if self.session_fundraiser() else False
+
+	def has_order_steps(self):
+		return True if self.request.session['order_step'] is not None else False
+
+	def order_step(self):
+		return request.session['order_step']
+
+class SessionShipment(object):
 	def session_shipment(self):
 		try:
 			session_shipment = Shipment.objects.get(fundraiser=self.session_fundraiser())
@@ -63,12 +85,14 @@ class SessionVariable(SessionUser):
 
 		return session_shipment
 
-	def session_fundraiser_profile(self):
-		try:
-			profile = self.session_fundraiser().profile
-		except:
-			profile = None
-		return profile
+class SessionVariable(SessionUser,SessionFundraiser):
+	def __init__(self,request,session_variable_name=None):
+		self.request = request
+		self.svn = session_variable_name
+		super(SessionVariable,self).__init__(request)
+
+	
+
 
 	
 			

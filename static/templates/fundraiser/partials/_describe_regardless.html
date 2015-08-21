@@ -26,7 +26,11 @@
       <div class="shopping-cart-footer">
           <div class="row">
               <div class="col-md-3">
+                  {% if session.has_fundraiser and session.has_order_steps %}
+                  <a href="{% url 'get_back_on_track' %}" class='btn btn-danger'>Go Back</a>
+                  {% else %}
                   <button type='submit' class="btn btn-danger btn-lg btn-block">Continue</button>
+                  {% endif %}
               </div>
               
           </div>

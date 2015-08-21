@@ -136,7 +136,6 @@ def auth_simple_sign_up(request):
 @login_required(login_url='/account/login')
 def profile_show(request):
 	user = SessionVariable(request)
-	print user.fundraisers()
 	print user.profile()
 	context = {'session' : user}
 	template = 'account/profile/index.html'

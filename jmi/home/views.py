@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.template import *
 from django.conf import settings
 
+from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser
 from marketing.form import EmailNewsLetterForm
 
@@ -15,6 +16,11 @@ def get_home_variables(request):
 		session_fundraiser = Fundraiser.objects.get(id=request.session['current_fundraiser'])
 	except:
 		session_fundraiser = None
+
+	try:
+		session = SessionVariable(request,'current_fundraiser')
+	except:
+		session = None
 
 	try:
 		sp = session_fundraiser
@@ -41,10 +47,11 @@ def get_home_variables(request):
 
 
 	return {
-			'session_fundraiser' : session_fundraiser,
-			'ready_to_checkout' : ready_to_checkout,
-			'already_has_shipment' : already_has_shipment,
-			'current_shipment' : current_shipment,
-			'newsletter_form' : EmailNewsLetterForm
+		'session' : session,
+		'session_fundraiser' : session_fundraiser,
+		'ready_to_checkout' : ready_to_checkout,
+		'already_has_shipment' : already_has_shipment,
+		'current_shipment' : current_shipment,
+		'newsletter_form' : EmailNewsLetterForm
 	}
 

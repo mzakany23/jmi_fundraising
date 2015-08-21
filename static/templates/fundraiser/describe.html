@@ -2,11 +2,7 @@
 {% load staticfiles %}
 
 
-{% block start_describing_fundraiser %}
-    {% if not session_fundraiser %}
-      {% include 'fundraiser/partials/_describe_regardless.html' %}
-    {% else %}
-      {% include 'fundraiser/partials/_describe_signed_in.html' %}
-    {% endif %}
+{% block start_describing_fundraiser %} 
+  {% include 'fundraiser/partials/_describe_regardless.html' %}  
 {% endblock %}
 
