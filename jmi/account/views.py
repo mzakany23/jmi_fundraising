@@ -2,9 +2,11 @@ from django.shortcuts import render,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+
 from django.contrib.auth.models import User
 from models import Profile
 from fundraiser.models import Fundraiser
+
 from form import LoginForm,RegisterUserForm,SimpleSignUpForm
 from helper.initialize_helper import SessionVariable
 from django.contrib.auth.decorators import login_required
@@ -135,12 +137,42 @@ def auth_simple_sign_up(request):
 # profile
 @login_required(login_url='/account/login')
 def profile_show(request):
-	user = SessionVariable(request)
-	print user.profile()
-	context = {'session' : user}
-	template = 'account/profile/index.html'
+	session = SessionVariable(request)
+	
+	try:
+		user_profiles = Profile.objects.filter(account=session.user())
+	except: 
+		user_profiles = None
+
+	
+	context = {'user_profiles' : user_profiles}
+	template = 'account/profile/show.html'
 	return render(request,template,context)
 
+@login_required(login_url='/account/login')
+def profile_detail(request,slug):
+	try:
+		profile = Profile.objects.get(slug=slug)
+	except:
+		profile = None
 
+	fundraiser = profile.fundraisers().first().slug
+	
+	if profile.fundraisers().count() == 1:
+		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser,)))
+	context = {'profile' : profile}
+	template = 'account/profile/detail.html'
+	return render(request,template,context)
+
+@login_required(login_url='/account/login')
+def profile_fundraiser_detail(request,slug):
+	try:
+		fundraiser = Fundraiser.objects.get(slug=slug)
+	except:
+		fundraiser = None
+
+	context = {'fundraiser' : fundraiser}
+	template = 'account/profile/fundraiser_detail.html'
+	return render(request,template,context)
 
 

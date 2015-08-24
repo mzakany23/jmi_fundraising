@@ -28,6 +28,9 @@ class Profile(models.Model):
 	def has_stripe_id(self):
 		return self.has_stripe_id
 
+	def fundraisers(self):
+		return self.fundraiser_set.all()
+
 	def single_line_address(self):
 		street = self.address.street
 		city   = self.address.city 

@@ -22,7 +22,7 @@ class Shipment(models.Model):
 		if self.free_shipping():
 			return "FREE Shipping!"
 		else:
-			return '$%.2f' % 30.00
+			return 30.00
 
 	def pre_tax_cost(self):
 		price = float(self.fundraiser.type.jar_price)

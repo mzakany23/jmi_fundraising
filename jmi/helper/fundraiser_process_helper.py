@@ -4,6 +4,7 @@ from shipment.models import Shipment, Selection
 from product.models import Product
 from address.models import Address
 
+from django.utils.text import slugify
 from django.contrib import messages
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -46,9 +47,11 @@ class DescribeFundraiser:
 
 	def create_fundraiser_with_profile(self):
 		profile, created = Profile.objects.get_or_create(organization=self.organization)
-
+		session = SessionVariable(self.request)
 		if created:	
-			profile.slug = profile.organization + "-" + str(profile.id)
+			if session.user_is_logged_in():
+				profile.account = session.user()
+			profile.slug = (slugify(profile.organization) + "-" + str(profile.id)).lower()
 			profile.save()
 			self.profile = profile
 
@@ -60,9 +63,9 @@ class DescribeFundraiser:
 		)
 
 		if created:
-			session = SessionVariable(self.request)
 			if session.user_is_logged_in():
 				fundraiser.account = session.user()
+				fundraiser.slug = slugify(fundraiser.title)+'-'+str(fundraiser.id)
 				fundraiser.save()
 				
 		self.request.session['current_fundraiser'] = fundraiser.id

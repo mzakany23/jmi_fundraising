@@ -1,0 +1,80 @@
+{% extends 'account/profile/index.html' %}
+{% load staticfiles %}
+
+{% block fundraiser %}
+
+<!-- ==========================
+        MEMBER PROFILE - START 
+    =========================== -->      
+    <section class="content bg-color-2" id="profile-single">
+        <div class="container">
+            <h1>{{ fundraiser.profile.organization }}</h1>
+
+            <div class="row">
+                
+                <!-- Profile -->
+                <div class="col-sm-4">
+                    <div class="profile-body">
+                        <h3>Fundraiser:</h3>
+                        <ul class="list-group">
+                            
+                            <li class='list-group-item text-left'>Title: {{ fundraiser.title }}</li>
+                            <li class='list-group-item text-left'>Type: {{ fundraiser.type }} </li>
+                            <li class='list-group-item text-left'>Description: {{ fundraiser.description }} </li>
+                            
+                        </ul>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="profile-body">
+                        <h3>Receipt:</h3>
+                        <ul class="list-group">
+                            <li class='list-group-item text-left'>Jars: {{ fundraiser.shipment.total_jars }}</li>
+                            <li class='list-group-item text-left'>Cost of Jars: ${{ fundraiser.total_cost_in_dollars }}</li>
+                            <li class='list-group-item text-left'>Payment: {{ fundraiser.payments }}</li>
+                            <li class='list-group-item text-left'>Shipping: ${{ fundraiser.shipment.shipping_cost }}</li>
+                            <li class='list-group-item text-left'>Total Cost w/Shipping: ${{ fundraiser.shipment.total_cost_with_shipping }}</li>
+                            <li class='list-group-item text-left'>Shipping status: </li>
+                        </ul>
+                        <br>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="profile-body">
+                        <h3>Selections:</h3>
+                        <ul class="list-group">
+                            {% for selection in fundraiser.selections %}
+                                <li class='list-group-item text-left'>Salsa: {{ selection.product.title }} <div>Qty: {{ selection.quantity }}</div></li>
+                                
+                            {% endfor %}
+                        </ul>
+                        <br>
+                    </div>
+                </div>
+
+                                
+            </div>
+            <a href="{% url 'profile_show' %}" class='btn btn-danger' style='min-width: 150px;'>back</a>
+        </div>
+    </section>
+    <!-- ==========================
+        MEMBER PROFILE - END 
+    =========================== -->
+    
+    <!-- ==========================
+        SEPARATOR - START 
+    =========================== -->
+    <section class="content content-separator text-center" id="separator1">
+        <div class="container">
+            
+        </div>
+    </section>
+    <!-- ==========================
+        SEPARATOR - END 
+    =========================== -->
+
+{% endblock %}

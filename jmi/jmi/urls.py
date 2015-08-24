@@ -23,7 +23,9 @@ urlpatterns += patterns('account.views',
 	url(r'^account/fundraiser/login', 'auth_login_and_add_account_to_fundraiser', name='auth_login_and_add_account_to_fundraiser'),
 	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
 	# profile
-	url(r'^profile', 'profile_show', name='profile_show'),
+	url(r'^profile/$', 'profile_show', name='profile_show'),
+	url(r'^profile/(?P<slug>[-\w]+)/$', 'profile_detail', name='profile_detail'),
+	url(r'^profile/fundraiser/(?P<slug>[-\w]+)/$', 'profile_fundraiser_detail', name='profile_fundraiser_detail'),
 
 )
 

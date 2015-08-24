@@ -1,0 +1,51 @@
+{% extends 'account/profile/index.html' %}
+{% load staticfiles %}
+
+{% block detail %}
+
+<section class="content bg-color-2" id="profile-single">
+        <div class="container">
+            <div class="row">
+            
+        <section class="content bg-color-2 services3" id="services">
+        <div class="container">
+            
+            <h2>{{ profile.organization }} fundraisers:</h2>
+            <hr>
+            <div class="row">
+                
+                {% for fundraiser in profile.fundraisers %}
+                <!-- Service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-desktop" style='margin-bottom: 5px;'></i>
+                        <div class="service-body">
+                            <ul class='list-group' style='min-height: 300px;'>
+                                <li class='list-group-item text-left'><label>TITLE:</label> {{ fundraiser.title }}</li>
+                                <li class='list-group-item text-left'><label>START DATE:</label> {{ fundraiser.created }}</li>
+                                <li class='list-group-item text-left'><label>DISCOUNT:</label> {{ fundraiser.discount }}</li>
+                                <li class='list-group-item text-left'><label>COST:</label> ${{ fundraiser.total_cost_in_dollars }}</li>
+                                <li class='list-group-item text-left'><label>SHIPPED:</label> <br></li>
+                            </ul>
+                            <a href="{% url 'profile_fundraiser_detail' fundraiser.slug %}"class='btn btn-danger'>Details</a>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                
+            
+                                
+            </div>
+        </div>
+    </section>
+                
+                
+                                
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -89,7 +89,12 @@ class Fundraiser(models.Model):
 
 		return selections
 	
-	
+	def payments(self):
+		try: 
+			payments = self.payment_set.first()
+		except:
+			payments = None
+		return payments
 
 class FundraiserCategory(models.Model):
 	title        = models.CharField(max_length=40,blank=True,null=True)

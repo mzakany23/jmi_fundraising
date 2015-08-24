@@ -1,0 +1,63 @@
+{% extends 'account/profile/index.html' %}
+{% load staticfiles %}
+
+{% block show %}
+	<!-- ==========================
+    	MEMBER PROFILE - START 
+    =========================== -->      
+    <section class="content bg-color-2" id="profile-single">
+    	<div class="container">
+            <div class="row">
+            
+        <section class="content bg-color-2 services3" id="services">
+        <div class="container">
+            {% if user_profiles %}
+            <h2>{{ request.user }} Profile:</h2>
+            <div class="row">
+                
+                {% for profile in user_profiles %}
+                <!-- Service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-desktop" style='margin-bottom: 5px;'></i>
+                        <div class="service-body">
+                            <ul class='list-group' style='min-height: 300px;'>
+                                <li class='list-group-item text-left'><label>NAME:</label> {{ profile.contact_person }}</li>
+                                <li class='list-group-item text-left'><label>ORGANIZATION:</label> {{ profile.organization }}</li>
+                                <li class='list-group-item text-left'><label>PHONE:</label> {{ profile.phone_number }}</li>
+                                <li class='list-group-item text-left'><label>EMAIL:</label> {{ profile.email }}</li>
+                                <li class='list-group-item text-left'><label>ADDRESS:</label> <br>
+                                    {{ profile.contact_person }}<br>
+                                    {{ profile.address.street }}<br>
+                                    {{ profile.address.city }}<br>
+                                    {{ profile.address.state }}<br>
+                                    {{ profile.address.zip_code }}<br>
+                                </li>
+                                <li class='list-group-item text-left'><label>FUNDRAISERS: </label> {{ profile.fundraisers.count }}</li>
+                            </ul>
+                            <a href="{% url 'profile_detail' profile.slug %}"class='btn btn-danger'>Details</a>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h1>There's no fundraisers set up on your account yet. <a href="{% url 'describe_fundraiser' %}">create one</a></h1>
+                {% endif %}
+                
+                
+                                
+            </div>
+        </div>
+    </section>
+                
+                
+                                
+            </div>
+        </div>
+    </section>
+    <!-- ==========================
+    	MEMBER PROFILE - END 
+    =========================== -->
+{% endblock %}

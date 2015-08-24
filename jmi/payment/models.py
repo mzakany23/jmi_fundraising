@@ -7,6 +7,6 @@ class Payment(models.Model):
 	fundraiser = models.ForeignKey(Fundraiser,blank=True,null=True)
 	last_4     = models.CharField(max_length=4,blank=True,null=True)
 	card_type  = models.CharField(max_length=10,blank=True,null=True)
-
+	
 	def __unicode__(self):
 		return self.type
