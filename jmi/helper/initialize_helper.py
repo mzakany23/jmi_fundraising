@@ -38,7 +38,7 @@ class SessionUser(object):
 	def user_has_address(self):
 		return self.profile().address
 
-
+	
 	# private
 	def __get_profile(self):
 		try:
@@ -91,6 +91,7 @@ class SessionVariable(SessionUser,SessionFundraiser,SessionShipment):
 		self.svn = session_variable_name
 		super(SessionVariable,self).__init__(request)
 
+	
 	
 
 

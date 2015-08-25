@@ -1,0 +1,42 @@
+{% extends 'fundraiser/index.html' %}
+{% load staticfiles %}
+
+
+{% block start_describing_fundraiser %} 
+  <section>
+  		<h1>Fundraiser for {{ profile.organization }} </h1>
+			<h4>Tell us about your fundraiser</h4>
+      <form method="POST" action="{% url 'logged_in_describe_fundraiser' profile.slug %}">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          {{ form.title.errors }}
+          <label for="exampleInputEmail1">Fundraiser Title:</label>
+          {{ form.title }}
+        </div>			  
+
+			  <div class="form-group">
+          {{ form.description.errors }}
+			    <label for="exampleInputEmail1">Tell Us a little About Your Fundraiser:</label>
+			    {{ form.description }}
+			  </div>
+
+       
+			<!-- SHOPPING CART FOOTER -->
+      <div class="shopping-cart-footer">
+          <div class="row">
+              <div class="col-md-3">
+                  {% if session.has_fundraiser and session.has_order_steps %}
+                  <a href="{% url 'get_back_on_track' %}" class='btn btn-danger'>Go Back</a>
+                  {% else %}
+                  <button type='submit' class="btn btn-danger btn-lg btn-block">Continue</button>
+                  {% endif %}
+              </div>
+              
+          </div>
+      </div>
+      </form>
+     <!-- end shopping cart footer -->      
+    </section>    
+{% endblock %}
+

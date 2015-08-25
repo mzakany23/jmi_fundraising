@@ -54,7 +54,17 @@
                     </li>
                      -->
                     <li class='active'>
-                        <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
+                        {% if user.is_authenticated %}
+                          {% if session.has_order_steps%}
+                            <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
+                          {% else %}
+                            <a href="{% url 'choose_profile_for_fundraiser' %}">Create Fundraiser</a>
+                          {% endif %}
+                          
+                        {% else %}
+                          <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
+                        {% endif %}
+                        
                     </li>
                     
                     <!-- <li class="dropdown">
@@ -177,6 +187,7 @@
                           
                           <li><a href="{% url 'profile_show' %}"><i class="fa fa-angle-double-right"></i>Profile</a>    
                           
+                          <li><a href="{% url 'choose_profile_for_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create new Fundraiser</a>  
                         </ul>
                     </li>
                 

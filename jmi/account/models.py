@@ -29,7 +29,7 @@ class Profile(models.Model):
 		return self.has_stripe_id
 
 	def fundraisers(self):
-		return self.fundraiser_set.all()
+		return self.fundraiser_set.filter(finalized=True)
 
 	def single_line_address(self):
 		street = self.address.street

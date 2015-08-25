@@ -24,23 +24,56 @@ from helper.method_helper import return_all_objects
 
 # forms
 from django import forms
-from form import FundraiserDescribeForm
+from form import FundraiserDescribeForm, LoggedInFundraiserDescribeForm
 from shipment.form import ShipmentProfileForm
 from address.form import AddressForm,BillingAddressForm
 from account.form import SimpleSignUpForm
 
+def choose_profile_for_fundraiser(request):
+	session = SessionVariable(request)
+	try:
+		user_profiles = Profile.objects.filter(account=session.user())
+	except:
+		user_profiles = None
 
+	template = "fundraiser/choose_profile_for_fundraiser.html"
+	context = {'user_profiles' : user_profiles}
+	return render(request,template,context)
+
+def logged_in_describe_fundraiser(request,slug):
+	try:
+		profile = Profile.objects.get(slug=slug)
+	except:
+		profile = None 
+
+	form = LoggedInFundraiserDescribeForm(request.POST or None)
+
+	describe = DescribeFundraiser(request,form)
+
+	if describe.form_is_valid():
+		title = form.cleaned_data['title']
+		organization = profile.organization
+		description = form.cleaned_data['description']
+
+		if describe.fundraiser_is_unique(title=title,organization=organization,description=description):
+			describe.create_fundraiser_with_profile()
+			return HttpResponseRedirect(reverse('choose_fundraiser'))
+		else:
+			title = 'Woops, choose a more unique fundraiser name, there already exists one with the same name.'
+			messages.error(request,title)
+			return HttpResponseRedirect(reverse('describe_fundraiser'))
+		
+
+	template = 'fundraiser/describe_logged_in.html'
+	context = {
+		'profile' : profile,
+		'form' : form
+	}
+	return render(request,template,context)
 # lets-do-a-fundraiser
 def describe_fundraiser(request):
 	
-	try:
-		order_step = request.session['order_step']
-	except:
-		order_step = None
-
-	if not order_step:
-		request.session['order_step'] = None
-
+	
 	try:
 		del request.session['session_finalized_order']
 	except:
@@ -55,7 +88,7 @@ def describe_fundraiser(request):
 		organization  = form.cleaned_data['organization']
 		description   = form.cleaned_data['description']
 
-		if describe.fundraiser_is_unique(title,organization,description):
+		if describe.fundraiser_is_unique(title=title,organization=organization,description=description):
 			describe.create_fundraiser_with_profile()
 			return HttpResponseRedirect(reverse('choose_fundraiser'))
 		else:
@@ -238,7 +271,7 @@ def checkout(request):
 	)
 
 def process_checkout(request):
-	request.session['order_step'] = 'process_checkout'
+	request.session['order_step'] = None
 	try:
 		request.session['finalized_order'] = request.session['current_fundraiser']
 		del request.session['current_fundraiser']
@@ -246,7 +279,7 @@ def process_checkout(request):
 		pass
 
 	try:
-		finalized_order = Fundraiser.objects.get(id=request.session['session_finalized_order'])
+		finalized_order = Fundraiser.objects.get(id=request.session['finalized_order'])
 	except:
 		finalized_order = None
 

@@ -23,8 +23,11 @@ class DescribeFundraiser:
 	def form_is_valid(self):
 		return self.describe_form.is_valid()
 
-	def fundraiser_is_unique(self,title,organization,description):
-		
+	def fundraiser_is_unique(self,**kwargs):
+		title = kwargs['title']
+		organization = kwargs['organization']
+		description = kwargs['description']
+
 		try:
 			fr = Fundraiser.objects.get(title=title)
 		except:
