@@ -1,7 +1,8 @@
 <section>
 			<h1>Tell us about your fundraiser</h1>
-      <form method="POST" action="{% url 'describe_fundraiser' %}">
+      <form method="POST" action="{% url 'describe_fundraiser' %}" enctype="multipart/form-data">
         {% csrf_token %}
+        
         
         <div class="form-group">
           {{ form.title.errors }}
@@ -21,16 +22,19 @@
 			    {{ form.description }}
 			  </div>
 
+        <div class="form-group">
+          {{ form.org_photo.errors }}
+          <label for="orgPhoto">Add an optional Organization Photo:</label>
+          {{ form.org_photo }}
+        </div>
        
 			<!-- SHOPPING CART FOOTER -->
       <div class="shopping-cart-footer">
           <div class="row">
               <div class="col-md-3">
-                  {% if session.has_fundraiser and session.has_order_steps %}
-                  <a href="{% url 'get_back_on_track' %}" class='btn btn-danger'>Go Back</a>
-                  {% else %}
+                  
                   <button type='submit' class="btn btn-danger btn-lg btn-block">Continue</button>
-                  {% endif %}
+                  
               </div>
               
           </div>

@@ -32,6 +32,9 @@ class SessionUser(object):
 	def shipments(self):
 		pass
 
+	def user_has_a_profile(self):
+		return True if self.profile() else False
+
 	def user_is_logged_in(self):
 		return self.user().is_authenticated()
 
@@ -71,7 +74,12 @@ class SessionFundraiser(object):
 		return True if self.session_fundraiser() else False
 
 	def has_order_steps(self):
-		return True if self.request.session['order_step'] is not None else False
+		try:
+			order_step = self.request.session['order_step']
+		except:
+			order_step = None
+
+		return True if order_step is not None else False
 
 	def order_step(self):
 		return request.session['order_step']

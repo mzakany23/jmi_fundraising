@@ -2,6 +2,11 @@ from django import forms
 
 
 class FundraiserDescribeForm(forms.Form):
+	org_photo = forms.ImageField(required=False,widget=forms.FileInput(attrs={
+		"name" : "title",
+		"id" : "title",
+		'type' : 'file'
+	}))
 	title = forms.CharField(widget=forms.TextInput(attrs={
 		"name" : "title",
 		"id" : "title",
@@ -27,6 +32,8 @@ class FundraiserDescribeForm(forms.Form):
 		"placeholder" : "Tell us about your Fundraiser",
 		"type" : "text",
 	}))
+
+	
 
 class LoggedInFundraiserDescribeForm(forms.Form):
 	title = forms.CharField(widget=forms.TextInput(attrs={

@@ -19,6 +19,7 @@ class DescribeFundraiser:
 		self.organization = None
 		self.description = None
 		self.profile = None
+		self.org_photo = None
 
 	def form_is_valid(self):
 		return self.describe_form.is_valid()
@@ -27,6 +28,7 @@ class DescribeFundraiser:
 		title = kwargs['title']
 		organization = kwargs['organization']
 		description = kwargs['description']
+		org_photo = kwargs['org_photo']
 
 		try:
 			fr = Fundraiser.objects.get(title=title)
@@ -45,6 +47,7 @@ class DescribeFundraiser:
 			self.organization = organization
 			self.description = description
 			self.profile = pr
+			self.org_photo = org_photo
 
 			return True
 
@@ -55,6 +58,7 @@ class DescribeFundraiser:
 			if session.user_is_logged_in():
 				profile.account = session.user()
 			profile.slug = (slugify(profile.organization) + "-" + str(profile.id)).lower()
+			profile.org_photo = self.org_photo
 			profile.save()
 			self.profile = profile
 

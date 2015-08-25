@@ -1,0 +1,16 @@
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+django_stdimage.egg-info/PKG-INFO
+django_stdimage.egg-info/SOURCES.txt
+django_stdimage.egg-info/dependency_links.txt
+django_stdimage.egg-info/requires.txt
+django_stdimage.egg-info/top_level.txt
+stdimage/__init__.py
+stdimage/models.py
+stdimage/utils.py
+stdimage/validators.py
+stdimage/management/__init__.py
+stdimage/management/commands/__init__.py
+stdimage/management/commands/rendervariations.py

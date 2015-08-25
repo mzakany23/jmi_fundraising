@@ -29,6 +29,29 @@ from shipment.form import ShipmentProfileForm
 from address.form import AddressForm,BillingAddressForm
 from account.form import SimpleSignUpForm
 
+
+def start_process(request):
+	session = SessionVariable(request)
+	if session.user():
+		if session.user_has_a_profile():
+			return HttpResponseRedirect(reverse('choose_profile_for_fundraiser'))
+		else:
+			return HttpResponseRedirect(reverse('describe_fundraiser'))
+	else:
+		return HttpResponseRedirect(reverse('describe_fundraiser'))
+
+def start_over(request):
+	try:
+		request.session['order_step'] = None 
+		title = 'fundraiser cleared'
+		messages.success(request,title)
+	except:
+		title = 'there was no fundraiser'
+		messages.error(request,title)
+
+	return HttpResponseRedirect(reverse('describe_fundraiser'))
+
+
 def choose_profile_for_fundraiser(request):
 	session = SessionVariable(request)
 	try:
@@ -39,6 +62,7 @@ def choose_profile_for_fundraiser(request):
 	template = "fundraiser/choose_profile_for_fundraiser.html"
 	context = {'user_profiles' : user_profiles}
 	return render(request,template,context)
+
 
 def logged_in_describe_fundraiser(request,slug):
 	try:
@@ -70,25 +94,33 @@ def logged_in_describe_fundraiser(request,slug):
 		'form' : form
 	}
 	return render(request,template,context)
+
 # lets-do-a-fundraiser
 def describe_fundraiser(request):
-	
 	
 	try:
 		del request.session['session_finalized_order']
 	except:
 		request.session['session_finalized_order'] = None
 	
-	form = FundraiserDescribeForm(request.POST or None)
+	if request.POST:
+		form = FundraiserDescribeForm(request.POST,request.FILES)
+	else:
+		form = FundraiserDescribeForm(None)
 	
 	describe = DescribeFundraiser(request,form)
 	
 	if describe.form_is_valid():
+
 		title         = form.cleaned_data['title']
 		organization  = form.cleaned_data['organization']
 		description   = form.cleaned_data['description']
+		try:
+			org_photo = request.FILES['org_photo']
+		except:
+			org_photo = None
 
-		if describe.fundraiser_is_unique(title=title,organization=organization,description=description):
+		if describe.fundraiser_is_unique(title=title,organization=organization,description=description,org_photo=org_photo):
 			describe.create_fundraiser_with_profile()
 			return HttpResponseRedirect(reverse('choose_fundraiser'))
 		else:

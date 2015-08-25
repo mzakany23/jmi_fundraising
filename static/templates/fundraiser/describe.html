@@ -4,7 +4,7 @@
 
 {% block start_describing_fundraiser %} 
 	{% if session.has_order_steps %}
-		<a href="{% url 'get_back_on_track' %}"class='btn btn-default'>Resume your started fundraiser: {{ session.session_fundraiser.title }}</a>
+		<a style='margin-right: 5px;' href="{% url 'get_back_on_track' %}"class='btn btn-default'>Resume your started fundraiser: {{ session.session_fundraiser.title }}</a> or <a style='margin-left: 5px;' class='btn btn-danger' href="{% url 'start_over' %}">Delete Fundraiser</a>
 	{% endif %}
   {% include 'fundraiser/partials/_describe_regardless.html' %}  
 {% endblock %}

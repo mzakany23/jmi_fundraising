@@ -37,6 +37,8 @@ urlpatterns += patterns('',
 # fundraiser
 urlpatterns += patterns('fundraiser.views',
 	# describe
+	url(r'^start-process/$', 'start_process', name='start_process'),
+	url(r'^start-over/$', 'start_over', name='start_over'),
 	url(r'^lets-do-a-fundraiser/$', 'describe_fundraiser', name='describe_fundraiser'),
 	url(r'^choose-profile-for-fundraiser/$', 'choose_profile_for_fundraiser', name='choose_profile_for_fundraiser'),
 	url(r'^(?P<slug>[-\w]+)/lets-do-another-fundraiser/$', 'logged_in_describe_fundraiser', name='logged_in_describe_fundraiser'),
