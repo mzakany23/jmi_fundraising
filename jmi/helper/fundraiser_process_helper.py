@@ -28,7 +28,10 @@ class DescribeFundraiser:
 		title = kwargs['title']
 		organization = kwargs['organization']
 		description = kwargs['description']
-		org_photo = kwargs['org_photo']
+		try:
+			org_photo = kwargs['org_photo']
+		except:
+			org_photo = None
 
 		try:
 			fr = Fundraiser.objects.get(title=title)

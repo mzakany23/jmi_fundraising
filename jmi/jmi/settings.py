@@ -1,4 +1,4 @@
-from env_var import DATABASE, SERVER, STRIPE_API_KEY
+from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -17,6 +17,11 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 SERVER = SERVER
+
+EMAIL_USE_TLS = EMAIL['tls']
+EMAIL_HOST = EMAIL['host']
+EMAIL_HOST_USER = EMAIL['host_user']
+EMAIL_PORT = EMAIL['port']
 
 # Application definition
 
@@ -38,8 +43,10 @@ INSTALLED_APPS = (
     'address',
     'shipment',
     'marketing',
-    'payment'
+    'payment',
+    'notification'
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -105,6 +112,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','root')
 MEDIA_URL = '/media/'   
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','media')
+
+Temp_Path = os.path.realpath('.')
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR),'static','templates'),

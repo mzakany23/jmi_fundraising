@@ -12,7 +12,7 @@
         <section class="content bg-color-2 services3" id="services">
         <div class="container">
             {% if user_profiles %}
-            <h2>{{ request.user }} Profile:</h2>
+            <h2>{{ request.user }} Profiles:</h2>
             <div class="row">
                 
 
@@ -40,7 +40,7 @@
                                     {{ profile.address.state }}<br>
                                     {{ profile.address.zip_code }}<br>
                                 </li>
-                                <li class='list-group-item text-left'><label>FUNDRAISERS: </label> {{ profile.fundraisers.count }}</li>
+                                <li class='list-group-item text-left'><label>FUNDRAISERS: </label> {{ profile.fundraiser_set.count }}</li>
                             </ul>
                             <a href="{% url 'profile_detail' profile.slug %}"class='btn btn-danger'>Details</a>
                             

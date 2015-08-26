@@ -139,13 +139,7 @@ def auth_simple_sign_up(request):
 def profile_show(request):
 	session = SessionVariable(request)
 	
-	try:
-		user_profiles = Profile.objects.filter(account=session.user())
-	except: 
-		user_profiles = None
-
-	
-	context = {'user_profiles' : user_profiles}
+	context = {'user_profiles' : session.profiles()}
 	template = 'account/profile/show.html'
 	return render(request,template,context)
 
@@ -158,8 +152,9 @@ def profile_detail(request,slug):
 
 	fundraiser = profile.fundraisers().first().slug
 	
-	if profile.fundraisers().count() == 1:
+	if profile.fundraiser_set.all().count() == 1:
 		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser,)))
+	
 	context = {'profile' : profile}
 	template = 'account/profile/detail.html'
 	return render(request,template,context)

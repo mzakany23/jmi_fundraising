@@ -14,18 +14,32 @@
             <hr>
             <div class="row">
                 
-                {% for fundraiser in profile.fundraisers %}
+                {% for fundraiser in profile.fundraiser_set.all %}
                 <!-- Service -->
                 <div class="col-md-4 col-sm-6">
                     <div class="service">
-                        <i class="fa fa-desktop" style='margin-bottom: 5px;'></i>
+                        <img src="{{ profile.org_photo.thumbnail.url }}" style='margin-bottom: 15px;' class="img-circle" alt="Circular Image">
                         <div class="service-body">
                             <ul class='list-group' style='min-height: 300px;'>
-                                <li class='list-group-item text-left'><label>TITLE:</label> {{ fundraiser.title }}</li>
-                                <li class='list-group-item text-left'><label>START DATE:</label> {{ fundraiser.created }}</li>
-                                <li class='list-group-item text-left'><label>DISCOUNT:</label> {{ fundraiser.discount }}</li>
-                                <li class='list-group-item text-left'><label>COST:</label> ${{ fundraiser.total_cost_in_dollars }}</li>
-                                <li class='list-group-item text-left'><label>SHIPPED:</label> <br></li>
+                                <li class='list-group-item text-left'><label>TITLE:
+                                <p></label> {{ fundraiser.title }}</p>
+                                </li>
+                                <li class='list-group-item text-left'>
+                                    <label>START DATE:</label> 
+                                    <p>{{ fundraiser.created }}</p>
+                                </li>
+                                <li class='list-group-item text-left'>
+                                    <label>DISCOUNT:</label> 
+                                    <p>${{ fundraiser.discount }}</p>
+                                </li>
+                                <li class='list-group-item text-left'>
+                                    <label>COST:</label> 
+                                    <p>${{ fundraiser.total_cost_in_dollars }}</p>
+                                </li>
+                                <li class='list-group-item text-left'>
+                                    <label>SHIPPED:</label> 
+                                    <p>something</p>
+                                </li>
                             </ul>
                             <a href="{% url 'profile_fundraiser_detail' fundraiser.slug %}"class='btn btn-danger'>Details</a>
                             

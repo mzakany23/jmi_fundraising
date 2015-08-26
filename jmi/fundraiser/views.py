@@ -32,6 +32,7 @@ from account.form import SimpleSignUpForm
 
 def start_process(request):
 	session = SessionVariable(request)
+	
 	if session.user():
 		if session.user_has_a_profile():
 			return HttpResponseRedirect(reverse('choose_profile_for_fundraiser'))

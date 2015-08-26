@@ -4,7 +4,11 @@
 
 {% block start_describing_fundraiser %} 
   <section>
-  		<h1>Fundraiser for {{ profile.organization }} </h1>
+      <div class='text-center' style='margin-bottom: 20px;'>
+      <img src="{{ profile.org_photo.thumbnail.url }}" class="img-circle" alt="Circular Image">
+  		<h1>{{ profile.organization }} </h1>
+      <h4>Fundraiser</h4>
+      </div>
 			<h4>Tell us about your fundraiser</h4>
       <form method="POST" action="{% url 'logged_in_describe_fundraiser' profile.slug %}">
         {% csrf_token %}

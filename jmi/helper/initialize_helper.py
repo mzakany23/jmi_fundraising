@@ -21,19 +21,21 @@ class SessionUser(object):
 
 	def fundraisers(self):
 		try:
-			fundraisers = self.user().fundraiser_set.all()
+			fundraisers = self.profile().fundraiser_set.all()
+			print 'he'
+			print fundraisers
 		except:
 			fundraisers = None
 		return fundraisers
 
-	def profile(self):
-		return self.__get_profile()
+	def profiles(self):
+		return self.__get_profiles()
 
 	def shipments(self):
 		pass
 
 	def user_has_a_profile(self):
-		return True if self.profile() else False
+		return True if self.profiles() else False
 
 	def user_is_logged_in(self):
 		return self.user().is_authenticated()
@@ -43,13 +45,12 @@ class SessionUser(object):
 
 	
 	# private
-	def __get_profile(self):
+	def __get_profiles(self):
 		try:
-			fundraiser = Fundraiser.objects.get(account=self.user())
-			profile = fundraiser.profile
+			profiles = Profile.objects.filter(account=self.user())
 		except:
-			profile = None 
-		return profile
+			profiles = None 
+		return profiles
 
 class SessionFundraiser(object):
 	def __init__(self,request):

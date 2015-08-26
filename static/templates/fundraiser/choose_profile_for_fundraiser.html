@@ -3,12 +3,10 @@
 
 
 {% block logged_in_describing_fundraiser %} 
-  <section class="content bg-color-2" id="profile-single">
-    	<div class="container">
-            <div class="row">
+  
             
         <section class="content bg-color-2 services3" id="services">
-        <div class="container">
+        
             <h1>Create Fundraiser:</h1>
             <br>
             {% if user_profiles %}
@@ -17,10 +15,11 @@
                 
                 {% for profile in user_profiles %}
                 <!-- Service -->
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-6 col-sm-6">
                     <div class="service">
                         
                         {% if profile.org_photo %}
+            
                         <img src="{{ profile.org_photo.thumbnail.url }}" style='margin-bottom: 15px;' class="img-circle" alt="Circular Image">
                         {% else %}
                         <li class='list-group-item text-left'><label>EMAIL:</label> {{ profile.email }}</li>
@@ -41,7 +40,7 @@
                                 </li>
                                 <li class='list-group-item text-left'><label>FUNDRAISERS: </label> <a href="{% url 'profile_detail' profile.slug %}">{{ profile.fundraisers.count }}</a></li>
                             </ul>
-                            <a href="{% url 'logged_in_describe_fundraiser' profile.slug %}"class='btn btn-danger'>create fundraiser with this profile</a>
+                            <a href="{% url 'logged_in_describe_fundraiser' profile.slug %}"class='btn btn-danger'>use this profile</a>
                             
                             
                         </div>
@@ -66,14 +65,11 @@
                 
                 
                                 
-            </div>
+            
         </div>
     </section>
                 
                 
-                                
-            </div>
-        </div>
-    </section>
+
 {% endblock %}
 
