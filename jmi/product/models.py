@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils.text import slugify
 from django.dispatch import receiver
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
 class Product(models.Model):
 	product_code = models.CharField(max_length=100,blank=True,null=True)
@@ -16,7 +18,9 @@ class Product(models.Model):
 
 	def __unicode__(self):
 		return self.title
-
+	
+	def get_absolute_url(self):
+		return "%s/media/%s" % (settings.SERVER, self.image)
 
 def generate_product_code_receiver(sender,instance,created,*args,**kwargs):
 	if created:
@@ -62,10 +66,17 @@ class ProductImage(models.Model):
 
 
 class Category(models.Model):
-	title        = models.CharField(max_length=40,blank=True,null=True)
+	title = models.CharField(max_length=40,blank=True,null=True)
+	order = models.IntegerField(default=0,blank=True,null=True)  
+	slug  = models.CharField(max_length=40,blank=True,null=True)     
 
 	def __unicode__(self):
 		return self.title
+
+	def save(self,*args, **kwargs):
+		self.slug = slugify(self.title) + "-" + str(self.id)
+		super(Category, self).save(*args, **kwargs)
+
 
 
 

@@ -5,6 +5,7 @@ from django.conf import settings
 from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser
 from marketing.form import EmailNewsLetterForm
+from product.models import Category
 
 def home(request):
 	context = {}
@@ -12,6 +13,11 @@ def home(request):
 	return render(request,template,context)
 
 def get_home_variables(request):
+	try:
+		categories = Category.objects.all().order_by('order')
+	except:
+		categories = None 
+
 	try:
 		session_fundraiser = Fundraiser.objects.get(id=request.session['current_fundraiser'])
 	except:
@@ -48,6 +54,7 @@ def get_home_variables(request):
 
 	return {
 		'session' : session,
+		'categories' : categories,
 		'session_fundraiser' : session_fundraiser,
 		'ready_to_checkout' : ready_to_checkout,
 		'already_has_shipment' : already_has_shipment,

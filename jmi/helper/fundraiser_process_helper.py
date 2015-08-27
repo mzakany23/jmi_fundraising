@@ -10,6 +10,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from initialize_helper import SessionVariable
+from product.models import Category
 
 class DescribeFundraiser:
 	def __init__(self,request,form):
@@ -81,12 +82,82 @@ class DescribeFundraiser:
 		self.request.session['current_fundraiser'] = fundraiser.id
 		self.request.session['session_finalized_order'] = fundraiser.id
 
+class ProductSetHelper:
+	def __init__(self,slug=None):
+		self.slug = slug
+
+	def get_category(self):
+		try:
+			category = Category.objects.get(slug=self.slug)
+		except:
+			category = None
+		return category
+			
+	def categories(self):
+		try:
+			categories = Category.objects.all()
+		except:
+			categories = None
+		return categories
+
+	def products_by_category(self):
+		try:
+			category = Category.objects.get(slug=self.slug)
+			products = Product.objects.filter(category=category)
+		except:
+			products = None 
+		return products
+
+	def all(self):
+		try:
+			products = Product.objects.all()
+		except:
+			products = None
+		return products 
+
+	def all_by_category(self):
+		product_set = {}
+		products = Product.objects.all()
+	
+		for product in products:
+			category = product.category.first()
+			keys     = product_set.keys()
+			if category in keys:
+				product_set[category].append(product)
+			else:
+				product_set[category] = []
+				product_set[category].append(product)
+
+		return product_set
+
 
 class OptionFundraiser:
-	
-	def get_fundraiser_by_slug(self,slug):
+	def __init__(self,slug=None):
+		self.slug = slug 
+
+	def generate_product_set_by_category(self):
+		product_set = {}
+		fundraiser_type = self.get_fundraiser_by_slug()
+		
+		for product in fundraiser_type.selections.all():
+			try:
+				category = product.category.first()
+			except: 
+				category = None 
+
+			if category and category in product_set.keys():
+				product_set[category].append(product)
+			elif category and not category in product_set.keys():
+				product_set[category] = []
+				product_set[category].append(product)
+		
+		return product_set
+
+
+
+	def get_fundraiser_by_slug(self,):
 		try:
-			fundraiser_type = FundraiserType.objects.get(slug=slug)
+			fundraiser_type = FundraiserType.objects.get(slug=self.slug)
 		except:
 			fundraiser_type = None
 

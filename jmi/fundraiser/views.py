@@ -32,7 +32,7 @@ from account.form import SimpleSignUpForm
 
 def start_process(request):
 	session = SessionVariable(request)
-	
+
 	if session.user():
 		if session.user_has_a_profile():
 			return HttpResponseRedirect(reverse('choose_profile_for_fundraiser'))
@@ -146,16 +146,26 @@ def choose_fundraiser(request):
 	return render(request,template,context)
 
 def chosen_fundraiser_type(request,slug):
+
 	request.session['order_step'] = 'selections'
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
-	fundraiser_type = OptionFundraiser().get_fundraiser_by_slug(slug)
+	option = OptionFundraiser(slug)
+	fundraiser_type = option.get_fundraiser_by_slug()
+	product_set = option.generate_product_set_by_category()
 
-	if session_fundraiser and fundraiser_type:
-		session_fundraiser.type = fundraiser_type
+	try:
+		type = FundraiserType.objects.get(slug=slug)
+	except:
+		type = None
+
+	if session_fundraiser and type:
+		session_fundraiser.type = type 
 		session_fundraiser.save()
 
+
 	context = {
-		'fundraiser_type' : fundraiser_type, 
+		'fundraiser_type' : fundraiser_type,
+		'product_set' : product_set
 	}
 
 	template = 'fundraiser/choose-salsas.html'
@@ -289,14 +299,16 @@ def edit_shipment(request,id):
 
 def checkout(request):
 	request.session['order_step'] = 'checkout'
-	session_shipment = SessionVariable(request,'current_fundraiser').session_shipment()
+	session = SessionVariable(request,'current_fundraiser')
+	session_shipment = session.session_shipment()
+	session_fundraiser = session.session_fundraiser()
 	
 	try:
 		stripe_api_key = settings.STRIPE_API_KEY 
 	except:
 		stripe_api_key = None
 
-	context = {'stripe_api_key' : stripe_api_key,'session_shipment' : session_shipment}
+	context = {'stripe_api_key' : stripe_api_key,'session_shipment' : session_shipment,'session_fundraiser' : session_fundraiser}
 	template = 'fundraiser/checkout.html'
 	return render(
 		request,template,context,

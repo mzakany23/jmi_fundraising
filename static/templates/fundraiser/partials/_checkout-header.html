@@ -1,6 +1,5 @@
 {% load staticfiles %}
 
-{% if not request.resolver_match.url_name == 'choose_profile_for_fundraiser' %}
 <div class="shopping-cart-header row">
     <div class="col-md-3 {% if request.resolver_match.url_name == 'describe_fundraiser' %}active{% endif %}" id='describe'>
 

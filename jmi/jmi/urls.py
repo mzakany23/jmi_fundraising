@@ -29,6 +29,12 @@ urlpatterns += patterns('account.views',
 
 )
 
+# product
+urlpatterns += patterns('product.views',
+	url(r'^products/show-salsas/$','show_all_salsas',name='show_all_salsas'),
+	url(r'^categories/(?P<slug>[-\w]+)','show_by_category',name='show_by_category'),
+)
+
 # media
 urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})

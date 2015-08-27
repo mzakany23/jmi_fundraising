@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+
+{% block products %}
+
+	<!-- ==========================
+    	ESHOP - START 
+    =========================== -->
+    <section class="content bg-color-2" id="eshop">
+    	<div class="container">
+            <div class="row eshop-main eshop-list">
+            	<!-- ESHOP SIDEBAR - START -->
+            	<div class="col-md-3 eshop-sidebar">
+                <div class="eshop-widget">
+                    <h3>Categories</h3>
+                    <h4>Salsa</h4>
+                    <ul class="nav vertical-nav">
+                    	<li><a style="{% if category == 'all_salsas' %}color: red{% endif %}"href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>All Salsas</a></li>
+                    		{% for menu_category in categories %}
+                        <li><a style="{% if menu_category.title == category.title %}color: red;{% endif %}" href="{% url 'show_by_category' menu_category.slug %}"><i class="fa fa-angle-double-right"></i>{{ menu_category.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+              </div>
+                <!-- ESHOP SIDEBAR - END -->
+                
+            	<!-- ESHOP CONTENT - START -->
+                <div class="col-md-9 eshop-content">
+                	{% block show_by_category %}{% endblock %}
+                	{% block show_by_detail %}{% endblock %}
+                	{% block show_all_salsas %}{% endblock %}
+                <!-- ESHOP CONTENT - END -->
+                </div>
+            </div>
+
+			</div>	
+    </section>
+{% endblock %}

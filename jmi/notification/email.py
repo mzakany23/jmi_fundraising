@@ -1,23 +1,16 @@
+import django 
+
+from django.conf import settings
+
+print django.__path__
+
+
 # from django.template.loader import render_to_string, get_template
 # from django.core.mail import EmailMessage
 # from django.template import Context
 
 
-import sys
-sys.path.append('/Users/mzakany/Desktop/jmi_fundraising/lib/python2.7/site-packages/django')
-
-from django import template 
-
-
-
-
-# ['VERSION', '__builtins__', '__doc__', '__file__', '__name__', '__package__', '__path__', 'get_version', 'setup']
-
-
-
-
-
-
+# class EmailHelper:
 # 	def __init__(self,**kwargs):
 # 		self.subject = kwargs['subject']
 # 		self.message = kwargs['message']
@@ -34,16 +27,3 @@ from django import template
 # email = EmailHelper(subject='some subject', message='some message', from_email='mzakany@gmail.com',to_list=['mzakany@gmail.com'])
 
 # email.send_html_email('email/index.html',{'user' : 'mzakany'})
-
-
-
-
-
-
-
-
-
-
-
-
-

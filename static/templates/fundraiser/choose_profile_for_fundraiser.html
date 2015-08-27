@@ -38,7 +38,7 @@
                                     {{ profile.address.state }}<br>
                                     {{ profile.address.zip_code }}<br>
                                 </li>
-                                <li class='list-group-item text-left'><label>FUNDRAISERS: </label> <a href="{% url 'profile_detail' profile.slug %}">{{ profile.fundraisers.count }}</a></li>
+                                <li class='list-group-item text-left'><label>FUNDRAISERS: </label> <a href="{% url 'profile_detail' profile.slug %}">{{ profile.fundraiser_set.all.count }}</a></li>
                             </ul>
                             <a href="{% url 'logged_in_describe_fundraiser' profile.slug %}"class='btn btn-danger'>use this profile</a>
                             

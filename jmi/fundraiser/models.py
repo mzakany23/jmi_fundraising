@@ -32,7 +32,7 @@ class Fundraiser(models.Model):
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
-	def selection(self):
+	def selections(self):
 		return self.shipment().selection_set.all()
 
 	def is_discount(self):

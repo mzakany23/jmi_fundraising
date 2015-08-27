@@ -10,19 +10,22 @@
 <form method="POST" action="{% url 'choose_salsas' %}">
 	{% csrf_token %}
 <div class="row">
-	{% for type in fundraiser_type.selections.all %}
+	
+  {% for category,products in product_set.items %}
+  <h1>{{ category }}</h1>
+  {% for product in products %}
  <!-- SHOPPING CART ITEM -->
   <div class="shopping-cart-item">
       <!-- <a href="#" class="delete"><i class="fa fa-times"></i></a> -->
-      <input type='hidden' name='product' value="{{ type.id }}">
+      <input type='hidden' name='product' value="{{ product.id }}">
       <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
       
       <div class="row">
           <div class="col-md-2">
-              <img src="{{ settings.server }}/media/{{ type.image }}" class="img-responsive" alt="">
+              <img src="{{ settings.server }}/media/{{ product.image }}" class="img-responsive" alt="">
           </div>
           <div class="col-md-5">
-              <h3>{{ type.title }}</h3>
+              <h3>{{ product.title }}</h3>
               <!-- <p>Code: #12542354</p> -->
           </div>
           <div class="col-md-2">
@@ -36,6 +39,7 @@
           </div> -->
       </div>
   </div>
+  {% endfor %}
   {% endfor %}
   
 </div>     
