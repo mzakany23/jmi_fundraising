@@ -43,7 +43,7 @@ class Profile(models.Model):
 		return "%s %s %s, %s" % (street,city,state,zip)
 
 	def get_absolute_url(self):
-		return "%s/media/%s" % (settings.SERVER, self.image)
+		return "%s/media/%s" % (settings.SERVER, self.org_photo)
 		
 
 

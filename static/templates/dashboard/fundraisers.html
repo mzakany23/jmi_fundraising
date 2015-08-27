@@ -46,15 +46,15 @@
                                     </thead>
                                     <tbody>
                                         {% for fundraiser in dashboard.all_fundraisers %}
-                                        <tr class="odd gradeX">
+                                        <tr style="{% if fundraiser.status == 'unpaid' %}color: red;{% endif %}" class="odd gradeX">
                                             <td>{{ fundraiser.created }}</td>
                                             <td>{{ fundraiser.status }}</td>
                                             <td>{{ fundraiser.get_payment_type }}</td>
                                             <td>{{ fundraiser.title }}</td>
                                             <td>{{ fundraiser.organization }}</td>
                                             <td>{{ fundraiser.type }}</td>             
-                                        {% endfor %}
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>

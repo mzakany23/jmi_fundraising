@@ -28,7 +28,7 @@ class SessionUser(object):
 
 	def get_first_profile_image_absoulute_url(self):
 		if self.profiles():
-			return self.profiles()[0].get_absolute_url
+			return self.profiles()[0].get_absolute_url()
 		else:
 			return settings.PLACEHOLDER_PIC
 
