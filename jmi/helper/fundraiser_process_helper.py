@@ -1,17 +1,53 @@
+# django
+from django.utils.text import slugify
+from django.contrib import messages
+from django.shortcuts import render, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate,login,logout
+
+# apps
+from product.models import Category
+from django.contrib.auth.models import User
 from fundraiser.models import Fundraiser, FundraiserType
 from account.models import Profile
 from shipment.models import Shipment, Selection
 from product.models import Product
 from address.models import Address
 
-from django.utils.text import slugify
-from django.contrib import messages
-from django.shortcuts import render, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-
+# helper
 from initialize_helper import SessionVariable
-from product.models import Category
 
+
+class AuthUserHelper:
+	def __init__(self,request,form):
+		self.form     = form 
+		self.request  = request
+		self.username = None 
+		self.password = None
+		self.auth     = None
+	
+	def form_is_valid(self):
+		return self.form.is_valid()
+
+	def login_with_username_and_password(self):
+		username = self.form.cleaned_data['username']
+		password = self.form.cleaned_data['password']
+
+		try:
+			user = User.objects.get(username=username)
+			user_auth = authenticate(username=user.username,password=password)
+		except:
+			user_auth = None 
+
+		if user_auth:
+			self.auth = user_auth
+			login(self.request,user_auth)
+
+
+	def logged_in_successfully(self):
+		return True if self.auth else False
+
+		
 class DescribeFundraiser:
 	def __init__(self,request,form):
 		self.request = request

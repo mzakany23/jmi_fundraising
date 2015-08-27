@@ -1,6 +1,30 @@
 from django import forms
 from django.forms import ModelForm
 
+class DashboardLoginForm(forms.Form):
+	username = forms.CharField(widget=forms.TextInput(attrs={
+		"name" : "username",
+		"id" : "username",
+		"class" : "form-control input-lg",
+		"placeholder" : "Your username:",
+		"type" : "username",
+	}))
+	email = forms.EmailField(required=False,widget=forms.EmailInput(attrs={
+		"name" : "email",
+		"id" : "email",
+		"class" : "form-control input-lg",
+		"placeholder" : "Your email:",
+		"type" : "email",
+	}))
+
+	password = forms.CharField(widget=forms.TextInput(attrs={
+		"name" : "password",
+		"id" : "password",
+		"class" : "form-control input-lg",
+		"placeholder" : "Password:",
+		"type" : "password",
+	}))
+
 class LoginForm(forms.Form):
 	username = forms.CharField(widget=forms.TextInput(attrs={
 		"name" : "username",

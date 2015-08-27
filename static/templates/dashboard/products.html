@@ -43,7 +43,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for product in all_products %}
+                                        {% for product in dashboard.all_products %}
                                         <tr class="odd gradeX">
                                             <td><img width='25' height='25' src="{{ settings.server }}/media/{{ product.image }}"></td>
                                             <td>{{ product.title }}</td>

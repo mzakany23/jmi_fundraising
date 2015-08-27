@@ -42,4 +42,8 @@ class Profile(models.Model):
 		zip    = self.address.zip_code
 		return "%s %s %s, %s" % (street,city,state,zip)
 
+	def get_absolute_url(self):
+		return "%s/media/%s" % (settings.SERVER, self.image)
+		
+
 

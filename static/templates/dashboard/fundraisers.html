@@ -37,20 +37,22 @@
                                     <thead>
                                         <tr>
                                             <th>Date Created</th>
+                                            <th>Status</th>
+                                            <th>Payment</th>
                                             <th>Title</th>
-                                            <th>Process</th>
                                             <th>Organization</th>
                                             <th>Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for fundraiser in all_fundraisers %}
+                                        {% for fundraiser in dashboard.all_fundraisers %}
                                         <tr class="odd gradeX">
                                             <td>{{ fundraiser.created }}</td>
                                             <td>{{ fundraiser.status }}</td>
+                                            <td>{{ fundraiser.get_payment_type }}</td>
                                             <td>{{ fundraiser.title }}</td>
                                             <td>{{ fundraiser.organization }}</td>
-                                            <td>{{ fundraiser.type }}</td>
+                                            <td>{{ fundraiser.type }}</td>             
                                         {% endfor %}
                                         </tr>
                                     </tbody>

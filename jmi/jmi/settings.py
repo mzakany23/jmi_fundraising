@@ -18,6 +18,9 @@ ALLOWED_HOSTS = []
 
 SERVER = SERVER
 
+PLACEHOLDER_PIC = SERVER + '/media/product_images/placeholder.jpg'
+LOGO = SERVER + '/static/jmi-images/logo.png'
+
 EMAIL_USE_TLS = EMAIL['tls']
 EMAIL_HOST = EMAIL['host']
 EMAIL_HOST_USER = EMAIL['host_user']

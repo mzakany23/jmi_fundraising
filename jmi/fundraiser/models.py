@@ -88,8 +88,9 @@ class Fundraiser(models.Model):
 			selections = None
 
 		return selections
+
 	
-	def payments(self):
+	def get_payment_type(self):
 		try: 
 			payments = self.payment_set.first()
 		except:

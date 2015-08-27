@@ -3,10 +3,12 @@ from django.contrib.auth import authenticate,login,logout
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 
+# app
 from django.contrib.auth.models import User
 from models import Profile
 from fundraiser.models import Fundraiser
 
+# forms
 from form import LoginForm,RegisterUserForm,SimpleSignUpForm
 from helper.initialize_helper import SessionVariable
 from django.contrib.auth.decorators import login_required

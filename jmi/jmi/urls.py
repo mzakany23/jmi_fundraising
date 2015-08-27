@@ -71,6 +71,7 @@ urlpatterns += patterns('marketing.views',
 
 # admin-dashboard
 urlpatterns += patterns('dashboard.views',
+	url(r'^dashboard/login/$','jmi_admin_login',name='jmi_admin_login'),
 	url(r'^dashboard/$', 'dashboard_index', name='dashboard_index'),
 )
 

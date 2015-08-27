@@ -1,20 +1,36 @@
+from django.conf import settings
+
 from fundraiser.models import Fundraiser, FundraiserType
 from account.models import Profile
 from shipment.models import Shipment, Selection
 from product.models import Product
 from address.models import Address
 
+'''
+	to access everything except the session fundraiser
+	session = SessionVariable(request)
+	to access everything
+	session = SessionVariable(request,'current_fundraiser')
+'''
+
 class SessionUser(object):
 	def __init__(self,request):
 		self.request = request
 		
-	
 	def user(self):
 		try:
 			user = self.request.user 
 		except:
 			user = None 
 		return user
+	def logo(self):
+		return settings.LOGO 
+
+	def get_first_profile_image_absoulute_url(self):
+		if self.profiles():
+			return self.profiles()[0].get_absolute_url
+		else:
+			return settings.PLACEHOLDER_PIC
 
 	def user_has_fundraiser(self):
 		return True if self.fundraisers() else False
@@ -22,7 +38,6 @@ class SessionUser(object):
 	def fundraisers(self):
 		try:
 			fundraisers = self.profile().fundraiser_set.all()
-			print 'he'
 			print fundraisers
 		except:
 			fundraisers = None
