@@ -17,6 +17,7 @@ from account.form import DashboardLoginForm
 # helper
 from helper.fundraiser_process_helper import AuthUserHelper,SessionVariable
 from helper.dashboard_helper import DashboardHelper
+from helper.email_helper import EmailHelper
 
 def dashboard_index(request):
 	session = SessionVariable(request)
