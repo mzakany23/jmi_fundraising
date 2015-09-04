@@ -7,6 +7,8 @@ from fundraiser.models import Fundraiser
 from marketing.form import EmailNewsLetterForm
 from product.models import Category
 
+from product.forms import ProductSearchForm
+
 def home(request):
 	context = {}
 	template = 'home/index.html'
@@ -59,6 +61,7 @@ def get_home_variables(request):
 		'ready_to_checkout' : ready_to_checkout,
 		'already_has_shipment' : already_has_shipment,
 		'current_shipment' : current_shipment,
-		'newsletter_form' : EmailNewsLetterForm
+		'newsletter_form' : EmailNewsLetterForm,
+		'search_form' : ProductSearchForm()
 	}
 

@@ -118,6 +118,32 @@ class DescribeFundraiser:
 		self.request.session['current_fundraiser'] = fundraiser.id
 		self.request.session['session_finalized_order'] = fundraiser.id
 
+class ProductSearchHelper:
+	def __init__(self,request,form):
+		self.request  = request
+		self.form     = form 
+		
+		if request.POST:
+			self.keywords = (form.data['keywords'].split(','))
+		else:
+			self.keywords = None
+
+	def form_has_words(self):
+		return True if self.wordlist else False
+
+	def get_search_results(self):
+		results = []
+		try:
+			for keyword in self.keywords:
+				category_search = Product.objects.filter(title__contains=keyword).filter(category__title__contains=keyword)
+				results.append(category_search)
+		except:
+			pass
+
+		return results
+
+
+
 class ProductSetHelper:
 	def __init__(self,slug=None):
 		self.slug = slug

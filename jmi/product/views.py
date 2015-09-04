@@ -3,7 +3,9 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 
-from helper.fundraiser_process_helper import ProductSetHelper
+from forms import ProductSearchForm
+
+from helper.fundraiser_process_helper import ProductSetHelper,ProductSearchHelper
 
 
 def show_all_salsas(request):
@@ -18,4 +20,16 @@ def show_by_category(request,slug):
 	category             = helper.get_category()
 	context = {'products' : products_by_category, 'category' : category}
 	template = "product/filtered_by_category.html"
+	return render(request,template,context)
+
+def search_salsas(request):
+	form = ProductSearchForm(request.POST or None)
+	helper = ProductSearchHelper(request,form)
+	if form.is_valid():
+		products = helper.get_search_results()
+	else:
+		return HttpResponseRedirect(reverse('show_all_salsas'))
+	
+	template = 'product/search_results.html'
+	context = {'products' : products}
 	return render(request,template,context)

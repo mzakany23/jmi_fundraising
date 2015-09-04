@@ -32,7 +32,8 @@ urlpatterns += patterns('account.views',
 # product
 urlpatterns += patterns('product.views',
 	url(r'^products/show-salsas/$','show_all_salsas',name='show_all_salsas'),
-	url(r'^categories/(?P<slug>[-\w]+)','show_by_category',name='show_by_category'),
+	url(r'^categories/(?P<slug>[-\w]+)/$','show_by_category',name='show_by_category'),
+	url(r'^search-salsas/$','search_salsas',name='search_salsas'),
 )
 
 # media
