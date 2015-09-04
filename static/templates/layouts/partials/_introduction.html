@@ -4,6 +4,16 @@
             <h2>Fundraising Steps</h2>
             <p><b>Thanks for considering us.</b> The process to fundraise using our products is pretty simple. Just tell us a little about your fundraiser, what salsas you want, where to ship - and well have the salsa to you in 5 business days. Pretty simple. </p>
 
-            <a href="{% url 'describe_fundraiser' %}"><button class="btn btn-lg btn-primary">Lets get started!</button></a>
+            {% if user.is_authenticated %}
+              {% if session.has_order_steps%}
+                <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
+              {% else %}
+                <a class="btn btn-lg btn-primary"href="{% url 'choose_profile_for_fundraiser' %}">Lets get started</a>
+              {% endif %}
+              
+            {% else %}
+              <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
+            {% endif %}
+            
         </div>
     </section>
