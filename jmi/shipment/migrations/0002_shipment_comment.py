@@ -7,14 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipment', '0002_selection'),
+        ('comment', '0001_initial'),
+        ('shipment', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='shipment',
-            name='address',
-            field=models.ForeignKey(blank=True, to='address.Address', null=True),
+            name='comment',
+            field=models.ForeignKey(blank=True, to='comment.FundraiserOrderComment', null=True),
             preserve_default=True,
         ),
     ]

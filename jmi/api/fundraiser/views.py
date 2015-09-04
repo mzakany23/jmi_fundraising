@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 
 from helper.initialize_helper import SessionVariable
 from payment.models import Payment
+from comment.models import FundraiserOrderComment
+from jmi.env_var import STRIPE_API_KEY
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -15,16 +17,22 @@ from serializers import FundraiserFormSerializer
 class FundraiserProcessView(APIView):
 	
 	def post(self,request,format=None):
-		session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
-		post   = request.POST
-		check  = post['type'] == 'check'
-		credit = post['type'] == 'credit'
+		session            = SessionVariable(request,'current_fundraiser')
+		session_fundraiser = session.session_fundraiser()
+		session_shipment   = session.session_shipment()
 
+		post     = request.POST
+		check    = post['type'] == 'check'
+		credit   = post['type'] == 'credit'
+		comment  = post['comment']
 		response = None 
 
 		if check:
 			if session_fundraiser:
-
+				comment_form,created = FundraiserOrderComment.objects.get_or_create(fundraiser=session_fundraiser,comment=comment)
+				if created:
+					session_shipment.comment = comment_form
+					session_shipment.save()
 				payment = Payment.objects.create(type='check')
 				payment.fundraiser = session_fundraiser
 				session_fundraiser.status = 'unpaid'
@@ -40,14 +48,30 @@ class FundraiserProcessView(APIView):
 			# get the card type
 			# get stripe id i think
 
-			token = post['token']
-			
+			stripe.api_key = STRIPE_API_KEY['pwd']
+
+			token                 = post['token']
+			amount                = post['amount']
+			description           = post['description'] 
+			transaction_succeeded = False
+
+			try:
+				charge = stripe.Charge.create(
+					amount=amount, # amount in cents, again
+					currency="usd",
+					source=token,
+					description=description
+			  	)
+			  	transaction_succeeded = True
+
+			except stripe.error.CardError, e:
+			  	pass
+
 			# if session fundraiser exists and payment was successful:
 			# then create a payment and set the fundraise blah blah blah
-			if session_fundraiser:
-
-				# payment = Payment.objects.create(type='credit')
-				# payment.fundraiser = session_fundraiser
+			if session_fundraiser and transaction_succeeded:
+				payment = Payment.objects.create(type='credit')
+				payment.fundraiser = session_fundraiser
 				response = Response('Success', status=status.HTTP_200_OK)
 		else:
 			response = Response('Error', status=status.HTTP_200_OK)

@@ -3,14 +3,14 @@ from django.db import models
 from fundraiser.models import Fundraiser
 from address.models import Address
 from product.models import Product
-from comment.models import Comment
+from comment.models import FundraiserOrderComment
 
 from helper.number_format_helper import NumberFormat
 
 class Shipment(models.Model):
 	fundraiser = models.ForeignKey(Fundraiser)
 	address    = models.ForeignKey(Address,blank=True,null=True)
-	comment    = models.ForeignKey(Comment,blank=True,null=True)
+	comment    = models.ForeignKey(FundraiserOrderComment,blank=True,null=True)
 	created    = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated    = models.DateTimeField(auto_now_add=False,auto_now=True)
 
@@ -18,6 +18,14 @@ class Shipment(models.Model):
 	def __unicode__(self):
 		return str(self.address)
 
+	def has_selections(self):
+		return True if self.selection_set.first() else False
+		
+	def remove_selections(self):
+		if self.has_selections():	
+			for selection in self.selection_set.all():
+				selection.delete()
+		
 	def shipping_cost(self):
 		if self.free_shipping():
 			return "FREE Shipping!"

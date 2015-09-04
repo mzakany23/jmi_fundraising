@@ -48,7 +48,7 @@
                 </div>
                 {% endfor %}
                 
-                <!-- ==========================
+    <!-- ==========================
       PORTFOLIO POST - START 
     =========================== -->
     
@@ -92,6 +92,47 @@
     
     <!-- ==========================
       PORTFOLIO POST - END 
+    =========================== --> 
+
+    <!-- ==========================
+      COMMENT POST - START 
+    =========================== -->
+    
+      
+        <!-- BLOG POST -->
+        <h3>Order Comment</h3>
+        <div id='checkoutErrors' style="display: none;"class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          Make sure to select a payment type!
+        </div>
+
+        <div class="shopping-cart">
+                <form class="form-payment" id='payment-form 'action="{% url 'checkout' %}">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                  <textarea class="form-control" id='commentForm' rows="3"></textarea>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        
+                        <div style='display:none' id='creditCardForm'>
+                          {% include 'fundraiser/partials/_credit-card-form.html' %}
+                        </div>
+                        <div style='display:none' id='checkPaymentForm'>{% include 'fundraiser/partials/_check_description.html' %}</div>
+                        
+                    </fieldset>
+                
+            </div>
+              
+
+    
+    
+    <!-- ==========================
+      COMMENT POST - END 
     =========================== --> 
                 
                 <!-- SHOPPING CART FOOTER -->
@@ -213,6 +254,7 @@ $(function(){
 
   function sendTokenToServer(token){
     var csrf_token = $("input[name=csrfmiddlewaretoken]").val()
+    var comment    = $("#commentForm").val()
     $.ajax({
       type: "POST",
       url: "{% url 'process_fundraiser' %}",
@@ -220,7 +262,10 @@ $(function(){
       data: {
         csrfmiddlewaretoken: csrf_token,
         type: 'credit',
-        token: token
+        token: token,
+        comment: comment,
+        amount: "{{ session_fundraiser.net_total }}",
+        description: "{{ session_fundraiser.title }}" + " Fundraiser Receipt"
       },
       success: function(data){
         window.location = "{% url 'process_checkout' %}";
@@ -269,13 +314,15 @@ $(function(){
         }
 
       } else if (state == 'check') {
+        var comment    = $("#commentForm").val()
         $.ajax({
           type: "POST",
           url: "{% url 'process_fundraiser' %}",
           dataType: 'json',
           data: {
             csrfmiddlewaretoken: csrf_token,
-            type: 'check'
+            type: 'check',
+            comment: comment
           },
           success: function(data){
             window.location = "{% url 'process_checkout' %}";

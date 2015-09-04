@@ -7,22 +7,34 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0007_remove_profile_description'),
-        ('fundraiser', '0019_auto_20150818_1612'),
+        ('fundraiser', '0021_fundraiser_finalized'),
+        ('account', '0010_auto_20150825_1533'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name='FundraiserOrderComment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('approved', models.BooleanField(default=False)),
-                ('title', models.CharField(max_length=40)),
                 ('comment', models.TextField(max_length=140, null=True, blank=True)),
+                ('fundraiser', models.ForeignKey(to='fundraiser.Fundraiser')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='UserComment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('comment', models.TextField(max_length=140, null=True, blank=True)),
+                ('approved', models.BooleanField(default=False)),
                 ('account', models.ForeignKey(default=False, to='account.Profile', null=True)),
                 ('fundraiser', models.ForeignKey(to='fundraiser.Fundraiser')),
             ],
             options={
+                'abstract': False,
             },
             bases=(models.Model,),
         ),

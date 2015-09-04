@@ -109,6 +109,7 @@ class SessionShipment(object):
 
 		return session_shipment
 
+
 class SessionVariable(SessionUser,SessionFundraiser,SessionShipment):
 	def __init__(self,request,session_variable_name=None):
 		self.request = request

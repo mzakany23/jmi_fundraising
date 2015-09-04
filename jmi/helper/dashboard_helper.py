@@ -3,7 +3,7 @@ from product.models import Product,Category
 from marketing.models import GenericDiscount, SingleDiscount
 from shipment.models import Shipment,Selection
 from payment.models import Payment
-from comment.models import Comment 
+from comment.models import FundraiserOrderComment 
 from address.models import Address
 
 class ProductHelper(object):

@@ -146,7 +146,6 @@ def choose_fundraiser(request):
 	return render(request,template,context)
 
 def chosen_fundraiser_type(request,slug):
-
 	request.session['order_step'] = 'selections'
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 	option = OptionFundraiser(slug)
@@ -188,7 +187,8 @@ def choose_salsas(request):
 			messages.error(request,title)
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))
 		else:
-
+			if session_shipment.has_selections():
+				session_shipment.remove_selections()
 			if session_shipment:
 				try:
 					salsas.save_selections()
@@ -308,7 +308,11 @@ def checkout(request):
 	except:
 		stripe_api_key = None
 
-	context = {'stripe_api_key' : stripe_api_key,'session_shipment' : session_shipment,'session_fundraiser' : session_fundraiser}
+	context = {
+		'stripe_api_key' : stripe_api_key,
+		'session_shipment' : session_shipment,
+		'session_fundraiser' : session_fundraiser
+	}
 	template = 'fundraiser/checkout.html'
 	return render(
 		request,template,context,
@@ -325,11 +329,12 @@ def process_checkout(request):
 
 	try:
 		finalized_order = Fundraiser.objects.get(id=request.session['finalized_order'])
+		order_type      = str(finalized_order.get_payment_type())
 	except:
 		finalized_order = None
 
 	
-	context = {'finalized_order' : finalized_order}
+	context = {'finalized_order' : finalized_order,'order_type' : order_type}
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

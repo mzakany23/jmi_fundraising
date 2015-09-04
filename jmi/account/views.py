@@ -152,7 +152,10 @@ def profile_detail(request,slug):
 	except:
 		profile = None
 
-	fundraiser = profile.fundraisers().first().slug
+	try:
+		fundraiser = profile.fundraisers().first().slug
+	except:
+		fundraiser = None
 	
 	if profile.fundraiser_set.all().count() == 1:
 		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser,)))

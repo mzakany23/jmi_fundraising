@@ -50,22 +50,29 @@
                         </div>
                     </div>
                 </div> -->
+
                 <div class="col-xs-12 col-md-4 col-lg-4">
                     <div class="panel panel-default height">
                         <div class="panel-heading">Payment Information</div>
+
                         <div class="panel-body">
+
+                            {% if order_type == 'check' %}
+                            <strong>type</strong> Check <br>
+                            {% else %}
                             <strong>type</strong> Visa<br>
                             <strong>Card Name:</strong> Visa<br>
                             <strong>Card Number:</strong> ***** 442<br>
                             <strong>Exp Date:</strong> 09/2020<br>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4 col-lg-4">
                     <div class="panel panel-default height">
-                        <div class="panel-heading">Order Preferences</div>
+                        <div class="panel-heading">Order Notes</div>
                         <div class="panel-body">
-                            <strong>Notes:</strong>Notes<br>
+                            <strong>Notes:</strong> {{ finalized_order.shipment.comment }}<br>
                             <strong>Coupon:</strong> {{ finalized_order.is_discount }}<br>
                         </div>
                     </div>
