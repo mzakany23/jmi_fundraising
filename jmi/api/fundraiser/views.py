@@ -43,21 +43,17 @@ class FundraiserProcessView(APIView):
 				response = Response('Success', status=status.HTTP_200_OK)
 		elif credit:
 			
-			# use stripe to charge the card
-			# get the last 4 of the card to store
-			# get the card type
-			# get stripe id i think
-
-			stripe.api_key = STRIPE_API_KEY['pwd']
+			stripe.api_key = STRIPE_API_KEY['key']
 
 			token                 = post['token']
 			amount                = post['amount']
 			description           = post['description'] 
 			transaction_succeeded = False
 
+		
 			try:
 				charge = stripe.Charge.create(
-					amount=amount, # amount in cents, again
+					amount=1000, # amount in cents, again
 					currency="usd",
 					source=token,
 					description=description
@@ -65,6 +61,7 @@ class FundraiserProcessView(APIView):
 			  	transaction_succeeded = True
 
 			except stripe.error.CardError, e:
+
 			  	pass
 
 			# if session fundraiser exists and payment was successful:

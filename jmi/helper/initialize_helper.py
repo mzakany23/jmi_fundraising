@@ -79,6 +79,13 @@ class SessionFundraiser(object):
 
 		return session_fundraiser
 
+	def session_finalized_fundraiser(self):
+		try:
+			session_fundraiser = Fundraiser.objects.get(id=self.request.session['finalized_order'])
+		except:
+			session_fundraiser = None
+		return session_fundraiser
+		
 	def session_fundraiser_profile(self):
 		try:
 			profile = self.session_fundraiser().profile

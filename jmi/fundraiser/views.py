@@ -322,8 +322,9 @@ def checkout(request):
 def process_checkout(request):
 	request.session['order_step'] = None
 	try:
-		request.session['finalized_order'] = request.session['current_fundraiser']
-		del request.session['current_fundraiser']
+		if request.session['current_fundraiser']:
+			request.session['finalized_order'] = request.session['current_fundraiser']
+			del request.session['current_fundraiser']
 	except:
 		pass
 
@@ -332,9 +333,16 @@ def process_checkout(request):
 		order_type      = str(finalized_order.get_payment_type())
 	except:
 		finalized_order = None
+		order_type = None
 
-	
-	context = {'finalized_order' : finalized_order,'order_type' : order_type}
+	session_finalized_fundraiser = SessionVariable(request).session_finalized_fundraiser()
+
+	context = {
+		'finalized_order' : finalized_order,
+		'order_type' : order_type, 
+		'form' : SimpleSignUpForm
+	}
+
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

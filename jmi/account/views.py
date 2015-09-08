@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # app
 from django.contrib.auth.models import User
@@ -10,8 +11,9 @@ from fundraiser.models import Fundraiser
 
 # forms
 from form import LoginForm,RegisterUserForm,SimpleSignUpForm
+
+# helper
 from helper.initialize_helper import SessionVariable
-from django.contrib.auth.decorators import login_required
 
 
 def auth_login(request):
@@ -108,16 +110,19 @@ def auth_simple_sign_up(request):
 		user,created = User.objects.get_or_create(username=username)
 		
 		if created:
+			session_finalized_fundraiser = SessionVariable(request).session_finalized_fundraiser()
 			user.set_password(password)
 			user.save()
-			session_fundraiser = Fundraiser.objects.get(id=request.session['finalized_order'])
-			if session_fundraiser is None:
+			if session_finalized_fundraiser is None:
 				title = 'session expired. call back office to set up account.'
 				messages.error(request,title)
 				return HttpResponseRedirect(reverse('describe_fundraiser'))
 
-			session_fundraiser.account = user
-			session_fundraiser.save()
+			profile = session_finalized_fundraiser.profile
+			profile.account = user 
+			profile.save()
+			session_finalized_fundraiser.account = user
+			session_finalized_fundraiser.save()
 			
 			auth = authenticate(username=username,password=password)
 			
@@ -151,23 +156,23 @@ def profile_detail(request,slug):
 		profile = Profile.objects.get(slug=slug)
 	except:
 		profile = None
-
 	try:
-		fundraiser = profile.fundraisers().first().slug
+		fundraiser = profile.fundraisers().first()
 	except:
 		fundraiser = None
 	
 	if profile.fundraiser_set.all().count() == 1:
-		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser,)))
+		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser.id,)))
 	
 	context = {'profile' : profile}
 	template = 'account/profile/detail.html'
 	return render(request,template,context)
 
 @login_required(login_url='/account/login')
-def profile_fundraiser_detail(request,slug):
+def profile_fundraiser_detail(request,id):
+
 	try:
-		fundraiser = Fundraiser.objects.get(slug=slug)
+		fundraiser = Fundraiser.objects.get(id=id)
 	except:
 		fundraiser = None
 
