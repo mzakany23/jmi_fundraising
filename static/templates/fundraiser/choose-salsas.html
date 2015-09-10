@@ -12,15 +12,17 @@
 <div class="row">
 	
   {% for category,products in product_set.items %}
-  <div class="col-sm-12"><h1>{{ category }}</h1></div>
+  <div class="col-sm-12"><h1 style='padding-left: 5px;'>{{ category }}</h1></div>
   {% for product in products %}
  <!-- SHOPPING CART ITEM -->
+ 
+
   <div class="shopping-cart-item">
       <!-- <a href="#" class="delete"><i class="fa fa-times"></i></a> -->
       <input type='hidden' name='product' value="{{ product.id }}">
       <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
       
-      <div class="row">
+      <div class="hidden-xs hidden-sm row">
           <div class="col-md-2">
               <img src="{{ settings.server }}/media/{{ product.image }}" class="img-responsive" alt="">
           </div>
@@ -37,6 +39,25 @@
           <!-- <divd class="col-md-2">
               <p class="total-price">$120</p>
           </div> -->
+      </div>
+
+      <div class="hidden-lg hidden-md row">
+          <input type='hidden' name='product' value="{{ product.id }}">
+          <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
+          <div class="col-xs-3">
+              <img src="{{ settings.server }}/media/{{ product.image }}" class="img-responsive" alt="">
+          </div>
+          <div class="col-xs-6">
+              
+              <h4 style='margin-top: 25px;' class=''>{{ product.title }}</h4>
+              <!-- <p>Code: #12542354</p> -->
+          </div>
+          <div class="col-xs-3">
+              <label>qty</label>
+              <input style='width: 57px;' name='quantity' type="text" class="form-control" value="0">
+          </div>
+          
+         
       </div>
   </div>
   {% endfor %}
