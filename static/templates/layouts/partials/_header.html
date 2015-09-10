@@ -63,12 +63,21 @@
                           {% endif %}
                           
                         {% else %}
-                          <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
+                          <a class='hidden-xs hidden-sm'href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
+                          <div class='hidden-lg hidden-md'>
+                          <div style='float: left;'><i class="fa fa-square"></i></div>
+                          <div style='padding-left: 20px;'><a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a></div>
+                          </div>
                         {% endif %}
                         
                     </li>
-
-                    <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
+                    <div class='hidden-lg hidden-md'>
+                          <div style='float: left;'><i class="fa fa-square"></i></div>
+                          <div style='padding-left: 20px;'>
+                            <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
+                          </div>
+                          </div>
+                    
                 
                 {% if user.is_authenticated %}
                  <li class="dropdown">
