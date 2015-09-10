@@ -346,25 +346,25 @@ def process_checkout(request):
 		order_type = None
 
 	session_finalized_fundraiser = SessionVariable(request).session_finalized_fundraiser()
-
-	if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
-		context = {
-			'finalized_order' : finalized_order,
-			'order_type' : order_type, 
-			'form' : SimpleSignUpForm
-		}
+	context = {
+		'finalized_order' : finalized_order,
+		'order_type' : order_type, 
+		'form' : SimpleSignUpForm
+	}
+	if session_finalized_fundraiser.profile.email:
+	# if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
+		
 		data = {'fundraiser' : finalized_order}
 		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt.html'
 		html_email     = loader.render_to_string(template_name,data)
-		email_helper = EmailHelper(
-			subject=str(finalized_order.organization)+' Fundraiser', 
-			message='From Jose Madrid Salsa Fundraising',
-			from_email='mzakany@gmail.com',
-			to_list=['mzakany@gmail.com'],
-			html_message=html_email
+		
+		send_fundraiser_receipt_email.delay(
+			str(finalized_order.organization())+' Fundraiser', 
+			'From Jose Madrid Salsa Fundraising',
+			'mzakany@gmail.com',
+			['mzakany@gmail.com'],
+			html_email
 			)
-		# create a task to handle the email
-		send_fundraiser_receipt_email.delay(email_helper)
 		# make sure you only send one receipt email
 		session_finalized_fundraiser.receipt_email_sent = True
 		session_finalized_fundraiser.save()

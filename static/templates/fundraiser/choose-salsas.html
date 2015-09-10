@@ -12,7 +12,7 @@
 <div class="row">
 	
   {% for category,products in product_set.items %}
-  <h1>{{ category }}</h1>
+  <div class="col-sm-12"><h1>{{ category }}</h1></div>
   {% for product in products %}
  <!-- SHOPPING CART ITEM -->
   <div class="shopping-cart-item">

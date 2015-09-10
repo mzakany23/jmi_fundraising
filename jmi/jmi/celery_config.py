@@ -6,6 +6,13 @@ BROKER_TRANSPORT = 'redis'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ENABLE_UTC = True
 
+
+# celery -A jmi worker --loglevel=info
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 # CELERYBEAT_SCHEDULE = {
 #     # Executes every minute
 #     'scrape_craigslist_every_half_day': {

@@ -23,10 +23,13 @@
 
 
                 
+                <div class="row">
+                  <div class="col-xs-12"><h3>Salsa Selections</h3></div>
+                </div>
 
                 {% for item in session_fundraiser.selections %}
                 <!-- SHOPPING CART ITEM -->
-                <div class="shopping-cart-item">
+                <div class="hidden-xs hidden-sm shopping-cart-item">
 
                     <div class="row">
                         <div class="col-md-2">
@@ -44,6 +47,24 @@
                         <div class="col-md-2">
                             <p class="total-price">$3/jar</p>
                         </div>
+                    </div>
+                </div>
+
+
+                <div class="hidden-lg hidden-md shopping-cart-item">
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img src="{{ settings.server }}/media/{{ item.product.image }}" class="img-responsive" alt="">
+                        </div>
+                        <div style='margin-top: 15px;' class="col-xs-5">
+                            <h4>{{ item.product.title }}</h4>
+                        </div>
+                        <div style='margin-top: 15px;' class="col-xs-3">
+                            <h4>{{ item.quantity }} jars</h4>
+                        </div>
+                        
+                        
                     </div>
                 </div>
                 {% endfor %}
