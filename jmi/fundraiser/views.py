@@ -1,26 +1,31 @@
+# python
 import json
-from django.utils.text import slugify
 
+# django
+from django.utils.text import slugify
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import HttpResponse
 from django.conf import settings
 from django.template import RequestContext
+from django.template import loader
 
-# app import
+# app 
 from fundraiser.models import Fundraiser, FundraiserType
 from account.models import Profile
 from shipment.models import Shipment, Selection
 from product.models import Product
 from address.models import Address
 from marketing.models import GenericDiscount,SingleDiscount
+from jmi.settings import EMAIL_TEMPLATE_DIR	
 
 # helper
 from home.views import get_home_variables
 from helper.initialize_helper import SessionVariable
 from helper.fundraiser_process_helper import DescribeFundraiser, OptionFundraiser, ChooseSalsasFundraiser, ShipmentFundraiser
 from helper.method_helper import return_all_objects
+from helper.email_helper import EmailHelper
 
 # forms
 from django import forms
@@ -28,6 +33,9 @@ from form import FundraiserDescribeForm, LoggedInFundraiserDescribeForm
 from shipment.form import ShipmentProfileForm
 from address.form import AddressForm,BillingAddressForm
 from account.form import SimpleSignUpForm
+
+# tasks
+from tasks import send_fundraiser_receipt_email
 
 
 def start_process(request):
@@ -313,6 +321,7 @@ def checkout(request):
 		'session_shipment' : session_shipment,
 		'session_fundraiser' : session_fundraiser
 	}
+
 	template = 'fundraiser/checkout.html'
 	return render(
 		request,template,context,
@@ -321,6 +330,7 @@ def checkout(request):
 
 def process_checkout(request):
 	request.session['order_step'] = None
+
 	try:
 		if request.session['current_fundraiser']:
 			request.session['finalized_order'] = request.session['current_fundraiser']
@@ -337,12 +347,27 @@ def process_checkout(request):
 
 	session_finalized_fundraiser = SessionVariable(request).session_finalized_fundraiser()
 
-	context = {
-		'finalized_order' : finalized_order,
-		'order_type' : order_type, 
-		'form' : SimpleSignUpForm
-	}
-
+	if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
+		context = {
+			'finalized_order' : finalized_order,
+			'order_type' : order_type, 
+			'form' : SimpleSignUpForm
+		}
+		data = {'fundraiser' : finalized_order}
+		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt.html'
+		html_email     = loader.render_to_string(template_name,data)
+		email_helper = EmailHelper(
+			subject=str(finalized_order.organization)+' Fundraiser', 
+			message='From Jose Madrid Salsa Fundraising',
+			from_email='mzakany@gmail.com',
+			to_list=['mzakany@gmail.com'],
+			html_message=html_email
+			)
+		# create a task to handle the email
+		send_fundraiser_receipt_email.delay(email_helper)
+		# make sure you only send one receipt email
+		session_finalized_fundraiser.receipt_email_sent = True
+		session_finalized_fundraiser.save()
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

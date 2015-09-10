@@ -1,22 +1,38 @@
-from django.template.loader import render_to_string, get_template
-from django.core.mail import EmailMessage
-from django.template import Context
+from django.core.mail import send_mail
 
 
 class EmailHelper:
 	def __init__(self,**kwargs):
-		self.subject = kwargs['subject']
-		self.message = kwargs['message']
-		self.from_email = kwargs['from_email']
-		self.to_list = kwargs['to_list']
-
+		self.subject       = kwargs['subject']
+		self.message       = kwargs['message']
+		self.from_email    = kwargs['from_email']
+		self.to_list       = kwargs['to_list']
+		self.fail_silently = False
 		
-	def send_html_email(self,template_html,context=None):
-		message = get_template(template_html).render(Context(context))
-		msg = EmailMessage(self.subject,message,self.to_list,self.from_email)
-		msg.content_subtype = 'html'
-		msg.send()
+		try:
+			self.html_message = kwargs['html_message']
+		except:
+			self.html_message = None
 		
-# email = EmailHelper(subject='some subject', message='some message', from_email='mzakany@gmail.com',to_list=['mzakany@gmail.com'])
 
-# email.send_html_email('email/index.html',{'user' : 'mzakany'})
+
+	def send_email(self):
+		message = None
+		result  = None
+		try:
+			send_mail(
+				self.subject,
+				self.message,
+				self.from_email,
+				self.to_list,
+				self.fail_silently,	
+				html_message=self.html_message,
+			)
+			message = 'email was sent successfully'
+			result  = True
+		except:
+			message = 'there was an error sending error'
+			result  = False 
+
+		return message,result
+

@@ -24,9 +24,13 @@ LOGO = SERVER + '/static/jmi-images/logo.png'
 EMAIL_USE_TLS = EMAIL['tls']
 EMAIL_HOST = EMAIL['host']
 EMAIL_HOST_USER = EMAIL['host_user']
+EMAIL_HOST_PASSWORD = EMAIL['host_password']
 EMAIL_PORT = EMAIL['port']
+DEFAULT_FROM = EMAIL['default_from']
 
 # Application definition
+
+EMAIL_TEMPLATE_DIR = '../../static/templates/emails/'
 
 INSTALLED_APPS = (
     'wpadmin',

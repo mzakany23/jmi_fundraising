@@ -1,16 +1,12 @@
 from __future__ import absolute_import
-
 import os
-import django
-
-import celery
+from celery import Celery
 from django.conf import settings
+import sys 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','jmi.settings')
-django.setup()
 
-app = celery.Celery('jmi')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jmi.settings')
+app = Celery('jmi')
 
-app.config_from_object('django.conf:settings')
+app.config_from_object('jmi.celery_config')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
-
