@@ -191,6 +191,7 @@ def choose_salsas(request):
 	if salsas.form_is_valid():
 		salsas.set_product_and_qty_selection()
 		if salsas.theres_no_selections_made():
+			print session_fundraiser
 			title = 'Please make at least one selection!'
 			messages.error(request,title)
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))

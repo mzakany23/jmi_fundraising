@@ -22,7 +22,7 @@
       <input type='hidden' name='product' value="{{ product.id }}">
       <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
       
-      <div class="hidden-xs hidden-sm row">
+      <div class="row">
           <div class="col-md-2">
               <img src="{{ settings.server }}/media/{{ product.image }}" class="img-responsive" alt="">
           </div>
@@ -41,24 +41,7 @@
           </div> -->
       </div>
 
-      <div class="hidden-lg hidden-md row">
-          <input type='hidden' name='product' value="{{ product.id }}">
-          <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
-          <div class="col-xs-3">
-              <img src="{{ settings.server }}/media/{{ product.image }}" class="img-responsive" alt="">
-          </div>
-          <div class="col-xs-6">
-              
-              <h4 style='margin-top: 25px;' class=''>{{ product.title }}</h4>
-              <!-- <p>Code: #12542354</p> -->
-          </div>
-          <div class="col-xs-3">
-              <label>qty</label>
-              <input style='width: 57px;' name='quantity' type="text" class="form-control" value="0">
-          </div>
-          
-         
-      </div>
+      
   </div>
   {% endfor %}
   {% endfor %}
