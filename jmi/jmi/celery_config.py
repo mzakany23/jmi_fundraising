@@ -1,7 +1,8 @@
 from celery.schedules import crontab
 from django.conf import settings
 
-BROKER_URL = 'redis://localhost:6379/0'
+
+BROKER_URL = "redis://localhost:6379/0" 
 BROKER_TRANSPORT = 'redis'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ENABLE_UTC = True
