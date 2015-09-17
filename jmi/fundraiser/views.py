@@ -131,6 +131,10 @@ def describe_fundraiser(request):
 
 		if describe.fundraiser_is_unique(title=title,organization=organization,description=description,org_photo=org_photo):
 			describe.create_fundraiser_with_profile()
+			# session = SessionVariable(request)
+			# user = session.user().username
+			# user_is_authenticated = session.user_is_logged_in()
+			# create_fundraiser_with_profile_task.delay(user_is_authenticated,user,title,organization,description,org_photo)
 			return HttpResponseRedirect(reverse('choose_fundraiser'))
 		else:
 			title = 'Woops, choose a more unique fundraiser name, there already exists one with the same name.'
@@ -359,16 +363,16 @@ def process_checkout(request):
 		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt.html'
 		html_email     = loader.render_to_string(template_name,data)
 		
-		send_fundraiser_receipt_email.delay(
-			str(finalized_order.organization())+' Fundraiser', 
-			'From Jose Madrid Salsa Fundraising',
-			'mzakany@gmail.com',
-			['mzakany@gmail.com'],
-			html_email
-			)
-		# make sure you only send one receipt email
-		session_finalized_fundraiser.receipt_email_sent = True
-		session_finalized_fundraiser.save()
+		# send_fundraiser_receipt_email.delay(
+		# 	str(finalized_order.organization())+' Fundraiser', 
+		# 	'From Jose Madrid Salsa Fundraising',
+		# 	'mzakany@gmail.com',
+		# 	['mzakany@gmail.com'],
+		# 	html_email
+		# 	)
+	
+		# session_finalized_fundraiser.receipt_email_sent = True
+		# session_finalized_fundraiser.save()
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

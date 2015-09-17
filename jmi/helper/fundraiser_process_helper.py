@@ -252,8 +252,7 @@ class ChooseSalsasFundraiser:
 	def save_selections(self):
 		session_shipment = SessionVariable(self.request,'current_fundraiser').session_shipment()
 		
-		print self.form
-
+	
 		if session_shipment:
 			for i in range(self.product_length):	
 				sel, created = Selection.objects.get_or_create(

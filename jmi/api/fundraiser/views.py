@@ -14,6 +14,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from serializers import FundraiserFormSerializer
 
+class TrackEmailOrder(APIView):
+	def get(self,request,format=None):
+		print request.GET['token']
+		return Response('Success',status=status.HTTP_200_OK)
+
 class FundraiserProcessView(APIView):
 	
 	def post(self,request,format=None):

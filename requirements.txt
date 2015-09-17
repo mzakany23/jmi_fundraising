@@ -8,7 +8,8 @@ django-wpadmin==1.7.4
 kombu==3.0.26
 Pillow==2.9.0
 pip==7.1.0
-psycopg2==2.6.1
+django-stdimage
+djangorestframework
 py==1.4.30
 pytz==2015.4
 redis==2.10.3

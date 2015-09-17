@@ -1,4 +1,4 @@
-from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL
+from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -33,8 +33,9 @@ DEFAULT_FROM = EMAIL['default_from']
 EMAIL_TEMPLATE_DIR = '../../static/templates/emails/'
 
 INSTALLED_APPS = (
-    'wpadmin',
+    'storages',
     'stdimage',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +55,8 @@ INSTALLED_APPS = (
     'notification'
 )
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,6 +66,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -77,8 +82,23 @@ ROOT_URLCONF = 'jmi.urls'
 WSGI_APPLICATION = 'jmi.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
+
+AWS_STORAGE_BUCKET_NAME = AMAZON_S3['bucket']
+AWS_ACCESS_KEY_ID = AMAZON_S3['id']
+AWS_SECRET_ACCESS_KEY = AMAZON_S3['key']
+
+
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 DATABASES = {
     'default': {
@@ -115,7 +135,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "http://45.55.231.143/root/"
+# STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','root')
 MEDIA_URL = '/media/'   
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','media')
