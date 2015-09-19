@@ -152,10 +152,12 @@ def profile_show(request):
 
 @login_required(login_url='/account/login')
 def profile_detail(request,slug):
+
 	try:
 		profile = Profile.objects.get(slug=slug)
 	except:
 		profile = None
+
 	try:
 		fundraiser = profile.fundraisers().first()
 	except:
@@ -164,7 +166,12 @@ def profile_detail(request,slug):
 	if profile.fundraiser_set.all().count() == 1:
 		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser.id,)))
 	
-	context = {'profile' : profile}
+	try:
+		fundraiser_set = profile.fundraiser_set.filter(finalized=True)
+	except:
+		fundraiser_set = None
+
+	context = {'fundraiser_set' : fundraiser_set,'profile' : profile}
 	template = 'account/profile/detail.html'
 	return render(request,template,context)
 
