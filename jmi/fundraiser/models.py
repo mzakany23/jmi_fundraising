@@ -14,6 +14,7 @@ from helper.number_format_helper import NumberFormat
 
 
 class Fundraiser(models.Model):
+	STATUS_CHOICES = (('paid','paid'),('unpaid','unpaid'))
 	title        = models.CharField(max_length=40,blank=True,null=True)
 	description  = models.TextField(max_length=200,blank=True,null=True)
 	type         = models.ForeignKey('FundraiserType',null=True,blank=True)

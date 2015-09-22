@@ -32,12 +32,14 @@ class FundraiserProcessView(APIView):
 		comment  = post['comment']
 		response = None 
 
+		comment_form,created = FundraiserOrderComment.objects.get_or_create(fundraiser=session_fundraiser,comment=comment)
+		
+		if created:
+			session_shipment.comment = comment_form
+			session_shipment.save()
+
 		if check:
 			if session_fundraiser:
-				comment_form,created = FundraiserOrderComment.objects.get_or_create(fundraiser=session_fundraiser,comment=comment)
-				if created:
-					session_shipment.comment = comment_form
-					session_shipment.save()
 				payment = Payment.objects.create(type='check')
 				payment.fundraiser = session_fundraiser
 				session_fundraiser.status = 'unpaid'
@@ -51,14 +53,15 @@ class FundraiserProcessView(APIView):
 			stripe.api_key = STRIPE_API_KEY['key']
 
 			token                 = post['token']
-			amount                = post['amount']
+			amount                = float(post['amount'])
 			description           = post['description'] 
 			transaction_succeeded = False
 
-		
+			amount_in_cents = (int(amount*100))
+			
 			try:
 				charge = stripe.Charge.create(
-					amount=1000, # amount in cents, again
+					amount=amount_in_cents, # amount in cents, again
 					currency="usd",
 					source=token,
 					description=description
@@ -74,6 +77,15 @@ class FundraiserProcessView(APIView):
 			if session_fundraiser and transaction_succeeded:
 				payment = Payment.objects.create(type='credit')
 				payment.fundraiser = session_fundraiser
+				session_fundraiser.status = 'paid'
+				session_fundraiser.finalized = True
+				last_4 = charge['card']['last4']
+				card_type = charge['card']['brand']
+				payment.last_4 = last_4
+				payment.card_type = card_type
+				payment.stripe_id = charge['balance_transaction']
+				payment.save()
+				session_fundraiser.save()
 				response = Response('Success', status=status.HTTP_200_OK)
 		else:
 			response = Response('Error', status=status.HTTP_200_OK)

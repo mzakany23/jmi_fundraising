@@ -6,6 +6,8 @@ from payment.models import Payment
 from comment.models import FundraiserOrderComment 
 from address.models import Address
 
+from helper.initialize_helper import SessionVariable
+
 class ProductHelper(object):
 	def all_products(self):
 		try:
@@ -22,7 +24,13 @@ class FundraiserHelper(object):
 			fundraisers = None
 		return fundraisers
 
-
+	def fundraisers_that_need_shipped(self):
+		try:
+			fundraisers = Payment.objects.filter(type='credit')
+		except:
+			fundraisers = None
+		
+		return fundraisers
 
 class DashboardHelper(ProductHelper,FundraiserHelper):
 	def __init__(self):

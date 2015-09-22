@@ -28,7 +28,7 @@ def dashboard_index(request):
 		
 		context = {
 			'dashboard' : dashboard,
-			'session' : session
+			'session' : session,
 		}
 
 		template = "dashboard/dashboard.html"
@@ -54,7 +54,20 @@ def jmi_admin_login(request):
 	return render(request,template,context)	
 
 
+def fundraiser_update(request,id):
+	try:
+		fundraiser = Fundraiser.objects.get(id=id)
+	except:
+		fundraiser = None
 
+	if request.POST:
+		post = request.POST 
+	
+		if not fundraiser.status == post['selectBox']:
+			fundraiser.status = post['selectBox']
+			fundraiser.save()
+	
+	return HttpResponseRedirect(reverse('dashboard_index'))
 
 
 

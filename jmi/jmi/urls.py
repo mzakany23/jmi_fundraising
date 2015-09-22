@@ -74,6 +74,7 @@ urlpatterns += patterns('marketing.views',
 urlpatterns += patterns('dashboard.views',
 	url(r'^dashboard/login/$','jmi_admin_login',name='jmi_admin_login'),
 	url(r'^dashboard/$', 'dashboard_index', name='dashboard_index'),
+	url(r'^dashboard/fundraiser/(?P<id>\d+)/update/$', 'fundraiser_update', name='fundraiser_update'),
 )
 
 # api
