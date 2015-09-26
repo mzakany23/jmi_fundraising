@@ -76,7 +76,7 @@
                     <div class="panel panel-default height">
                         <div class="panel-heading">Order Notes</div>
                         <div class="panel-body">
-                            <strong>Notes:</strong> {{ finalized_order.shipment.comment }}<br>
+                            <strong>Notes:</strong> {{ finalized_order.shipment.comment.comment }}<br>
                             <strong>Coupon:</strong> {{ finalized_order.is_discount }}<br>
                         </div>
                     </div>
@@ -88,8 +88,8 @@
                             <strong>{{ finalized_order.profile.contact_person }}:</strong><br>
                             {{ finalized_order.shipment.address.street }}<br>
                             {{ finalized_order.shipment.address.city }}<br>
-                            {{ finalized_order.shipment.address.state }}<br>
-                            {{ finalized_order.shipment.address.zip_code }}<br>
+                            {{ finalized_order.shipment.address.state }}, {{ finalized_order.shipment.address.zip_code }} <br>
+                            <br>
                         </div>
                     </div>
                 </div>
