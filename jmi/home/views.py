@@ -1,16 +1,24 @@
+# django
 from django.shortcuts import render
 from django.template import *
 from django.conf import settings
 
+# app
 from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser
 from marketing.form import EmailNewsLetterForm
-from product.models import Category
+from product.models import Product,Category
 
+# form
 from product.forms import ProductSearchForm
 
 def home(request):
-	context = {}
+	try:
+		featured = Product.objects.filter(featured=True)[:16]
+	except:
+		featured = None
+
+	context = {'featured_products' : featured}
 	template = 'home/index.html'
 	return render(request,template,context)
 

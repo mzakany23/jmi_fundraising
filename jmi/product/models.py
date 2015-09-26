@@ -15,9 +15,13 @@ class Product(models.Model):
 	category     = models.ManyToManyField('Category',blank=True,null=True)
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated      = models.DateTimeField(auto_now_add=False,auto_now=True)
+	featured     = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.title
+	
+	def get_category(self):
+		return [str(cat.title) for cat in self.category.all()]
 	
 	def get_absolute_url(self):
 		return "%s/media/%s" % (settings.SERVER, self.image)

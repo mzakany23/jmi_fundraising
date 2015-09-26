@@ -1,9 +1,13 @@
-<section class="content" id="section-introduction">
-      <div class="container">
-            <h2 style='font-weight: 200;'>Jose Madrid Salsa</h2>
-            <h2>Fundraising Steps</h2>
-            <p><b>Thanks for considering us.</b> The process to fundraise using our products is pretty simple. Just tell us a little about your fundraiser, what salsas you want, where to ship - and well have the salsa to you in 5 business days. Pretty simple. </p>
+{% load staticfiles %}
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<section class="content"id="section-introduction">
+      
+            <h1 class='jmi-introduction-med'><div class="jmi-red">Thanks from Jose (mike) </div></h1>
+            <img src="{% static 'jmi-images/mzzaks.png' %}" height='200' width='250' class='text-center mz-zaks'>
+            <p><b><i class="jmi-viv-1">Thanks for your fundraising with Jose!</i></b> Our process is pretty simple. Just tell us a little about your fundraiser, select one of our salsa combinations, and we'll have your organization fundraising with jose in 5 business days.</p>
 
+          
             {% if user.is_authenticated %}
               {% if session.has_order_steps%}
                 <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
@@ -15,5 +19,9 @@
               <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
             {% endif %}
             
-        </div>
     </section>
+
+</div>
+</div>
+
+<div style='margin-bottom: 50px !important;'></div>

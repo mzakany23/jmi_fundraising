@@ -100,23 +100,23 @@ AWS_SECRET_ACCESS_KEY = AMAZON_S3['key']
 
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': DATABASE['name'],
-#         'HOST': DATABASE['host'],
-#         'PORT': DATABASE['port'],
-#         'USER': DATABASE['user'],
-#         'PASSWORD': DATABASE['password']
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DATABASE['name'],
+        'HOST': DATABASE['host'],
+        'PORT': DATABASE['port'],
+        'USER': DATABASE['user'],
+        'PASSWORD': DATABASE['password']
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -132,10 +132,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-# STATIC_URL = "http://45.55.231.143/root/"
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','root')
 MEDIA_URL = '/media/'   

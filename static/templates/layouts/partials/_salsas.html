@@ -1,217 +1,24 @@
 {% load staticfiles %}
+
 <section class="content bg-color-2 portfolio-col-4 portfolio-nospaces" id="portfolio" style="padding:0">
       <div class="container3">
             
             <div class="row portfolio-wrapper-nospaces">
-              
+                {% for product in featured_products %}
                 <!-- PORTFOLIO ITEM -->
                 <div class="col-md-3 portfolio-item">
                   <article>
                         <div class="overlay-wrapper">
-                            <img src="{% static 'jmi-images/jmi-products/bbc.jpg' %}" class="img-responsive" alt="">
+                            <img height='400' width='250' src="{{ product.get_absolute_url }}" class="img-responsive" alt="">
                             <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
+                              <span class="overlay-title">{{ product.title }}</span>
                                 <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
                             </span>
                         </div>
                     </article>
                 </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_02.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_03.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_04.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_05.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_06.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_07.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_08.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_09.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_10.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_01.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_02.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_03.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_04.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_05.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
-                <!-- PORTFOLIO ITEM -->
-                <div class="col-md-3 portfolio-item">
-                  <article>
-                        <div class="overlay-wrapper">
-                            <img src="{% static 'image/image_06.jpg' %}" class="img-responsive" alt="">
-                            <span class="overlay">
-                              <span class="overlay-title">Lorem ipsum dolor sit amet</span>
-                                <a href="portfolio-post1.html"><i class="fa fa-plus"></i></a>
-                            </span>
-                        </div>
-                    </article>
-                </div>
-                
+                {% endfor %}
+                  
             </div>
         </div>
     </section>

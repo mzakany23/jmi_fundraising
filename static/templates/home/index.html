@@ -9,6 +9,14 @@
 	{% include 'layouts/partials/_introduction.html' %}
 {% endblock %}
 
+{% block salsas %}
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			{% include 'layouts/partials/_salsas.html' %}
+		</div>
+	</div>
+{% endblock %}
+
 {% block features %}
 	{% include 'layouts/partials/_fundraising-steps.html' %}
 {% endblock %}
@@ -19,4 +27,8 @@
 
 {% block jumbotron %}
 	{% include 'layouts/partials/_jumbotron.html' %}
+{% endblock %}
+
+{% block top_main_page %}
+	{% include 'layouts/partials/_top-main-page.html' %}
 {% endblock %}

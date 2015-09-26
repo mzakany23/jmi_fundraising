@@ -1,1 +1,4 @@
 104.131.3.176
+
+pg_ctl -D jmi_main -l logfile start
+psql jmi

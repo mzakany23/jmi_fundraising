@@ -3,8 +3,8 @@
 <div class="top-header hidden-xs hidden-sm">
       <div class="container">
           <div class="pull-left">
-              <div class="header-item"><i class="fa fa-envelope"></i> email goes here</div>
-                <div class="header-item"><i class="fa fa-phone"></i> phone number goes here</div>
+              <div class="header-item"><i class="fa fa-envelope"></i> mike@josemadridsalsa.com</div>
+                <div class="header-item"><i class="fa fa-phone"></i> 614-208-9982</div>
             </div>
             <div class="pull-right">
               <ul class="brands brands-inline brands-tn brands-circle main">
@@ -30,10 +30,12 @@
     
   <header class="navbar yamm navbar-default navbar-static-top">
       <div class="container">
-            <div class="navbar-header">
-                <!-- <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'image/logo.png' %}" alt=""></a> -->
+            <div class="navbar-header" style="width: 500px; !important">
+                <a href="{% url 'home' %}" class="navbar-brand"><img class="jmi-logo" src="{% static 'jmi-images/logo.png' %}" alt=""></a>
+                  
+                  <h1><a class='jmi-large-header' href="">Jose Madrid Salsa Fundraising</a></h1>
+                  
                 
-                <a href="{% url 'home' %}"><img height='69' width='100' src="{% static 'image/logo-placeholder.png' %}"></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse navbar-right">
@@ -54,7 +56,7 @@
                         </ul>
                     </li>
                      -->
-                    <li class='active'>
+                    <li>
                         {% if user.is_authenticated %}
                           {% if session.has_order_steps%}
                             <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
@@ -71,6 +73,7 @@
                         {% endif %}
                         
                     </li>
+                    <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
                     <div class='hidden-lg hidden-md'>
                           <div style='float: left;'><i class="fa fa-square"></i></div>
                           <div style='padding-left: 20px;'>
