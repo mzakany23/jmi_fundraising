@@ -2,36 +2,38 @@
 {% load staticfiles %}
 
 {% block show_all_salsas %}
+		
+    <!-- ==========================
+    	PORTFOLIO - START 
+    =========================== -->
 
-<h1>Our Salsas</h1>
-{% for product in products %}
-	<!-- ESHOP PRODUCT -->
-	<div class="eshop-product">
-	    <div class="row">
-	        <div class="col-lg-3 col-md-4 col-xs-5">
-	        	<img src="{{ product.get_absolute_url }}" class="img-responsive" alt="">
-	        </div>
-	        <div class="col-lg-9 col-md-8 col-xs-7">
-	        	<div class="eshop-product-body">
-	                <!-- <div class="product-tags">
-	                    <span class="label label-info">Stock</span>
-	                    <span class="label label-danger">New</span>
-	                </div> -->
-	                <h3><a href="productdetail.html">{{ product.title }}</a></h3>
-	                <p>{{ product.description }}</p>
-	                <div class="clearfix">
-	                	<!-- <div class="product-price pull-left">
-	                        <span class="old-price">$150</span>
-	                        <span class="new-price">$120</span>
-	                    </div> -->
-	                    <div class="pull-right">
-	                    	<!-- <button class="btn btn-danger btn-sm addtocart">Add to Cart</button> -->
-	                		<!-- <a href="productdetail.html" class="btn btn-primary btn-sm hidden-xs">More info</a> -->
-	                    </div>
-	                </div>
-	            </div>
-	    	</div>
-	    </div>
-	</div>
-{% endfor %}
+    <h1 class='jmi-larger-header text-center'>Our Salsas</h1>
+
+    <section class="content bg-color-2 portfolio-col-4" id="portfolio">
+            
+            <div class="row portfolio-wrapper">
+            		
+            		{% for product in products %}
+                <!-- PORTFOLIO ITEM -->
+                <div class="col-md-4 portfolio-item design icons">
+                	<article>
+                        <div class="overlay-wrapper">
+                            <img height='400' width='400' src="{{ product.get_absolute_url }}" class="img-responsive" alt="">
+                        </div>
+                        <div class="portfolio-item-description">
+                            <h3 class='text-center'>{{ product.title }}</h3>
+                            <p>{{ product.description }}</p>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+
+            </div>
+            
+        
+    </section>
+    <!-- ==========================
+    	PORTFOLIO - END 
+    =========================== --> 
+        
 {% endblock %}

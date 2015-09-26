@@ -3,6 +3,12 @@
     background-color: #FFBABA;
 }
 
+.jmi-larger-header {
+	color: #333 !important;
+  font-family: 'Pacifico', cursive;
+  font-size: 50px;
+}
+
 .jmi-large-header {
 	color: #333 !important;
   font-family: 'Pacifico', cursive;

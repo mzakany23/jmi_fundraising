@@ -14,8 +14,8 @@
             	<!-- ESHOP SIDEBAR - START -->
             	<div class="col-md-3 eshop-sidebar">
                 <div class="eshop-widget">
-                    <h3>Categories</h3>
-                    <h4>Salsa</h4>
+                    
+                    <h4>categories</h4>
                     <ul class="nav vertical-nav">
                     	<li><a style="{% if category == 'all_salsas' %}color: red{% endif %}"href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>All Salsas</a></li>
                     		{% for menu_category in categories %}
