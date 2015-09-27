@@ -7,8 +7,10 @@ class ProfileAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Profile
 
+
 AdminSite.site_header = 'Jose Madrid Salsa Fundraising - sysAdmin'
 AdminSite.site_titile = 'JMSF'
+
 
 admin.site.register(Profile,ProfileAdmin)
 

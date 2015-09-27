@@ -1,9 +1,29 @@
 from django.contrib import admin
 
+
 from models import Fundraiser,FundraiserCategory,FundraiserType
 
+
 class FundraiserAdmin(admin.ModelAdmin):
+
+	readonly_fields = ['created','updated','slug']
+	list_display = ['profile','finalized','receipt_email_sent','total_cost','title','account','selection_list']
+	fieldsets = (
+      ('Standard info', {
+          'fields': ('title','description','type','finalized')
+      }),
+      ('Profile info', {
+          'fields': ('profile','account',)
+      }),
+      ('Sale info', {
+          'fields': ('discount','account',)
+      }),
+      ('Other info', {
+          'fields': ('receipt_email_sent','created','updated',)
+      }),
+   	)	
 	class Meta:
+
 		model = Fundraiser
 
 

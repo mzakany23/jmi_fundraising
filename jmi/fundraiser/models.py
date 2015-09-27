@@ -34,6 +34,9 @@ class Fundraiser(models.Model):
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)
 
+	def selection_list(self):
+		return [("product: %s qty: %s") % (str(sel.product.title),str(sel.quantity))  for sel in self.selections()]
+
 	def selections(self):
 		return self.shipment().selection_set.all()
 
