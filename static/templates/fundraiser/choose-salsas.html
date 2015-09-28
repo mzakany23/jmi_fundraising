@@ -11,8 +11,8 @@
 	{% csrf_token %}
 <div class="row">
 	
-  <!-- {% for category,products in product_set.items %}
-  <div class="col-sm-12"><h1 style='padding-left: 5px;'>{{ category }}</h1></div> -->
+  {% for category,products in product_set.items %}
+  <div class="col-sm-12"><h1 style='padding-left: 5px;'>{{ category }}</h1></div>
   {% for product in products %}
  <!-- SHOPPING CART ITEM -->
  
@@ -68,7 +68,7 @@
       </div>
   </div>
   {% endfor %}
-  <!-- {% endfor %} -->
+  {% endfor %}
   
 </div>     
 
