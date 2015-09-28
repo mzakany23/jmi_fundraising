@@ -176,7 +176,8 @@ def chosen_fundraiser_type(request,slug):
 
 	context = {
 		'fundraiser_type' : fundraiser_type,
-		'product_set' : product_set
+		'product_set' : product_set,
+		'settings' : settings
 	}
 
 	template = 'fundraiser/choose-salsas.html'
