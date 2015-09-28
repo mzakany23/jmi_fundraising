@@ -55,7 +55,12 @@
 
             <div class="navbar-collapse collapse navbar-right">
               <ul class="nav navbar-nav navbar-main-menu">
-                <li ><a href="{% url 'show_all_salsas' %}">Main</a></li>
+                {% if user.is_authenticated %}
+                <li ><a href="{% url 'choose_profile_for_fundraiser' %}">Create Fundraiser</a></li>
+                {% else %}
+                <li ><a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a></li>
+                {% endif %}
+                <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
                     <li class="dropdown active">
                         <ul class="dropdown-menu">
                           <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas</a></li>
