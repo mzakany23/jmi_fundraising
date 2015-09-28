@@ -11,9 +11,9 @@
     {% if already_has_shipment %}
         {% include 'fundraiser/partials/_shipment_exists.html' %}
     {% else %}
-    
+    <div class="hidden-xs hidden-sm"><h1 class='jmi-larger-header text-center'>Shipping</h1></div>
     <section class="content bg-color-2" id="eshop">
-            <div class="hidden-sm hidden-md hidden-lg col-sm-12"><h1 class='jmi-larger-header'>Shipping</h1></div>
+            <div class="hidden-md hidden-lg col-sm-12"><h1 class='jmi-larger-header'>Shipping</h1></div>
             <div class="shopping-cart">
                 <form method="POST" class="form-horizontal form-address" action="{% url 'create_shipment' %}">
                 	{% csrf_token %}

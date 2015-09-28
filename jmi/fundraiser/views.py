@@ -242,15 +242,17 @@ def create_shipment(request):
 		phone      = p['phone_number']
 		email      = p['email']
 		
-		
-		address, created = Address.objects.get_or_create(
-			title=title,
-			street=street,
-			line_2=line_2,
-			city=city,
-			state=state,
-			zip_code=zip_code
-		)
+		try:
+			address, created = Address.objects.get_or_create(
+				title=title,
+				street=street,
+				line_2=line_2,
+				city=city,
+				state=state,
+				zip_code=zip_code
+			)
+		except:
+			address = Address.objects.filter(street=street).first()
 
 
 		session_fundraiser  = SessionVariable(request,'current_fundraiser').session_fundraiser()
