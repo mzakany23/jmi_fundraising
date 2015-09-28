@@ -43,8 +43,8 @@
                                 <li class='list-group-item text-left'><label>FUNDRAISERS: </label> {{ profile.fundraisers.count }}</li>
                             </ul>
 
-                            <a href="{% url 'profile_detail' profile.slug %}"class='btn btn-danger'>Details</a>
-                            
+                            <a style='width: 75px;' href="{% url 'profile_detail' profile.slug %}"class='btn btn-danger'>Details</a>
+                            <a style='margin-left: 15px; width: 75px;' href="{% url 'profile_edit' profile.slug %}"class='btn btn-default'>Edit</a>
                             
                         </div>
                     </div>

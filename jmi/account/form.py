@@ -1,5 +1,134 @@
 from django import forms
 from django.forms import ModelForm
+from models import Profile
+from address.models import Address 
+
+
+class AddressEditForm(forms.ModelForm):
+	class Meta:
+
+		model = Address
+
+		fields = [
+			'title',
+			'street',
+			'line_2',
+			'city',
+			'state',
+			'country',
+			'zip_code'
+		]
+
+		widgets = {
+			'title' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "example: Mrs. Doe ",
+				"type" : "text",
+			}),
+			'street' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "street",
+				"type" : "text",
+			}),
+			'line_2' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "(optional) extra line",
+				"type" : "text",
+			}),
+			'city' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "city",
+				"type" : "text",
+			}),
+			'state' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "state",
+				"type" : "text",
+			}),
+			'country' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "country",
+				"type" : "text",
+			}),
+			'zip_code' : forms.TextInput(attrs={
+				"name" : "zip",
+				"id" : "zip",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "Zip Code",
+				"type" : "text",
+			})
+		}
+
+class ProfileEditForm(forms.ModelForm):
+
+	class Meta:
+
+		model = Profile
+
+		fields = [
+			'first_name',
+			'last_name',
+			'email',
+			'phone_number',
+			'org_photo'
+		]
+
+		widgets = {
+			'first_name' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "Title",
+				"type" : "text",
+			}),
+			'last_name' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "Title",
+				"type" : "text",
+			}),
+			'email' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "Title",
+				"type" : "text",
+			}),
+			'phone_number' : forms.TextInput(attrs={
+				"name" : "title",
+				"id" : "title",
+				"class" : "form-control",
+				"size" : "20",
+				"placeholder" : "Title",
+				"type" : "text",
+			}),
+			'org_photo' : forms.FileInput(attrs={
+				"type" : "file",
+			}),
+		}
 
 class DashboardLoginForm(forms.Form):
 	username = forms.CharField(widget=forms.TextInput(attrs={

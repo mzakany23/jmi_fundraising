@@ -10,7 +10,7 @@ from models import Profile
 from fundraiser.models import Fundraiser
 
 # forms
-from form import LoginForm,RegisterUserForm,SimpleSignUpForm
+from form import LoginForm,RegisterUserForm,SimpleSignUpForm,ProfileEditForm,AddressEditForm
 
 # helper
 from helper.initialize_helper import SessionVariable
@@ -18,7 +18,6 @@ from helper.initialize_helper import SessionVariable
 
 def auth_login(request):
 	login_form = LoginForm(request.POST or None)
-	print login_form.is_valid()
 	if login_form.is_valid():
 		username = login_form.cleaned_data['username']
 		# email_address = login_form.cleaned_data['email']
@@ -94,7 +93,6 @@ def auth_create_account(request):
 	return render(request,template,context)
 
 def auth_login_and_add_account_to_fundraiser(request):
-
 	pass
 
 def auth_simple_sign_up(request):
@@ -139,7 +137,6 @@ def auth_simple_sign_up(request):
 		title = 'There was an error in creating your account. Make sure passwords match!'
 		messages.error(request,title)
 		return HttpResponseRedirect(reverse('process_checkout'))
-		
 
 # profile
 @login_required(login_url='/account/login')
@@ -148,6 +145,34 @@ def profile_show(request):
 	
 	context = {'user_profiles' : session.profiles()}
 	template = 'account/profile/show.html'
+	return render(request,template,context)
+
+@login_required(login_url='/account/login')
+def profile_edit(request,slug):
+
+	try:
+		profile = Profile.objects.get(slug=slug)
+	except: 
+		profile = None
+
+	if profile:
+		profile_form = ProfileEditForm(instance=profile)
+		address_form = AddressEditForm(instance=profile.address)
+	else:
+		profile_form = None
+		address_form = None
+
+	if request.POST:
+		messages.success(request,'Address and Profile updated successfully.')
+		address_form = AddressEditForm(request.POST,instance=profile)
+		profile_form = ProfileEditForm(request.POST,instance=profile)
+		address_form.save()
+		profile_form.save()
+		return HttpResponseRedirect(reverse('profile_show'))
+
+	
+	context = {'profile': profile,'profile_form' : profile_form,'address_form' : address_form}
+	template = 'account/profile/edit.html'
 	return render(request,template,context)
 
 @login_required(login_url='/account/login')

@@ -27,6 +27,7 @@ urlpatterns += patterns('account.views',
 	url(r'^profile/$', 'profile_show', name='profile_show'),
 	url(r'^profile/(?P<slug>[-\w]+)/$', 'profile_detail', name='profile_detail'),
 	url(r'^profile/fundraiser/(?P<id>\d+)/$', 'profile_fundraiser_detail', name='profile_fundraiser_detail'),
+	url(r'^profile/edit/(?P<slug>[-\w]+)/$', 'profile_edit', name='profile_edit'),
 
 )
 
