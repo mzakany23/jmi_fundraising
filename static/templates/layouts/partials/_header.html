@@ -34,9 +34,7 @@
                 <a href="{% url 'home' %}" class="navbar-brand"><img class="jmi-logo" src="{% static 'jmi-images/logo.png' %}" alt=""></a>
                   
                   <h1><a class='jmi-large-header' href="{% url 'home' %}">Jose Madrid Salsa Fundraising</a></h1>
-                  
-                
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+
             </div>
 
 
@@ -60,7 +58,7 @@
                   <li class="dropdown active">
                         <ul class="dropdown-menu">
                           
-                          {% if not user.is_authenticated %}
+                        {% if not user.is_authenticated %}
                           <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas </a>  
                         </li>
                           <li><a href="{% url 'describe_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
@@ -68,6 +66,14 @@
                           {% endif %}
                         </ul>
                     </li>
+
+                 <li class='hidden-sm hidden-xs'><a href="{% url 'describe_fundraiser' %}"></i>Create Fundraiser</a>  
+                 </li>  
+                 
+                  <li class='hidden-sm hidden-xs'><a href="{% url 'show_all_salsas' %}"></i>Salsas</a>  </li>  
+                               
+
+              
                     
                 {% if user.is_authenticated %}
                  <li class="dropdown">
@@ -85,8 +91,8 @@
                       </ul>
                     </li>
                 
-
                 {% endif %}
+
                 <ul class="nav navbar-nav hidden-xs hidden-sm" style='margin-left: 25px;'>
                     <li class="dropdown shopping-cart-toggle">
                         <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i><span class="shopping-cart-counter">5</span></a> -->

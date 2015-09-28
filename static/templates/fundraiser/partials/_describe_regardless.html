@@ -1,5 +1,6 @@
 <section>
-			<h1 class='jmi-larger-header text-center'>Tell us about your fundraiser</h1>
+			<h1 class='hidden-xs hidden-sm jmi-larger-header text-center'>Tell us about your fundraiser</h1>
+      <h1 class='hidden-lg hidden-md jmi-large-header text-center'>Tell us about your fundraiser</h1>
       <form method="POST" action="{% url 'describe_fundraiser' %}" enctype="multipart/form-data">
         {% csrf_token %}
         
