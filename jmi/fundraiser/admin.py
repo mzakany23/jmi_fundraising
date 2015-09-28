@@ -2,7 +2,15 @@ from django.contrib import admin
 
 
 from models import Fundraiser,FundraiserCategory,FundraiserType
+from shipment.models import Shipment
+from comment.models import UserComment
 
+
+class CommentInline(admin.TabularInline):
+	model = UserComment
+
+class ShipmentInline(admin.TabularInline):
+	model = Shipment
 
 class FundraiserAdmin(admin.ModelAdmin):
 
@@ -22,6 +30,7 @@ class FundraiserAdmin(admin.ModelAdmin):
           'fields': ('receipt_email_sent','created','updated',)
       }),
    	)	
+   	inlines = [ShipmentInline,CommentInline]
 	class Meta:
 
 		model = Fundraiser

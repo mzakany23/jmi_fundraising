@@ -5,6 +5,7 @@ from django.conf import settings
 from api.fundraiser.views import FundraiserProcessView, TrackEmailOrder
 
 
+
 # base
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -82,3 +83,8 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 )
 
+if settings.DEBUG:
+	import debug_toolbar
+	urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )

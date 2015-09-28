@@ -52,7 +52,8 @@ INSTALLED_APPS = (
     'shipment',
     'marketing',
     'payment',
-    'notification'
+    'notification',
+    'debug_toolbar'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
