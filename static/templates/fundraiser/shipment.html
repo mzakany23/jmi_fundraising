@@ -13,7 +13,7 @@
     {% else %}
     
     <section class="content bg-color-2" id="eshop">
-            <div class="hidden-sm hidden-md hidden-lg col-sm-12"><h1>Shipping</h1></div>
+            <div class="hidden-sm hidden-md hidden-lg col-sm-12"><h1 class='jmi-larger-header'>Shipping</h1></div>
             <div class="shopping-cart">
                 <form method="POST" class="form-horizontal form-address" action="{% url 'create_shipment' %}">
                 	{% csrf_token %}

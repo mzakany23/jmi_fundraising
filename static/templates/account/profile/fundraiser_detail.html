@@ -21,7 +21,17 @@
                             <li class='list-group-item text-left'>Title: {{ fundraiser.title }}</li>
                             <li class='list-group-item text-left'>Type: {{ fundraiser.type }} </li>
                             <li class='list-group-item text-left'>Description: {{ fundraiser.description }} </li>
-                            
+                            <li class='list-group-item text-left'>Comments: {{ fundraiser.get_comment }} </li>
+                            <li class='list-group-item text-left'>
+                                <div>Shipping Address:</div>
+                                <div>
+                                    {{ fundraiser.shipment.address.title }} <br>
+                                    {{ fundraiser.shipment.address.street }} <br>
+                                    {{ fundraiser.shipment.address.city }} <br>
+                                    {{ fundraiser.shipment.address.state }},
+                                    {{ fundraiser.shipment.address.zip_code }}
+                                </div>
+                            </li>
                         </ul>
                         <br>
                     </div>
@@ -33,10 +43,10 @@
                         <ul class="list-group">
                             <li class='list-group-item text-left'>Jars: {{ fundraiser.shipment.total_jars }}</li>
                             <li class='list-group-item text-left'>Cost of Jars: ${{ fundraiser.total_cost_in_dollars }}</li>
-                            <li class='list-group-item text-left'>Payment: {{ fundraiser.payments }}</li>
-                            <li class='list-group-item text-left'>Shipping: ${{ fundraiser.shipment.shipping_cost }}</li>
-                            <li class='list-group-item text-left'>Total Cost w/Shipping: ${{ fundraiser.shipment.total_cost_with_shipping }}</li>
-                            <li class='list-group-item text-left'>Shipping status: </li>
+                            <li class='list-group-item text-left'>Payment: {{ fundraiser.get_payment_type }}</li>
+                            <li class='list-group-item text-left'>Shipping: {% if fundraiser.free_shipping %}{{ fundraiser.shipment.shipping_cost }}{% else %}{{ fundraiser.shipment.shipping_cost }}{% endif %}</li>
+                            <!-- <li class='list-group-item text-left'>Total Cost w/Shipping: ${{ fundraiser.shipment.total_cost_with_shipping }}</li>
+                            <li class='list-group-item text-left'>Shipping status: </li> -->
                         </ul>
                         <br>
 

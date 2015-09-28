@@ -178,10 +178,11 @@
                         </div>
                         <div class="col-md-3 col-xs-5">
                             <p class="total-price-title text-right">${{ session_fundraiser.shipment.pre_tax_cost_in_dollars }}</p>
-                            <p class="total-price-title text-right">${{ session_fundraiser.shipment.shipping_cost }}</p>
+                            <p class="total-price-title text-right">{% if session_fundraiser.free_shipping %} FREE SHIPPING!{% else %}${{ session_fundraiser.shipment.shipping_cost }}{% endif %}</p>
                             <!-- <p class="total-price-title text-right">$5</p> -->
                             <p class="total-price-title text-right">${{ session_fundraiser.discount_in_dollars }}</p>
-                            <p class="total-price">${{ session_fundraiser.net_total_in_dollars }}</p>
+                            <p class="total-price hidden-xs hidden-sm">${{ session_fundraiser.net_total_in_dollars }}</p>
+                            <p style='font-size: 25px;' class="total-price hidden-md hidden-lg">${{ session_fundraiser.net_total_in_dollars }}</p>
                             
                         </div>
                         <div class="col-md-5 col-md-offset-7">

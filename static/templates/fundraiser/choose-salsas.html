@@ -17,7 +17,7 @@
  <!-- SHOPPING CART ITEM -->
  
 
-  <div class="shopping-cart-item">
+  <div class="shopping-cart-item hidden-xs hidden-sm">
       <input type='hidden' name='product' value="{{ product.id }}">
       <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
       
@@ -38,9 +38,34 @@
           <!-- <divd class="col-md-2">
               <p class="total-price">$120</p>
           </div> -->
-      </div>
+      </div>    
+  </div>
 
+  <!-- mobile -->
+   <div class="shopping-cart-item hidden-lg hidden-md">
+      <input type='hidden' name='product' value="{{ product.id }}">
+      <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
       
+      <div class="row">
+          <div style='margin-left: 70px;' class="col-xs-8">
+            <img height='250' width='200' src="{{ settings.SERVER }}/media/{{ product.image }}" class="img-responsive" alt="">
+          </div>
+      </div>    
+
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h4 class='text-center'>{{ product.title }}</h4>
+        </div>
+      
+      </div>
+      
+      <div class="row">
+          <div class="col-xs-4 col-xs-offset-4">
+          <div style='margin-left: 15px;'><input style='width: 57px' name='quantity' type="text" class="form-control text-center" value="0"></div>
+          
+      </div>   
+
+      </div>
   </div>
   {% endfor %}
   {% endfor %}

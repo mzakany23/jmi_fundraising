@@ -61,6 +61,7 @@
                           <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas</a></li>
                           {% if not user.is_authenticated %}
                           <li><a href="{% url 'describe_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
+                          <li><a href="{% url 'auth_login' %}"><button class="btn btn-default">Login</button></a></li>
                           {% endif %}
                         </ul>
                     </li>

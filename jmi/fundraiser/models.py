@@ -1,15 +1,14 @@
+# django
 import stripe
 from django.conf import settings
 from django.utils.text import slugify
-
 from django.db.models.signals import post_save, post_delete, pre_save, pre_delete
-
 from django.db import models
 
+# app
 from django.contrib.auth.models import User
 from product.models import Product
 from account.models import Profile
-
 from helper.number_format_helper import NumberFormat
 
 
@@ -101,6 +100,14 @@ class Fundraiser(models.Model):
 		except:
 			payments = None
 		return payments
+
+	def get_comment(self):
+		try:
+			comment = self.user_comment_set.first()
+		except:
+			comment = None
+		return comment
+
 
 class FundraiserCategory(models.Model):
 	title        = models.CharField(max_length=40,blank=True,null=True)
