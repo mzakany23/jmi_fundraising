@@ -8,7 +8,7 @@
     =========================== -->      
     <section class="content bg-color-2" id="profile-single">
         <div class="container">
-            <h1>{{ fundraiser.profile.organization }}</h1>
+            <h1 class='jmi-larger-header'>{{ fundraiser.profile.organization }}</h1>
             
             <div class="row">
                 
@@ -48,7 +48,13 @@
                         <h3>Selections:</h3>
                         <ul class="list-group">
                             {% for selection in fundraiser.selections %}
-                                <li class='list-group-item text-left'>Salsa: {{ selection.product.title }} <div>Qty: {{ selection.quantity }}</div></li>
+                                <li class='list-group-item text-left'>
+
+                                    <div style='float: left; margin-right: 15px;'><img width='80' height='55' src="{{ selection.product.get_absolute_url }}"></div>
+                                    <div>Salsa: {{ selection.product.title }}</div>
+                                     <div>Qty: {{ selection.quantity }}</div>
+
+                                </li>
                                 
                             {% endfor %}
                         </ul>

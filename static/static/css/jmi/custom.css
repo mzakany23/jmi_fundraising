@@ -16,6 +16,17 @@
   padding-top: 10px;
 }
 
+.jmi-large-header-mobile {
+	color: #333 !important;
+  font-family: 'Pacifico', cursive;
+  font-size: 19px;
+  padding-bottom: 15px !important;
+}
+
+.jmi-large-header-mobile:hover{
+	color: yellow !important;
+}
+
 .jmi-large-header:hover{
 	color: yellow !important;
 }
@@ -25,6 +36,13 @@
 	margin-right: 15px;
 	width: 50px;
 	height: 50px;
+}
+
+.jmi-logo-mobile{
+	margin-top: 15px;
+	margin-bottom: 10px !important;
+	width: 33px;
+	height: 33px;
 }
 
 .jmi-hover {
@@ -55,6 +73,11 @@
 	font-weight: 50;
 }
 
+.jmi-introduction-mobile {
+	font-family: 'Pacifico', cursive;
+	font-size: 25px;
+	font-weight: 50;
+}
 
 .jmi-introduction-small{
 	font-family: 'Pacifico', cursive;
@@ -63,6 +86,12 @@
 	padding-top: 25px;	
 }
 
+.jmi-introduction-small-mobile{
+	font-family: 'Pacifico', cursive;
+	font-size: 15px;
+	font-weight: 1;
+	padding-top: 10px;	
+}
 .jmi-introduction-med{
 	font-family: 'Pacifico', cursive;
 	color: #333 !important;

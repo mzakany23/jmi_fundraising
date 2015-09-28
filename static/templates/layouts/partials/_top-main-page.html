@@ -2,10 +2,27 @@
     <!-- ==========================
     	INTRODUCTION - START 
     =========================== -->
-    <section style='margin-top: 20px; margin-bottom: 25px;'>
+
+    <!-- mobile -->
+    <section class='hidden-lg hidden-md' style='margin-top: 20px; margin-bottom: 25px;'>
+      <div>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-4 col-xs-4 text-center jmi-introduction-mobile"><a class='jmi-hover' href="">Fundraise</a></div>
+            <div style='padding-left: 15px;' class="col-md-4 col-xs-4 text-center jmi-introduction-small-mobile">with</div>
+            <div class="col-md-4 col-xs-4 text-center">
+              <a style='padding-left: 15px;' href="{% url 'describe_fundraiser' %}"><img height='35' width='35' src="{% static 'jmi-images/logo.png' %}" class="jmi-img-hover img-circle"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='hidden-sm hidden-xs' style='margin-top: 20px; margin-bottom: 25px;'>
     	<div>
       	<div class="row">
       		<div class="col-md-10 col-md-offset-1">
+
 	      		<div class="col-md-4 text-center jmi-introduction"><a class='jmi-hover' href="">Fundraise</a></div>
 	      		<div class="col-md-4 text-center jmi-introduction-small">with</div>
 	      		<div class="col-md-4 text-center">

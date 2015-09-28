@@ -30,7 +30,7 @@
     
   <header class="navbar yamm navbar-default navbar-static-top">
       <div class="container">
-            <div class="navbar-header" style="width: 500px; !important">
+            <div class="navbar-header hidden-sm hidden-xs" style="width: 500px; !important">
                 <a href="{% url 'home' %}" class="navbar-brand"><img class="jmi-logo" src="{% static 'jmi-images/logo.png' %}" alt=""></a>
                   
                   <h1><a class='jmi-large-header' href="{% url 'home' %}">Jose Madrid Salsa Fundraising</a></h1>
@@ -38,66 +38,47 @@
                 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
+
+
+            <!-- mobile -->
+            <div class="navbar-header hidden-lg hidden-md">
+
+                <a href="{% url 'home' %}" class="navbar-brand"><img class="jmi-logo-mobile" src="{% static 'jmi-images/logo.png' %}" alt=""></a>
+                  
+                  <h1 style="margin-top: 7px !important; float: left;"><a class='jmi-large-header-mobile' href="{% url 'home' %}">Jose Madrid Salsa Fundraising</a></h1>
+                  
+                
+                <button style='margin-top: 10px;' type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+            </div>
+
+
+
             <div class="navbar-collapse collapse navbar-right">
               <ul class="nav navbar-nav navbar-main-menu">
-                    <!-- <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <i class="fa fa-chevron-down"></i></a>
+                <li ><a href="{% url 'show_all_salsas' %}">Main</a></li>
+                    <li class="dropdown active">
                         <ul class="dropdown-menu">
-                          <li><a href="index.html"><i class="fa fa-angle-double-right"></i>Default Option</a></li>
-                            <li><a href="index-image.html"><i class="fa fa-angle-double-right"></i>Option 1 (Static Image)</a></li>
-                            <li><a href="index-text.html"><i class="fa fa-angle-double-right"></i>Option 2 (Text Only)</a></li>
-                            <li><a href="index-application.html"><i class="fa fa-angle-double-right"></i>Application<span class="label label-warning">updated</span></a></li>
-                            <li><a href="index-product.html"><i class="fa fa-angle-double-right"></i>Product<span class="label label-warning">updated</span></a></li>
-                            <li><a href="index-eshop.html"><i class="fa fa-angle-double-right"></i>Eshop<span class="label label-warning">updated</span></a></li>
-                            <li><a href="index-coming-soon.html"><i class="fa fa-angle-double-right"></i>Coming Soon<span class="label label-warning">updated</span></a></li>
-                            <li><a href="index-search.html"><i class="fa fa-angle-double-right"></i>Search</a></li>
-                            <li><a href="index-portfolio.html"><i class="fa fa-angle-double-right"></i>Portfolio</a></li>
-                            <li><a href="index-event.html"><i class="fa fa-angle-double-right"></i>Event<span class="label label-danger">new</span></a></li>
+                          <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas</a></li>
+                          {% if not user.is_authenticated %}
+                          <li><a href="{% url 'describe_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
+                          {% endif %}
                         </ul>
                     </li>
-                     -->
-                    <li>
-                        {% if user.is_authenticated %}
-                          {% if session.has_order_steps%}
-                            <a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
-                          {% else %}
-                            <a href="{% url 'choose_profile_for_fundraiser' %}">Create Fundraiser</a>
-                          {% endif %}
-                          
-                        {% else %}
-                          <a class='hidden-xs hidden-sm'href="{% url 'describe_fundraiser' %}">Create Fundraiser</a>
-                          <div class='hidden-lg hidden-md'>
-                          <div style='float: left;'><i class="fa fa-square"></i></div>
-                          <div style='padding-left: 20px;'><a href="{% url 'describe_fundraiser' %}">Create Fundraiser</a></div>
-                          </div>
-                        {% endif %}
-                        
-                    </li>
-                    <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
-                    <div class='hidden-lg hidden-md'>
-                          <div style='float: left;'><i class="fa fa-square"></i></div>
-                          <div style='padding-left: 20px;'>
-                            <li ><a href="{% url 'show_all_salsas' %}">Salsas</a></li>
-                          </div>
-                          </div>
                     
-                
                 {% if user.is_authenticated %}
                  <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                          
-                          <li><a href="{% url 'profile_show' %}"><i class="fa fa-angle-double-right"></i>Profile</a>  </li>  
-                          
-                          <li><a href="{% url 'start_process' %}"><i class="fa fa-angle-double-right"></i>Create new Fundraiser</a>  
-                          </li>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></a>
+                      <ul class="dropdown-menu">
+                        
+                        <li><a href="{% url 'profile_show' %}"><i class="fa fa-angle-double-right"></i>Profile</a>  </li>  
+                        
+                        <li><a href="{% url 'choose_profile_for_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create new Fundraiser</a>  
+                        </li>
 
-                           <li><a href="{% url 'auth_logout' %}"><i class="fa fa-angle-double-right"></i>Logout </a>  
-                          </li>
+                         <li><a href="{% url 'auth_logout' %}"><i class="fa fa-angle-double-right"></i>Logout </a>  
+                        </li>
 
-
-
-                        </ul>
+                      </ul>
                     </li>
                 
                 {% endif %}
