@@ -16,7 +16,7 @@ class Shipment(models.Model):
 
 	
 	def __unicode__(self):
-		return str(self.address)
+		return str(self.fundraiser.title)
 
 	def has_selections(self):
 		return True if self.selection_set.first() else False

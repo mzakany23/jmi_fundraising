@@ -11,40 +11,49 @@
 	{% csrf_token %}
 <div class="row">
 	
-  {% for category,products in product_set.items %}
-  <div class="col-sm-12"><h1 style='padding-left: 5px;'>{{ category }}</h1></div>
-  {% for product in products %}
+{% for product in fundraiser_type.all_selections %}
  <!-- SHOPPING CART ITEM -->
  
-
-  <div class="shopping-cart-item hidden-xs hidden-sm">
-      <input type='hidden' name='product' value="{{ product.id }}">
-      <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
+ <input type='hidden' name='product' value="{{ product.id }}">
+ <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
+      
+  <div class="shopping-cart-item">
       
       <div class="row">
+          
           <div class="col-md-2">
-              <img src="{{ settings.SERVER }}/media/{{ product.image }}" class="img-responsive" alt="">
+              <img src="{{ settings.SERVER }}/media/{{ product.image }}" class="img-responsive hidden-sm hidden-xs" alt="">
           </div>
+
+          <div class="row hidden-lg hidden-md">
+              <div style='margin-left: 70px;' class="col-xs-8">
+                <img height='250' width='200' src="{{ settings.SERVER }}/media/{{ product.image }}" class="img-responsive" alt="">
+              </div>
+          </div>    
+
           <div class="col-md-5">
               <h3 class='text-center'>{{ product.title }}</h3>
-              
           </div>
+
           <div class="col-md-2">
-              <input style='width: 57px;' name='quantity' type="text" class="form-control" value="0">
+              <input style='width: 57px;' name='quantity' type="text" class="form-control text-center" value="0">
           </div>
+
+
           <div class="col-md-2">
               <p class="small-price">Quantity in Jars</p>
           </div>
+
+
           <!-- <divd class="col-md-2">
               <p class="total-price">$120</p>
           </div> -->
       </div>    
   </div>
 
-  <!-- mobile -->
-   <div class="shopping-cart-item hidden-lg hidden-md">
-      <input type='hidden' name='product' value="{{ product.id }}">
-      <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
+<!-- mobile -->
+  <!--  <div class="shopping-cart-item hidden-lg hidden-md">
+      
       
       <div class="row">
           <div style='margin-left: 70px;' class="col-xs-8">
@@ -66,8 +75,8 @@
       </div>   
 
       </div>
-  </div>
-  {% endfor %}
+  </div> -->
+  
   {% endfor %}
   
 </div>     

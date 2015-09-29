@@ -162,7 +162,7 @@ def chosen_fundraiser_type(request,slug):
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 	option = OptionFundraiser(slug)
 	fundraiser_type = option.get_fundraiser_by_slug()
-	product_set = option.generate_product_set_by_category()
+	# product_set = option.generate_product_set_by_category()
 
 	try:
 		type = FundraiserType.objects.get(slug=slug)
@@ -176,7 +176,7 @@ def chosen_fundraiser_type(request,slug):
 
 	context = {
 		'fundraiser_type' : fundraiser_type,
-		'product_set' : product_set,
+		# 'product_set' : product_set,
 		'settings' : settings
 	}
 
@@ -190,13 +190,12 @@ def choose_salsas(request):
 	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
 	session_fundraiser.discount = 0
 	session_fundraiser.save()
-
+	
 	salsas = ChooseSalsasFundraiser(request)
 	
 	if salsas.form_is_valid():
 		salsas.set_product_and_qty_selection()
 		if salsas.theres_no_selections_made():
-			print session_fundraiser
 			title = 'Please make at least one selection!'
 			messages.error(request,title)
 			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))

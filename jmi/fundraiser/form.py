@@ -12,6 +12,7 @@ class FundraiserDescribeForm(forms.Form):
 		"id" : "title",
 		"class" : "form-control",
 		"size" : "20",
+		'maxlength' : '100',
 		"placeholder" : "Title of your Fundraiser",
 		"type" : "text",
 	}))
@@ -21,6 +22,7 @@ class FundraiserDescribeForm(forms.Form):
 		"class" : "form-control",
 		"size" : "20",
 		"placeholder" : "Organization Name",
+		'maxlength' : '500',
 		"type" : "text",
 	}))
 	description = forms.CharField(widget=forms.Textarea(attrs={

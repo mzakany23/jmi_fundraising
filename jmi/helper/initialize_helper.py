@@ -113,7 +113,7 @@ class SessionShipment(object):
 			session_shipment = Shipment.objects.get(fundraiser=self.session_fundraiser())
 		except:
 			session_shipment = None
-
+		
 		return session_shipment
 
 
