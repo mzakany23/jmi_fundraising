@@ -7,9 +7,10 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0008_category_slug'),
-        ('fundraiser', '0021_fundraiser_finalized'),
-        ('address', '0009_auto_20150820_1556'),
+        ('comment', '0002_auto_20150929_1549'),
+        ('product', '0009_product_featured'),
+        ('address', '0001_initial'),
+        ('fundraiser', '0001_initial'),
     ]
 
     operations = [
@@ -31,6 +32,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('address', models.ForeignKey(blank=True, to='address.Address', null=True)),
+                ('comment', models.ForeignKey(blank=True, to='comment.FundraiserOrderComment', null=True)),
                 ('fundraiser', models.ForeignKey(to='fundraiser.Fundraiser')),
             ],
             options={

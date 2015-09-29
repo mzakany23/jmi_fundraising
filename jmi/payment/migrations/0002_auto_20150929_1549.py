@@ -7,10 +7,17 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('payment', '0002_payment_fundraiser'),
+        ('fundraiser', '0001_initial'),
+        ('payment', '0001_initial'),
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='payment',
+            name='fundraiser',
+            field=models.ForeignKey(blank=True, to='fundraiser.Fundraiser', null=True),
+            preserve_default=True,
+        ),
         migrations.AlterField(
             model_name='payment',
             name='type',

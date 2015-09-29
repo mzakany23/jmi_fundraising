@@ -7,10 +7,20 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0020_remove_fundraiser_payment'),
+        ('fundraiser', '0001_initial'),
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='EmailNewsLetter',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('email', models.EmailField(max_length=40)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
         migrations.CreateModel(
             name='GenericDiscount',
             fields=[
@@ -24,6 +34,7 @@ class Migration(migrations.Migration):
                 ('dollars', models.DecimalField(default=0.0, max_digits=10, decimal_places=2)),
             ],
             options={
+                'abstract': False,
             },
             bases=(models.Model,),
         ),
@@ -41,6 +52,7 @@ class Migration(migrations.Migration):
                 ('fundraiser', models.OneToOneField(null=True, blank=True, to='fundraiser.Fundraiser')),
             ],
             options={
+                'abstract': False,
             },
             bases=(models.Model,),
         ),

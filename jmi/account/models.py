@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from stdimage.models import StdImageField
 
 class Profile(models.Model):
-	organization = models.CharField(max_length=40,blank=True,null=True)
+	organization = models.CharField(max_length=100,blank=True,null=True)
 	first_name   = models.CharField(max_length=20,null=True)
 	last_name    = models.CharField(max_length=20,null=True)
 	phone_number = models.CharField(max_length=10,null=True)
