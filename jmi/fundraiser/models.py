@@ -110,7 +110,17 @@ class Fundraiser(models.Model):
 
 
 class FundraiserCategory(models.Model):
-	title        = models.CharField(max_length=40,blank=True,null=True)
+	choices=(('paid','paid'),('unpaid','unpaid'),)
+	TYPES = (
+		('Pre-Sell','Pre-Sell'),
+		('Buy-Sell','Buy-Sell'),
+		('Pre-Sell mix and match cases','Pre-Sell mix and match cases'),
+	)
+	name         = models.CharField(max_length=40,blank=True,null=True)
+	type         = models.CharField(max_length=40,choices=TYPES,blank=True,null=True)
+	title        = models.TextField(max_length=100,blank=True,null=True)
+	description  = models.TextField(max_length=500,blank=True,null=True)
+	options      = models.ManyToManyField('FundraiserType')
 
 	def __unicode__(self):
 		return self.title
