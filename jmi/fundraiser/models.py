@@ -121,9 +121,13 @@ class FundraiserCategory(models.Model):
 	title        = models.TextField(max_length=100,blank=True,null=True)
 	description  = models.TextField(max_length=500,blank=True,null=True)
 	options      = models.ManyToManyField('FundraiserType')
+	image 		 = models.ImageField(upload_to='fundraiser_types', blank=True, null=True)
 
 	def __unicode__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return "%s/media/%s" % (settings.SERVER, self.image)
 
 class FundraiserType(models.Model):
 	jar_price  = models.DecimalField(max_digits=10,decimal_places=2,default=3.00)

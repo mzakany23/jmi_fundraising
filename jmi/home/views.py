@@ -5,7 +5,7 @@ from django.conf import settings
 
 # app
 from helper.initialize_helper import SessionVariable
-from fundraiser.models import Fundraiser
+from fundraiser.models import Fundraiser, FundraiserCategory
 from marketing.form import EmailNewsLetterForm
 from product.models import Product,Category
 
@@ -18,7 +18,12 @@ def home(request):
 	except:
 		featured = None
 
-	context = {'featured_products' : featured}
+	try: 
+		plans = FundraiserCategory.objects.all().order_by('name')
+	except:
+		plans = None
+
+	context = {'featured_products' : featured,'plans' : plans}
 	template = 'home/index.html'
 	return render(request,template,context)
 
