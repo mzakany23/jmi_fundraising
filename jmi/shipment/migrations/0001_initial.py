@@ -7,9 +7,9 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comment', '0002_auto_20150929_1549'),
-        ('product', '0009_product_featured'),
         ('address', '0001_initial'),
+        ('product', '0009_product_featured'),
+        ('comment', '0001_initial'),
         ('fundraiser', '0001_initial'),
     ]
 

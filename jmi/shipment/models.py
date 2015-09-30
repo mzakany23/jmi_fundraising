@@ -33,7 +33,10 @@ class Shipment(models.Model):
 			return 30.00
 
 	def pre_tax_cost(self):
-		price = float(self.fundraiser.type.jar_price)
+		try:
+			price = float(self.fundraiser.type.jar_price)
+		except:
+			price = 0.00
 		qty   = self.total_jars()
 		return (price*qty)
 
