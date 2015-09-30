@@ -188,7 +188,7 @@ def profile_detail(request,slug):
 	except:
 		fundraiser = None
 	
-	if profile.fundraiser_set.all().count() == 1:
+	if profile and profile.fundraiser_set.all().count() == 1:
 		return HttpResponseRedirect(reverse('profile_fundraiser_detail',args=(fundraiser.id,)))
 	
 	try:
