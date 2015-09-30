@@ -27,7 +27,7 @@ class Fundraiser(models.Model):
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated      = models.DateTimeField(auto_now_add=False,auto_now=True)
 	discount     = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
-	slug         = models.SlugField(max_length=150,blank=True,null=True)
+	slug         = models.SlugField(max_length=400,blank=True,null=True)
 	receipt_email_sent = models.BooleanField(default=False)
 
 	def __unicode__(self):

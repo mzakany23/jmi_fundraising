@@ -97,7 +97,7 @@ class DescribeFundraiser:
 		if created:	
 			if session.user_is_logged_in():
 				profile.account = session.user()
-			profile.slug = (slugify(profile.organization) + "-" + str(profile.id)).lower()
+			# profile.slug = (slugify(profile.organization) + "-" + str(profile.id)).lower()
 			profile.org_photo = self.org_photo
 			profile.save()
 			self.profile = profile
