@@ -1413,7 +1413,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 69, true);
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 2	pbkdf2_sha256$15000$0wqVG0mXYenV$GUTglY6aQcJDhQ38M5voKPvxI1fWBd9s2IH37qoQLrM=	2015-09-25 16:29:23.836496-04	t	salsaking2015			mike@josemadridsalsa.com	t	t	2015-09-25 16:29:23.836496-04
-1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-09-27 15:33:50.300037-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
+1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-09-26 15:07:13.064494-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
 \.
 
 
@@ -1708,7 +1708,7 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 62, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-h4m8a2qbni27r9ui63nhzy9791pb9r9x	NjJkZTE5NDkyMzFmYzBiNGU2OGRmNDZiMTEyODVjMGY3ODgyNmUyZTp7Il9hdXRoX3VzZXJfaGFzaCI6ImQ2MDZmNDYzYTMzMTIwMjM2MjA2NjcxZDZiZjBjYzNlY2E4M2QyN2EiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-10-11 15:33:50.302207-04
+lr4gvowq0c6qtkslub7dz5q53f8ba4y8	YjdkMDQ1MjExYWUxZjZkYWY2OTlhY2U4ZmUxMzIwNTdiY2NlZDhjNTp7InNlc3Npb25fZmluYWxpemVkX29yZGVyIjpudWxsLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIm9yZGVyX3N0ZXAiOm51bGwsImZpbmFsaXplZF9vcmRlciI6MiwiX2F1dGhfdXNlcl9oYXNoIjoiZDYwNmY0NjNhMzMxMjAyMzYyMDY2NzFkNmJmMGNjM2VjYTgzZDI3YSJ9	2015-10-10 17:36:34.868811-04
 \.
 
 

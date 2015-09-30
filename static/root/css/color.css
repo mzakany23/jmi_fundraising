@@ -645,7 +645,7 @@ body.color-red #eshop .eshop-sidebar .eshop-widget .checkbox input[type=checkbox
 body.color-red .jumbotron-event .event-info h2,
 body.color-red #event-speakers .speaker .speaker-body h3,
 body.color-red #schedule .schedule-single-info i  {
-	color:#B81117;
+	color:white;
 }
 
 body.color-red .btn-primary,

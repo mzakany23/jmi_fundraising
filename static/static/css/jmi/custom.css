@@ -1,3 +1,28 @@
+.jmi-pricing-img{
+	 filter: blur(20px) grayscale(20%);
+}
+
+.jmi-pricing-header {
+	color: black !important;
+	font-weight: 600;
+}
+
+.jmi-line{
+	border-bottom: 1px solid #D5D5D5;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.jmi-pricing-table{
+		border-right: 1px solid #D5D5D5; 
+		border-left: 1px solid #D5D5D5; 
+		border-radius: 5px;
+}
+
+.jmi-pricing-body {
+	color: black ;	
+}
+
 .jmi-card-error {
     color: #D8000C;
     background-color: #FFBABA;
