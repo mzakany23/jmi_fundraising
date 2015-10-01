@@ -1,3 +1,18 @@
+@import url(https://fonts.googleapis.com/css?family=Jura:400,600);
+
+.jmi-font-one{
+	font-weight: 400; 
+	font-size: 50px; 
+	color: black;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.jmi-font-two{
+	font-family: 'Jura', sans-serif;
+	color: black;
+	font-size: 50px;
+}
+
 .jmi-pricing-img{
 	 filter: blur(20px) grayscale(20%);
 }
