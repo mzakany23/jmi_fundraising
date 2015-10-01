@@ -1,3 +1,6 @@
+# python
+import os
+
 # django
 from django.shortcuts import render
 from django.template import *
@@ -77,4 +80,32 @@ def get_home_variables(request):
 		'newsletter_form' : EmailNewsLetterForm,
 		'search_form' : ProductSearchForm()
 	}
+
+# Plans
+def download_forms(request):
+	# file_name = 'forms_packet.zip'
+	# file_path = "/tmp/albums/"+file_name
+ #    path_to_zip = make_archive(file_path,"zip",file_path)
+ #    response = HttpResponse(FileWrapper(file(path_to_zip,'rb')), content_type='application/zip')
+ #    response['Content-Disposition'] = 'attachment; filename='+file_name.replace(" ","_")+'.zip'
+ #    return response
+
+	path_to_file = os.path.realpath("forms.zip")
+    # f = open(path_to_file, 'r')
+    # myfile = File(f)
+    # response = HttpResponse(myfile, content_type='application/zip')
+    # response['Content-Disposition'] = 'attachment; filename=%s' % name
+    # return response
+	print path_to_file
+
+
+def plan_type(request,id):
+	try: 
+		plan = FundraiserCategory.objects.get(id=id)
+	except:
+		plan = None
+
+	context = {'plan' : plan}
+	template = 'plans/index.html'
+	return render(request,template,context)
 

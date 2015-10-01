@@ -14,6 +14,9 @@ urlpatterns = patterns('',
 # home 
 urlpatterns += patterns('home.views',
 	url(r'^$', 'home', name='home'),
+	# plan types
+	url(r'^plan/(?P<id>\d+)/$','plan_type',name='plan_type'),
+	url(r'^download-forms-packet/$','download_forms',name='download_forms'),
 )
 
 # account
@@ -37,6 +40,7 @@ urlpatterns += patterns('product.views',
 	url(r'^categories/(?P<slug>[-\w]+)/$','show_by_category',name='show_by_category'),
 	url(r'^search-salsas/$','search_salsas',name='search_salsas'),
 )
+
 
 # media
 urlpatterns += patterns('',

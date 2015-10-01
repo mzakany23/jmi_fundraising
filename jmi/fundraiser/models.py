@@ -124,7 +124,7 @@ class FundraiserCategory(models.Model):
 	image 		 = models.ImageField(upload_to='fundraiser_types', blank=True, null=True)
 
 	def __unicode__(self):
-		return self.title
+		return self.type
 
 	def get_absolute_url(self):
 		return "%s/media/%s" % (settings.SERVER, self.image)

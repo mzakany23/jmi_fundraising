@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block plans %}
+
+    <section class="content services3" id="services">
+            
+            <div class="row">
+                <!-- Service -->
+
+                <div class="col-md-4 col-md-offset-1 col-sm-6" style='border: 1px solid #D5D5D5;'>
+                    <div class="service">
+                        <img style='margin-bottom: 20px;' class='img-circle' src="{{ plan.get_absolute_url }}">
+                        <div class="service-body" style='margin-bottom: 45px;'>
+                             <h2 style='color: black;'>{{ plan.name }}</h2>
+                            <h3><label>{{ plan.type }}</label></h3>
+                            
+                            <p class='text-left'>{{ plan.description }}</p>
+                        </div>
+                        <a class='btn btn-md btn-danger' href="{% url 'download_forms' %}">Download Forms</a>
+                        
+                        <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'describe_fundraiser' %}">Checkout Online</a>
+                    </div>
+                </div>
+
+                <div class="col-md-1 hidden-sm hidden-xs" style='height: 1000px;'>
+                    <div class="row"><h3 style="padding-left: 10px; margin-top: 100px;">Options</h3></div>
+                    <h1 style='' class='text-center'><i class='fa fa-arrow-right'></i></h1>
+                </div>
+                
+                <h1 style='color: black; font-weight: 700;' class='text-center hidden-lg hidden-md'>options</h1>
+                
+                <div class="row">
+                {% for option in plan.options.all %}
+                    <div class="col-md-5 col-sm-2" style='border: 1px solid #D5D5D5; margin-bottom: 15px;'>
+                        <div class="service">
+                            <img class='img-circle' src="{{ plan.get_absolute_url }}" height='50' width='50'>
+                            <h3 style='margin-bottom: 35px;'>{{ option.title }}</h3>
+                            <div class="row">
+                            {% for sel in option.selections.all %}
+                                <div class="col-md-3 col-xs-4">
+                                <div class="row">
+                                    <img style='margin-bottom: 10px;' height='70' width='125' src="{{ sel.get_absolute_url }}">
+                                </div>  
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+            </div>
+    </section>
+
+
+
+
+{% endblock %}
