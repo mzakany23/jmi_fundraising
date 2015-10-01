@@ -35,7 +35,7 @@ SET default_with_oids = false;
 
 CREATE TABLE account_profile (
     id integer NOT NULL,
-    organization character varying(40),
+    organization character varying(100),
     org_photo character varying(100),
     address_id integer,
     stripe_id character varying(100),
@@ -562,9 +562,9 @@ CREATE TABLE fundraiser_fundraiser (
     type_id integer,
     profile_id integer,
     status character varying(40),
-    title character varying(40),
+    title text,
     description text,
-    slug character varying(50),
+    slug character varying(400),
     discount numeric(10,2) NOT NULL,
     finalized boolean NOT NULL,
     receipt_email_sent boolean NOT NULL
@@ -600,7 +600,11 @@ ALTER SEQUENCE fundraiser_fundraiser_id_seq OWNED BY fundraiser_fundraiser.id;
 
 CREATE TABLE fundraiser_fundraisercategory (
     id integer NOT NULL,
-    title character varying(40)
+    title text,
+    description text,
+    name character varying(40),
+    type character varying(40),
+    image character varying(100)
 );
 
 
@@ -625,6 +629,40 @@ ALTER TABLE public.fundraiser_fundraisercategory_id_seq OWNER TO mzakany;
 --
 
 ALTER SEQUENCE fundraiser_fundraisercategory_id_seq OWNED BY fundraiser_fundraisercategory.id;
+
+
+--
+-- Name: fundraiser_fundraisercategory_options; Type: TABLE; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+CREATE TABLE fundraiser_fundraisercategory_options (
+    id integer NOT NULL,
+    fundraisercategory_id integer NOT NULL,
+    fundraisertype_id integer NOT NULL
+);
+
+
+ALTER TABLE public.fundraiser_fundraisercategory_options OWNER TO mzakany;
+
+--
+-- Name: fundraiser_fundraisercategory_options_id_seq; Type: SEQUENCE; Schema: public; Owner: mzakany
+--
+
+CREATE SEQUENCE fundraiser_fundraisercategory_options_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fundraiser_fundraisercategory_options_id_seq OWNER TO mzakany;
+
+--
+-- Name: fundraiser_fundraisercategory_options_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mzakany
+--
+
+ALTER SEQUENCE fundraiser_fundraisercategory_options_id_seq OWNED BY fundraiser_fundraisercategory_options.id;
 
 
 --
@@ -1180,6 +1218,13 @@ ALTER TABLE ONLY fundraiser_fundraisercategory ALTER COLUMN id SET DEFAULT nextv
 -- Name: id; Type: DEFAULT; Schema: public; Owner: mzakany
 --
 
+ALTER TABLE ONLY fundraiser_fundraisercategory_options ALTER COLUMN id SET DEFAULT nextval('fundraiser_fundraisercategory_options_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mzakany
+--
+
 ALTER TABLE ONLY fundraiser_fundraisertype ALTER COLUMN id SET DEFAULT nextval('fundraiser_fundraisertype_id_seq'::regclass);
 
 
@@ -1265,8 +1310,7 @@ ALTER TABLE ONLY shipment_shipment ALTER COLUMN id SET DEFAULT nextval('shipment
 --
 
 COPY account_profile (id, organization, org_photo, address_id, stripe_id, slug, email, first_name, last_name, phone_number, account_id) FROM stdin;
-1	Mike Zakany LLC	organization_photos/Photo_on_2-12-15_at_9.23_AM_schY5kj.jpg	1	\N	mike-zakany-llc-1	mzakany@gmail.com	Michael	Zakany	3306126183	1
-2	mcz	organization_photos/garden_cilantro_hot.jpeg	1	\N	mcz-2	mzakany@gmail.com	Michael	Zakany	3306126183	\N
+45	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2		1	\N	cleveland-orchestra-musicians-non-profit-45	mzakany@gmail.com	Michael	Zakany	3306126183	1
 \.
 
 
@@ -1274,7 +1318,7 @@ COPY account_profile (id, organization, org_photo, address_id, stripe_id, slug, 
 -- Name: account_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('account_profile_id_seq', 2, true);
+SELECT pg_catalog.setval('account_profile_id_seq', 45, true);
 
 
 --
@@ -1282,6 +1326,9 @@ SELECT pg_catalog.setval('account_profile_id_seq', 2, true);
 --
 
 COPY address_address (id, title, street, line_2, state, city, country, zip_code, shipping, billing) FROM stdin;
+2		2641 Shaker Rd.		OH	Cleveland Heights	\N	44118	t	f
+3		2641 Shaker Rd.		OH	Cleveland Heights	\N	44118	t	f
+4		2641 Shaker Rd.		OH	Cleveland Heights	\N	44118	t	f
 1		2641 Shaker Rd.		OH	Cleveland Heights	\N	44118	t	f
 \.
 
@@ -1290,7 +1337,7 @@ COPY address_address (id, title, street, line_2, state, city, country, zip_code,
 -- Name: address_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('address_address_id_seq', 1, true);
+SELECT pg_catalog.setval('address_address_id_seq', 4, true);
 
 
 --
@@ -1413,7 +1460,8 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 69, true);
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 2	pbkdf2_sha256$15000$0wqVG0mXYenV$GUTglY6aQcJDhQ38M5voKPvxI1fWBd9s2IH37qoQLrM=	2015-09-25 16:29:23.836496-04	t	salsaking2015			mike@josemadridsalsa.com	t	t	2015-09-25 16:29:23.836496-04
-1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-09-26 15:07:13.064494-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
+3	pbkdf2_sha256$15000$ICG543YBiWQW$0tjI/XTXrryhUOYXq7FQfWDgQF6Bmj1UBp0hYVtgk2w=	2015-09-29 13:03:26.104892-04	f	mzakanySenior				f	t	2015-09-29 13:03:25.778424-04
+1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-09-29 13:26:49.389194-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
 \.
 
 
@@ -1436,7 +1484,7 @@ SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('auth_user_id_seq', 2, true);
+SELECT pg_catalog.setval('auth_user_id_seq', 3, true);
 
 
 --
@@ -1459,8 +1507,7 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 --
 
 COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
-1	thanks for this new site	1
-2	this is the fundraising notes	2
+11	okokokoko	36
 \.
 
 
@@ -1468,7 +1515,7 @@ COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
 -- Name: comment_fundraiserordercomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 2, true);
+SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 11, true);
 
 
 --
@@ -1483,7 +1530,7 @@ COPY comment_usercomment (id, comment, approved, account_id, fundraiser_id) FROM
 -- Name: comment_usercomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('comment_usercomment_id_seq', 1, false);
+SELECT pg_catalog.setval('comment_usercomment_id_seq', 3, true);
 
 
 --
@@ -1578,6 +1625,98 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 70	2015-09-26 08:33:25.756682-04	11	GARDEN CILANTRO SALSA HOT	2	Changed featured.	11	1
 71	2015-09-26 13:57:38.786688-04	12	GARDEN CILANTRO SALSA MILD	2	Changed description.	11	1
 72	2015-09-26 13:58:20.298164-04	6	ORIGINAL HOT	3		11	1
+73	2015-09-28 20:06:22.202854-04	8	Fundraiser: Cleveland Heights Library - Fall Fundraiser	3		14	1
+74	2015-09-28 20:06:22.207041-04	7	Fundraiser: hey hey	3		14	1
+75	2015-09-28 20:06:22.208579-04	6	Fundraiser: this one works	3		14	1
+76	2015-09-28 20:06:22.209711-04	5	Fundraiser: xyz	3		14	1
+77	2015-09-28 20:06:33.716256-04	4	Fundraiser: xyz	3		14	1
+78	2015-09-28 20:06:33.720325-04	3	Fundraiser: a new great fundraiser	3		14	1
+79	2015-09-28 20:06:33.721728-04	2	Fundraiser: mcz	3		14	1
+80	2015-09-28 20:06:33.722901-04	1	Fundraiser: Mikes fundraiser	3		14	1
+81	2015-09-28 20:21:43.522194-04	9	Cleveland Heights Library	3		8	1
+82	2015-09-28 20:21:43.526143-04	8	ok 	3		8	1
+83	2015-09-28 20:21:43.52755-04	7	h	3		8	1
+84	2015-09-28 20:21:43.528686-04	6	z	3		8	1
+85	2015-09-28 20:21:43.529777-04	5	None	3		8	1
+86	2015-09-28 20:21:43.530982-04	4	None	3		8	1
+87	2015-09-28 20:21:43.532017-04	3	None	3		8	1
+88	2015-09-28 20:21:43.532962-04	2	mcz	3		8	1
+89	2015-09-28 20:21:43.533992-04	1	Mike Zakany LLC	3		8	1
+90	2015-09-29 09:10:20.948868-04	11	Cleveland Orchestra Musicians	3		8	1
+91	2015-09-29 09:10:20.95286-04	10	Mike Zakany LLC	3		8	1
+92	2015-09-29 11:37:33.405789-04	12	Cleveland Orchestra Musicians	3		8	1
+93	2015-09-29 11:46:14.843274-04	16	ok does this work	3		8	1
+94	2015-09-29 11:46:14.847303-04	15	ok ok ok	3		8	1
+95	2015-09-29 11:46:14.848707-04	14	Cleveland Orchestra Musicians - Youth Division - Zanesville Ohio 43701 West Division	3		8	1
+96	2015-09-29 11:46:14.849854-04	13	Cleveland Orchestra Musicians - Youth Division	3		8	1
+97	2015-09-29 13:27:08.209952-04	11	GARDEN CILANTRO SALSA HOT	2	Changed featured.	11	1
+98	2015-09-29 13:27:08.214546-04	7	ORIGINAL HOT	2	Changed featured.	11	1
+99	2015-09-29 13:27:08.21759-04	5	CHIPOTLE HOT	2	Changed featured.	11	1
+100	2015-09-29 13:27:08.220865-04	2	CHERRY CHOCOLATE HOT	2	Changed featured.	11	1
+101	2015-09-29 13:27:38.015175-04	13	JAMAICAN JERK HOT	2	Changed featured.	11	1
+102	2015-09-29 13:28:05.334825-04	24	PINEAPPLE MILD	2	Changed featured.	11	1
+103	2015-09-29 13:28:05.339374-04	21	SPANISH VERDE MILD	2	Changed featured.	11	1
+104	2015-09-29 13:28:05.342778-04	19	RASPBERRY MILD	2	Changed featured.	11	1
+105	2015-09-29 13:28:05.346628-04	17	RASPBERRY BBQ CHIPOTLE	2	Changed featured.	11	1
+106	2015-09-29 13:28:05.350004-04	15	PEACH	2	Changed featured.	11	1
+107	2015-09-29 13:28:05.353337-04	9	ORIGINAL MILD	2	Changed featured.	11	1
+108	2015-09-29 13:28:05.357638-04	3	CHERRY MILD	2	Changed featured.	11	1
+109	2015-09-29 13:28:19.458472-04	24	PINEAPPLE MILD	2	Changed featured.	11	1
+110	2015-09-29 13:28:19.46274-04	21	SPANISH VERDE MILD	2	Changed featured.	11	1
+111	2015-09-29 13:28:19.465815-04	19	RASPBERRY MILD	2	Changed featured.	11	1
+112	2015-09-29 13:28:19.468665-04	17	RASPBERRY BBQ CHIPOTLE	2	Changed featured.	11	1
+113	2015-09-29 13:28:19.471675-04	15	PEACH	2	Changed featured.	11	1
+114	2015-09-29 13:28:19.475453-04	23	SPANISH VERDE XX-STUPID-HOT	2	Changed featured.	11	1
+115	2015-09-29 19:21:14.591131-04	20	jfjf	3		8	1
+116	2015-09-29 19:21:14.595878-04	19	xyz	3		8	1
+117	2015-09-29 19:21:14.597285-04	18	Mike Zakany LLC	3		8	1
+118	2015-09-29 19:21:14.598405-04	17	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+119	2015-09-29 19:27:17.172565-04	21	Cleveland Orchestra Musicians	3		8	1
+120	2015-09-29 19:27:53.310106-04	22	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+121	2015-09-29 19:36:23.400733-04	23	Cleveland Orchestra Musicians - Youth Division	3		8	1
+122	2015-09-29 19:37:20.121581-04	24		1		8	1
+123	2015-09-29 19:37:52.850565-04	25		1		8	1
+124	2015-09-29 19:38:10.229041-04	23	Fundraiser: clevealnd orchesta youth muciscians fall campain -2 winter dividiaon	1		14	1
+125	2015-09-29 19:38:33.269861-04	23	Fundraiser: clevealnd orchesta youth muciscians fall campain -2 winter dividiaon	3		14	1
+126	2015-09-29 19:38:40.736883-04	25		3		8	1
+127	2015-09-29 19:38:40.741143-04	24		3		8	1
+128	2015-09-29 19:39:39.584084-04	24	Fundraiser: 	1		14	1
+129	2015-09-29 19:41:30.629397-04	24		3		18	1
+130	2015-09-29 19:43:12.07863-04	25	Fundraiser: cleveland heights orchestra musician fall camplain fundraiser man - winter 2 hey hey hey	1		14	1
+131	2015-09-29 19:45:11.458101-04	26	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+132	2015-09-29 19:46:59.793404-04	27	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+133	2015-09-29 19:49:11.719027-04	28	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+134	2015-09-29 19:52:33.75329-04	29	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+135	2015-09-29 19:54:29.394945-04	30	Cleveland Heights Library	3		8	1
+136	2015-09-29 19:55:06.346556-04	31	ok	3		8	1
+137	2015-09-29 20:49:14.371493-04	32	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+138	2015-09-29 20:52:29.622233-04	29	Fundraiser: asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	1		14	1
+139	2015-09-29 20:52:55.071403-04	33	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+140	2015-09-29 20:56:22.560832-04	35	Some Organization	3		8	1
+141	2015-09-29 20:56:22.564803-04	34	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+142	2015-09-29 20:57:12.304621-04	36	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa	3		8	1
+143	2015-09-29 20:59:00.492677-04	38	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+144	2015-09-29 20:59:00.496824-04	37	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa	3		8	1
+145	2015-09-29 20:59:20.941715-04	39	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+146	2015-09-29 21:02:42.125565-04	40	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+147	2015-09-29 21:03:27.911223-04	41	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+148	2015-09-30 09:42:52.618313-04	42	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+149	2015-09-30 13:50:13.367576-04	43	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+150	2015-09-30 13:51:41.83748-04	44	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
+151	2015-09-30 14:18:45.46421-04	3	Pre-sell individual jars @$6.00 per jar, you keep $3.00 per jar.	1		15	1
+152	2015-09-30 14:19:14.215692-04	4	Buy-Sell.  Purchase salsa by the case @$3.00 per jar and sell @$6.00 per jar.	1		15	1
+153	2015-09-30 14:19:40.090259-04	5	Pre-sell mix and match cases at $72.00 per case, you keep $36.00 per case.	1		15	1
+154	2015-09-30 16:41:34.413946-04	5	Pre-sell mix and match cases at $72.00 per case, you keep $36.00 per case.	2	Changed image.	15	1
+155	2015-09-30 16:58:02.403685-04	4	Buy-Sell.  Purchase salsa by the case @$3.00 per jar and sell @$6.00 per jar.	2	Changed image.	15	1
+156	2015-09-30 16:58:15.944573-04	3	Pre-sell individual jars @$6.00 per jar, you keep $3.00 per jar.	2	Changed image.	15	1
+157	2015-09-30 19:18:54.194669-04	5	Pre-sell mix and match cases. $72.00 per case, you keep $36.00 per case.	2	Changed title.	15	1
+158	2015-09-30 19:19:32.234807-04	4	Buy-Sell.  Purchase salsa by the case at $3.00 per jar and sell at $6.00.	2	Changed title.	15	1
+159	2015-09-30 19:56:14.751046-04	3	Pre-sell individual jars. $6 per jar, you keep $3	2	Changed title.	15	1
+160	2015-09-30 19:56:34.784902-04	4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	2	Changed title.	15	1
+161	2015-09-30 19:56:50.638307-04	5	Pre-sell mix and match cases. $72 per case, you keep $36 per case.	2	Changed title.	15	1
+162	2015-09-30 19:57:15.743722-04	4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	2	No fields changed.	15	1
+163	2015-09-30 19:59:45.361409-04	3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.	2	Changed title.	15	1
+164	2015-09-30 20:00:20.44848-04	5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.	2	Changed title.	15	1
 \.
 
 
@@ -1585,7 +1724,7 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 72, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 164, true);
 
 
 --
@@ -1693,6 +1832,19 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 60	shipment	0001_initial	2015-09-25 16:28:09.97976-04
 61	shipment	0002_shipment_comment	2015-09-25 16:28:11.206897-04
 62	product	0009_product_featured	2015-09-26 08:31:36.158557-04
+63	fundraiser	0023_auto_20150928_2356	2015-09-28 19:56:23.426161-04
+64	fundraiser	0024_auto_20150929_1309	2015-09-29 09:10:02.642422-04
+65	account	0011_auto_20150929_1539	2015-09-29 11:39:28.645506-04
+66	fundraiser	0025_auto_20150929_1536	2015-09-29 11:39:29.168343-04
+67	fundraiser	0002_auto_20150929_2326	2015-09-29 19:27:01.608583-04
+68	fundraiser	0003_auto_20150929_2328	2015-09-29 19:28:06.612822-04
+69	fundraiser	0004_auto_20150929_2329	2015-09-29 19:29:26.168718-04
+70	fundraiser	0005_auto_20150929_2350	2015-09-29 19:50:39.169457-04
+71	fundraiser	0006_auto_20150930_0051	2015-09-29 20:51:20.322234-04
+72	fundraiser	0007_auto_20150930_0051	2015-09-29 20:51:20.567014-04
+73	fundraiser	0008_auto_20150930_0100	2015-09-29 21:00:53.352196-04
+74	fundraiser	0009_auto_20150930_1817	2015-09-30 14:17:57.075-04
+75	fundraiser	0010_fundraisercategory_image	2015-09-30 16:37:12.699154-04
 \.
 
 
@@ -1700,7 +1852,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 62, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 75, true);
 
 
 --
@@ -1708,7 +1860,7 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 62, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-lr4gvowq0c6qtkslub7dz5q53f8ba4y8	YjdkMDQ1MjExYWUxZjZkYWY2OTlhY2U4ZmUxMzIwNTdiY2NlZDhjNTp7InNlc3Npb25fZmluYWxpemVkX29yZGVyIjpudWxsLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIm9yZGVyX3N0ZXAiOm51bGwsImZpbmFsaXplZF9vcmRlciI6MiwiX2F1dGhfdXNlcl9oYXNoIjoiZDYwNmY0NjNhMzMxMjAyMzYyMDY2NzFkNmJmMGNjM2VjYTgzZDI3YSJ9	2015-10-10 17:36:34.868811-04
+latapd0gtmo844y9ky1lsex1j07d8gve	NjQ4YWEyYTNiOTFlMjQ3ZGNiYmE3ODE4NmE4NGI2MjcxMDEwNDIzMTp7InNlc3Npb25fZmluYWxpemVkX29yZGVyIjozNiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJvcmRlcl9zdGVwIjpudWxsLCJmaW5hbGl6ZWRfb3JkZXIiOjM2LCJfYXV0aF91c2VyX2hhc2giOiJkNjA2ZjQ2M2EzMzEyMDIzNjIwNjY3MWQ2YmYwY2MzZWNhODNkMjdhIn0=	2015-10-14 13:53:32.84937-04
 \.
 
 
@@ -1717,8 +1869,7 @@ lr4gvowq0c6qtkslub7dz5q53f8ba4y8	YjdkMDQ1MjExYWUxZjZkYWY2OTlhY2U4ZmUxMzIwNTdiY2N
 --
 
 COPY fundraiser_fundraiser (id, created, updated, account_id, type_id, profile_id, status, title, description, slug, discount, finalized, receipt_email_sent) FROM stdin;
-1	2015-09-25 17:57:34.25743-04	2015-09-25 18:02:25.932382-04	1	3	1	unpaid	Mikes fundraiser	hey hey hey	mikes-fundraiser-1	0.00	t	f
-2	2015-09-26 14:16:11.008439-04	2015-09-26 14:40:36.346289-04	\N	1	2	unpaid	mcz	mcz	\N	0.00	t	f
+36	2015-09-30 13:52:00.619723-04	2015-09-30 13:53:32.717272-04	1	1	45	unpaid	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser - 2	c	cleveland-orchestra-musicians-non-profit-fundraiser-fall-fundraiser-2-36	0.00	t	f
 \.
 
 
@@ -1726,14 +1877,17 @@ COPY fundraiser_fundraiser (id, created, updated, account_id, type_id, profile_i
 -- Name: fundraiser_fundraiser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 2, true);
+SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 36, true);
 
 
 --
 -- Data for Name: fundraiser_fundraisercategory; Type: TABLE DATA; Schema: public; Owner: mzakany
 --
 
-COPY fundraiser_fundraisercategory (id, title) FROM stdin;
+COPY fundraiser_fundraisercategory (id, title, description, name, type, image) FROM stdin;
+4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.		Plan B	Buy-Sell	fundraiser_types/logo-yello.png
+3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.		Plan A	Pre-Sell	fundraiser_types/logo-red.png
+5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.		Plan C	Pre-Sell mix and match cases	fundraiser_types/logo-green.png
 \.
 
 
@@ -1741,7 +1895,28 @@ COPY fundraiser_fundraisercategory (id, title) FROM stdin;
 -- Name: fundraiser_fundraisercategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('fundraiser_fundraisercategory_id_seq', 2, true);
+SELECT pg_catalog.setval('fundraiser_fundraisercategory_id_seq', 5, true);
+
+
+--
+-- Data for Name: fundraiser_fundraisercategory_options; Type: TABLE DATA; Schema: public; Owner: mzakany
+--
+
+COPY fundraiser_fundraisercategory_options (id, fundraisercategory_id, fundraisertype_id) FROM stdin;
+24	4	1
+25	4	2
+26	3	1
+27	5	1
+28	5	2
+29	5	3
+\.
+
+
+--
+-- Name: fundraiser_fundraisercategory_options_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
+--
+
+SELECT pg_catalog.setval('fundraiser_fundraisercategory_options_id_seq', 29, true);
 
 
 --
@@ -1859,8 +2034,7 @@ SELECT pg_catalog.setval('marketing_singlediscount_id_seq', 1, false);
 --
 
 COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FROM stdin;
-1	check	\N	\N	\N	1
-2	check	\N	\N	\N	2
+11	check	\N	\N	\N	36
 \.
 
 
@@ -1868,7 +2042,7 @@ COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FRO
 -- Name: payment_payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('payment_payment_id_seq', 2, true);
+SELECT pg_catalog.setval('payment_payment_id_seq', 11, true);
 
 
 --
@@ -1896,28 +2070,28 @@ SELECT pg_catalog.setval('product_category_id_seq', 5, true);
 --
 
 COPY product_product (id, product_code, slug, title, description, price, created, updated, image, featured) FROM stdin;
-2	product- 2	cherry-chocolate-hot-2	CHERRY CHOCOLATE HOT	Yes, we added habanero to give this some heat\r\n\r\nPure cocoa mixed with cherries combine to make your taste buds dance. Try this as a marinade with your favorite roasting meat, you won't be dissapointed!	3.00	2015-09-25 17:16:03.49489-04	2015-09-25 17:16:03.500318-04	product_images/cherry_chocolate.jpeg	f
 10	product- 10	original-x-hot-10	ORIGINAL X-HOT	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.\r\n\r\nX-Hot is Clovis Hot only hotter! Add the red Cayenne peppers please!	3.00	2015-09-25 17:37:59.023593-04	2015-09-25 17:37:59.02947-04	product_images/clovis_xhot.jpeg	f
-5	product- 5	chipotle-hot-5	CHIPOTLE HOT	Smoked jalapenos are diced and mixed with a blend of thick and chunky tomatoes and spices. If you've ever tried smoking your own jalepenos and enjoy savory and spicey, this one's for you.	3.00	2015-09-25 17:17:36.554037-04	2015-09-25 17:17:36.558595-04	product_images/chipotle-hot.jpeg	f
-7	product- 7	original-hot-7	ORIGINAL HOT	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.	3.00	2015-09-25 17:18:15.453758-04	2015-09-25 17:18:15.4592-04	product_images/clovis_hot_oJLkJ94.jpeg	f
-23	product- 23	spanish-verde-xx-stupid-hot-23	SPANISH VERDE XX-STUPID-HOT	Stupid Hot.	3.00	2015-09-25 17:50:59.887626-04	2015-09-25 17:50:59.894049-04	product_images/verde_hot_qFmr4mE.jpeg	f
-24	product- 24	pineapple-mild-24	PINEAPPLE MILD	This salsa has the great tast of pineapple and it and superb texture. Use this just as a dip or inspire a new omlette recipe.	3.00	2015-09-25 18:00:41.649138-04	2015-09-26 08:32:49.943668-04	product_images/pineapple_mild.jpeg	t
-21	product- 21	spanish-verde-mild-21	SPANISH VERDE MILD	Made with green chilies, tomatillo's, onions, cilantro, lime, and Jose Madrid spices.\r\n\r\nBest tomatillo salsa in the US!	3.00	2015-09-25 17:48:59.252869-04	2015-09-26 08:33:25.698263-04	product_images/verde_mild.jpeg	t
-17	product- 17	raspberry-bbq-chipotle-17	RASPBERRY BBQ CHIPOTLE	We searched all over the US for the quintessential essence of what good BBQ should taste like. Result: There is no clear winner because each region has its own preferences. So we chose the Motor City and spoke to many people and tasted many bbqs, to craft Raspberry BBQ.	3.00	2015-09-25 17:46:19.202616-04	2015-09-26 08:33:25.708519-04	product_images/raspb_bbq_chipotle.jpeg	t
-15	product- 15	peach-15	PEACH	Peach is one of the original fruit salsas. One of the most versatile, great on any spread that needs a little kick!	3.00	2015-09-25 17:45:32.305869-04	2015-09-26 08:33:25.711619-04	product_images/peach-mild.jpg	t
+23	product- 23	spanish-verde-xx-stupid-hot-23	SPANISH VERDE XX-STUPID-HOT	Stupid Hot.	3.00	2015-09-25 17:50:59.887626-04	2015-09-29 13:28:19.473596-04	product_images/verde_hot_qFmr4mE.jpeg	t
+9	product- 9	original-mild-9	ORIGINAL MILD	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.\r\n\r\nClovis Mild is the first four pepper salsa in the US with two red dried chilies adn two green chilies. California Pear tomatoes make a natural smooth, and sweet taste - while the four chilies and spices make it one of the most complex salsa around. Thats why its the base of all our red salsas.	3.00	2015-09-25 17:37:29.519779-04	2015-09-29 13:28:05.351334-04	product_images/clovis_mild.jpeg	f
+3	product- 3	cherry-mild-3	CHERRY MILD	Its the Michigan cherries that make Cherry Mild wonderfully sweet and tart. Make a great snack or as a compliment to meats, fish, or vegetables.	3.00	2015-09-25 17:16:32.533478-04	2015-09-29 13:28:05.355042-04	product_images/cherry_mild.jpeg	f
 14	product- 14	mango-mild-14	MANGO MILD	Everyone loves the taste of mangos right? Try chunks of mango with Clovis Medium Spice!	3.00	2015-09-25 17:44:50.034675-04	2015-09-26 08:33:25.714582-04	product_images/clovis_mild_wHRvDlv.jpeg	t
-9	product- 9	original-mild-9	ORIGINAL MILD	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.\r\n\r\nClovis Mild is the first four pepper salsa in the US with two red dried chilies adn two green chilies. California Pear tomatoes make a natural smooth, and sweet taste - while the four chilies and spices make it one of the most complex salsa around. Thats why its the base of all our red salsas.	3.00	2015-09-25 17:37:29.519779-04	2015-09-26 08:33:25.721934-04	product_images/clovis_mild.jpeg	t
-3	product- 3	cherry-mild-3	CHERRY MILD	Its the Michigan cherries that make Cherry Mild wonderfully sweet and tart. Make a great snack or as a compliment to meats, fish, or vegetables.	3.00	2015-09-25 17:16:32.533478-04	2015-09-26 08:33:25.724868-04	product_images/cherry_mild.jpeg	t
+24	product- 24	pineapple-mild-24	PINEAPPLE MILD	This salsa has the great tast of pineapple and it and superb texture. Use this just as a dip or inspire a new omlette recipe.	3.00	2015-09-25 18:00:41.649138-04	2015-09-29 13:28:19.454533-04	product_images/pineapple_mild.jpeg	t
+17	product- 17	raspberry-bbq-chipotle-17	RASPBERRY BBQ CHIPOTLE	We searched all over the US for the quintessential essence of what good BBQ should taste like. Result: There is no clear winner because each region has its own preferences. So we chose the Motor City and spoke to many people and tasted many bbqs, to craft Raspberry BBQ.	3.00	2015-09-25 17:46:19.202616-04	2015-09-29 13:28:19.466921-04	product_images/raspb_bbq_chipotle.jpeg	t
 1	product- 1	black-bean-and-corn-pablano-1	BLACK BEAN AND CORN PABLANO	Every one I speak to says this salsa tastes like chili. It is in the top three best selling salsas and is a great condiment.	3.00	2015-09-25 16:55:08.187085-04	2015-09-26 08:33:25.727833-04	product_images/black-bean-corn-pablano.jpg	t
 18	product- 18	roasted-garlic-olives-18	ROASTED GARLIC & OLIVES	Fresh roasted garlic cloves, green and black olives, chilies, tomatoes and Jose Madrid spices.	3.00	2015-09-25 17:46:53.027118-04	2015-09-26 08:33:25.730821-04	product_images/roasted_garlic.jpeg	t
 8	product- 8	clovis-medium-8	CLOVIS MEDIUM	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.	3.00	2015-09-25 17:19:36.91367-04	2015-09-26 08:33:25.733702-04	product_images/clovis_medium.jpeg	t
 4	product- 4	chipotle-con-queso-4	CHIPOTLE CON QUESO	Smoked chipotle peppers. Chunks of tomatos and slices of cheddar.\r\n	3.00	2015-09-25 17:17:03.968719-04	2015-09-26 08:33:25.737005-04	product_images/chipotle_con_caso.jpeg	t
 22	product- 22	spanish-verde-hot-22	SPANISH VERDE HOT	Verde Hot has the Verder Mild base, but with Serrano peppers to make it Hot. This is the "Salsa King's" favorite salsa.\r\n\r\nWon best green salsa in the US in Fort Worth, Texas in 2004 at the Salsa Shoot Out.\r\n	3.00	2015-09-25 17:49:25.386452-04	2015-09-26 08:33:25.741204-04	product_images/verde_hot.jpeg	t
 20	product- 20	roasted-pineapple-habanero-hot-20	ROASTED PINEAPPLE HABANERO HOT	Made with Verde XX Hot as the base, along with Jose Madrid special spices, and fresh pinaple chunks.	3.00	2015-09-25 17:48:33.644122-04	2015-09-26 08:33:25.747752-04	product_images/roasted_pineapple_habenero.jpeg	t
-13	product- 13	jamaican-jerk-hot-13	JAMAICAN JERK HOT	This is a new one, made by popular demand.\r\n	3.00	2015-09-25 17:39:25.187371-04	2015-09-26 08:33:25.75157-04	product_images/jamaican_jerk.jpeg	t
-11	product- 11	garden-cilantro-salsa-hot-11	GARDEN CILANTRO SALSA HOT	New Mexico chili's blended with fresh cilantro, tomatoes, jalepenos, onions, and a hint of lime.	3.00	2015-09-25 17:38:30.235337-04	2015-09-26 08:33:25.75491-04	product_images/garden_cilantro_hot.jpeg	t
-19	product- 19	raspberry-mild-19	RASPBERRY MILD	The first fruit salsa developed along with the Peach salsa. Raspberry is one of the icons of Jose Madrid Salsa and has won nation awards in two countries!	3.00	2015-09-25 17:48:05.878577-04	2015-09-26 08:33:25.704631-04	product_images/raspberry_mild.jpeg	t
+21	product- 21	spanish-verde-mild-21	SPANISH VERDE MILD	Made with green chilies, tomatillo's, onions, cilantro, lime, and Jose Madrid spices.\r\n\r\nBest tomatillo salsa in the US!	3.00	2015-09-25 17:48:59.252869-04	2015-09-29 13:28:19.460731-04	product_images/verde_mild.jpeg	t
+5	product- 5	chipotle-hot-5	CHIPOTLE HOT	Smoked jalapenos are diced and mixed with a blend of thick and chunky tomatoes and spices. If you've ever tried smoking your own jalepenos and enjoy savory and spicey, this one's for you.	3.00	2015-09-25 17:17:36.554037-04	2015-09-29 13:27:08.215784-04	product_images/chipotle-hot.jpeg	t
+11	product- 11	garden-cilantro-salsa-hot-11	GARDEN CILANTRO SALSA HOT	New Mexico chili's blended with fresh cilantro, tomatoes, jalepenos, onions, and a hint of lime.	3.00	2015-09-25 17:38:30.235337-04	2015-09-29 13:27:08.204246-04	product_images/garden_cilantro_hot.jpeg	f
+7	product- 7	original-hot-7	ORIGINAL HOT	The Clovis brand introduced Jose Madrid Salsa in 1989. The Clovis Medium salsa originated to serve in Zak's Restaraunt in Zanesville Ohio in 1989. It quickly became a flagship, so Clovis Mild and Medium were hence born. The Clovis series of salsas is named after Clovis New Mexico, the actual birthplace of Jose Madrid.	3.00	2015-09-25 17:18:15.453758-04	2015-09-29 13:27:08.21251-04	product_images/clovis_hot_oJLkJ94.jpeg	t
+2	product- 2	cherry-chocolate-hot-2	CHERRY CHOCOLATE HOT	Yes, we added habanero to give this some heat\r\n\r\nPure cocoa mixed with cherries combine to make your taste buds dance. Try this as a marinade with your favorite roasting meat, you won't be dissapointed!	3.00	2015-09-25 17:16:03.49489-04	2015-09-29 13:27:08.218808-04	product_images/cherry_chocolate.jpeg	t
+13	product- 13	jamaican-jerk-hot-13	JAMAICAN JERK HOT	This is a new one, made by popular demand.\r\n	3.00	2015-09-25 17:39:25.187371-04	2015-09-29 13:27:38.012837-04	product_images/jamaican_jerk.jpeg	f
+15	product- 15	peach-15	PEACH	Peach is one of the original fruit salsas. One of the most versatile, great on any spread that needs a little kick!	3.00	2015-09-25 17:45:32.305869-04	2015-09-29 13:28:19.469868-04	product_images/peach-mild.jpg	t
 12	product- 12	garden-cilantro-salsa-mild-12	GARDEN CILANTRO SALSA MILD	New Mexico chili's blended with fresh cilantro, tomatoes, jalepenos, onions, and a hint of lime. This one has a hotter version if you like cilantro and jalepenos.	3.00	2015-09-25 17:38:56.037099-04	2015-09-26 13:57:38.780462-04	product_images/garden_cilantro_mild.jpeg	t
+19	product- 19	raspberry-mild-19	RASPBERRY MILD	The first fruit salsa developed along with the Peach salsa. Raspberry is one of the icons of Jose Madrid Salsa and has won nation awards in two countries!	3.00	2015-09-25 17:48:05.878577-04	2015-09-29 13:28:19.463994-04	product_images/raspberry_mild.jpeg	t
 \.
 
 
@@ -1985,31 +2159,10 @@ SELECT pg_catalog.setval('product_productimage_id_seq', 1, false);
 --
 
 COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
-1	34	1	1
-2	22	9	1
-3	33	3	1
-4	0	12	1
-5	0	14	1
-6	11	17	1
-7	2	15	1
-8	0	19	1
-9	0	21	1
-10	0	8	1
-11	33	4	1
-12	0	18	1
-13	0	2	1
-14	0	11	1
-15	0	5	1
-17	0	7	1
-18	0	13	1
-19	0	20	1
-20	0	22	1
-21	0	10	1
-22	0	23	1
-23	12	9	2
-24	0	3	2
-25	0	1	2
-26	0	12	2
+351	333	9	36
+352	22	3	36
+353	0	1	36
+354	0	12	36
 \.
 
 
@@ -2017,7 +2170,7 @@ COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
 -- Name: shipment_selection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_selection_id_seq', 26, true);
+SELECT pg_catalog.setval('shipment_selection_id_seq', 354, true);
 
 
 --
@@ -2025,8 +2178,7 @@ SELECT pg_catalog.setval('shipment_selection_id_seq', 26, true);
 --
 
 COPY shipment_shipment (id, created, updated, address_id, fundraiser_id, comment_id) FROM stdin;
-1	2015-09-25 17:57:34.259333-04	2015-09-25 18:02:25.919098-04	1	1	1
-2	2015-09-26 14:16:11.009792-04	2015-09-26 14:40:36.337669-04	1	2	2
+36	2015-09-30 13:52:00.621286-04	2015-09-30 13:53:32.708853-04	1	36	11
 \.
 
 
@@ -2034,7 +2186,7 @@ COPY shipment_shipment (id, created, updated, address_id, fundraiser_id, comment
 -- Name: shipment_shipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_shipment_id_seq', 2, true);
+SELECT pg_catalog.setval('shipment_shipment_id_seq', 36, true);
 
 
 --
@@ -2219,6 +2371,22 @@ ALTER TABLE ONLY django_session
 
 ALTER TABLE ONLY fundraiser_fundraiser
     ADD CONSTRAINT fundraiser_fundraiser_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fundraiser_fundraisercategory_fundraisercategory_id_fundrai_key; Type: CONSTRAINT; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+ALTER TABLE ONLY fundraiser_fundraisercategory_options
+    ADD CONSTRAINT fundraiser_fundraisercategory_fundraisercategory_id_fundrai_key UNIQUE (fundraisercategory_id, fundraisertype_id);
+
+
+--
+-- Name: fundraiser_fundraisercategory_options_pkey; Type: CONSTRAINT; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+ALTER TABLE ONLY fundraiser_fundraisercategory_options
+    ADD CONSTRAINT fundraiser_fundraisercategory_options_pkey PRIMARY KEY (id);
 
 
 --
@@ -2511,6 +2679,20 @@ CREATE INDEX fundraiser_fundraiser_94757cae ON fundraiser_fundraiser USING btree
 
 
 --
+-- Name: fundraiser_fundraisercategory_options_e5391087; Type: INDEX; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+CREATE INDEX fundraiser_fundraisercategory_options_e5391087 ON fundraiser_fundraisercategory_options USING btree (fundraisercategory_id);
+
+
+--
+-- Name: fundraiser_fundraisercategory_options_f830d4d2; Type: INDEX; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+CREATE INDEX fundraiser_fundraisercategory_options_f830d4d2 ON fundraiser_fundraisercategory_options USING btree (fundraisertype_id);
+
+
+--
 -- Name: fundraiser_fundraisertype_2dbcba41; Type: INDEX; Schema: public; Owner: mzakany; Tablespace: 
 --
 
@@ -2606,6 +2788,14 @@ CREATE INDEX shipment_shipment_69b97d17 ON shipment_shipment USING btree (commen
 --
 
 CREATE INDEX shipment_shipment_ea8e5d12 ON shipment_shipment USING btree (address_id);
+
+
+--
+-- Name: D3e8e3f7f022e1c2c93d1a8b0c096ed6; Type: FK CONSTRAINT; Schema: public; Owner: mzakany
+--
+
+ALTER TABLE ONLY fundraiser_fundraisercategory_options
+    ADD CONSTRAINT "D3e8e3f7f022e1c2c93d1a8b0c096ed6" FOREIGN KEY (fundraisercategory_id) REFERENCES fundraiser_fundraisercategory(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -2734,6 +2924,14 @@ ALTER TABLE ONLY django_admin_log
 
 ALTER TABLE ONLY django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: e63994d2909d64619afb0145725372c8; Type: FK CONSTRAINT; Schema: public; Owner: mzakany
+--
+
+ALTER TABLE ONLY fundraiser_fundraisercategory_options
+    ADD CONSTRAINT e63994d2909d64619afb0145725372c8 FOREIGN KEY (fundraisertype_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
