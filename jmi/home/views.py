@@ -4,13 +4,15 @@ import os
 # django
 from django.shortcuts import render
 from django.template import *
-from django.conf import settings
+from django.core.files import File
+from django.http import HttpResponse
 
 # app
 from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser, FundraiserCategory
 from marketing.form import EmailNewsLetterForm
 from product.models import Product,Category
+from jmi.settings import MEDIA_ROOT
 
 # form
 from product.forms import ProductSearchForm
@@ -83,21 +85,15 @@ def get_home_variables(request):
 
 # Plans
 def download_forms(request):
-	# file_name = 'forms_packet.zip'
-	# file_path = "/tmp/albums/"+file_name
- #    path_to_zip = make_archive(file_path,"zip",file_path)
- #    response = HttpResponse(FileWrapper(file(path_to_zip,'rb')), content_type='application/zip')
- #    response['Content-Disposition'] = 'attachment; filename='+file_name.replace(" ","_")+'.zip'
- #    return response
+ 	file = 'jmsf.zip'
+	file_path = MEDIA_ROOT+'/docs/%s' % file
+	f = open(file_path, 'r')
+	myfile = File(f)
 
-	path_to_file = os.path.realpath("forms.zip")
-    # f = open(path_to_file, 'r')
-    # myfile = File(f)
-    # response = HttpResponse(myfile, content_type='application/zip')
-    # response['Content-Disposition'] = 'attachment; filename=%s' % name
-    # return response
-	print path_to_file
-
+	response = HttpResponse(myfile, content_type='application/zip')
+	response['Content-Disposition'] = 'attachment; filename=%s' % file
+	return response
+	
 
 def plan_type(request,id):
 	try: 
