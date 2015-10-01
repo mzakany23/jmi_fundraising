@@ -6,8 +6,8 @@
 
       <div class="col-md-8 col-md-offset-2 text-left" style='margin-bottom: 50px; background-color: #F0F0F0;'>
 
-        <h2><b class='jmi-font-one'>Raising money for your organization</b> can be hard. </h2>  
-        <h2><b class='jmi-larger-header' style='color: red;'>Raising money through</b> <img style='margin-left: 15px; margin-right: 15px; margin-bottom: 15px;' height='50' width='50' class='img-rounded' src="{% static 'jmi-images/logo-sliver.png' %}">is <b style='color: black;'class='jmi-large-header'>easy .</b></h2> 
+        <h2><b class='jmi-font-one'>Raising money for your organization</b> can be <b style='color: red; font-weight: 900;'>HARD ...</b> </h2>  
+        <h2><b class='jmi-font-one' >Raising money through</b> <img style='margin-left: 15px; margin-right: 15px; margin-bottom: 15px;' height='50' width='50' class='img-rounded' src="{% static 'jmi-images/logo-sliver.png' %}">is <b style='color: green; font-weight: 900;'>EASY ...</b></h2> 
         <h2><b class='jmi-header'>We give you <b style='color: #B81117 !important;' class='jmi-larger-header'>half</b> the proceeds of every jar you sell to your cause .</b></h2>
 
       </div>
@@ -24,7 +24,7 @@
                        <img height='100' width='100' src="{{ plan.get_absolute_url }}" class='block-center img-circle jmi-pricing-img'>
                         <div class="service-body">
                           <h3>{{ plan.name }}</h3>
-                          <label>{{ plan.type }}</label>
+                          <label>{{ plan.type }}</label> <br>
                           <p>{{ plan.title }}</p>
                           <button style='margin-top: 35px;' class="btn btn-md btn-danger">Learn More</button>
                         </div>
