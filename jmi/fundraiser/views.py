@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.template import loader
 
 # app 
-from fundraiser.models import Fundraiser, FundraiserType
+from fundraiser.models import Fundraiser, FundraiserType, FundraiserCategory
 from account.models import Profile
 from shipment.models import Shipment, Selection
 from product.models import Product
@@ -151,32 +151,72 @@ def describe_fundraiser(request):
 def choose_fundraiser(request):
 	request.session['order_step'] = 'choose_fundraiser'
 
-	fundraiser_options = return_all_objects(FundraiserType)
+	if request.POST:
+		try: 
+			slug = request.POST['option']
+			option = FundraiserType.objects.get(slug=slug)
+		except:
+			slug = None
+			option = None
 
-	context = {'types' : fundraiser_options,'settings' : settings}
+		try:
+			plan_id = request.POST['plan']
+			plan = FundraiserCategory.objects.get(id=plan_id)
+		except:
+			plan_id = None
+			plan = None
+
+
+		if option is None:
+			messages.error(request,'Please select an option.')
+			return HttpResponseRedirect(reverse('choose_fundraiser'))
+		else:
+			session = SessionVariable(request,'current_fundraiser')
+			session_fundraiser = session.session_fundraiser()
+
+			session_fundraiser.plan = plan
+			session_fundraiser.type = option
+			session_fundraiser.save()
+
+			return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
+	
+	fundraiser_options = return_all_objects(FundraiserType)
+	plans = return_all_objects(FundraiserCategory)
+	context = {
+		'types' : fundraiser_options,
+		'plans' : plans,
+		'settings' : settings}
 	template = 'fundraiser/choose.html'
 	return render(request,template,context)
 
-def chosen_fundraiser_type(request,slug):
+def chosen_fundraiser_type(request):
 	request.session['order_step'] = 'selections'
-	session_fundraiser = SessionVariable(request,'current_fundraiser').session_fundraiser()
-	option = OptionFundraiser(slug)
-	fundraiser_type = option.get_fundraiser_by_slug()
-	# product_set = option.generate_product_set_by_category()
+	session = SessionVariable(request,'current_fundraiser')
+	session_shipment = session.session_shipment()
 
-	try:
-		type = FundraiserType.objects.get(slug=slug)
-	except:
-		type = None
+	if request.POST:
+		salsas = ChooseSalsasFundraiser(request)
+		salsas.set_product_and_qty_selection()
+		
+		if salsas.theres_no_selections_made():
+			title = 'Please make at least one selection!'
+			messages.error(request,title)
+			return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
+		else:
+			if session_shipment.has_selections():
+				session_shipment.remove_selections()
+			if session_shipment:
+				try:
+					salsas.save_selections()
+				except:
+					title = 'There was an error. Make sure you use only numbers in quantities!'
+					messages.error(request,title)
+					return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
 
-	if session_fundraiser and type:
-		session_fundraiser.type = type 
-		session_fundraiser.save()
-
+			return HttpResponseRedirect(reverse('create_shipment'))
 
 	context = {
-		'fundraiser_type' : fundraiser_type,
-		# 'product_set' : product_set,
+		'session' : session,
 		'settings' : settings
 	}
 
@@ -191,26 +231,27 @@ def choose_salsas(request):
 	session_fundraiser.discount = 0
 	session_fundraiser.save()
 	
-	salsas = ChooseSalsasFundraiser(request)
+	print request.POST
+	# salsas = ChooseSalsasFundraiser(request)
 	
-	if salsas.form_is_valid():
-		salsas.set_product_and_qty_selection()
-		if salsas.theres_no_selections_made():
-			title = 'Please make at least one selection!'
-			messages.error(request,title)
-			return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))
-		else:
-			if session_shipment.has_selections():
-				session_shipment.remove_selections()
-			if session_shipment:
-				try:
-					salsas.save_selections()
-				except:
-					title = 'There was an error. Make sure you use only numbers in quantities!'
-					messages.error(request,title)
-					return HttpResponseRedirect(reverse('chosen_fundraiser_type',args=(salsas.fund_type,)))
+	# if salsas.form_is_valid():
+	# 	salsas.set_product_and_qty_selection()
+	# 	if salsas.theres_no_selections_made():
+	# 		title = 'Please make at least one selection!'
+	# 		messages.error(request,title)
+	# 		return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
+	# 	else:
+	# 		if session_shipment.has_selections():
+	# 			session_shipment.remove_selections()
+	# 		if session_shipment:
+	# 			try:
+	# 				salsas.save_selections()
+	# 			except:
+	# 				title = 'There was an error. Make sure you use only numbers in quantities!'
+	# 				messages.error(request,title)
+	# 				return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
 
-			return HttpResponseRedirect(reverse('create_shipment'))
+	# 		return HttpResponseRedirect(reverse('create_shipment'))
 
 	context = {}
 	template = 'fundraiser/shipment.html'

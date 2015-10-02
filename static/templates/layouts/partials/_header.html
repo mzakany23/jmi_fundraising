@@ -46,7 +46,7 @@
                   <h1 style="margin-top: 7px !important; float: left;"><a class='jmi-large-header-mobile' href="{% url 'home' %}">Jose Madrid Salsa Fundraising</a></h1>
                   
                 
-                <button style='margin-top: 10px; margin-left: 0px !important;' type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+                <button style='margin-top: 10px;' type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
 
 
@@ -56,13 +56,14 @@
               
               
                   <li class="dropdown active">
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" style='margin-bottom: 0px;'>
                           
                         {% if not user.is_authenticated %}
                           <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas </a>  
                         </li>
                           <li><a href="{% url 'describe_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
-                          <li><a href="{% url 'auth_login' %}"><button class="btn btn-default">Login</button></a></li>
+                           <li><a href="{% url 'auth_login' %}"><i class="fa fa-angle-double-right"></i>Login</a></li>
+                          
                           {% endif %}
                         </ul>
                     </li>
@@ -70,7 +71,8 @@
                  <li class='hidden-sm hidden-xs'><a href="{% url 'describe_fundraiser' %}"></i>Create Fundraiser</a>  
                  </li>  
                  
-                  <li class='hidden-sm hidden-xs'><a href="{% url 'show_all_salsas' %}"></i>Salsas</a>  </li>  
+                  <li class='hidden-sm hidden-xs'><a href="{% url 'show_all_salsas' %}"></i>Salsas</a>  </li> 
+                 
                                
 
               
@@ -81,7 +83,7 @@
                       <ul class="dropdown-menu">
                         
                         <li><a href="{% url 'profile_show' %}"><i class="fa fa-angle-double-right"></i>Profile</a>  </li>  
-                        
+                        <li><a href="{% url 'download_forms' %}"><i class="fa fa-angle-double-right"></i>Download Fundraising Forms</a>  </li> 
                         <li><a href="{% url 'choose_profile_for_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create new Fundraiser</a>  
                         </li>
 

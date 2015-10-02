@@ -107,6 +107,31 @@ class SessionFundraiser(object):
 	def order_step(self):
 		return request.session['order_step']
 
+	def get_product_set_by_category(self):
+
+		try:
+			fundraiser_type = self.session_fundraiser().type
+			product_set = {}
+		except:
+			fundraiser_type = None
+			product_set = None
+
+
+		if fundraiser_type:
+			for product in fundraiser_type.selections.all():
+				try:
+					category = product.category.first()
+				except:
+					category = None
+
+				if category and category in product_set.keys():
+					product_set[category].append(product)
+				elif category and not category in product_set.keys():
+					product_set[category] = []
+					product_set[category].append(product)
+			return product_set
+
+
 class SessionShipment(object):
 	def session_shipment(self):
 		try:

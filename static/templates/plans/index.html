@@ -36,6 +36,7 @@
                         <div class="service">
                             <img class='img-circle' src="{{ plan.get_absolute_url }}" height='50' width='50'>
                             <h3 style='margin-bottom: 35px;'>{{ option.title }}</h3>
+                            
                             <div class="row">
                             {% for sel in option.selections.all %}
                                 <div class="col-md-3 col-xs-4">

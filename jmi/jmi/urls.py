@@ -57,7 +57,7 @@ urlpatterns += patterns('fundraiser.views',
 	url(r'^(?P<slug>[-\w]+)/lets-do-another-fundraiser/$', 'logged_in_describe_fundraiser', name='logged_in_describe_fundraiser'),
 	# fundraiser type
 	url(r'^fundraiser/$', 'choose_fundraiser', name='choose_fundraiser'),
-	url(r'^fundraiser/(?P<slug>[-\w]+)/$', 'chosen_fundraiser_type', name='chosen_fundraiser_type'),
+	url(r'^fundraiser/choose-salsas/$', 'chosen_fundraiser_type', name='chosen_fundraiser_type'),
 	# choose salsas
 	url(r'^pick-salsas/$', 'choose_salsas', name='choose_salsas'),
 	# shipment

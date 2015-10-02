@@ -13,27 +13,43 @@
     	
             <div class="row">
             		
-            		{% for type in types %}
+            		{% for plan in plans %}
                 <!-- PORTFOLIO ITEM -->
                 
                 <div class="col-md-4 portfolio-item design icons">
                 	<article>
 
-                        <div class="overlay-wrapper">
-                            <img src="{{ settings.SERVER }}/media/{{ type.image }}" class="center-block img-responsive" alt="">
-                            <span class="overlay">
-                              
-                                <a href="{% url 'chosen_fundraiser_type' type.slug %}"><i class="fa fa-plus"></i></a>
-                                
-                            
-                            </span>
-                        </div>
-                        
-                        <div class="portfolio-item-description">
-                            <h4 class='jmi-large-header text-center'>{{ type.title }}</h4>
+                    <div>
+                        <div class='text-center'>
+                          <img style='margin-top: 15px;' height='115' width='115' class='img-circle' src="{{ plan.get_absolute_url }}" class="center-block img-responsive" alt="">
+                          <h3 class='jmi-large-header'>{{ plan.name }}</h3>
+                          <h4><label>{{ plan.type }}</label></h4>
                         </div>
 
-                    </article>
+                        <div>
+                            
+                            <h4 style='color: black; font-weight: 800;' class='text-center'>Choose Option:</h4>
+                            <hr>
+                            <div class='text-center'>
+                            
+                              {% for option in plan.options.all %}
+                              <form method='POST' action="{% url 'choose_fundraiser' %}">
+                                {% csrf_token %}
+                                <input type='hidden' name='plan' value='{{ plan.id }}'> 
+                                <p><input type="radio" name="option" value="{{ option.slug }}" ><b style='margin-left: 5px;'>{{ option.title }}</b></p>
+                              {% endfor %}
+
+                              <button type='submit' style='margin-bottom: 15px;' class='btn btn-md btn-danger'>Choose Plan</button>
+                            </form>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                        
+                      
+                  </article>
+
                 </div>
 
              		{% endfor %}

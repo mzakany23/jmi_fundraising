@@ -16,6 +16,7 @@ class Fundraiser(models.Model):
 	STATUS_CHOICES = (('paid','paid'),('unpaid','unpaid'))
 	title        = models.TextField(max_length=100,blank=True,null=True)
 	description  = models.TextField(max_length=500,blank=True,null=True)
+	plan         = models.ForeignKey('FundraiserCategory',blank=True,null=True)
 	type         = models.ForeignKey('FundraiserType',null=True,blank=True)
 	status       = models.CharField(
 		max_length=40,

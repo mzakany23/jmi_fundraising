@@ -7,16 +7,17 @@
 
 <hr>
 
-<form method="POST" action="{% url 'choose_salsas' %}">
+<form method="POST" action="{% url 'chosen_fundraiser_type' %}">
 	{% csrf_token %}
 <div class="row">
-	
-{% for product in fundraiser_type.all_selections %}
+
+{% for category,products in session.get_product_set_by_category.items %}
  <!-- SHOPPING CART ITEM -->
+ <h1 style='margin-left: 15px;' class='jmi-larger-header'>{{ category }}</h1>
  
- <input type='hidden' name='product' value="{{ product.id }}">
- <input type='hidden' name='type' value="{{ fundraiser_type.slug }}">
-      
+  {% for product in products %}
+    <input type='hidden' name='product' value="{{ product.id }}">
+    <input type='hidden' name='type' value="{{ category.id }}">
   <div class="shopping-cart-item">
       
       <div class="row">
@@ -27,7 +28,7 @@
 
           <div class="row hidden-lg hidden-md">
               <div style='margin-left: 70px;' class="col-xs-8">
-                <img height='250' width='200' src="{{ settings.SERVER }}/media/{{ product.image }}" class="img-responsive" alt="">
+                <img height='250' width='200' src="{{ product.get_absolute_url }}" class="img-responsive" alt="">
               </div>
           </div>    
 
@@ -50,7 +51,7 @@
           </div> -->
       </div>    
   </div>
-
+  {% endfor %}
 <!-- mobile -->
   <!--  <div class="shopping-cart-item hidden-lg hidden-md">
       
