@@ -1,5 +1,6 @@
 from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -132,7 +133,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+DOCS_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'docs')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','root')

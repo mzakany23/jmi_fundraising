@@ -12,7 +12,7 @@ from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser, FundraiserCategory
 from marketing.form import EmailNewsLetterForm
 from product.models import Product,Category
-from jmi.settings import MEDIA_ROOT
+from jmi.settings import DOCS_ROOT
 
 # form
 from product.forms import ProductSearchForm
@@ -85,8 +85,9 @@ def get_home_variables(request):
 
 # Plans
 def download_forms(request):
+	import urllib
  	file = 'jmsf.zip'
-	file_path = MEDIA_ROOT+'/docs/%s' % file
+	file_path = DOCS_ROOT+'/%s' % file
 	f = open(file_path, 'r')
 	myfile = File(f)
 
