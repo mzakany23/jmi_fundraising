@@ -567,7 +567,8 @@ CREATE TABLE fundraiser_fundraiser (
     slug character varying(400),
     discount numeric(10,2) NOT NULL,
     finalized boolean NOT NULL,
-    receipt_email_sent boolean NOT NULL
+    receipt_email_sent boolean NOT NULL,
+    plan_id integer
 );
 
 
@@ -1310,7 +1311,7 @@ ALTER TABLE ONLY shipment_shipment ALTER COLUMN id SET DEFAULT nextval('shipment
 --
 
 COPY account_profile (id, organization, org_photo, address_id, stripe_id, slug, email, first_name, last_name, phone_number, account_id) FROM stdin;
-45	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2		1	\N	cleveland-orchestra-musicians-non-profit-45	mzakany@gmail.com	Michael	Zakany	3306126183	1
+50	Mike Zakany LLC		\N	\N	mike-zakany-llc-50	\N	\N	\N	\N	1
 \.
 
 
@@ -1318,7 +1319,7 @@ COPY account_profile (id, organization, org_photo, address_id, stripe_id, slug, 
 -- Name: account_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('account_profile_id_seq', 45, true);
+SELECT pg_catalog.setval('account_profile_id_seq', 50, true);
 
 
 --
@@ -1461,7 +1462,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 69, true);
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 2	pbkdf2_sha256$15000$0wqVG0mXYenV$GUTglY6aQcJDhQ38M5voKPvxI1fWBd9s2IH37qoQLrM=	2015-09-25 16:29:23.836496-04	t	salsaking2015			mike@josemadridsalsa.com	t	t	2015-09-25 16:29:23.836496-04
 3	pbkdf2_sha256$15000$ICG543YBiWQW$0tjI/XTXrryhUOYXq7FQfWDgQF6Bmj1UBp0hYVtgk2w=	2015-09-29 13:03:26.104892-04	f	mzakanySenior				f	t	2015-09-29 13:03:25.778424-04
-1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-09-29 13:26:49.389194-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
+1	pbkdf2_sha256$15000$LgEdLuxAKw9J$Ha7Asr69F6jW0pwINd6u5dHxM73WXi/AW4ihdPsQMIo=	2015-10-02 12:44:14.835355-04	t	mzakany			mzakany@gmail.com	t	t	2015-09-25 16:28:50.914242-04
 \.
 
 
@@ -1507,7 +1508,6 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 --
 
 COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
-11	okokokoko	36
 \.
 
 
@@ -1515,7 +1515,7 @@ COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
 -- Name: comment_fundraiserordercomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 11, true);
+SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 12, true);
 
 
 --
@@ -1717,6 +1717,21 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 162	2015-09-30 19:57:15.743722-04	4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	2	No fields changed.	15	1
 163	2015-09-30 19:59:45.361409-04	3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.	2	Changed title.	15	1
 164	2015-09-30 20:00:20.44848-04	5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.	2	Changed title.	15	1
+165	2015-10-01 10:24:38.093389-04	3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.	2	Changed description.	15	1
+166	2015-10-01 10:33:11.793118-04	4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	2	Changed description.	15	1
+167	2015-10-01 10:33:16.767014-04	5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.	2	Changed description.	15	1
+168	2015-10-01 10:35:26.1379-04	4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	2	Changed description.	15	1
+169	2015-10-01 10:37:27.185108-04	5	Pre-Sell mix and match cases	2	Changed description.	15	1
+170	2015-10-02 12:46:44.806231-04	39	Fundraiser: PARUM CLARAM	3		14	1
+171	2015-10-02 12:46:44.810383-04	38	Fundraiser: xyz fundraiser	3		14	1
+172	2015-10-02 12:46:44.812071-04	37	Fundraiser: new fundraiser	3		14	1
+173	2015-10-02 12:46:44.813345-04	36	Fundraiser: Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser - 2	3		14	1
+174	2015-10-02 13:37:11.741431-04	40	Fundraiser: Mikes fundraiser	2	Changed plan, type and status.	14	1
+175	2015-10-02 15:57:44.401553-04	49	Mike Zakany LLC	3		8	1
+176	2015-10-02 15:57:44.405519-04	48	iu	3		8	1
+177	2015-10-02 15:57:44.406946-04	47	hey	3		8	1
+178	2015-10-02 15:57:44.408176-04	46	some new organization	3		8	1
+179	2015-10-02 15:57:44.409218-04	45	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser 2	3		8	1
 \.
 
 
@@ -1724,7 +1739,7 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 164, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 179, true);
 
 
 --
@@ -1845,6 +1860,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 73	fundraiser	0008_auto_20150930_0100	2015-09-29 21:00:53.352196-04
 74	fundraiser	0009_auto_20150930_1817	2015-09-30 14:17:57.075-04
 75	fundraiser	0010_fundraisercategory_image	2015-09-30 16:37:12.699154-04
+76	fundraiser	0011_fundraiser_plan	2015-10-02 12:53:51.067881-04
 \.
 
 
@@ -1852,7 +1868,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 75, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 76, true);
 
 
 --
@@ -1860,7 +1876,7 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 75, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-latapd0gtmo844y9ky1lsex1j07d8gve	NjQ4YWEyYTNiOTFlMjQ3ZGNiYmE3ODE4NmE4NGI2MjcxMDEwNDIzMTp7InNlc3Npb25fZmluYWxpemVkX29yZGVyIjozNiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJvcmRlcl9zdGVwIjpudWxsLCJmaW5hbGl6ZWRfb3JkZXIiOjM2LCJfYXV0aF91c2VyX2hhc2giOiJkNjA2ZjQ2M2EzMzEyMDIzNjIwNjY3MWQ2YmYwY2MzZWNhODNkMjdhIn0=	2015-10-14 13:53:32.84937-04
+pf81qy8yhmiy0gbxtc5ph3hdvxwykzap	MThhNDYzN2FiOGE0YTRhNGVhNjJkOWQwZDY4ZWZhYjc5Y2M4NTMwMzp7Il9hdXRoX3VzZXJfaWQiOjEsImN1cnJlbnRfZnVuZHJhaXNlciI6NDEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwib3JkZXJfc3RlcCI6bnVsbCwiZmluYWxpemVkX29yZGVyIjo0MCwiX2F1dGhfdXNlcl9oYXNoIjoiZDYwNmY0NjNhMzMxMjAyMzYyMDY2NzFkNmJmMGNjM2VjYTgzZDI3YSJ9	2015-10-17 10:04:59.378267-04
 \.
 
 
@@ -1868,8 +1884,8 @@ latapd0gtmo844y9ky1lsex1j07d8gve	NjQ4YWEyYTNiOTFlMjQ3ZGNiYmE3ODE4NmE4NGI2MjcxMDE
 -- Data for Name: fundraiser_fundraiser; Type: TABLE DATA; Schema: public; Owner: mzakany
 --
 
-COPY fundraiser_fundraiser (id, created, updated, account_id, type_id, profile_id, status, title, description, slug, discount, finalized, receipt_email_sent) FROM stdin;
-36	2015-09-30 13:52:00.619723-04	2015-09-30 13:53:32.717272-04	1	1	45	unpaid	Cleveland Orchestra - Musicians Non Profit Fundraiser - Fall Fundraiser - 2	c	cleveland-orchestra-musicians-non-profit-fundraiser-fall-fundraiser-2-36	0.00	t	f
+COPY fundraiser_fundraiser (id, created, updated, account_id, type_id, profile_id, status, title, description, slug, discount, finalized, receipt_email_sent, plan_id) FROM stdin;
+41	2015-10-02 15:57:59.96028-04	2015-10-02 15:58:03.89299-04	1	1	50	in-process	Mikes fundraiser	new	mikes-fundraiser-41	0.00	f	f	5
 \.
 
 
@@ -1877,7 +1893,7 @@ COPY fundraiser_fundraiser (id, created, updated, account_id, type_id, profile_i
 -- Name: fundraiser_fundraiser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 36, true);
+SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 41, true);
 
 
 --
@@ -1885,9 +1901,9 @@ SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 36, true);
 --
 
 COPY fundraiser_fundraisercategory (id, title, description, name, type, image) FROM stdin;
-4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.		Plan B	Buy-Sell	fundraiser_types/logo-yello.png
-3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.		Plan A	Pre-Sell	fundraiser_types/logo-red.png
-5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.		Plan C	Pre-Sell mix and match cases	fundraiser_types/logo-green.png
+3	Pre-sell individual jars at $6 per jar, you keep $3 per jar.	Pre-sell means you go out and take orders and payments for salsa using our forms packet. Once you have all your orders you send the checks in, and we'll send you your salsa to deliver to your customers. \r\n\r\nPlan A is pre-sell individual jars at $6 per jar, which means that you keep $3 of every jar. 	Plan A	Pre-Sell	fundraiser_types/logo-red.png
+4	Buy-Sell.  Purchase salsa by the case at $3 per jar and sell at $6.	Buy-sell means that you purchase the salsa first so you can get your jars to your customers faster. Once you have \r\n\r\nPlan B is buy-sell, which means that you buy jars at $6 and keep $3. 	Plan B	Buy-Sell	fundraiser_types/logo-yello.png
+5	Pre-sell mix and match cases at $72 per case, you keep $36 per case.	Pre-sell means you go out and take orders and payments for salsa using our forms packet. Once you have all your orders you send the checks in, and we'll send you your salsa to deliver to your customers. \r\n\r\nPlan C is pre-sell 12-jar cases of salsa, which means that you keep $3 of every jar in the case. 	Plan C	Pre-Sell mix and match cases	fundraiser_types/logo-green.png
 \.
 
 
@@ -1903,12 +1919,12 @@ SELECT pg_catalog.setval('fundraiser_fundraisercategory_id_seq', 5, true);
 --
 
 COPY fundraiser_fundraisercategory_options (id, fundraisercategory_id, fundraisertype_id) FROM stdin;
-24	4	1
-25	4	2
-26	3	1
-27	5	1
-28	5	2
-29	5	3
+30	3	1
+36	4	1
+37	4	2
+38	5	1
+39	5	2
+40	5	3
 \.
 
 
@@ -1916,7 +1932,7 @@ COPY fundraiser_fundraisercategory_options (id, fundraisercategory_id, fundraise
 -- Name: fundraiser_fundraisercategory_options_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('fundraiser_fundraisercategory_options_id_seq', 29, true);
+SELECT pg_catalog.setval('fundraiser_fundraisercategory_options_id_seq', 40, true);
 
 
 --
@@ -2034,7 +2050,6 @@ SELECT pg_catalog.setval('marketing_singlediscount_id_seq', 1, false);
 --
 
 COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FROM stdin;
-11	check	\N	\N	\N	36
 \.
 
 
@@ -2042,7 +2057,7 @@ COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FRO
 -- Name: payment_payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('payment_payment_id_seq', 11, true);
+SELECT pg_catalog.setval('payment_payment_id_seq', 12, true);
 
 
 --
@@ -2159,10 +2174,6 @@ SELECT pg_catalog.setval('product_productimage_id_seq', 1, false);
 --
 
 COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
-351	333	9	36
-352	22	3	36
-353	0	1	36
-354	0	12	36
 \.
 
 
@@ -2170,7 +2181,7 @@ COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
 -- Name: shipment_selection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_selection_id_seq', 354, true);
+SELECT pg_catalog.setval('shipment_selection_id_seq', 407, true);
 
 
 --
@@ -2178,7 +2189,7 @@ SELECT pg_catalog.setval('shipment_selection_id_seq', 354, true);
 --
 
 COPY shipment_shipment (id, created, updated, address_id, fundraiser_id, comment_id) FROM stdin;
-36	2015-09-30 13:52:00.621286-04	2015-09-30 13:53:32.708853-04	1	36	11
+41	2015-10-02 15:57:59.961773-04	2015-10-02 15:57:59.961805-04	\N	41	\N
 \.
 
 
@@ -2186,7 +2197,7 @@ COPY shipment_shipment (id, created, updated, address_id, fundraiser_id, comment
 -- Name: shipment_shipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_shipment_id_seq', 36, true);
+SELECT pg_catalog.setval('shipment_shipment_id_seq', 41, true);
 
 
 --
@@ -2658,6 +2669,13 @@ CREATE INDEX fundraiser_fundraiser_2dbcba41 ON fundraiser_fundraiser USING btree
 
 
 --
+-- Name: fundraiser_fundraiser_60fb6a05; Type: INDEX; Schema: public; Owner: mzakany; Tablespace: 
+--
+
+CREATE INDEX fundraiser_fundraiser_60fb6a05 ON fundraiser_fundraiser USING btree (plan_id);
+
+
+--
 -- Name: fundraiser_fundraiser_83a0eb3f; Type: INDEX; Schema: public; Owner: mzakany; Tablespace: 
 --
 
@@ -2932,6 +2950,14 @@ ALTER TABLE ONLY django_admin_log
 
 ALTER TABLE ONLY fundraiser_fundraisercategory_options
     ADD CONSTRAINT e63994d2909d64619afb0145725372c8 FOREIGN KEY (fundraisertype_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fu_plan_id_37f6e10644b23347_fk_fundraiser_fundraisercategory_id; Type: FK CONSTRAINT; Schema: public; Owner: mzakany
+--
+
+ALTER TABLE ONLY fundraiser_fundraiser
+    ADD CONSTRAINT fu_plan_id_37f6e10644b23347_fk_fundraiser_fundraisercategory_id FOREIGN KEY (plan_id) REFERENCES fundraiser_fundraisercategory(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

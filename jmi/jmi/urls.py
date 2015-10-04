@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 
 from api.fundraiser.views import FundraiserProcessView, TrackEmailOrder
+from api.product.views import QueryProductView
 
 
 
@@ -86,6 +87,7 @@ urlpatterns += patterns('dashboard.views',
 # api
 urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
+	url(r'^api/product/(?P<id>\d+)',QueryProductView.as_view(),name='api_query_product'),
 )
 
 if settings.DEBUG:

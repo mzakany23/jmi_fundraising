@@ -12,7 +12,7 @@ from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser, FundraiserCategory
 from marketing.form import EmailNewsLetterForm
 from product.models import Product,Category
-from jmi.settings import DOCS_ROOT
+from jmi.settings import DOCS_ROOT,SERVER
 
 # form
 from product.forms import ProductSearchForm
@@ -102,7 +102,7 @@ def plan_type(request,id):
 	except:
 		plan = None
 
-	context = {'plan' : plan}
+	context = {'plan' : plan,'server' : SERVER}
 	template = 'plans/index.html'
 	return render(request,template,context)
 

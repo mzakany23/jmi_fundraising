@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-1 hidden-sm hidden-xs" style='height: 1000px;'>
+                <div class="col-md-1 hidden-sm hidden-xs" style='height: 800px;'>
                     <div class="row"><h3 style="padding-left: 10px; margin-top: 100px;">Options</h3></div>
                     <h1 style='' class='text-center'><i class='fa fa-arrow-right'></i></h1>
                 </div>
@@ -32,16 +32,53 @@
                 
                 <div class="row">
                 {% for option in plan.options.all %}
-                    <div class="col-md-5 col-sm-2" style='border: 1px solid #D5D5D5; margin-bottom: 15px;'>
+                    <div class="col-md-5 col-sm-2 " style='border: 1px solid #D5D5D5; margin-bottom: 15px;'>
                         <div class="service">
                             <img class='img-circle' src="{{ plan.get_absolute_url }}" height='50' width='50'>
+                            
                             <h3 style='margin-bottom: 35px;'>{{ option.title }}</h3>
                             
                             <div class="row">
                             {% for sel in option.selections.all %}
                                 <div class="col-md-3 col-xs-4">
                                 <div class="row">
-                                    <img style='margin-bottom: 10px;' height='70' width='125' src="{{ sel.get_absolute_url }}">
+                                   <img class='jmi-slight-hover' id='salsaImage' name='{{ sel.id }}' data-target='#myModal' data-toggle='modal'  style='margin-bottom: 10px;' height='70' width='125' src="{{ sel.get_absolute_url }}">
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title jmi-header" id="myModalLabel">Jose Madrid Salsa Fundraising</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                            
+                                            <!-- ESHOP PRODUCT -->
+                                            <div class="eshop-product">
+                                                <div class="row">
+                                                   
+                                                    <div class="col-lg-8 col-lg-offset-2">
+                                                        <div class="eshop-product-body">
+                                                            <img style='padding-top: 5px;'id='prodImage' class='img-thumbnail' height='170' width='270' src="" class="img-thumbnail img-responsive" alt="">
+                                                            <div class="text-center">
+                                                                <h1 id='prodTitle'></h1>
+                                                                <h3><label id='prodCat'></label></h3>
+                                                                <p style='padding-bottom: 25px;' id='prodDesc' class='text-left'></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ESHOP -->
+                                          </div>
+                                        
+                                        </div>
+                                      </div>
+                                    </div>
+
+
                                 </div>  
                                 </div>
                             {% endfor %}
@@ -53,8 +90,32 @@
 
             </div>
     </section>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(this).click(function(d){
+        var id = d.target.id;
+        if (id == 'salsaImage'){
+            var name = d.target.name
+            var serverLoc = "{{ server }}"
+            var productEndPoint = serverLoc + "/api/product/" + name;
 
+            $.ajax({
+                  type: "GET",
+                  url: productEndPoint ,
+                  dataType: 'json',
+                  success: function(data){
+                    $('#prodTitle').html(data.title);
+                    $('#prodDesc').html(data.description);
+                    $('#prodCat').html("Category: "+data.category[0]);
+                    console.log(serverLoc+data.image)
+                    $('#prodImage').attr('src',serverLoc+data.image);
+                  },
+            });
 
+        }
+    })
+
+</script>
 
 
 {% endblock %}

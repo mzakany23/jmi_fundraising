@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Jura:400,600);
 
+.jmi-slight-hover{
+	
+}
+
+.jmi-slight-hover:hover{
+		border: 1px solid #DFCDCD;
+}
+
+
 .jmi-font-one{
 	font-weight: 400; 
 	font-size: 50px; 
@@ -89,9 +98,7 @@
 	color: #333 !important;
 }
 
-.jmi-hover:hover {
-	color: yellow !important;
-}
+
 
 .jmi-img-hover {
 }
