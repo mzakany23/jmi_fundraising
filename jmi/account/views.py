@@ -71,6 +71,7 @@ def auth_create_account(request):
 			messages.error(request, "Either user exists or organization exists")
 			return HttpResponseRedirect(reverse('auth_create_account'))
 		else:
+			
 			user = User.objects.create_user(
 				username=username,
 				first_name=first_name,
@@ -78,13 +79,19 @@ def auth_create_account(request):
 				password=password,
 				email=email
 			)
-			user.save()
-			profile = Profile.objects.get(contact=user)
-			profile.organization = organization
+
+			profile, created = Profile.objects.get_or_create(
+				organization=organization,
+				first_name=first_name,
+				last_name=last_name,
+				account=user
+			)
+			profile.email = email
 			profile.save()
 			authenticated_user = authenticate(username=username,password=password)
 			login(request,authenticated_user)
 			messages.success(request, str(user.username) + ', You have successfully signed up!')
+			
 			return HttpResponseRedirect(reverse('home'))
 		
 			
@@ -142,7 +149,6 @@ def auth_simple_sign_up(request):
 @login_required(login_url='/account/login')
 def profile_show(request):
 	session = SessionVariable(request)
-	
 	context = {'user_profiles' : session.profiles()}
 	template = 'account/profile/show.html'
 	return render(request,template,context)
@@ -163,11 +169,14 @@ def profile_edit(request,slug):
 		address_form = None
 
 	if request.POST:
-		messages.success(request,'Address and Profile updated successfully.')
-		address_form = AddressEditForm(request.POST,instance=profile)
-		profile_form = ProfileEditForm(request.POST,instance=profile)
-		address_form.save()
-		profile_form.save()
+		try:
+			address_form = AddressEditForm(request.POST,instance=profile)
+			profile_form = ProfileEditForm(request.POST,instance=profile)
+			address_form.save()
+			profile_form.save()
+			messages.success(request,'Address and Profile updated successfully.')
+		except ValueError:
+			messages.error(request,'You submitted no changes!')
 		return HttpResponseRedirect(reverse('profile_show'))
 
 	

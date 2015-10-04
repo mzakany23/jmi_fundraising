@@ -13,7 +13,7 @@
             <h1 class='jmi-larger-header'>{{ profile.organization }} fundraisers:</h1 class='jmi-larger-header'>
             <hr>
             <div class="row">
-                
+             {% if fundraiser_set != None %}   
                 {% for fundraiser in fundraiser_set %}
                 <!-- Service -->
                 <div class="col-md-4 col-sm-6">
@@ -48,7 +48,10 @@
                     </div>
                 </div>
                 {% endfor %}
-                
+                <div class="col-md-12">
+                    <h1>You don't have any fundraisers yet. <a href="{% url 'choose_profile_for_fundraiser' %}">Create one.</a></h1>
+                </div>
+                {% endif %}
                 
             
                                 

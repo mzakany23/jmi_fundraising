@@ -63,13 +63,21 @@
                         </li>
                           <li><a href="{% url 'describe_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
                            <li><a href="{% url 'auth_login' %}"><i class="fa fa-angle-double-right"></i>Login</a></li>
-                          
+                          {% else %}
+                            <li><a href="{% url 'show_all_salsas' %}"><i class="fa fa-angle-double-right"></i>Salsas </a>  
+                        </li>
+                          <li><a href="{% url 'choose_profile_for_fundraiser' %}"><i class="fa fa-angle-double-right"></i>Create Fundriaser</a></li>
+                           <li><a href="{% url 'auth_login' %}"><i class="fa fa-angle-double-right"></i>Login</a></li>
                           {% endif %}
                         </ul>
                     </li>
 
-                 <li class='hidden-sm hidden-xs'><a href="{% url 'describe_fundraiser' %}"></i>Create Fundraiser</a>  
+                  {% if user.is_authenticated %}
+                 <li class='hidden-sm hidden-xs'><a href="{% url 'choose_profile_for_fundraiser' %}"></i>Create Fundraiser</a>  
                  </li>  
+                 {% else %}
+                 <li class='hidden-sm hidden-xs'><a href="{% url 'describe_fundraiser' %}"></i>Create Fundraiser</a>  
+                 {% endif %}
                  
                   <li class='hidden-sm hidden-xs'><a href="{% url 'show_all_salsas' %}"></i>Salsas</a>  </li> 
                  

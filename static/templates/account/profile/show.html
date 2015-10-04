@@ -23,8 +23,7 @@
                     <div class="service">
                         {% if profile.org_photo %}
                         <img src="{{ profile.org_photo.thumbnail.url }}" style='margin-bottom: 15px;' class="img-circle" alt="Circular Image">
-                        {% else %}
-                        <li class='list-group-item text-left'><label>EMAIL:</label> {{ profile.email }}</li>
+                        
                         {% endif %}
                     
                         <div class="service-body">
@@ -50,8 +49,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                {% else %}
-                <h1>There's no fundraisers set up on your account yet. <a href="{% url 'describe_fundraiser' %}">create one</a></h1>
+                
                 {% endif %}
                 
                 

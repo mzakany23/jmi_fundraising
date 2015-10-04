@@ -41,5 +41,20 @@
               
         
     </section>
+
+     <div style='margin-top: 15px;' class='text-center'>
+        {% if user.is_authenticated %}
+        {% if session.has_order_steps%}
+          <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets Get Started</a> or 
+
+        {% else %}
+          <a class="btn btn-lg btn-primary"href="{% url 'choose_profile_for_fundraiser' %}">Lets Get Started</a>
+        {% endif %}
+        
+      {% else %}
+        <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets Get Started</a>
+      {% endif %}
+
+     </div>
 </div>
 </div>  

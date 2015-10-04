@@ -8,16 +8,7 @@
             <p><b><i class="jmi-viv-1">Thanks for fundraising with Jose!</i></b> Our process is pretty simple. Just tell us a little about your fundraiser, select one of our salsa combinations, and we'll have your organization fundraising with jose in 5 business days.</p>
 
           
-            {% if user.is_authenticated %}
-              {% if session.has_order_steps%}
-                <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
-              {% else %}
-                <a class="btn btn-lg btn-primary"href="{% url 'choose_profile_for_fundraiser' %}">Lets get started</a>
-              {% endif %}
-              
-            {% else %}
-              <a class="btn btn-lg btn-primary" href="{% url 'describe_fundraiser' %}">Lets get started</a>
-            {% endif %}
+           
             
     </section>
 

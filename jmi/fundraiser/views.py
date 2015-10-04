@@ -406,16 +406,16 @@ def process_checkout(request):
 		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt.html'
 		html_email     = loader.render_to_string(template_name,data)
 		
-		# send_fundraiser_receipt_email.delay(
-		# 	str(finalized_order.organization())+' Fundraiser', 
-		# 	'From Jose Madrid Salsa Fundraising',
-		# 	'mzakany@gmail.com',
-		# 	['mzakany@gmail.com'],
-		# 	html_email
-		# 	)
+		send_fundraiser_receipt_email.delay(
+			str(finalized_order.organization())+' Fundraiser', 
+			'From Jose Madrid Salsa Fundraising',
+			'mzakany@gmail.com',
+			['mzakany@gmail.com'],
+			html_email
+			)
 	
-		# session_finalized_fundraiser.receipt_email_sent = True
-		# session_finalized_fundraiser.save()
+		session_finalized_fundraiser.receipt_email_sent = True
+		session_finalized_fundraiser.save()
 	template = 'fundraiser/checkout-invoice.html'
 	return render(request,template,context)
 

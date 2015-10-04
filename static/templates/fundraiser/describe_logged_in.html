@@ -5,7 +5,9 @@
 {% block start_describing_fundraiser %} 
   <section>
       <div class='text-center' style='margin-bottom: 20px;'>
+      {% if profile.org_photo %}
       <img src="{{ profile.org_photo.thumbnail.url }}" class="img-circle" alt="Circular Image">
+      {% endif %}
   		<h1 class='jmi-large-header'>{{ profile.organization }} </h1>
       <h4>Fundraiser</h4>
       </div>

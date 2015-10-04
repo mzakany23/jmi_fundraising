@@ -27,7 +27,11 @@ class Profile(models.Model):
 		return str(self.organization)
 
 	def contact_person(self):
-		return self.first_name + ' ' + self.last_name
+		try:
+			contact_person = self.first_name + ' ' + self.last_name
+		except:
+			contact_person = None
+		return contact_person
 	
 	def has_stripe_id(self):
 		return self.has_stripe_id
@@ -46,6 +50,15 @@ class Profile(models.Model):
 		return "%s/media/%s" % (settings.SERVER, self.org_photo)
 
 
+# on fundraisertype save
+def create_profile_slug(sender,instance,created,*args,**kwargs):
+	if created:
+		try:
+			instance.slug = (slugify(instance.organization)[:40] + "-" + str(instance.id)).lower()
+			instance.slug = "profile-%s" %instance.id
+			instance.save()
+		except:
+			pass
+
 		
-
-
+post_save.connect(create_profile_slug,sender=Profile)
