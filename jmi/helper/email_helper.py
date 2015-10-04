@@ -20,14 +20,23 @@ class EmailHelper:
 		message = None
 		result  = None
 		try:
-			send_mail(
-				self.subject,
-				self.message,
-				self.from_email,
-				self.to_list,
-				self.fail_silently,	
-				html_message=self.html_message,
-			)
+			if self.html_message is None:
+				send_mail(
+					self.subject,
+					self.message,
+					self.from_email,
+					self.to_list,
+					self.fail_silently,	
+				)
+			else:
+				send_mail(
+					self.subject,
+					self.message,
+					self.from_email,
+					self.to_list,
+					self.fail_silently,	
+					html_message=self.html_message,
+				)
 			message = 'email was sent successfully'
 			result  = True
 		except:

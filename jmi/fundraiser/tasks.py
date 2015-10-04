@@ -11,7 +11,7 @@ from helper.fundraiser_process_helper import DescribeFundraiser
 
 
 @app.task
-def send_fundraiser_receipt_email(subject,message,from_email,to_list,html_message):
+def send_fundraiser_receipt_email(subject,message,from_email,to_list,html_message=None):
 	email_helper = EmailHelper(
 		subject=subject, 
 		message=message,
