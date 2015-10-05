@@ -37,6 +37,12 @@ class Fundraiser(models.Model):
 	def selection_list(self):
 		return [("product: %s qty: %s") % (str(sel.product.title),str(sel.quantity))  for sel in self.selections()]
 
+	def selections_str(self):
+		output_str = ""
+		for sel in self.selections():
+			output_str += "product: %s qty: %s \n" % (str(sel.product.title),str(sel.quantity))
+		return output_str
+
 	def selections(self):
 		return self.shipment().selection_set.all()
 

@@ -42,43 +42,43 @@ class FundraiserTest(TestCase):
 	# 	response = self.client.post(url,contents)
 	# 	assert response.status_code == 200
 
-	def test_email(self):
-		user = 'Michael Zakany'
-		organization = 'Cleveland Orchestra Musicians'
-		title = "Cleveland Orchestra Fall Fundraiser"
-		total = '$74.50'
-		address = '3300 East Fairfax Rd.'
-		city = 'Cleveland Heights'
-		state = 'Ohio'
-		zip_code = '44118'
-		selections = '4 raspberry, 4 peach, 12 verde xx-hot'
-		shipping = '$30.00'
-		phone = '330-612-6183'
+	# def test_email(self):
+	# 	user = 'Michael Zakany'
+	# 	organization = 'Cleveland Orchestra Musicians'
+	# 	title = "Cleveland Orchestra Fall Fundraiser"
+	# 	total = '$74.50'
+	# 	address = '3300 East Fairfax Rd.'
+	# 	city = 'Cleveland Heights'
+	# 	state = 'Ohio'
+	# 	zip_code = '44118'
+	# 	selections = '4 raspberry, 4 peach, 12 verde xx-hot'
+	# 	shipping = '$30.00'
+	# 	phone = '330-612-6183'
 
-		template = EMAIL_TEMPLATE_DIR+'email_fundraiser_receipt_text_based.txt'
+	# 	template = EMAIL_TEMPLATE_DIR+'email_fundraiser_receipt_text_based.txt'
 
-		context = {
-			'user' : user,
-			'organization' : organization,
-			'address' : address,
-			'city' : city,
-			'state' : state,
-			'zip_code' : zip_code,
-			'total' : total,
-			'title' : title,
-			'selections' : selections,
-			'shipping' : shipping,
-			'phone' : phone
-		}
+	# 	context = {
+	# 		'user' : user,
+	# 		'organization' : organization,
+	# 		'address' : address,
+	# 		'city' : city,
+	# 		'state' : state,
+	# 		'zip_code' : zip_code,
+	# 		'total' : total,
+	# 		'title' : title,
+	# 		'selections' : selections,
+	# 		'shipping' : shipping,
+	# 		'phone' : phone
+	# 	}
 
-		message = render_to_string(template,context)
+	# 	message = render_to_string(template,context)
 
-		send_fundraiser_receipt_email.delay(
-			'Fundraiser', 
-			message,
-			'mzakany@gmail.com',
-			['mzakany@gmail.com'],
-		)
+	# 	send_fundraiser_receipt_email.delay(
+	# 		'Fundraiser', 
+	# 		message,
+	# 		'mzakany@gmail.com',
+	# 		['mzakany@gmail.com'],
+	# 	)
 
 
 	

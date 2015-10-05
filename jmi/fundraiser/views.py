@@ -402,16 +402,28 @@ def process_checkout(request):
 	if session_finalized_fundraiser.profile.email:
 	# if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
 		
-		data = {'fundraiser' : finalized_order}
-		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt.html'
-		html_email     = loader.render_to_string(template_name,data)
+		data = {
+			'user' : session_finalized_fundraiser.profile.contact_person(),
+			'organization' : session_finalized_fundraiser.profile.organization,
+			'address' : session_finalized_fundraiser.shipment().address.street,
+			'city' : session_finalized_fundraiser.shipment().address.city,
+			'state' : session_finalized_fundraiser.shipment().address.state,
+			'zip_code' : session_finalized_fundraiser.shipment().address.zip_code,
+			'total' : session_finalized_fundraiser.net_total_in_dollars(),
+			'title' : session_finalized_fundraiser.title,
+			'selections' : session_finalized_fundraiser.selections_str(),
+			'shipping' : session_finalized_fundraiser.free_shipping(),
+			'phone' : session_finalized_fundraiser.profile.phone_number
+		}
+
+		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt_text_based.txt'
+		text_email     = loader.render_to_string(template_name,data)
 		
 		send_fundraiser_receipt_email.delay(
 			str(finalized_order.organization())+' Fundraiser', 
-			'From Jose Madrid Salsa Fundraising',
+			text_email,
 			'mzakany@gmail.com',
 			['mzakany@gmail.com'],
-			html_email
 			)
 	
 		session_finalized_fundraiser.receipt_email_sent = True
