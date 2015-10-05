@@ -19,7 +19,11 @@
                         </div>
                         <a class='btn btn-md btn-danger' href="{% url 'download_forms' %}">Download Forms</a>
                         
+                        {% if user.is_authenticated %}
+                        <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'choose_profile_for_fundraiser' %}">Checkout Online</a>
+                        {% else %}
                         <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'describe_fundraiser' %}">Checkout Online</a>
+                        {% endif %}
                     </div>
                 </div>
 

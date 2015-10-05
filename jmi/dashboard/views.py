@@ -72,8 +72,14 @@ def fundraiser_update(request,id):
 	return HttpResponseRedirect(reverse('dashboard_index'))
 
 
-
-
+def shipment_detail(request,id):
+	try:
+		shipment = Shipment.objects.get(id=id)
+	except:
+		shipment = None 
+	context = {'shipment' : shipment}
+	template = 'dashboard/shipment_detail.html'
+	return render(request,template,context)
 
 
 

@@ -19,7 +19,7 @@ def send_fundraiser_receipt_email(subject,message,from_email,to_list,html_messag
 		to_list=to_list,
 		html_message=html_message
 	)
-	email_helper.send_email()
+	email_helper.send_reachmail()
 
 # @app.task
 # def create_fundraiser_with_profile_task(is_auth,user,title,organization,description,org_photo):

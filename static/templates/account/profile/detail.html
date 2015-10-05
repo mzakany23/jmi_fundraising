@@ -18,7 +18,9 @@
                 <!-- Service -->
                 <div class="col-md-4 col-sm-6">
                     <div class="service">
+                        {% if profile.org_photo %}
                         <img src="{{ profile.org_photo.thumbnail.url }}" style='margin-bottom: 15px;' class="img-circle" alt="Circular Image">
+                        {% endif %}
                         <div class="service-body">
                             <ul class='list-group' style='min-height: 300px;'>
                                 <li class='list-group-item text-left'><label>TITLE:
