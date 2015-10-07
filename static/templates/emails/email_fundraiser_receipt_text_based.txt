@@ -1,11 +1,11 @@
-Thanks {{ organization }} for your fundraising order from Jose Madrid Salsa Fundraising!  Your order is in process and the shipping address on file is:
+Thanks {{ organization }} for your fundraising order from Jose Madrid Salsa Fundraising!  
+Your order is in process and the shipping address on file is:
 
 {{ user }}
 {{ address }}
 {{ city }}, {{ state }}  {{ zip_code }}
 
-Your order details are:
-
+Order Details:
 Organization: {{ organization }}
 Contact: {{ user }}
 phone: {{ phone }}
@@ -19,8 +19,8 @@ Total w/Shipping: ${{ total }}
 If you paid by check please make payable to:
 
 Jose Madrid Salsa Fundraising
-123 Main St.
-Columbus, OH XXXXX
+P.O. Box 1061
+Zanesville, OH 43702
 
 If you paid for your order online we'll work hard
 to get the order shipped and email you again with a 

@@ -214,10 +214,13 @@ def chosen_fundraiser_type(request):
 					return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
 
 			return HttpResponseRedirect(reverse('create_shipment'))
+	
+	show_top_sellers = session.session_fundraiser().plan.show_top_sellers
 
 	context = {
 		'session' : session,
-		'settings' : settings
+		'settings' : settings,
+		'show_top_sellers' : show_top_sellers
 	}
 
 	template = 'fundraiser/choose-salsas.html'
@@ -231,7 +234,6 @@ def choose_salsas(request):
 	session_fundraiser.discount = 0
 	session_fundraiser.save()
 	
-	print request.POST
 	# salsas = ChooseSalsasFundraiser(request)
 	
 	# if salsas.form_is_valid():
@@ -418,12 +420,13 @@ def process_checkout(request):
 
 		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt_text_based.txt'
 		text_email     = loader.render_to_string(template_name,data)
-		
+		email = session_finalized_fundraiser.profile.email
+
 		send_fundraiser_receipt_email.delay(
 			str(finalized_order.organization())+' Fundraiser', 
 			text_email,
 			'Jose Madrid Salsa fundraising <mike@josemadridsalsa.com>',
-			['mzakany@gmail.com'],
+			[email],
 			)
 	
 		session_finalized_fundraiser.receipt_email_sent = True

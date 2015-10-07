@@ -13,13 +13,23 @@
 
 {% for category,products in session.get_product_set_by_category.items %}
  <!-- SHOPPING CART ITEM -->
- <h1 style='margin-left: 15px;' class='jmi-larger-header'>{{ category }}</h1>
- 
+ {% if show_top_sellers %}
+  <div class="row hidden-xs hidden-sm"><p style='font-size: 15px;margin-right: 5px; margin-bottom: 30px; color: #B81117; font-style: italic; float: left;'>* best sellers highlighted in red</p></div>
+
+  <div class="row hidden-md hidden-lg"><p style='font-size: 15px;margin-left: 35px; margin-bottom: 30px; color: #B81117; font-style: italic; float: left;'>* best sellers highlighted in red</p></div>
+ {% endif %}
+
+ <h1 style='margin-left: 15px; margin-bottom: 25px;' class='jmi-larger-header'>{{ category }}</h1>
+  
   {% for product in products %}
     <input type='hidden' name='product' value="{{ product.id }}">
     <input type='hidden' name='type' value="{{ category.id }}">
+  
+  {% if show_top_sellers %}
+  <div class="shopping-cart-item" style="{% if product.best_seller %}border: 1px solid #B81117; {% endif %}">
+  {% else %}
   <div class="shopping-cart-item">
-      
+  {% endif %}
       <div class="row">
           
           <div class="col-md-2">

@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0002_auto_20150929_2326'),
+        ('fundraiser', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='fundraiser',
-            name='title',
-            field=models.TextField(max_length=500, null=True, blank=True),
+            model_name='fundraisercategory',
+            name='options',
+            field=models.ManyToManyField(to='fundraiser.FundraiserType', null=True, blank=True),
             preserve_default=True,
         ),
     ]

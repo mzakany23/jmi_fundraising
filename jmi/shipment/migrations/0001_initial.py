@@ -8,8 +8,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('address', '0001_initial'),
-        ('product', '0009_product_featured'),
-        ('comment', '0001_initial'),
+        ('product', '0010_product_best_seller'),
+        ('comment', '0002_auto_20151006_1346'),
         ('fundraiser', '0001_initial'),
     ]
 

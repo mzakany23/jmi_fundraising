@@ -84,16 +84,29 @@ def get_home_variables(request):
 	}
 
 # Plans
-def download_forms(request):
-	import urllib
- 	file = 'jmsf.zip'
-	file_path = DOCS_ROOT+'/%s' % file
-	f = open(file_path, 'r')
-	myfile = File(f)
+def download_forms(request,id):
+	try:
+		fundraiser_type = FundraiserCategory.objects.get(id=id)
+	except: 
+		fundraiser_type = None
 
-	response = HttpResponse(myfile, content_type='application/zip')
-	response['Content-Disposition'] = 'attachment; filename=%s' % file
-	return response
+	if fundraiser_type.forms:
+		import urllib
+		f = open(fundraiser_type.forms, 'r')
+		myfile = File(f)
+		response = HttpResponse(myfile, content_type='application/zip')
+		response['Content-Disposition'] = 'attachment; filename=fundraising-forms-packet.zip'
+		return response
+
+	# import urllib
+ # 	file = 'jmsf.zip'
+	# file_path = DOCS_ROOT+'/%s' % file
+	# f = open(file_path, 'r')
+	# myfile = File(f)
+
+	# response = HttpResponse(myfile, content_type='application/zip')
+	# response['Content-Disposition'] = 'attachment; filename=%s' % file
+	# return response
 	
 
 def plan_type(request,id):

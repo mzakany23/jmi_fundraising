@@ -17,7 +17,7 @@
                             
                             <p class='text-left'>{{ plan.description }}</p>
                         </div>
-                        <a class='btn btn-md btn-danger' href="{% url 'download_forms' %}">Download Forms</a>
+                        <a class='btn btn-md btn-danger' href="{% url 'download_forms' plan.id %}">Download Forms</a>
                         
                         {% if user.is_authenticated %}
                         <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'choose_profile_for_fundraiser' %}">Checkout Online</a>
@@ -27,17 +27,28 @@
                     </div>
                 </div>
 
-                <div class="col-md-1 hidden-sm hidden-xs" style='height: 800px;'>
+                <div class="col-md-1 hidden-sm hidden-xs">
                     <div class="row"><h3 style="padding-left: 10px; margin-top: 100px;">Options</h3></div>
                     <h1 style='' class='text-center'><i class='fa fa-arrow-right'></i></h1>
+                    {% if plan.options.count > 1 %}
+                    <div style='height: 1200px;' class='hidden-xs hidden-sm'></div>
+                    {% endif %}
                 </div>
                 
                 <h1 style='color: black; font-weight: 700;' class='text-center hidden-lg hidden-md'>options</h1>
                 
+                <!-- row 2 -->
                 <div class="row">
                 {% for option in plan.options.all %}
                     <div class="col-md-5 col-sm-2 " style='border: 1px solid #D5D5D5; margin-bottom: 15px;'>
                         <div class="service">
+                            {% if plan.show_top_sellers %}
+
+                            <div class="row hidden-xs hidden-sm"><p style='font-size: 15px;margin-right: 5px; margin-bottom: 30px; color: #B81117; font-style: italic; float: right;'>* best sellers highlighted in red</p></div>
+
+                            <div class="row hidden-md hidden-lg"><p style='font-size: 15px;margin-right: 35px; margin-bottom:  15px; color: #B81117; font-style: italic; float: right;'>* best sellers highlighted in red</p></div>
+                            {% endif %}
+
                             <img class='img-circle' src="{{ plan.get_absolute_url }}" height='50' width='50'>
                             
                             <h3 style='margin-bottom: 35px;'>{{ option.title }}</h3>
@@ -46,8 +57,12 @@
                             {% for sel in option.selections.all %}
                                 <div class="col-md-3 col-xs-4">
                                 <div class="row">
-                                   <img class='jmi-slight-hover' id='salsaImage' name='{{ sel.id }}' data-target='#myModal' data-toggle='modal'  style='margin-bottom: 10px;' height='70' width='125' src="{{ sel.get_absolute_url }}">
 
+                                   {% if plan.show_top_sellers %}
+                                   <img class='jmi-slight-hover' id='salsaImage' name='{{ sel.id }}' data-target='#myModal' data-toggle='modal'  style='{% if sel.best_seller %}border: 1px solid #B81117;{% endif %}' height='70' width='125' src="{{ sel.get_absolute_url }}">
+                                   {% else %}
+                                   <img class='jmi-slight-hover' id='salsaImage' name='{{ sel.id }}' data-target='#myModal' data-toggle='modal' height='70' width='125' src="{{ sel.get_absolute_url }}">
+                                   {% endif %}
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

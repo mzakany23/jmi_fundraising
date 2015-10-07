@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from product.models import Product
 from account.models import Profile
 from helper.number_format_helper import NumberFormat
-
+from jmi.settings import DOCS_ROOT
 
 class Fundraiser(models.Model):
 	STATUS_CHOICES = (('paid','paid'),('unpaid','unpaid'))
@@ -115,23 +115,30 @@ class Fundraiser(models.Model):
 			comment = None
 		return comment
 
+class FundraiserTypeTitle(models.Model):
+	title = models.CharField(max_length=40, blank=True,null=True)
+	
+	def __unicode__(self):
+		return self.title
 
 class FundraiserCategory(models.Model):
 	choices=(('paid','paid'),('unpaid','unpaid'),)
-	TYPES = (
-		('Pre-Sell','Pre-Sell'),
-		('Buy-Sell','Buy-Sell'),
-		('Pre-Sell mix and match cases','Pre-Sell mix and match cases'),
-	)
+	
+	popular	     = models.BooleanField(default=False)
+	show_top_sellers = models.BooleanField(default=False)
 	name         = models.CharField(max_length=40,blank=True,null=True)
-	type         = models.CharField(max_length=40,choices=TYPES,blank=True,null=True)
+	type  		 = models.ForeignKey(FundraiserTypeTitle,blank=True,null=True)
 	title        = models.TextField(max_length=100,blank=True,null=True)
 	description  = models.TextField(max_length=500,blank=True,null=True)
-	options      = models.ManyToManyField('FundraiserType')
+	options      = models.ManyToManyField('FundraiserType',blank=True,null=True)
 	image 		 = models.ImageField(upload_to='fundraiser_types', blank=True, null=True)
-
+	forms        = models.FilePathField(path=DOCS_ROOT,null=True,blank=True)
+	
 	def __unicode__(self):
-		return self.type
+		return self.name
+
+	def get_options(self):
+		return [str(o.title) for o in self.options.all()]
 
 	def get_absolute_url(self):
 		return "%s/media/%s" % (settings.SERVER, self.image)
@@ -142,10 +149,17 @@ class FundraiserType(models.Model):
 	image      = models.ImageField(upload_to='fundraiser_types',blank=True,null=True)
 	title      = models.CharField(max_length=40)
 	selections = models.ManyToManyField(Product,blank=True,null=True)
-
+	
 
 	def __unicode__(self):
 		return self.title
+
+	def get_plan(self):
+		try:
+			plan = [str(p.name) for p in FundraiserCategory.objects.filter(options=self)]
+		except: 
+			plan = None
+		return plan
 
 	def selection_count(self):
 		return self.selections.count()

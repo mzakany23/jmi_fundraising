@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0003_auto_20150929_2328'),
+        ('fundraiser', '0003_auto_20151006_1529'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='fundraiser',
-            name='title',
-            field=models.TextField(max_length=100, null=True, blank=True),
+        migrations.AddField(
+            model_name='fundraisercategory',
+            name='popular',
+            field=models.BooleanField(default=False),
             preserve_default=True,
         ),
     ]

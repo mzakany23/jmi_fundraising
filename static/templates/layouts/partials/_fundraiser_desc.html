@@ -20,10 +20,14 @@
               {% for plan in plans %}
                 <!-- Service -->
               <div class="col-md-4">
+                {% if plan.popular %}
+                <div style='padding-left: 3px;'><span style='float: left;' class="label label-info">Most Popular</span></div>
+                {% endif %}
                   <div class="service">
                        <a href="{% url 'plan_type' plan.id %}"><img height='100' width='100' src="{{ plan.get_absolute_url }}" class='block-center img-circle jmi-pricing-img'></a>
                         <div class="service-body">
-                          <h3>{{ plan.name }}</h3>
+
+                          <h3>{{ plan.name }} </h3>
                           <label>{{ plan.type }}</label> <br>
                           <p>{{ plan.title }}</p>
                           

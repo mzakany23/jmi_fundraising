@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0006_auto_20150930_0051'),
+        ('product', '0009_product_featured'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='fundraiser',
-            name='slug',
-            field=models.SlugField(max_length=150, null=True, blank=True),
+        migrations.AddField(
+            model_name='product',
+            name='best_seller',
+            field=models.BooleanField(default=False),
             preserve_default=True,
         ),
     ]

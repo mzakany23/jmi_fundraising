@@ -16,6 +16,7 @@ class Product(models.Model):
 	created      = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated      = models.DateTimeField(auto_now_add=False,auto_now=True)
 	featured     = models.BooleanField(default=False)
+	best_seller  = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.title

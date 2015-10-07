@@ -7,14 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fundraiser', '0009_auto_20150930_1817'),
+        ('fundraiser', '0007_fundraisertypetitle'),
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.RemoveField(
             model_name='fundraisercategory',
-            name='image',
-            field=models.ImageField(null=True, upload_to=b'fundraiser_types', blank=True),
-            preserve_default=True,
+            name='type',
         ),
     ]

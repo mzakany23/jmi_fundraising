@@ -17,7 +17,8 @@ urlpatterns += patterns('home.views',
 	url(r'^$', 'home', name='home'),
 	# plan types
 	url(r'^plan/(?P<id>\d+)/$','plan_type',name='plan_type'),
-	url(r'^download-forms-packet/$','download_forms',name='download_forms'),
+	# url(r'^download-forms-packet/$','download_forms',name='download_forms'),
+	url(r'^download-forms-packet/(?P<id>\d+)/$','download_forms',name='download_forms')
 )
 
 # account
