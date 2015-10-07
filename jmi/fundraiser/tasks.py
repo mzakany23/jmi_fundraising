@@ -11,15 +11,16 @@ from helper.fundraiser_process_helper import DescribeFundraiser
 
 
 @app.task
-def send_fundraiser_receipt_email(subject,message,from_email,to_list,html_message=None):
+def send_fundraiser_receipt_email(subject,message,from_email,to_list,form=None,html_message=None):
 	email_helper = EmailHelper(
 		subject=subject, 
 		message=message,
 		from_email=from_email,
 		to_list=to_list,
+		form=form,
 		html_message=html_message
 	)
-	email_helper.send_reachmail()
+	email_helper.send_sendgrid()
 
 # @app.task
 # def create_fundraiser_with_profile_task(is_auth,user,title,organization,description,org_photo):
