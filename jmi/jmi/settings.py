@@ -18,6 +18,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 SERVER = SERVER
+APP_SERVER = 'http://localhost:8000'
 
 PLACEHOLDER_PIC = SERVER + '/media/product_images/placeholder.jpg'
 LOGO = SERVER + '/static/jmi-images/logo.png'

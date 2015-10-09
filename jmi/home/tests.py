@@ -1,3 +1,7 @@
 from django.test import TestCase
+import xlsxwriter
 
-# Create your tests here.
+class DocumentTest(TestCase):
+	def setUp(self):
+		pass
+

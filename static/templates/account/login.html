@@ -65,16 +65,29 @@
                     
                 </form>
                 
-                <form id="reset-password">
+                <form method="POST" action="{% url 'send_reset_email' %}" id="reset-password">
+                    {% csrf_token %}
                     <fieldset>
                     	<h3>Did you forget your password?</h3>
-                        
+                       
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="email2">Your email:<span>*</span></label>
+                                <label for="password">Username associated with Account:<span>*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input type="text" class="form-control " placeholder="Username Associated with Account:" name='username' required="">
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="email2">Email on account:<span>*</span></label>
                                 <div class="input-group">
                                   	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                  	<input type="email" class="form-control " placeholder="Your email:" id="email2" required>
+                                  	<input name='email' type="email" class="form-control " placeholder="Your email:" id="email2" required>
                                 </div>
                             </div>
                         </div>

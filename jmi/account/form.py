@@ -2,7 +2,25 @@ from django import forms
 from django.forms import ModelForm
 from models import Profile
 from address.models import Address 
+from django.contrib.auth.models import User
 
+class PasswordResetForm(forms.Form):
+	
+	password = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'password',
+		"name" : "password",
+		"class" : "form-control",
+		"placeholder" : "Enter Password",
+		"type" : "password",
+	}))
+
+	confirm = forms.CharField(widget=forms.TextInput(attrs={
+		'id' : 'confirm',
+		"name" : "confirm",
+		"class" : "form-control",
+		"placeholder" : "Confirm Password",
+		"type" : "password",
+	}))
 
 class AddressEditForm(forms.ModelForm):
 	class Meta:
@@ -249,6 +267,20 @@ class RegisterUserForm(forms.Form):
 			)
 		return cleaned_data
 
+	def clean_email(self):
+		cleaned_data = super(RegisterUserForm,self).clean()
+		email = cleaned_data.get('email')
+		try:
+			email = Profile.objects.filter(email=email)
+		except:
+			email = None
+
+		if email:
+			raise forms.ValidationError(
+				'email exists, use a more unique one.'
+			)
+		return cleaned_data
+
 
 class SimpleSignUpForm(forms.Form):
 	username = forms.CharField(widget=forms.TextInput(attrs={
@@ -285,6 +317,20 @@ class SimpleSignUpForm(forms.Form):
 		if password_1 != password_2:
 			raise forms.ValidationError(
 				'passwords do not match.'
+			)
+		return cleaned_data
+
+	def clean_email(self):
+		cleaned_data = super(RegisterUserForm,self).clean()
+		email = cleaned_data.get('email')
+		try:
+			email = Profile.objects.filter(email=email)
+		except:
+			email = None
+
+		if email:
+			raise forms.ValidationError(
+				'email exists, use a more unique one.'
 			)
 		return cleaned_data
 

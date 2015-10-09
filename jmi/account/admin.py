@@ -1,6 +1,13 @@
 from django.contrib import admin
-from models import Profile
+from models import Profile,PasswordReset
 from django.contrib.admin import AdminSite
+
+class PasswordResetAdmin(admin.ModelAdmin): 
+	readonly_fields = ['key']
+	class Meta:
+		model = PasswordReset
+
+admin.site.register(PasswordReset,PasswordResetAdmin)
 
 
 class ProfileAdmin(admin.ModelAdmin):

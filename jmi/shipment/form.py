@@ -42,6 +42,8 @@ class ShipmentProfileForm(forms.ModelForm):
 			})
 		}
 
+		
+
 
 class ShipmentSelectionForm(forms.Form):
 	quantity = forms.CharField(widget=forms.TextInput(attrs={

@@ -2,14 +2,16 @@
 import os
 
 # django
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from django.template import *
 from django.core.files import File
 from django.http import HttpResponse
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 # app
 from helper.initialize_helper import SessionVariable
-from fundraiser.models import Fundraiser, FundraiserCategory
+from fundraiser.models import Fundraiser, FundraiserCategory,FundraiserType
 from marketing.form import EmailNewsLetterForm
 from product.models import Product,Category
 from jmi.settings import DOCS_ROOT,SERVER
@@ -86,17 +88,21 @@ def get_home_variables(request):
 # Plans
 def download_forms(request,id):
 	try:
-		fundraiser_type = FundraiserCategory.objects.get(id=id)
-	except: 
-		fundraiser_type = None
+		option = FundraiserType.objects.get(id=id)
+	except:
+		option = None
 
-	if fundraiser_type.forms:
-		import urllib
-		f = open(fundraiser_type.forms, 'r')
-		myfile = File(f)
-		response = HttpResponse(myfile, content_type='application/zip')
-		response['Content-Disposition'] = 'attachment; filename=fundraising-forms-packet.zip'
-		return response
+	try:
+		if option.forms:
+			import urllib
+			f = open(option.forms, 'r')
+			myfile = File(f)
+			response = HttpResponse(myfile, content_type='application/zip')
+			response['Content-Disposition'] = 'attachment; filename=fundraising-forms-packet.zip'
+			return response
+	except:
+		messages.error(request,"There are no forms to download at this time. Call backoffice to get forms. ")
+		return HttpResponseRedirect(reverse('plan_type',args=(id,)))
 
 	# import urllib
  # 	file = 'jmsf.zip'

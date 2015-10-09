@@ -1,12 +1,17 @@
+# python
+import uuid
 import stripe
+from datetime import timedelta,datetime
+
+# django
 from django.conf import settings
 from django.db.models.signals import post_save, post_delete, pre_save, pre_delete
-
 from django.utils.text import slugify
 from django.db import models
+
+# app
 from address.models import Address
 from django.contrib.auth.models import User 
-
 from stdimage.models import StdImageField
 
 class Profile(models.Model):
@@ -49,6 +54,32 @@ class Profile(models.Model):
 	def get_absolute_url(self):
 		return "%s/media/%s" % (settings.SERVER, self.org_photo)
 
+class PasswordReset(models.Model):
+	key = models.CharField(max_length=40,blank=True,null=True)
+	user = models.ForeignKey(User)
+	expired = models.BooleanField(default=False)
+	created_at = models.DateTimeField(auto_now_add=True,auto_now=False)
+	
+	def __unicode__(self):
+		return "key for %s : %s" % (str(self.user.username),str(self.key))
+
+	def get_username(self):
+		return self.user.username
+
+	def is_not_expired(self):
+		return ((datetime.now()-self.created_at).total_seconds()/60) < 15
+
+	def generate_reset_link(self):
+		try:
+			return '/account/password-reset/%s' % self.key
+		except:
+			return None
+
+# on password_reset save
+def create_password_reset_key(sender,instance,created,*args,**kwargs):
+	if created:
+		instance.key = str(uuid.uuid4())
+		instance.save()
 
 # on fundraisertype save
 def create_profile_slug(sender,instance,created,*args,**kwargs):
@@ -61,4 +92,5 @@ def create_profile_slug(sender,instance,created,*args,**kwargs):
 			pass
 
 		
+post_save.connect(create_password_reset_key,sender=PasswordReset)
 post_save.connect(create_profile_slug,sender=Profile)

@@ -422,7 +422,7 @@ def process_checkout(request):
 		text_email     = loader.render_to_string(template_name,data)
 		email = session_finalized_fundraiser.profile.email
 		form = session_finalized_fundraiser.plan.forms 
-		print form
+		
 		send_fundraiser_receipt_email.delay(
 			str(finalized_order.organization())+' Fundraiser', 
 			text_email,

@@ -132,10 +132,12 @@ class FundraiserCategory(models.Model):
 	description  = models.TextField(max_length=500,blank=True,null=True)
 	options      = models.ManyToManyField('FundraiserType',blank=True,null=True)
 	image 		 = models.ImageField(upload_to='fundraiser_types', blank=True, null=True)
-	forms        = models.FilePathField(path=DOCS_ROOT,null=True,blank=True)
 	
 	def __unicode__(self):
 		return self.name
+
+	def get_ordered_options(self):
+		return self.options.order_by('order')
 
 	def get_options(self):
 		return [str(o.title) for o in self.options.all()]
@@ -149,7 +151,8 @@ class FundraiserType(models.Model):
 	image      = models.ImageField(upload_to='fundraiser_types',blank=True,null=True)
 	title      = models.CharField(max_length=40)
 	selections = models.ManyToManyField(Product,blank=True,null=True)
-	
+	forms      = models.FilePathField(path=DOCS_ROOT,null=True,blank=True)
+	order      = models.IntegerField(default=0,blank=True,null=True)
 
 	def __unicode__(self):
 		return self.title

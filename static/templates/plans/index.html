@@ -11,19 +11,13 @@
                 <div class="col-md-4 col-md-offset-1 col-sm-6" style='border: 1px solid #D5D5D5;'>
                     <div class="service">
                         <img style='margin-bottom: 20px;' class='img-circle' src="{{ plan.get_absolute_url }}">
-                        <div class="service-body" style='margin-bottom: 45px;'>
+                        <div class="service-body" style='margin-bottom: 15px;'>
                              <h2 style='color: black;'>{{ plan.name }}</h2>
                             <h3><label>{{ plan.type }}</label></h3>
                             
                             <p class='text-left'>{{ plan.description }}</p>
                         </div>
-                        <a class='btn btn-md btn-danger' href="{% url 'download_forms' plan.id %}">Download Forms</a>
                         
-                        {% if user.is_authenticated %}
-                        <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'choose_profile_for_fundraiser' %}">Checkout Online</a>
-                        {% else %}
-                        <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'describe_fundraiser' %}">Checkout Online</a>
-                        {% endif %}
                     </div>
                 </div>
 
@@ -39,7 +33,7 @@
                 
                 <!-- row 2 -->
                 <div class="row">
-                {% for option in plan.options.all %}
+                {% for option in plan.get_ordered_options %}
                     <div class="col-md-5 col-sm-2 " style='border: 1px solid #D5D5D5; margin-bottom: 15px;'>
                         <div class="service">
                             {% if plan.show_top_sellers %}
@@ -95,19 +89,34 @@
                                             </div>
                                             <!-- END ESHOP -->
                                           </div>
-                                        
+                                            
                                         </div>
+
                                       </div>
+
                                     </div>
 
 
                                 </div>  
                                 </div>
                             {% endfor %}
+
                             </div>
+                            
+                            <div style='margin-top: 55px;'>
+                                <a class='btn btn-md btn-danger' href="{% url 'download_forms' option.id %}">Download Forms</a>
+                                {% if user.is_authenticated %}
+                                <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'choose_profile_for_fundraiser' %}">Checkout Online</a>
+                                {% else %}
+                                <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'describe_fundraiser' %}">Checkout Online</a>
+                                {% endif %}
+                            </div>
+
                         </div>
+
                     </div>
                 {% endfor %}
+
                 </div>
 
             </div>
@@ -129,7 +138,6 @@
                     $('#prodTitle').html(data.title);
                     $('#prodDesc').html(data.description);
                     $('#prodCat').html("Category: "+data.category[0]);
-                    console.log(serverLoc+data.image)
                     $('#prodImage').attr('src',serverLoc+data.image);
                   },
             });

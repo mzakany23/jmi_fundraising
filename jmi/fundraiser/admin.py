@@ -43,7 +43,7 @@ class FundraiserAdmin(admin.ModelAdmin):
 		model = Fundraiser
 
 class FundraiserCategoryAdmin(admin.ModelAdmin):
-	list_display = ['name','title','get_options','forms']
+	list_display = ['name','title','get_options']
 	filter_horizontal = ['options']
 	ordering = ['name']
 	class Meta:

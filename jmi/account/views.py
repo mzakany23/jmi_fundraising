@@ -1,19 +1,25 @@
+# django
 from django.shortcuts import render,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.template import loader
 
 # app
 from django.contrib.auth.models import User
-from models import Profile
+from models import Profile,PasswordReset
 from fundraiser.models import Fundraiser
+from jmi.settings import APP_SERVER
 
 # forms
-from form import LoginForm,RegisterUserForm,SimpleSignUpForm,ProfileEditForm,AddressEditForm
+from form import LoginForm,RegisterUserForm,SimpleSignUpForm,ProfileEditForm,AddressEditForm,PasswordResetForm
 
 # helper
 from helper.initialize_helper import SessionVariable
+
+# tasks
+from fundraiser.tasks import send_fundraiser_receipt_email, send_password_reset_email
 
 
 def auth_login(request):
@@ -144,6 +150,85 @@ def auth_simple_sign_up(request):
 		title = 'There was an error in creating your account. Make sure passwords match!'
 		messages.error(request,title)
 		return HttpResponseRedirect(reverse('process_checkout'))
+
+def send_reset_email(request):
+	if request.POST:
+		username = request.POST['username']
+
+		try:
+			account = User.objects.get(username=username)
+			user_profile = Profile.objects.get(account=account)
+		except:
+			account = None
+			user_profile = None
+
+		if user_profile and username:
+			reset = PasswordReset.objects.create(user=user_profile.account)
+
+			password_reset_link =  APP_SERVER+reset.generate_reset_link()
+		
+			template = '../../static/templates/emails/password_reset.html'
+			context = {'profile' : user_profile,'password_reset_link' : password_reset_link}
+			html_email = loader.render_to_string(template,context)
+
+			send_password_reset_email.delay(
+				str(user_profile.organization+' Fundraiser'), 
+				'Jose Madrid Salsa fundraising <mike@josemadridsalsa.com>',
+				[user_profile.email],
+				html_email
+			)
+			messages.success(request,'Password reset email sent.')
+		else:
+			messages.error(request,'Email and Username does not exist in our system. Please call our back office.')
+
+
+	return HttpResponseRedirect(reverse('home'))
+
+def receive_password_reset(request,key):
+	try:
+		reset = PasswordReset.objects.get(key=key)
+	except:
+		reset = None
+
+	try:
+		profile = Profile.objects.get(account=reset.account)
+	except:
+		profile = None
+
+	if reset:
+		template = 'account/password_reset.html'
+		context = {'form' : PasswordResetForm, 'profile' : profile, 'reset' : reset}
+		return render(request,template,context)
+	else:
+		messages.error(request,'Your password token is expired. Call our backoffice to reset.')
+		return HttpResponseRedirect(reverse('home'))
+
+def submited_password_reset(request):
+	form = PasswordResetForm(request.POST or None)
+
+	if form.is_valid():
+		key = request.POST['key']
+		pwd = request.POST['password']
+		cfm = request.POST['confirm']
+		username = request.POST['username']
+		
+		if pwd == cfm:
+			try:
+				account = User.objects.get(username=username)
+			except:
+				account = None
+
+			if account:
+				account.set_password(pwd)
+				account.save()
+				messages.success(request,'Password updated successfully.')
+			else:
+				messages.error(request,'There was a problem. Call backoffice to reset.')
+		else:
+			messages.error(request,"Your passwords didn't match. Please try again or call backoffice.")
+			return HttpResponseRedirect(reverse('receive_password_reset',args=(key,)))
+
+	return HttpResponseRedirect(reverse('home'))
 
 # profile
 @login_required(login_url='/account/login')

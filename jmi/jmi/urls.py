@@ -28,6 +28,10 @@ urlpatterns += patterns('account.views',
 	url(r'^account/logout', 'auth_logout', name='auth_logout'),
 	url(r'^account/fundraiser/login', 'auth_login_and_add_account_to_fundraiser', name='auth_login_and_add_account_to_fundraiser'),
 	url(r'^account/create', 'auth_create_account', name='auth_create_account'),
+	url(r'^account/send-password-reset/$', 'send_reset_email', name='send_reset_email'),
+	url(r'^account/password-reset/(?P<key>.{0,100})/$', 'receive_password_reset', name='receive_password_reset'),
+	url(r'^account/submit-password-reset/$', 'submited_password_reset', name='submited_password_reset'),
+
 	# profile
 	url(r'^profile/$', 'profile_show', name='profile_show'),
 	url(r'^profile/(?P<slug>[-\w]+)/$', 'profile_detail', name='profile_detail'),
