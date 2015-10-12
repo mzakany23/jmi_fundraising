@@ -426,7 +426,7 @@ def process_checkout(request):
 		send_fundraiser_receipt_email.delay(
 			str(finalized_order.organization())+' Fundraiser', 
 			text_email,
-			'Jose Madrid Salsa fundraising <mike@josemadridsalsa.com>',
+			'Jose Madrid Salsa fundraising <fundraising@josemadridsalsa.com>',
 			[email],
 			form
 			)

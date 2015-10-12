@@ -102,7 +102,7 @@ def download_forms(request,id):
 			return response
 	except:
 		messages.error(request,"There are no forms to download at this time. Call backoffice to get forms. ")
-		return HttpResponseRedirect(reverse('plan_type',args=(id,)))
+		return HttpResponseRedirect(reverse('home'))
 
 	# import urllib
  # 	file = 'jmsf.zip'

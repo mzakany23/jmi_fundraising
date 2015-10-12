@@ -54,6 +54,7 @@ class FundraiserTypeAdmin(admin.ModelAdmin):
 	readonly_fields = ['slug']
 	filter_horizontal = ['selections']
 	list_display = ['title','get_plan']
+	ordering = ['order']
 	class Meta:
 		model = FundraiserType
 
