@@ -11,13 +11,13 @@ from helper.fundraiser_process_helper import DescribeFundraiser
 
 
 @app.task
-def send_fundraiser_receipt_email(subject,message,from_email,to_list,form=None,html_message=None):
+def send_fundraiser_receipt_email(subject,message,from_email,to_list,type=None,html_message=None):
 	email_helper = EmailHelper(
 		subject=subject, 
 		message=message,
 		from_email=from_email,
 		to_list=to_list,
-		form=form,
+		type=type,
 		html_message=html_message
 	)
 	email_helper.send_sendgrid()

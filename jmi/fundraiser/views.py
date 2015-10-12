@@ -401,8 +401,8 @@ def process_checkout(request):
 		'order_type' : order_type, 
 		'form' : SimpleSignUpForm
 	}
-	if session_finalized_fundraiser.profile.email:
-	# if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
+	# if session_finalized_fundraiser.profile.email:
+	if session_finalized_fundraiser.profile.email and not session_finalized_fundraiser.receipt_email_sent:
 		
 		data = {
 			'user' : session_finalized_fundraiser.profile.contact_person(),
@@ -421,14 +421,14 @@ def process_checkout(request):
 		template_name  = EMAIL_TEMPLATE_DIR + 'email_fundraiser_receipt_text_based.txt'
 		text_email     = loader.render_to_string(template_name,data)
 		email = session_finalized_fundraiser.profile.email
-		form = session_finalized_fundraiser.plan.forms 
+		type = session_finalized_fundraiser.type 
 		
 		send_fundraiser_receipt_email.delay(
 			str(finalized_order.organization())+' Fundraiser', 
 			text_email,
 			'Jose Madrid Salsa fundraising <fundraising@josemadridsalsa.com>',
 			[email],
-			form
+			type.id
 			)
 	
 		session_finalized_fundraiser.receipt_email_sent = True

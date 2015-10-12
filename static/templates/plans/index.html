@@ -127,8 +127,7 @@
         var id = d.target.id;
         if (id == 'salsaImage'){
             var name = d.target.name
-            var serverLoc = "{{ server }}"
-            var productEndPoint = serverLoc + "/api/product/" + name;
+            var productEndPoint = "https://www.josemadridsalsafundraising.com/api/product/" + name;
 
             $.ajax({
                   type: "GET",
@@ -138,7 +137,7 @@
                     $('#prodTitle').html(data.title);
                     $('#prodDesc').html(data.description);
                     $('#prodCat').html("Category: "+data.category[0]);
-                    $('#prodImage').attr('src',serverLoc+data.image);
+                    $('#prodImage').attr('src',data.image);
                   },
             });
 
