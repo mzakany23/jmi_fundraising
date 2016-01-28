@@ -1416,6 +1416,7 @@ SELECT pg_catalog.setval('account_passwordreset_id_seq', 10, true);
 COPY account_profile (id, organization, first_name, last_name, phone_number, email, slug, org_photo, stripe_id, account_id, address_id) FROM stdin;
 8	ok	Michael	Zakany	3306126183	mzakany@gmail.com	ok-8		\N	\N	1
 9	Fall Football kids eventf	Michael	Zakany	3306126183	mzakany@gmail.com	fall-football-kids-eventf-9		\N	\N	1
+10	test	Michael	Zakany	3306126183	mzakany@gmail.com	test-10		\N	1	1
 \.
 
 
@@ -1423,7 +1424,7 @@ COPY account_profile (id, organization, first_name, last_name, phone_number, ema
 -- Name: account_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('account_profile_id_seq', 9, true);
+SELECT pg_catalog.setval('account_profile_id_seq', 10, true);
 
 
 --
@@ -1614,6 +1615,7 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 
 COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
 8		8
+9	ok works	10
 \.
 
 
@@ -1621,7 +1623,7 @@ COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
 -- Name: comment_fundraiserordercomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 8, true);
+SELECT pg_catalog.setval('comment_fundraiserordercomment_id_seq', 9, true);
 
 
 --
@@ -1907,7 +1909,7 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 36, true);
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
 l1lwjp8iwcmnnuwxb6nt4h4k2lshf8sz	MTA4ODU4ZmU2YWUxYmE3Mjc5MzQ2M2IxMzBlZGMxYjY3YWE4NzI3ODp7fQ==	2015-10-23 10:40:59.189144-04
 1ejxddi3yuod8005cjej6w1bke3cj3ay	MmNjODgxNWYzMzBkNjA4Y2UyNTFhZjYyMDJiNjgwMzRmNzc2ZWI1Zjp7Il9hdXRoX3VzZXJfaGFzaCI6IjcxZTMxMjY3YjNkYjhhODY1YzkzNGRiMDA1YjcyZWNkYjMwZTBmNWQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-10-24 09:36:30.685068-04
-lwsdv5qsnbds4a252m05r5ugo4mev0ja	MmNjODgxNWYzMzBkNjA4Y2UyNTFhZjYyMDJiNjgwMzRmNzc2ZWI1Zjp7Il9hdXRoX3VzZXJfaGFzaCI6IjcxZTMxMjY3YjNkYjhhODY1YzkzNGRiMDA1YjcyZWNkYjMwZTBmNWQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-10-26 16:32:35.161263-04
+lwsdv5qsnbds4a252m05r5ugo4mev0ja	MDdlOGJmNDU2NjgzNzY3NGE5ZGJjZjUzODRiNmMzYzM0YmQ4MmYwMDp7InNlc3Npb25fZmluYWxpemVkX29yZGVyIjoxMCwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJvcmRlcl9zdGVwIjpudWxsLCJmaW5hbGl6ZWRfb3JkZXIiOjEwLCJfYXV0aF91c2VyX2hhc2giOiI3MWUzMTI2N2IzZGI4YTg2NWM5MzRkYjAwNWI3MmVjZGIzMGUwZjVkIn0=	2015-10-26 18:12:43.621029-04
 \.
 
 
@@ -1918,6 +1920,7 @@ lwsdv5qsnbds4a252m05r5ugo4mev0ja	MmNjODgxNWYzMzBkNjA4Y2UyNTFhZjYyMDJiNjgwMzRmNzc
 COPY fundraiser_fundraiser (id, title, description, status, finalized, created, updated, discount, slug, receipt_email_sent, account_id, plan_id, profile_id, type_id) FROM stdin;
 8	ok ok ok	 ok	unpaid	t	2015-10-09 10:04:19.781563-04	2015-10-09 10:04:50.827715-04	0.00	\N	t	\N	14	8	3
 9	Fall Special	f	in-process	f	2015-10-09 10:05:01.095113-04	2015-10-09 10:05:04.217834-04	0.00	\N	f	\N	13	9	3
+10	new fundraiser	test	unpaid	t	2015-10-12 17:56:29.661764-04	2015-10-12 18:12:01.258798-04	0.00	new-fundraiser-10	t	1	14	10	3
 \.
 
 
@@ -1925,7 +1928,7 @@ COPY fundraiser_fundraiser (id, title, description, status, finalized, created, 
 -- Name: fundraiser_fundraiser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 9, true);
+SELECT pg_catalog.setval('fundraiser_fundraiser_id_seq', 10, true);
 
 
 --
@@ -2113,6 +2116,7 @@ SELECT pg_catalog.setval('marketing_singlediscount_id_seq', 1, true);
 
 COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FROM stdin;
 8	check	\N	\N	\N	8
+9	check	\N	\N	\N	10
 \.
 
 
@@ -2120,7 +2124,7 @@ COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FRO
 -- Name: payment_payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('payment_payment_id_seq', 8, true);
+SELECT pg_catalog.setval('payment_payment_id_seq', 9, true);
 
 
 --
@@ -2280,6 +2284,15 @@ COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
 188	0	2	9
 189	0	12	9
 190	0	14	9
+191	0	3	10
+192	23	16	10
+193	34	8	10
+194	0	19	10
+195	0	11	10
+196	0	13	10
+197	0	22	10
+198	22	5	10
+199	0	21	10
 \.
 
 
@@ -2287,7 +2300,7 @@ COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
 -- Name: shipment_selection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_selection_id_seq', 190, true);
+SELECT pg_catalog.setval('shipment_selection_id_seq', 199, true);
 
 
 --
@@ -2297,6 +2310,7 @@ SELECT pg_catalog.setval('shipment_selection_id_seq', 190, true);
 COPY shipment_shipment (id, created, updated, address_id, comment_id, fundraiser_id) FROM stdin;
 8	2015-10-09 10:04:19.783068-04	2015-10-09 10:04:50.661056-04	1	8	8
 9	2015-10-09 10:05:01.097194-04	2015-10-09 10:05:16.406506-04	1	\N	9
+10	2015-10-12 17:56:29.663448-04	2015-10-12 17:56:54.624729-04	1	9	10
 \.
 
 
@@ -2304,7 +2318,7 @@ COPY shipment_shipment (id, created, updated, address_id, comment_id, fundraiser
 -- Name: shipment_shipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mzakany
 --
 
-SELECT pg_catalog.setval('shipment_shipment_id_seq', 9, true);
+SELECT pg_catalog.setval('shipment_shipment_id_seq', 10, true);
 
 
 --

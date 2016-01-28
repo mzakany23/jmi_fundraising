@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 
-from api.fundraiser.views import FundraiserProcessView, TrackEmailOrder
+from api.fundraiser.views import FundraiserProcessView, TrackEmailOrder, FundraisersViewSet,FundraiserBySlugViewSet
 from api.product.views import QueryProductView
 
 
@@ -92,7 +92,11 @@ urlpatterns += patterns('dashboard.views',
 
 # api
 urlpatterns += patterns('api.fundraiser.views',
+	# fundraiser
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
+	url(r'^api/fundraisers/$',FundraisersViewSet.as_view()),
+	url(r'^api/fundraisers/(?P<id>\d+)$',FundraiserBySlugViewSet.as_view()),
+	# product
 	url(r'^api/product/(?P<id>\d+)',QueryProductView.as_view(),name='api_query_product'),
 )
 

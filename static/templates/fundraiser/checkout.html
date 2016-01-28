@@ -163,7 +163,10 @@
                                     <div class="form-group">
                                       <label for="discount">Discount Code</label>
                                         <div class="input-group">
-                                         {% include 'fundraiser/partials/_discount.html' %}
+                                         <button id='discountButton' class="btn btn-info">click to enter discount</button>
+                                         <div id='discountForm' style='display:none'>
+                                          {% include 'fundraiser/partials/_discount.html' %}
+                                         </div>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -354,6 +357,11 @@ $(function(){
       }
       
     })
+
+    $('#discountButton').click(function(){
+      $('#discountButton').hide();
+      $('#discountForm').show('slow');
+    });
 
 });
 

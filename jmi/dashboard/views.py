@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
 from django.core.paginator import Paginator
 
 # app
@@ -20,6 +21,7 @@ from helper.fundraiser_process_helper import AuthUserHelper,SessionVariable
 from helper.dashboard_helper import DashboardHelper
 from helper.email_helper import EmailHelper
 
+
 def dashboard_index(request):
 	session = SessionVariable(request)
 	user = request.user 
@@ -33,7 +35,7 @@ def dashboard_index(request):
 			'pages' : pages
 		}
 
-		template = "dashboard/dashboard.html"
+		template = "dashboard/fundraisers/index.html"
 		return render(request,template,context)
 	else:
 		return HttpResponseRedirect(reverse('jmi_admin_login'))
@@ -52,7 +54,7 @@ def jmi_admin_login(request):
 				return HttpResponseRedirect(reverse(jmi_admin_login))			
 
 	context = {'form' : form}
-	template = "dashboard/login.html"
+	template = "dashboard/authentication/login.html"
 	return render(request,template,context)	
 
 

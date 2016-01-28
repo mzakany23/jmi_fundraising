@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -37,10 +38,13 @@
       </div>
     {% endfor %}
   {% endif %}
+  
+ 	<router></router>
 	{% block dashboard %}{% endblock %}
 	{% block login %}{% endblock %}
 
 	<!-- ================== BEGIN BASE JS ================== -->
+	
 	<script src="{% static 'assets/plugins/jquery/jquery-1.9.1.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
@@ -59,6 +63,45 @@
 	<script src="{% static 'assets/js/apps.min.js' %}"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
+
+	<!-- riot -->
+  <script src="{% static 'riot-tags/store.js' %}"></script>
+  <script src="{% static 'js/custom/js-cookie.js' %}"></script>
+  <script src="{% static 'js/custom/riot.js' %}"></script>
+
+
+
+ 	<!-- riot tags -->
+ 	
+ 	<!-- router -->
+ 	<script type='riot/tag' src="{% static 'riot-tags/router.tag' %}"></script>
+  
+  <!-- fundraisers -->
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-list.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-detail.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-create.tag' %}"></script>
+  
+  <!-- dashboard -->
+  <script type='riot/tag' src="{% static 'riot-tags/dashboard/notification-panel.tag' %}"></script>
+
+
+  <script type="text/javascript">
+    var bus = riot.observable();
+    token = Cookies.get('csrftoken')
+    var store = new STORE('http://localhost:8000',token)
+    var router = new Router()
+
+    riot.route.stop()
+   	riot.route.start(true);
+
+    riot.mount('router',{bus:bus,store:store,router:router})
+    riot.mount('notification-panel',{bus:bus,store:store,router:router})
+
+    
+
+  </script>
+
+
 	<script>
 		$(document).ready(function() {
 			App.init();

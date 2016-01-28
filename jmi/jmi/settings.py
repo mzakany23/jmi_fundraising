@@ -34,6 +34,7 @@ DEFAULT_FROM = EMAIL['default_from']
 
 EMAIL_TEMPLATE_DIR = '../../static/templates/emails/'
 
+
 INSTALLED_APPS = (
     'storages',
     'stdimage',
@@ -83,7 +84,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ROOT_URLCONF = 'jmi.urls'
 
 WSGI_APPLICATION = 'jmi.wsgi.application'
-
 
 
 # Database

@@ -20,7 +20,7 @@ class Fundraiser(models.Model):
 	type         = models.ForeignKey('FundraiserType',null=True,blank=True)
 	status       = models.CharField(
 		max_length=40,
-		choices=(('paid','paid'),('unpaid','unpaid'),),blank=True,null=True
+		choices=(('paid','paid'),('unpaid','unpaid'),('in-process','in-process'),),blank=True,null=True
 	)
 	finalized    = models.BooleanField(default=False)
 	profile      = models.ForeignKey(Profile,blank=True,null=True)

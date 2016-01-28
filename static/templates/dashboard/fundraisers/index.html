@@ -1,0 +1,14 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load staticfiles %}
+
+{% block fundraisers %}
+	
+	<!-- mount point -->
+	
+	<div id="container"></div>
+
+	<!-- fundraisers -->
+	<fundraiser-list></fundraiser-list>  
+	<fundraiser-detail></fundraiser-detail>
+	<fundraiser-create></fundraiser-create>
+{% endblock %}
