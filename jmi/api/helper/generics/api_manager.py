@@ -53,7 +53,7 @@ class APIGenericGenerator(APIView):
 			page_num = 1
 
 		try:
-			results_per_page = int(request['results'])
+			results_per_page = int(request.GET['results'])
 			if results_per_page < 1: results_per_page = 1
 		except:
 			results_per_page = 10

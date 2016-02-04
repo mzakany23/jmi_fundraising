@@ -9,7 +9,7 @@
 							<p>3,291,922</p>	
 						</div>
 						<div class="stats-link">
-							<a href="#fundraisers/new">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+							<a href="#fundraisers">View Fundraisers <i class="fa fa-arrow-circle-o-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
 							<p>20.44%</p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+							<a href="javascript:;">View Products <i class="fa fa-arrow-circle-o-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 							<p>1,291,922</p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+							<a href="#organizations">View Customers <i class="fa fa-arrow-circle-o-right"></i></a>
 						</div>
 					</div>
 				</div>

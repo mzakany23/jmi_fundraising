@@ -1,11 +1,12 @@
 <fundraiser-list>
-    
 
     <div class="row">
 
             <!-- begin page-header -->
             <h1 class="page-header">Fundraiser List <small>all active fundraisers</small></h1>
 
+            <page-results page='fundraisers' options={ ['10','20','30','1000'] }></page-results>
+            
             <!-- end page-header -->
             
             <!-- begin row -->
@@ -145,7 +146,12 @@
     }
 
     linkTo(pageNum){
-        riot.route(`fundraisers/?page=${pageNum}`)
+        q = riot.route.query()
+        if (q.results){
+            riot.route(`fundraisers/?page=${pageNum}&results=${q.results}`)    
+        }else
+            riot.route(`fundraisers/?page=${pageNum}`)
+        
         scroll(0,0)
     }
 

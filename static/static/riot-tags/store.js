@@ -9,11 +9,13 @@ var ROUTING = (function(){
 				fundraisers: {
 					create: `${self.server}/api/fundraisers/create/`,
 					all: `${self.server}/api/fundraisers/all/`,
-					show(pageNum){
-						if (pageNum){
+					show(pageNum,results){
+						if (pageNum && results){
+							return `${self.server}/api/fundraisers/?page=${pageNum}&results=${results}`	
+						}else if (pageNum && results === undefined){
 							return `${self.server}/api/fundraisers/?page=${pageNum}`	
 						}else{
-							return `${self.server}/api/fundraisers/`
+							return `${self.server}/api/fundraisers/?page=1`
 						}
 					},
 					update(id){
@@ -31,8 +33,10 @@ var ROUTING = (function(){
 				},
 				profiles: {
 					show: `${self.server}/api/profiles/`,
-					showPaginated(pageNum){
-						if (pageNum){
+					showPaginated(pageNum,results){
+						if (pageNum && results){
+							return `${self.server}/api/paginated-profiles/?page=${pageNum}&results=${results}`	
+						}else if (pageNum){
 							return `${self.server}/api/paginated-profiles/?page=${pageNum}`	
 						}else{
 							return `${self.server}/api/paginated-profiles/?page=1`
@@ -165,9 +169,9 @@ var PROFILES = (function(router,helper){
 		return $.get(url,contents)
 	}
 
-	self.showPaginated = function(pageNum){
+	self.showPaginated = function(pageNum,results){
 		contents = helper.packageData({})
-		url = router.routes.profiles.showPaginated(pageNum)
+		url = router.routes.profiles.showPaginated(pageNum,results)
 		return $.get(url,contents)
 	}
 
@@ -208,9 +212,9 @@ var FUNDRAISER = (function(router,helper){
 			return $.get(url,contents)
 		}
 
-		self.show = function(pageNum){
+		self.show = function(pageNum,results){
 			contents = helper.packageData({})
-			url = router.routes.fundraisers.show(pageNum)
+			url = router.routes.fundraisers.show(pageNum,results)
 			return $.get(url,contents)
 		}
 

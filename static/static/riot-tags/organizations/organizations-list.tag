@@ -3,8 +3,10 @@
 
             <!-- begin page-header -->
             <h1 class="page-header">Organizations List <small>Organization and their Fundraisers</small></h1>
-            <!-- end page-header -->
             
+            <page-results page='profiles' options={ ['10','20','30','1000'] }></page-results>
+            <!-- end page-header -->
+              
             <!-- begin row -->
             <div class="row">
                 
@@ -16,7 +18,16 @@
                             <div class="panel-heading-btn">
                                
                             </div>
-                            <h4 class="panel-title">List of Organizations</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="panel-title">List of Organizations</h4>
+                                </div>
+
+                                <div class="col-md-6 text-right">
+                                    <search-box title='Organizations' model={ opts.profiles.results }></search-box>
+                                </div>
+                            </div>
+                            
                         </div>
                         
                         <div class="panel-body">
@@ -118,8 +129,13 @@
   }
 
   linkTo(pageNum){
-      riot.route(`organizations/?page=${pageNum}`)
-      scroll(0,0)
+   q = riot.route.query()
+    if (q.results){
+        riot.route(`paginated-profiles/?page=${pageNum}&results=${q.results}`)    
+    }else
+        riot.route(`paginated-profiles/?page=${pageNum}`)
+    
+    scroll(0,0)
   }
 
   setMaxPageCount(num){

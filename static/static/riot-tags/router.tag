@@ -25,6 +25,13 @@
 				mount('fundraiser-create',{bus:bus,store:store})
 			
 			// query params
+			// page and results
+			}else if (q.page && q.results){
+				store.fundraisers.show(q.page,q.results).then((fundraisers) => {
+	        	mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})
+	      }).fail((e) => {console.log(e)})
+
+	     // just page
 			}else if (q.page) {
 				store.fundraisers.show(q.page).then((fundraisers) => {
         	mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})
@@ -42,18 +49,23 @@
 
 			// list
 			}else {
-				store.fundraisers.show().then((fundraisers) => {
-					mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})
-				}).fail((e) => console.log(e))
+				riot.route('/fundraisers/?page=1')	
+				// store.fundraisers.show().then((fundraisers) => {
+				// 	mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})
+				// }).fail((e) => console.log(e))
 			}	
 		}, //end fundraiser
 		organizations: function(id,action){
 			q = riot.route.query()
-			params = q.page
+			pageNum = q.page 
+			results = q.results
 			
-			if (params){
-				store.profiles.showPaginated(params).then((profiles) => {
-					console.log(profiles)
+			if (pageNum && results){
+				store.profiles.showPaginated(pageNum,results).then((profiles) => {
+	        mount('organizations-list',{bus:bus,store:store,profiles,profiles})
+	      }).fail((e) => {console.log(e)})
+			}else if (pageNum){
+				store.profiles.showPaginated(pageNum).then((profiles) => {
 					mount('organizations-list',{bus:bus,store:store,profiles,profiles})
 				});
 			}else{
