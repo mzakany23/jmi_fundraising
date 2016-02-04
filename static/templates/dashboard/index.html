@@ -30,6 +30,7 @@
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body>
+
 	{% if messages %}
    {% for message in messages %}
       <div class="alert alert-warning alert-dismissible" role="alert">
@@ -44,6 +45,12 @@
 	{% block login %}{% endblock %}
 
 	<!-- ================== BEGIN BASE JS ================== -->
+	
+	<!-- underscore -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+	<!-- moment -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
 	
 	<script src="{% static 'assets/plugins/jquery/jquery-1.9.1.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
@@ -80,12 +87,34 @@
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-list.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-detail.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-create.tag' %}"></script>
-  
+
+  <!-- organizations -->
+	<script type='riot/tag' src="{% static 'riot-tags/organizations/organizations-list.tag' %}"></script>
+
+  <!-- fundraiser form -->
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-form.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-profile.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-shipment.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-selections.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-payment.tag' %}"></script>
+
+  <!-- profile -->
+ 	<script type='riot/tag' src="{% static 'riot-tags/account/profile-detail.tag' %}"></script>
+
   <!-- dashboard -->
   <script type='riot/tag' src="{% static 'riot-tags/dashboard/notification-panel.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/dashboard/search.tag' %}"></script>  	
+  
+  <!-- notifications -->
+	<script type='riot/tag' src="{% static 'riot-tags/notifications/errors.tag' %}"></script>  
+	<script type='riot/tag' src="{% static 'riot-tags/notifications/message.tag' %}"></script>  
 
+	
+
+	
 
   <script type="text/javascript">
+  	
     var bus = riot.observable();
     token = Cookies.get('csrftoken')
     var store = new STORE('http://localhost:8000',token)
@@ -96,9 +125,7 @@
 
     riot.mount('router',{bus:bus,store:store,router:router})
     riot.mount('notification-panel',{bus:bus,store:store,router:router})
-
     
-
   </script>
 
 

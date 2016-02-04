@@ -1,8 +1,11 @@
 <fundraiser-list>
+    
+
     <div class="row">
 
             <!-- begin page-header -->
             <h1 class="page-header">Fundraiser List <small>all active fundraisers</small></h1>
+
             <!-- end page-header -->
             
             <!-- begin row -->
@@ -14,53 +17,49 @@
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                               
                             </div>
-                            <h4 class="panel-title">DataTable - Autofill</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="panel-title">List of Jose Madrid Salsa Fundraisers</h4>
+                                </div>
+
+                                <div class="col-md-6 text-right">
+                                    <search-box title='Fundraisers' model={ model.results }></search-box>
+                                </div>
+                            </div>
+                            
+
                         </div>
                         
                         <div class="panel-body">
                             
-                            <div><a href="">All</a><a style='margin-left: 10px; margin-right: 10px;' href="">Paid<a><a href="">Unpaid</a></div>
-
-                            
-
-                            <hr>
+                         
 
                             <div class="table-responsive">
                                 <table id="data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Shipment</th>
-                                            <th>Date Created</th>
-                                            <th>Status</th>
-                                            <th>Payment</th>
                                             <th>Title</th>
+                                            <th>Date Created</th>
                                             <th>Organization</th>
+                                            <th>Payment</th>
                                             <th>Type</th>
-                                            <td>Status</td>
-                                            <td></td>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
                                         
-                                        <form method='POST' action="">
-                                        
-                                        <tr each={ fundraiser in model.results } style="" class="odd gradeX">
-                                            <td><a onclick={ detail } href="">shipment</a></td>
-                                            <td>{ fundraiser.created }</td>
-                                              <td>{ fundraiser.status }</td>
-                                            <td>{ fundraiser.finalized }</td>
-                                            <td>{ fundraiser.title }</td>
-                                            <td>{ fundraiser.profile.organization }</td>
-                                            <td>{ fundraiser.type }<td>
-                                            <td>{ fundraiser.finalized }</td>           
-                                        </tr>
-                                        </form>
+                                <form method='POST' action="">
+                                    <tr each={ fundraiser in model.results } class="odd gradeX">
+                                        <td><a onclick={ detail } href="">{ fundraiser.title }</a></td>
+                                        <td>{ moment(fundraiser.created).format('MMMM Do YYYY, h:mm:ss a') }</td>
+                                        <td>{ fundraiser.profile.organization }</td>
+                                        <td>{ fundraiser.status }</td>
+                                        <td>{ fundraiser.type }</td>
+                                    </tr>
+                                </form>
                                         
                                         
                                     </tbody>
@@ -99,10 +98,11 @@
 
 <script>
     self = this;
+
     this.on('mount',function(){
         this.initPage(this.opts.model)
     });
-    
+
     // actions
     initPage(model){
         this.detailView = false

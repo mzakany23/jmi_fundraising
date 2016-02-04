@@ -23,6 +23,7 @@
 			// create
 			if (id === 'create'){
 				mount('fundraiser-create',{bus:bus,store:store})
+			
 			// query params
 			}else if (q.page) {
 				store.fundraisers.show(q.page).then((fundraisers) => {
@@ -46,6 +47,22 @@
 				}).fail((e) => console.log(e))
 			}	
 		}, //end fundraiser
+		organizations: function(id,action){
+			q = riot.route.query()
+			params = q.page
+			
+			if (params){
+				store.profiles.showPaginated(params).then((profiles) => {
+					console.log(profiles)
+					mount('organizations-list',{bus:bus,store:store,profiles,profiles})
+				});
+			}else{
+				riot.route('/organizations/?page=1')	
+			}
+			
+			
+
+		}
 	}
 
 	function redirectTo(url){

@@ -8,6 +8,7 @@ var ROUTING = (function(){
 			self.routes = {
 				fundraisers: {
 					create: `${self.server}/api/fundraisers/create/`,
+					all: `${self.server}/api/fundraisers/all/`,
 					show(pageNum){
 						if (pageNum){
 							return `${self.server}/api/fundraisers/?page=${pageNum}`	
@@ -23,9 +24,32 @@ var ROUTING = (function(){
 					},
 					getById(id){
 						return `${self.server}/api/fundraisers/${id}`
-					},
-					
+					},	
 				},
+				fundraiserTypes: {
+					types: `${self.server}/api/fundraisers/types/`,
+				},
+				profiles: {
+					show: `${self.server}/api/profiles/`,
+					showPaginated(pageNum){
+						if (pageNum){
+							return `${self.server}/api/paginated-profiles/?page=${pageNum}`	
+						}else{
+							return `${self.server}/api/paginated-profiles/?page=1`
+						}
+						
+					},
+					create: `${self.server}/api/profiles/create/`,
+					getByTitle(title){
+						return `${self.server}/api/profiles/?title=${title}`
+					},
+					update(id){
+						return `${self.server}/api/profiles/${id}/edit/`
+					}
+				},
+				products: {
+					show: `${self.server}/api/products/`,
+				}
 			// end fundraiser
 			}
 		}
@@ -107,7 +131,66 @@ var UTIL = (function(router){
 	return self
 })(ROUTING);
 
+var FUNDRAISERTYPES = (function(router,helper){
+	var self = {}
 
+	self.getTypes = function(){
+		contents = helper.packageData({})
+		url = router.routes.fundraiserTypes.types
+		return $.get(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
+var PRODUCTS = (function(router,helper){
+	var self = {}
+
+	self.show = function(){
+		contents = helper.packageData({})
+		url = router.routes.products.show
+		return $.get(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
+
+var PROFILES = (function(router,helper){
+	var self = {}
+
+	self.show = function(){
+		contents = helper.packageData({})
+		url = router.routes.profiles.show
+		return $.get(url,contents)
+	}
+
+	self.showPaginated = function(pageNum){
+		contents = helper.packageData({})
+		url = router.routes.profiles.showPaginated(pageNum)
+		return $.get(url,contents)
+	}
+
+	self.create = function(data){
+		contents = helper.packageData(data)
+		url = router.routes.profiles.create 
+		return $.post(url,contents)
+	}
+
+	self.getByTitle = function(title){
+		contents = helper.packageData({})
+		url = router.routes.profiles.getByTitle(title)
+		return $.get(url,contents)
+	}
+
+	self.update = function(id,data){
+		contents = helper.packageData(data)
+		url = router.routes.profiles.update(id)
+		return $.post(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
 
 var FUNDRAISER = (function(router,helper){
 	var self = {}
@@ -117,6 +200,12 @@ var FUNDRAISER = (function(router,helper){
 			contents = helper.packageData(data)
 			url = router.routes.fundraisers.create(fundraiser_id)
 			return $.post(url,contents)
+		}
+
+		self.all = function(){
+			contents = helper.packageData({})
+			url = router.routes.fundraisers.all
+			return $.get(url,contents)
 		}
 
 		self.show = function(pageNum){
@@ -171,7 +260,7 @@ var CACHE = (function(){
 	return self;
 })();
 
-var STORE = (function(fundraisers,router,cache){
+var STORE = (function(fundraisers,fundraiserTypes,profiles,router,cache,products){
 	// private
 	var self = {};
 	
@@ -181,11 +270,25 @@ var STORE = (function(fundraisers,router,cache){
 
 	function STORE(server,token){
 		self.init(server,token)
-		// modules
+		// app
 		this.routes = router
 		this.fundraisers = fundraisers
+		this.fundraiserTypes = fundraiserTypes
+		this.profiles = profiles
+		this.products = products 
+
+		// modules
 		this.cache = cache
-	
+		this.validations = {
+			fieldBlank(field){
+				if (field) {
+					return false
+				}else{
+					return true
+				}
+			}
+		}
+
 		// methods
 		this.initModel = function(arr){
 			this.cache.fill(arr)
@@ -198,6 +301,15 @@ var STORE = (function(fundraisers,router,cache){
 			}else{
 				return false
 			}
+		}
+
+		this.getFormErrors = function(form){
+			errors = []
+			for (var key in form){
+				value = form[key]
+				errors.push(`${key}: ${value}`)
+			}
+			return errors
 		}
 
 		this.getCache = function(){
@@ -215,17 +327,21 @@ var STORE = (function(fundraisers,router,cache){
 			return false
 	  }
 
-	  this.findAndDelete = function(items,id){
-		for(var i =0; i< items.length;i++){
-			if (items[i].id === id){
-				items.splice(i, 1);
-				return true
+	  this.findAndDelete = function(arr,id){
+			for(var i =0; i< arr.length;i++){
+				oldId = arr[i].id.toString()
+				newId = id.toString()
+
+				if (oldId === newId){
+					return arr.splice(i, 1);
+					// return arr
+				}
 			}
-		}
-		return false
+			// return false
+			return arr
 	}
-		
+	
 		// end functions
 	}
 	return STORE
-})(FUNDRAISER,ROUTING,CACHE)
+})(FUNDRAISER,FUNDRAISERTYPES,PROFILES,ROUTING,CACHE,PRODUCTS)

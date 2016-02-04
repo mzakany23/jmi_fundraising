@@ -57,3 +57,39 @@ postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi
 LOG:  database system was shut down at 2015-12-18 19:45:19 EST
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharonn'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u"(u''HELP Homeschool'',)",)', "first_name" = '(u"(u''Sharon'',)",)', "last_name" = '(u"(u''Francis'',)",)', "phone_number" = '(u"(u''5133324897'',)",)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u"(u''HELP Homeschool'',)",)', "first_name" = '(u"(u''Sharon'',)",)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u"(u''HELP Homeschool'',)",)', "first_name" = '(u"(u''Sharon'',)",)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = '(u''HELP Homeschool'',)', "first_name" = '(u''Sharon'',)', "last_name" = '(u''Francis'',)', "phone_number" = '(u''5133324897'',)', "email" = 'jfrancis@cinci.rr.com', "slug" = 'help-homeschool-40', "org_photo" = '', "address_id" = 42, "stripe_id" = '', "account_id" = 5 WHERE "account_profile"."id" = 40
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = 'Brand New Address', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = 'Brand New Address', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = 'Michael carlos fundraiser', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11
+ERROR:  value too long for type character varying(10)
+STATEMENT:  UPDATE "account_profile" SET "organization" = 'Michael carlos fundraiser', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11

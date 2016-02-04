@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from serializers import FundraisersSerializer
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # django
 from django.http import Http404
@@ -18,9 +20,22 @@ from helper.initialize_helper import SessionVariable
 from fundraiser.models import Fundraiser
 from payment.models import Payment
 from comment.models import FundraiserOrderComment
+from serializers import FundraiserTypeSerializer
 from jmi.env_var import STRIPE_API_KEY
-
+from api.helper.model_helper import ModelHelper
 from django.core.paginator import Paginator
+
+# helper
+from api.helper.generics.api_manager import APIGenericGenerator
+
+class FundraiserTypesView(APIView):
+	def get(self,request):
+		types = ModelHelper().fundraiser_types()
+		if types:
+			serializer_class = FundraiserTypeSerializer 
+			serialized_types = FundraiserTypeSerializer(types,many=True).data
+			return Response(serialized_types,status=status.HTTP_200_OK)
+		return Response('Failure',status=status.HTTP_404_NOT_FOUND)
 
 class FundraiserBySlugViewSet(APIView):
 	def get(self,request,id):
@@ -36,51 +51,22 @@ class FundraiserBySlugViewSet(APIView):
 			return Response(serializer.data,status=status.HTTP_200_OK)
 		return Response('There was a problem',status=status.HTTP_404_NOT_FOUND)
 
-
-class FundraisersViewSet(APIView):
+class APIAllFundraisers(APIView):
+	authentication_classes = (SessionAuthentication,)
+	permission_classes = (IsAuthenticated,)
 	
 	def get(self,request):
-		try:
-			page_num = int(request.GET['page'])
-			
-			if page_num < 1:
-				page_num = 1
+		fundraisers = APIGenericGenerator(model=Fundraiser,serializer=FundraisersSerializer)
+		return Response(fundraisers.list(sort='-created'),status=status.HTTP_200_OK)
 
-			try:
-				results_per_page = int(request.GET['results'])
-			except:
-				results_per_page = 10
-			# results_per_page = 10
-		except:
-			page_num = 1
-			results_per_page = 10
+class FundraisersViewSet(APIView):
+	authentication_classes = (SessionAuthentication,)
+	permission_classes = (IsAuthenticated,)
 
-		try:
-			fundraisers = Fundraiser.objects.all().order_by('-created')
-		except:
-			fundraisers = None
-
-		paginator = Paginator(fundraisers, results_per_page)
-		page = paginator.page(page_num)
-			
-		max_pages = int(math.ceil(float(paginator.object_list.count())/float(results_per_page)))
+	def get(self,request):
+		fundraisers = APIGenericGenerator(model=Fundraiser,serializer=FundraisersSerializer)
+		return Response(fundraisers.list_paginated_results(request,sort='-created'),status=status.HTTP_200_OK)
 		
-		pagination = {
-			'description' : str(page),
-			'pages' : str(results_per_page),
-			'current_page' : str(page.number),
-			'start_index' : str(page.start_index()),
-			'end_index' : str(page.end_index()),
-			'total_records' : str(paginator.object_list.count()),
-			'has_next' : str(page.has_next()),
-			'max_pages' : str(max_pages)
-		}
-
-		serializer_class = FundraisersSerializer()
-
-		serializer = FundraisersSerializer(page,many=True)
-		
-		return Response({'results':serializer.data,'pagination': pagination},status=status.HTTP_200_OK)
 
 class TrackEmailOrder(APIView):
 	def get(self,request,format=None):

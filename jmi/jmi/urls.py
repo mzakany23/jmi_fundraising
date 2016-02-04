@@ -2,8 +2,26 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 
-from api.fundraiser.views import FundraiserProcessView, TrackEmailOrder, FundraisersViewSet,FundraiserBySlugViewSet
-from api.product.views import QueryProductView
+# fundraisers
+from api.fundraiser.views import (
+	FundraiserProcessView, 
+	TrackEmailOrder, 
+	FundraisersViewSet,
+	FundraiserBySlugViewSet,
+	FundraiserTypesView,
+	APIAllFundraisers
+)
+
+# profiles
+from api.account.views import (
+	APIProfileView,
+	APIProfileCreateView,
+	APIProfileUpdateView,
+	APIPaginatedProfilesView
+)
+
+# products
+from api.product.views import QueryProductView,APIProductList
 
 
 
@@ -92,12 +110,22 @@ urlpatterns += patterns('dashboard.views',
 
 # api
 urlpatterns += patterns('api.fundraiser.views',
+	# fundraiserTypes
+	url(r'^api/fundraisers/types/',FundraiserTypesView.as_view()),
 	# fundraiser
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 	url(r'^api/fundraisers/$',FundraisersViewSet.as_view()),
+	url(r'^api/fundraisers/all/$',APIAllFundraisers.as_view()),
 	url(r'^api/fundraisers/(?P<id>\d+)$',FundraiserBySlugViewSet.as_view()),
 	# product
+	url(r'^api/products/$',APIProductList.as_view()),
 	url(r'^api/product/(?P<id>\d+)',QueryProductView.as_view(),name='api_query_product'),
+	# account
+	url(r'^api/paginated-profiles/$',APIPaginatedProfilesView.as_view()),
+	url(r'^api/profiles/$',APIProfileView.as_view()),
+	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
+	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
+
 )
 
 if settings.DEBUG:

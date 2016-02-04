@@ -1,16 +1,19 @@
 <fundraiser-detail>
 
 	<div id="content" class="content">
+            <message-notification messages={ messages } title={ messageTitle }></message-notification>
+            <errors-list errors={ errors }></errors-list>
+
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Extra</a></li>
+				<li><a href="#fundraisers">Dashboard Home</a></li>
 				<li class="active">Profile Page</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-        
-			<h1 class="page-header">Profile Page <small>header small text goes here...</small></h1>
+            
+
+			<h1 class="page-header">Profile Page</h1>
 			<!-- end page-header -->
 			<!-- begin profile-container -->
             <div class="profile-container">
@@ -29,13 +32,7 @@
                         </div>
                         <!-- begin profile-highlight -->
                         <div class="profile-highlight">
-                            <h4><i class="fa fa-cog"></i> Only My Contacts</h4>
-                            <div class="checkbox m-b-5 m-t-0">
-                                <label><input type="checkbox"> Show my timezone</label>
-                            </div>
-                            <div class="checkbox m-b-0">
-                                <label><input type="checkbox"> Show i have 14 contacts</label>
-                            </div>
+                          
                         </div>
                         <!-- end profile-highlight -->
                     </div>
@@ -51,102 +48,128 @@
                                         <tr>
                                             <th></th>
                                             <th>
-                                                <h4>{ fundraiser.profile.organization }<small>{ fundraiser.profile.contact_full_name }</small></h4>
+                                                <h4>{ profile.organization }<small>{ profile.contact_full_name }</small></h4>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!-- profile section -->
+                                        
                                         <tr class="highlight">
-                                            <td class="field">Mood</td>
-                                            <td><a href="#">Add Mood Message</a></td>
+                                            <td class="field">Profile</td>
+                                            <td></td>
                                         </tr>
+
                                         <tr class="divider">
                                             <td colspan="2"></td>
                                         </tr>
+                                        
                                         <tr>
-                                            <td class="field">Mobile</td>
-                                            <td><i class="fa fa-mobile fa-lg m-r-5"></i> +1-(847)- 367-8924 <a href="#" class="m-l-5">Edit</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Home</td>
-                                            <td><a href="#">Add Number</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Office</td>
-                                            <td><a href="#">Add Number</a></td>
-                                        </tr>
-                                        <tr class="divider">
-                                            <td colspan="2"></td>
-                                        </tr>
-                                        <tr class="highlight">
-                                            <td class="field">About Me</td>
-                                            <td><a href="#">Add Description</a></td>
-                                        </tr>
-                                        <tr class="divider">
-                                            <td colspan="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Country/Region</td>
-                                            <td>
-                                                <select class="form-control input-inline input-xs" name="region">
-                                                    <option value="US" selected="">United State</option>
-                                                    <option value="AF">Afghanistan</option>
-                                                    <option value="AL">Albania</option>
-                                                    <option value="DZ">Algeria</option>
-                                                    <option value="AS">American Samoa</option>
-                                                    <option value="AD">Andorra</option>
-                                                    <option value="AO">Angola</option>
-                                                    <option value="AI">Anguilla</option>
-                                                    <option value="AQ">Antarctica</option>
-                                                    <option value="AG">Antigua and Barbuda</option>
-                                                </select>
+                                            <td class="field">Organization</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{ profile.organization }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{ profile.organization }"name="organization">
                                             </td>
                                         </tr>
+
+                                         <tr>
+                                            <td class="field">First Name</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{ profile.first_name }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{ profile.first_name }"name="firstName">
+                                            </td>
+                                        </tr>
+
+                                         <tr>
+                                            <td class="field">Last Name</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{ profile.last_name }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{ profile.last_name }"name="lastName">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="field">Phone</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{ profile.phone_number }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{ profile.phone_number }"name="phone">
+                                            </td>
+                                        </tr>
+
+                                         <tr>
+                                            <td class="field">Email</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{ profile.email }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{ profile.email }"name="email">
+                                            </td>
+                                        </tr>
+                                        
+
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        
+                                        
+
+                                        <tr class="highlight">
+                                            <td class="field">Address</td>
+                                            <td></td>
+                                        </tr>
+
+                                         <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+
+                                        <!-- address section -->
+                                       
+                                        <tr>
+                                            <td class="field">Title</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{profile.address.title }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{profile.address.title }"name="title">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="field">Street</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{profile.address.street }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{profile.address.street }"name="street">
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <td class="field">City</td>
-                                            <td>Los Angeles</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{profile.address.city }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{profile.address.city }"name="city">
+                                            </td>
                                         </tr>
+
                                         <tr>
                                             <td class="field">State</td>
-                                            <td><a href="#">Add State</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Website</td>
-                                            <td><a href="#">Add Webpage</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Gender</td>
-                                            <td>
-                                                <select class="form-control input-inline input-xs" name="gender">
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{profile.address.state }</a></td>
+                                            <td if={ editable }>
+                                                <select class="form-control" name='state'>
+                                                    <option>{profile.address.state }</option>
+                                                    <option each={ state in states }>{ state }</option>
                                                 </select>
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <td class="field">Birthdate</td>
-                                            <td>
-                                                <select class="form-control input-inline input-xs" name="day">
-                                                    <option value="04" selected="">04</option>
-                                                </select>
-                                                -
-                                                <select class="form-control input-inline input-xs" name="month">
-                                                    <option value="11" selected="">11</option>
-                                                </select>
-                                                -
-                                                <select class="form-control input-inline input-xs" name="year">
-                                                    <option value="1989" selected="">1989</option>
-                                                </select>
+                                            <td class="field">Zip</td>
+                                            <td if={ !editable }><a onclick={ editForm } href="">{profile.address.zip_code }</a></td>
+                                            <td if={ editable }>
+                                                <input type="text" class="form-control" value="{profile.address.zip_code }"name="zip">
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="field">Language</td>
-                                            <td>
-                                                <select class="form-control input-inline input-xs" name="language">
-                                                    <option value="" selected="">English</option>
-                                                </select>
-                                            </td>
-                                        </tr>
+                                       
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -158,14 +181,90 @@
                 </div>
                 <!-- end profile-section -->
                 <!-- begin profile-section -->
-                
+            <div class="row">
+                <div class="col-md-4">
+                    <a onclick={ editForm } href="" class="btn btn-info">Edit Fields</a>
+                    <a onclick={ saveForm } href="" class="btn btn-danger">Save Form</a>
+                </div>
+            </div>
             </div>
 			<!-- end profile-container -->
 		</div>
 
+
+
 <script>
+this.states = ['AK','AL','AR','AZ','CA','CO','CT','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY']
+
 var self = this
-this.fundraiser = this.opts.fundraiser
+this.profile = this.opts.fundraiser.profile 
+
+this.editable = false
+
+editForm(){
+    this.editable = true
+}
+
+saveForm(){
+    this.initFormValues()
+    this.errors = null
+    this.messages = null
+    id = this.profile.id
+    this.opts.store.profiles.update(id,{addressForm:this.addressForm,profileForm:this.profileForm})
+    .then((res) => {
+        scroll(0,0)
+        this.messages = [`You Successfully Updated the profile for ${res.organization}`]
+        this.messageTitle = 'Success!'
+        self.profile = res
+        self.editable = false
+        self.opts.bus.trigger('successMessage',`You successfully updated the ${res.organization} profile!`)
+        self.update()
+    })
+    .fail((e) => {
+        scroll(0,0)
+        forms = JSON.parse(e.responseText)
+        self.addressErrors = self.opts.store.getFormErrors(forms.address_errors)
+        self.profileErrors = self.opts.store.getFormErrors(forms.profile_errors)
+        self.errors = self.profileErrors.concat(self.addressErrors) || null
+        self.update()
+    });
+
+}
+
+initFormValues(){
+    organization = this.capitalizeFirstLetter(this.organization.value)
+    firstName    = this.firstName.value 
+    lastName     = this.lastName.value 
+    phoneNumber  = this.phone.value 
+    email        = this.email.value 
+
+    // address
+    title        = this.capitalizeFirstLetter(this.title.value)
+    street       = this.street.value 
+    city         = this.city.value 
+    state        = this.state.value 
+    zip          = this.zip.value 
+
+    this.profileForm = {
+        organization:organization,
+        firstName:firstName,
+        lastName:lastName,
+        phoneNumber:phoneNumber,
+        email:email
+    }
+
+    this.addressForm = {
+        title:title,
+        street,street,
+        city:city,
+        state,state,
+        zip:zip
+    }
+}
+
+capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 </script>
 

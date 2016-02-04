@@ -1,6 +1,7 @@
 {% extends 'dashboard/index.html' %}
 {% load staticfiles %}
 {% block dashboard %}
+
 <!-- begin #page-loader -->
 	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
@@ -150,7 +151,7 @@
 						    <span>Organizations</span>
 					    </a>
 						<ul class="sub-menu">
-								<li class="active"><a href="" data-toggle="ajax">Show Organization</a></li>
+								<li class="active"><a href="#organizations" data-toggle="ajax">Show Organization</a></li>
 						    <li class="active"><a href="" data-toggle="ajax">Create Organization</a></li>
 						</ul>
 					</li>
@@ -184,8 +185,9 @@
 		<!-- ########################################################## -->
 		<!-- CONTENT SECTION  -->
 		<!-- ########################################################## -->
+
 		<div id="content" class="content">
-			<h1 class="page-header"><a href="{% url 'dashboard_index' %}">Dashboard</a> <small>header small text goes here...</small></h1>
+			<h1 class="page-header"><a href="{% url 'dashboard_index' %}">Dashboard</a></h1>
 			<notification-panel></notification-panel>
 		  {% block fundraisers %}{% endblock %}
 		</div>

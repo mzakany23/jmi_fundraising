@@ -13,6 +13,11 @@ from address.models import Address
 from product.models import Product
 from shipment.models import Shipment,Selection
 
+class FundraiserTypeSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = FundraiserType
+		fields = ['id','image','title']
+
 class ProductSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product
@@ -42,6 +47,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Profile
 		fields = [
+			'id',
 			'organization',
 			'contact_full_name',
 			'first_name',
