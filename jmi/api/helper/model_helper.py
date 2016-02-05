@@ -1,6 +1,7 @@
 from fundraiser.models import FundraiserType,Fundraiser
 from account.models import Profile 
 from product.models import Product,Category
+from fundraiser.models import Fundraiser
 from api.product.serializers import ProductSerializer
 
 class ProductHelper():
@@ -28,6 +29,25 @@ class FundraiserHelper():
 		except:
 			fundraiser = None
 		return fundraiser
+	
+	def filter_by_id(self,request,id):
+		
+		try:
+			id = request.GET['filter']
+			profile = Profile.objects.get(id=id)
+		except:
+			id = None
+			profile = None
+		
+		try:
+			fundraisers = Fundraiser.objects.filter(profile=profile)
+		except:
+			fundraisers = None
+
+		if profile and fundraisers:
+			return fundraisers
+		else:
+			return None
 
 class ProfileHelper():
 	def organizations(self):

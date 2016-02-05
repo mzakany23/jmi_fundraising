@@ -28,11 +28,9 @@ def dashboard_index(request):
 
 	if user.is_authenticated() and user.is_superuser:
 		dashboard = DashboardHelper()
-		pages = Paginator(dashboard.all_fundraisers(),2)
 		context = {
 			'dashboard' : dashboard,
 			'session' : session,
-			'pages' : pages
 		}
 
 		template = "dashboard/fundraisers/index.html"

@@ -51,14 +51,22 @@ class FundraiserBySlugViewSet(APIView):
 			return Response(serializer.data,status=status.HTTP_200_OK)
 		return Response('There was a problem',status=status.HTTP_404_NOT_FOUND)
 
+# /api/fundraisers/all
 class APIAllFundraisers(APIView):
 	authentication_classes = (SessionAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	
 	def get(self,request):
+		fundraisers = ModelHelper().filter_by_id(request,id)
+
+		if fundraisers:
+			return Response(FundraisersSerializer(fundraisers,many=True).data,status=status.HTTP_200_OK)
+		return Response('Failure',status=status.HTTP_404_NOT_FOUND)
+
 		fundraisers = APIGenericGenerator(model=Fundraiser,serializer=FundraisersSerializer)
 		return Response(fundraisers.list(sort='-created'),status=status.HTTP_200_OK)
 
+# /api/fundraisers
 class FundraisersViewSet(APIView):
 	authentication_classes = (SessionAuthentication,)
 	permission_classes = (IsAuthenticated,)

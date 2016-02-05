@@ -44,7 +44,7 @@
 	<input onkeyup={ search } class="search" type='text' placeholder="Search { opts.title }" name='searchResult'>
 
 	<div if={ activated } id='search-results'>
-		<h4 style='margin-left: 10px;'>Search { opts.model.length } Results</h4>
+		<h4 style='margin-left: 10px;'>Searched { opts.model.length } fundraisers : found { autoCompleteRes.length }</h4>
 		<hr>
 		<ul>
 			<li each={ object in autoCompleteRes } onkeyup={ search } onmouseleave={ autoCompResMouseLeave } onmouseenter={ autoCompResMouseEnter }><a href="#fundraisers/{ object.id }">{ object.title }</a></li>

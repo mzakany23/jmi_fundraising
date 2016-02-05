@@ -41,6 +41,7 @@
                                 <table id="data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>Image</th>
                                             <th>Title</th>
                                             <th>Date Created</th>
                                             <th>Organization</th>
@@ -54,6 +55,10 @@
                                         
                                 <form method='POST' action="">
                                     <tr each={ fundraiser in model.results } class="odd gradeX">
+                                        <td>
+                                            <img if={ fundraiser.profile.org_photo } width='45' height='45' src="{ fundraiser.profile.org_photo }">
+                                            <img if={ !fundraiser.profile.org_photo } width='45' height='45' src="http://placehold.it/45x45">
+                                        </td>
                                         <td><a onclick={ detail } href="">{ fundraiser.title }</a></td>
                                         <td>{ moment(fundraiser.created).format('MMMM Do YYYY, h:mm:ss a') }</td>
                                         <td>{ fundraiser.profile.organization }</td>

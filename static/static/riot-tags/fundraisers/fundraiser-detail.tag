@@ -1,39 +1,52 @@
 <fundraiser-detail>
+    <style type="text/css">
+        .details{
+            background-color: #E4E4E4;
+        }
+    </style>
 
-	<div id="content" class="content">
+   <ul class="nav nav-tabs">
+        <li class="active"><a href="#profile-tab" data-toggle="tab">Profile Details</a></li>
+        <li class=""><a href="#fundraiser-tab" data-toggle="tab">Fundraisers</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="profile-tab">
+            <div id="content" class="content">
             <message-notification messages={ messages } title={ messageTitle }></message-notification>
             <errors-list errors={ errors }></errors-list>
 
-			<!-- begin breadcrumb -->
-			<ol class="breadcrumb pull-right">
-				<li><a href="#fundraisers">Dashboard Home</a></li>
-				<li class="active">Profile Page</li>
-			</ol>
-			<!-- end breadcrumb -->
-			<!-- begin page-header -->
+            <!-- begin breadcrumb -->
+            <ol class="breadcrumb pull-right">
+                <li><a href="#fundraisers">Dashboard Home</a></li>
+                <li class="active">Profile Page</li>
+            </ol>
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
             
 
-			<h1 class="page-header">Profile Page</h1>
-			<!-- end page-header -->
-			<!-- begin profile-container -->
-            <div class="profile-container">
+            <h1 class="page-header">Profile Page</h1>
+            <!-- end page-header -->
+            <!-- begin profile-container -->
+            <div class="profile-container details">
                 <!-- begin profile-section -->
                 <div class="profile-section">
                     <!-- begin profile-left -->
                     <div class="profile-left">
                         <!-- begin profile-image -->
-                        <div class="profile-image">
-                            <img src="">
+                        <div class="profile-image" id='imageArea'>
+                            <img if={ profile.org_photo } src="{ profile.org_photo }" width='200' height='175' id='imageVal'>
+                            
+                            <img if={ !profile.org_photo } src="http://placehold.it/200x175" id='imageVal'>
+
                             <i class="fa fa-user hide"></i>
                         </div>
                         <!-- end profile-image -->
                         <div class="m-b-10">
-                            <a href="#" class="btn btn-warning btn-block btn-sm">Change Picture</a>
+                            <fileupload-box csrftoken={ opts.store.routes.csrftoken } action='/api/test' server={ opts.store.routes.server } bus={ opts.bus }></fileupload-box>
                         </div>
                         <!-- begin profile-highlight -->
-                        <div class="profile-highlight">
-                          
-                        </div>
+                        
                         <!-- end profile-highlight -->
                     </div>
                     <!-- end profile-left -->
@@ -178,9 +191,11 @@
                         <!-- end profile-info -->
                     </div>
                     <!-- end profile-right -->
+                
                 </div>
                 <!-- end profile-section -->
                 <!-- begin profile-section -->
+                
             <div class="row">
                 <div class="col-md-4">
                     <a onclick={ editForm } href="" class="btn btn-info">Edit Fields</a>
@@ -188,13 +203,25 @@
                 </div>
             </div>
             </div>
-			<!-- end profile-container -->
-		</div>
+            <!-- end profile-container -->
+        </div>
 
+        </div>
 
+        <div class="tab-pane fade" id="fundraiser-tab">
+            <profile-fundraisers fundraisers={ profileFundraisers }></profile-fundraisers>    
+        </div>
 
+    </div>
+
+	
 <script>
 this.states = ['AK','AL','AR','AZ','CA','CO','CT','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY']
+
+this.on('mount',function(){
+    scroll(0,0)
+    this.initProfileFundraisers()
+});
 
 var self = this
 this.profile = this.opts.fundraiser.profile 
@@ -203,6 +230,16 @@ this.editable = false
 
 editForm(){
     this.editable = true
+}
+
+initProfileFundraisers(){
+    id = opts.fundraiser.profile.id 
+    store = opts.store 
+
+    opts.store.fundraisers.filterById(id).then((fundraisers) => {
+        self.profileFundraisers = fundraisers
+        self.update()
+    }).fail((e) => {console.log(e)})
 }
 
 saveForm(){

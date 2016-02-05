@@ -17,7 +17,8 @@ from api.account.views import (
 	APIProfileView,
 	APIProfileCreateView,
 	APIProfileUpdateView,
-	APIPaginatedProfilesView
+	APIPaginatedProfilesView,
+	APITest
 )
 
 # products
@@ -125,6 +126,9 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/profiles/$',APIProfileView.as_view()),
 	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
 	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
+
+	# test 
+	url(r'^api/test/$',APITest.as_view()),
 
 )
 

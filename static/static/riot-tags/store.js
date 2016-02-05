@@ -27,6 +27,9 @@ var ROUTING = (function(){
 					getById(id){
 						return `${self.server}/api/fundraisers/${id}`
 					},	
+					filterById(id){
+						return `${self.server}/api/fundraisers/all/?filter=${id}`
+					}
 				},
 				fundraiserTypes: {
 					types: `${self.server}/api/fundraisers/types/`,
@@ -233,6 +236,12 @@ var FUNDRAISER = (function(router,helper){
 		self.getById = function(id){
 			contents = helper.packageData({})
 			url = router.routes.fundraisers.getById(id)
+			return $.get(url,contents)
+		}
+
+		self.filterById = function(id){
+			contents = helper.packageData({})
+			url = router.routes.fundraisers.filterById(id)
 			return $.get(url,contents)
 		}
 

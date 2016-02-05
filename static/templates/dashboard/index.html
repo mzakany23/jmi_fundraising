@@ -12,6 +12,7 @@
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
+	<link rel="shortcut icon" href="{% static 'jmi-images/jmi-tab-logo.ico' %}">
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="{% static 'assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css' %}" rel="stylesheet" />
@@ -52,6 +53,7 @@
 	<!-- moment -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
 	
+
 	<script src="{% static 'assets/plugins/jquery/jquery-1.9.1.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
@@ -90,7 +92,7 @@
 
   <!-- organizations -->
 	<script type='riot/tag' src="{% static 'riot-tags/organizations/organizations-list.tag' %}"></script>
-
+	
   <!-- fundraiser form -->
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-form.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-profile.tag' %}"></script>
@@ -100,11 +102,13 @@
 
   <!-- profile -->
  	<script type='riot/tag' src="{% static 'riot-tags/account/profile-detail.tag' %}"></script>
+ 	<script type='riot/tag' src="{% static 'riot-tags/account/fundraisers-tab.tag' %}"></script>
 
   <!-- dashboard -->
   <script type='riot/tag' src="{% static 'riot-tags/dashboard/notification-panel.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/dashboard/search.tag' %}"></script>  	
   <script type='riot/tag' src="{% static 'riot-tags/dashboard/page-results.tag' %}"></script>  	
+  <script type='riot/tag' src="{% static 'riot-tags/dashboard/fileupload.tag' %}"></script>  	
   
   <!-- notifications -->
 	<script type='riot/tag' src="{% static 'riot-tags/notifications/errors.tag' %}"></script>  

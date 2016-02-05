@@ -93,12 +93,15 @@
                             </div>
                             <!-- end table -->
                         </div>
+
+                        
                         <!-- end profile-info -->
                     </div>
                     <!-- end profile-right -->
+
                 </div>
                 <!-- end profile-section -->
-
+                
                 <!-- update profile -->
                 <div class="row">
                     <div class="col-md-4">

@@ -4,7 +4,7 @@
             <!-- begin page-header -->
             <h1 class="page-header">Organizations List <small>Organization and their Fundraisers</small></h1>
             
-            <page-results page='profiles' options={ ['10','20','30','1000'] }></page-results>
+            <page-results page='organizations' options={ ['10','20','30','1000'] }></page-results>
             <!-- end page-header -->
               
             <!-- begin row -->
@@ -50,7 +50,10 @@
                                         
                                 <form method='POST' action="">
                                     <tr each={ profile in opts.profiles.results } class="odd gradeX">
-                                        <td><img src="{ profile.org_photo }"></td>		
+                                        <td>
+                                          <img if={ profie.org_photo } src="{ profile.org_photo }">
+                                          <img if={ !profile.org_photo } width='45' height='45' src="http://placehold.it/45x45">
+                                        </td>		
                                         <td>{ profile.organization }</td>		
                                         <td>{ profile.first_name } { profile.last_name }</td>		
                                         <td>{ profile.phone_number }</td>		
@@ -131,9 +134,9 @@
   linkTo(pageNum){
    q = riot.route.query()
     if (q.results){
-        riot.route(`paginated-profiles/?page=${pageNum}&results=${q.results}`)    
+        riot.route(`organizations/?page=${pageNum}&results=${q.results}`)    
     }else
-        riot.route(`paginated-profiles/?page=${pageNum}`)
+        riot.route(`organizations/?page=${pageNum}`)
     
     scroll(0,0)
   }
