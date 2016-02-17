@@ -47,6 +47,9 @@
                                             <th>Organization</th>
                                             <th>Payment</th>
                                             <th>Type</th>
+                                            <th>Discount</th>
+                                            <th>Finalized</th>
+                                            <th>Net Total</th>
                                             
                                         </tr>
                                     </thead>
@@ -54,7 +57,7 @@
                                         
                                         
                                 <form method='POST' action="">
-                                    <tr each={ fundraiser in model.results } class="odd gradeX">
+                                    <tr each={ fundraiser in model.results } class="odd gradeX { status[fundraiser.status] }">
                                         <td>
                                             <img if={ fundraiser.profile.org_photo } width='45' height='45' src="{ fundraiser.profile.org_photo }">
                                             <img if={ !fundraiser.profile.org_photo } width='45' height='45' src="http://placehold.it/45x45">
@@ -64,6 +67,9 @@
                                         <td>{ fundraiser.profile.organization }</td>
                                         <td>{ fundraiser.status }</td>
                                         <td>{ fundraiser.type }</td>
+                                        <td>{ fundraiser.discount }</td>
+                                        <td>{ fundraiser.finalized }</td>
+                                        <td>${ fundraiser.order_details.net_total }</td>
                                     </tr>
                                 </form>
                                         
@@ -104,6 +110,11 @@
 
 <script>
     self = this;
+    this.status = {
+        'in-process': 'warning',
+        'paid': 'success',
+        'unpaid': 'danger'
+    }
 
     this.on('mount',function(){
         this.initPage(this.opts.model)

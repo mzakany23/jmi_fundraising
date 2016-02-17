@@ -13,9 +13,15 @@ from serializers import ProductSerializer
 
 # helper
 from api.helper.model_helper import ModelHelper
+from api.helper.generics.api_manager import APIGenericGenerator
 
-
+# /api/products
 class APIProductList(APIView):
+	def get(self,request):
+		products = APIGenericGenerator(model=Product,serializer=ProductSerializer)
+		return Response(products.list_paginated_results(request,sort='category'))
+
+class APIProductListByCategory(APIView):
 	authentication_classes = (SessionAuthentication,)
 	permission_classes = (IsAuthenticated,)
 

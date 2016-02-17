@@ -45,21 +45,24 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'rest_framework',
-    'home',
     'account',
-    'comment',
-    'product',
-    'fundraiser',
     'address',
-    'shipment',
+    'comment',
+    'contact',
+    'fundraiser',
+    'home',
     'marketing',
-    'payment',
+    'notes',
     'notification',
-    'debug_toolbar'
+    'organization',
+    'payment',
+    'product',
+    'shipment',
 )
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 
 MIDDLEWARE_CLASSES = (

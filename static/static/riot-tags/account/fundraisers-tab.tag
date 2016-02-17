@@ -3,6 +3,11 @@
 	.fund-select{
 		width: 200px;
 	}
+
+  .hide(){
+    display: none;
+  }
+
 </style>
 
 <div class="panel panel-inverse" data-sortable-id="table-basic-6">
@@ -72,9 +77,12 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr each={ selection in selections }class="active">
+                          <tr each={ selection,i in currentFundraiser.selections }class="active">
 
-                          	<th><img src="http://localhost:8000{ selection.product.image }" height='50' width='100'></th>
+                          	<th>
+                              <p id="loading{i}">loading...</p>
+                              <img value={ i } onload={ turnOffSpinner } src="http://localhost:8000{ selection.product.image }" height='50' width='100'>
+                            </th>
                           	<th>{ selection.product.title }</th>
                           	<th>{ selection.product.price }</th>
                           	<th>{ selection.quantity }</th>
@@ -84,8 +92,10 @@
               </div>
           </div>
 
-          <h3>Total Jars Selected: 34</h3>
-          <h3>Total: $123.50</h3>
+          <h3>Total Jars Selected: { totalJars }</h3>
+          <h3>Total Shipping: ${ shippingCost }</h3>
+          <h3>Total Cost: ${ totalCost-shippingCost }</h3>
+          <button class='btn btn-danger'><h3>Total w/Shipping: ${ totalCost }</h3></button>
           </virtual>
 
           
@@ -97,24 +107,52 @@
 
 <script>
 	self = this
-
+	this.totalJars = 0
+	this.totalCost = 0
+	this.shippingCost = 0
+  
 	this.status = {
-		'in-progres': 'warning',
+		'in-process': 'warning',
 		'paid': 'success',
 		'unpaid': 'danger'
 	}
+  
+  turnOffSpinner(e){
+    i = e.item.i
+    tag = `#loading${i}`
+    $(tag).addClass('hide')
+  }
+
+	recalculateTotals(){
+		for(var key in this.currentFundraiser.selections){
+			selection = this.currentFundraiser.selections[key]
+			jarCost = parseFloat(selection.product.price)
+			qty = selection.quantity
+			cost = (jarCost*qty)
+			this.totalCost += cost 
+			this.totalJars += selection.quantity
+		}
+		if (this.totalJars < 90) {this.shippingCost = 30.00}
+		this.totalCost += this.shippingCost
+	}
 
 	updateCurrentSelected(){
+		this.currentFundraiser = null
+
 		currentSelected = parseInt(this.fundraiserSelect.value)
 		for (var key in opts.fundraisers){
 			fundraiser = opts.fundraisers[key]
 			if(fundraiser.id === currentSelected){
 				this.currentFundraiser = fundraiser
 				if (fundraiser.selections.length > 0){
-					this.selections = fundraiser.selections
+					this.recalculateTotals()
 					this.activateSelections = true	
+          // spinner?
+          
+            
+				}else{
+					this.activateSelections = false
 				}
-				
 			}
 		}
 	}

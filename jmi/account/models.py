@@ -13,9 +13,11 @@ from django.db import models
 from address.models import Address
 from django.contrib.auth.models import User 
 from stdimage.models import StdImageField
+from organization.models import Organization
 
 class Profile(models.Model):
 	organization = models.CharField(max_length=100,blank=True,null=True)
+	business     = models.ForeignKey(Organization,blank=True,null=True)
 	first_name   = models.CharField(max_length=20,null=True)
 	last_name    = models.CharField(max_length=20,null=True)
 	phone_number = models.CharField(max_length=40,null=True)

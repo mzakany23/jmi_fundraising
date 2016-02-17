@@ -13,7 +13,7 @@ class Shipment(models.Model):
 	comment    = models.ForeignKey(FundraiserOrderComment,blank=True,null=True)
 	created    = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated    = models.DateTimeField(auto_now_add=False,auto_now=True)
-
+	
 	
 	def __unicode__(self):
 		return str(self.fundraiser.title)

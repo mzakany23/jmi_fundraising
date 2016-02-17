@@ -93,3 +93,10 @@ ERROR:  value too long for type character varying(10)
 STATEMENT:  UPDATE "account_profile" SET "organization" = 'Michael carlos fundraiser', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11
 ERROR:  value too long for type character varying(10)
 STATEMENT:  UPDATE "account_profile" SET "organization" = 'Michael carlos fundraiser', "first_name" = 'Michael', "last_name" = 'Zakany', "phone_number" = '330-612-6183', "email" = 'mzakany@gmail.com', "slug" = 'profile-11', "org_photo" = '', "address_id" = 43, "stripe_id" = '', "account_id" = 1 WHERE "account_profile"."id" = 11
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2016-02-15 22:15:30 EST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

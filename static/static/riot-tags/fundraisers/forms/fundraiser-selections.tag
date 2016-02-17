@@ -72,6 +72,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        
                         <th>Product Id</th>
                         <th>Title</th>
                         <th>Quantity</th>
@@ -79,6 +80,7 @@
                 </thead>
                 <tbody>
                     <tr each={ selection in finalSelections }>
+                        
                         <td>{ selection.id }</td>
                         <td>{ selection.title }</td>
                         <td>{ selection.qty }</td>

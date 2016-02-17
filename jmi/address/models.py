@@ -1,7 +1,10 @@
 from django.db import models
 from helper.form_helper import STATES, COUNTRIES
+from organization.models import Organization
 
 class Address(models.Model):
+	organization = models.ForeignKey(Organization,null=True,blank=True)
+	business_address = models.BooleanField(default=False)
 	shipping   = models.BooleanField(default=True)
 	billing    = models.BooleanField(default=False)
 	title      = models.CharField(max_length=40,null=True,blank=True)
@@ -14,3 +17,4 @@ class Address(models.Model):
 
 	def __unicode__(self):
 		return str(self.street)
+

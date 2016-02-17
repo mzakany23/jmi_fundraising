@@ -102,6 +102,17 @@ class FundraisersSerializer(serializers.ModelSerializer):
 	type = serializers.StringRelatedField()
 	shipments = serializers.SerializerMethodField('get_the_shipments')
 	selections = serializers.SerializerMethodField('get_the_selections')
+	order_details = serializers.SerializerMethodField()
+	
+	def get_order_details(self,fundraiser):
+		return {
+			'total_cost' : fundraiser.total_cost(),
+			'free_shipping' : fundraiser.free_shipping(),
+			'net_total' : fundraiser.net_total()
+		}
+
+	def get_total_cost(self,fundraiser):
+		return fundraiser.total_cost()
 
 	def get_the_selections(self,fundraiser):
 		try:
@@ -144,5 +155,6 @@ class FundraisersSerializer(serializers.ModelSerializer):
 			'discount',     
 			'receipt_email_sent',
 			'shipments',
-			'selections'
+			'selections',
+			'order_details'
 		]

@@ -3,7 +3,7 @@
 		.search{
 			color: black;
 		}
-
+		
 		#search-results{
 			padding-left: 0px;
 			border: 4px solid #242a30;
@@ -55,6 +55,12 @@
 	self = this
 	this.autoCompleteRes = []
 	this.activated = false
+
+	this.status = {
+		'in-process': 'warning',
+		'paid': 'success',
+		'unpaid': 'danger'
+	}
 
 	search(e){
 

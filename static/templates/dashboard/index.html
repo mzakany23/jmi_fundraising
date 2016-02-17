@@ -24,6 +24,7 @@
 	<link href="{% static 'assets/css/theme/default.css' %}" rel="stylesheet" id="theme" />
 	<link href="{% static 'assets/css/theme/red.css' %}" rel="stylesheet">
 	<link href="{% static 'css/data-table.css' %}" rel='stylesheet' type='text/css'>
+	<link href="{% static 'assets/plugins/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -68,6 +69,7 @@
 	<script src="{% static 'assets/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
 	<!-- ================== END BASE JS ================== -->
 	
+
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="{% static 'assets/js/apps.min.js' %}"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
@@ -81,10 +83,18 @@
 
 
  	<!-- riot tags -->
- 	
+
  	<!-- router -->
  	<script type='riot/tag' src="{% static 'riot-tags/router.tag' %}"></script>
-  
+		
+	<!-- forms -->
+	<script type='riot/tag' src="{% static 'riot-tags/forms/textfield.tag' %}"></script>
+	<script type='riot/tag' src="{% static 'riot-tags/forms/select.tag' %}"></script>
+	<!-- formas:organizationType -->
+	<script type='riot/tag' src="{% static 'riot-tags/forms/organizations/type-create-button.tag' %}"></script>
+	<script type='riot/tag' src="{% static 'riot-tags/forms/organizations/create-contact-modal.tag' %}"></script>
+	<script type='riot/tag' src="{% static 'riot-tags/forms/organizations/search-contact-form.tag' %}"></script>
+
   <!-- fundraisers -->
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-list.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/fundraiser-detail.tag' %}"></script>
@@ -92,6 +102,8 @@
 
   <!-- organizations -->
 	<script type='riot/tag' src="{% static 'riot-tags/organizations/organizations-list.tag' %}"></script>
+	<script type='riot/tag' src="{% static 'riot-tags/organizations/organizations-create.tag' %}"></script>
+	
 	
   <!-- fundraiser form -->
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-form.tag' %}"></script>
@@ -114,9 +126,14 @@
 	<script type='riot/tag' src="{% static 'riot-tags/notifications/errors.tag' %}"></script>  
 	<script type='riot/tag' src="{% static 'riot-tags/notifications/message.tag' %}"></script>  
 
+	<!-- products -->
+	<script type='riot/tag' src="{% static 'riot-tags/products/product-list.tag' %}"></script>  
 	
 
-	
+	<!-- 
+	<script data-main="{% static 'riot-tags/main' %}" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js"></script>
+	-->
+
 
   <script type="text/javascript">
   	
@@ -132,6 +149,7 @@
     riot.mount('notification-panel',{bus:bus,store:store,router:router})
     
   </script>
+
 
 
 	<script>

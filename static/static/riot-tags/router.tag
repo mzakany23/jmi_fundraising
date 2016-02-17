@@ -7,6 +7,9 @@
 	var path = window.location.pathname;
 	var lastRoute = null
 	var lastFullRoute = null
+	
+	var bus = opts.bus
+	var store = opts.store
 
 	function mount(tag,options){
 		currentTag && currentTag.unmount(true)
@@ -19,7 +22,6 @@
 		},
 		fundraisers: function(id,action){
 			q = riot.route.query()
-
 			// create
 			if (id === 'create'){
 				mount('fundraiser-create',{bus:bus,store:store})
@@ -60,7 +62,22 @@
 			pageNum = q.page 
 			results = q.results
 			
-			if (pageNum && results){
+			if (id === 'create'){
+				store.organizations.types().then((orgTypes) => {
+					store.organizations.show().then((organizations) => {
+						store.contacts.types().then((types) => {
+							mount('organizations-create',{
+								bus:bus,
+								store:store,
+								organizations:organizations,
+								orgTypes:orgTypes,
+								contactTypes:types
+							})	
+						}).fail((e) => {console.log(e)})
+					}).fail((e) => {console.log(e)})
+				}).fail((e) => {console.log(e)})
+	
+			}else if (pageNum && results){
 				store.profiles.showPaginated(pageNum,results).then((profiles) => {
 	        mount('organizations-list',{bus:bus,store:store,profiles,profiles})
 	      }).fail((e) => {console.log(e)})
@@ -71,9 +88,23 @@
 			}else{
 				riot.route('/organizations/?page=1')	
 			}
+		},
+		products: function(id,action){
+			q = riot.route.query()
+			pageNum = q.page 
+			results = q.results
 			
-			
-
+			if (pageNum && results){
+				store.products.show(pageNum,results).then((model) => {
+					mount('product-list',{bus:bus,store:store,model:model})
+				}).fail((e) => {console.log(e)})
+			}else if (pageNum){
+				store.products.show(pageNum).then((model) => {
+					mount('product-list',{bus:bus,store:store,model:model})
+				}).fail((e) => {console.log(e)})
+			}else{
+				riot.route('/products/?page=1')
+			}
 		}
 	}
 

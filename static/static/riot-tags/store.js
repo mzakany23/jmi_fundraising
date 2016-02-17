@@ -6,6 +6,13 @@ var ROUTING = (function(){
 			self.csrftoken = csrftoken || {}
 		
 			self.routes = {
+				contacts: {
+					create: `${self.server}/api/contacts/create/`,
+					types: `${self.server}/api/contacts/types/`,
+				},
+				dashboard:{
+					stats: `${self.server}/api/dashboard/stats/`,
+				},
 				fundraisers: {
 					create: `${self.server}/api/fundraisers/create/`,
 					all: `${self.server}/api/fundraisers/all/`,
@@ -54,8 +61,27 @@ var ROUTING = (function(){
 						return `${self.server}/api/profiles/${id}/edit/`
 					}
 				},
+				organizations: {
+					show: `${self.server}/api/organizations/`,
+					types: `${self.server}/api/organizations/types`,
+					findById(id){
+						return `${self.server}/api/organizations/${id}`
+					},
+					orgContacts(id){
+						return `${self.server}/api/organizations/${id}/contacts`
+					}
+				},
 				products: {
-					show: `${self.server}/api/products/`,
+					show(pageNum,results){
+						if (pageNum && results){
+							return `${self.server}/api/products/?page=${pageNum}&results=${results}`	
+						}else if (pageNum){
+							return `${self.server}/api/products/?page=${pageNum}`	
+						}else{
+							return `${self.server}/api/products/?page=1`
+						}
+					},
+					showByCategory: `${self.server}/api/products-by-category/`,
 				}
 			// end fundraiser
 			}
@@ -138,6 +164,37 @@ var UTIL = (function(router){
 	return self
 })(ROUTING);
 
+
+var CONTACTS = (function(router,helper){
+	var self = {}
+
+	self.create = function(data){
+		contents = helper.packageData(data)
+		url = router.routes.contacts.create
+		return $.post(url,contents)
+	}
+
+	self.types = function(){
+		contents = helper.packageData({})
+		url = router.routes.contacts.types
+		return $.get(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
+var DASHBOARD = (function(router,helper){
+	var self = {}
+
+	self.stats = function(){
+		contents = helper.packageData({})
+		url = router.routes.dashboard.stats
+		return $.get(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
 var FUNDRAISERTYPES = (function(router,helper){
 	var self = {}
 
@@ -150,12 +207,49 @@ var FUNDRAISERTYPES = (function(router,helper){
 	return self;
 })(ROUTING,UTIL);
 
-var PRODUCTS = (function(router,helper){
+var ORGANIZATIONS = (function(router,helper){
 	var self = {}
+
+	self.types = function(){
+		contents = helper.packageData({})
+		url = router.routes.organizations.types
+		return $.get(url,contents)
+	}
 
 	self.show = function(){
 		contents = helper.packageData({})
-		url = router.routes.products.show
+		url = router.routes.organizations.show
+		return $.get(url,contents)
+	}
+
+	self.findById = function(id){
+		contents = helper.packageData({})
+		url = router.routes.organizations.findById(id)
+		return $.get(url,contents)
+	}
+
+	self.orgContacts = function(id){
+		contents = helper.packageData({})
+		url = router.routes.organizations.orgContacts(id)
+		return $.get(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
+
+var PRODUCTS = (function(router,helper){
+	var self = {}
+
+	self.show = function(pageNum,results){
+		contents = helper.packageData({})
+		url = router.routes.products.show(pageNum,results)
+		return $.get(url,contents)
+	}
+
+	self.showByCategory = function(){
+		contents = helper.packageData({})
+		url = router.routes.products.showByCategory
 		return $.get(url,contents)
 	}
 
@@ -273,7 +367,17 @@ var CACHE = (function(){
 	return self;
 })();
 
-var STORE = (function(fundraisers,fundraiserTypes,profiles,router,cache,products){
+var STORE = (function(
+	fundraisers,
+	fundraiserTypes,
+	profiles,
+	router,
+	cache,
+	products,
+	dashboard,
+	organizations,
+	contacts
+	){
 	// private
 	var self = {};
 	
@@ -289,6 +393,9 @@ var STORE = (function(fundraisers,fundraiserTypes,profiles,router,cache,products
 		this.fundraiserTypes = fundraiserTypes
 		this.profiles = profiles
 		this.products = products 
+		this.dashboard = dashboard
+		this.organizations = organizations
+		this.contacts = contacts
 
 		// modules
 		this.cache = cache
@@ -357,4 +464,14 @@ var STORE = (function(fundraisers,fundraiserTypes,profiles,router,cache,products
 		// end functions
 	}
 	return STORE
-})(FUNDRAISER,FUNDRAISERTYPES,PROFILES,ROUTING,CACHE,PRODUCTS)
+})(
+	FUNDRAISER,
+	FUNDRAISERTYPES,
+	PROFILES,
+	ROUTING,
+	CACHE,
+	PRODUCTS,
+	DASHBOARD,
+	ORGANIZATIONS,
+	CONTACTS
+)

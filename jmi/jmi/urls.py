@@ -12,6 +12,21 @@ from api.fundraiser.views import (
 	APIAllFundraisers
 )
 
+# organizations
+from api.organization.views import (
+	APIOrganizationTypes,
+	APIOrganizationsList,
+	APIOrganizationById,
+	APIOrganizationsContacts
+)
+
+# contacts 
+from api.contact.views import (
+	APIContactsList,
+	APIContactsCreate,
+	APIContactTypes
+)
+
 # profiles
 from api.account.views import (
 	APIProfileView,
@@ -21,8 +36,14 @@ from api.account.views import (
 	APITest
 )
 
+# dashboard
+from api.dashboard.views import(
+	APIDashboardStats
+)
+
 # products
-from api.product.views import QueryProductView,APIProductList
+from api.product.views import QueryProductView,APIProductListByCategory,APIProductList
+
 
 
 
@@ -120,16 +141,26 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/fundraisers/(?P<id>\d+)$',FundraiserBySlugViewSet.as_view()),
 	# product
 	url(r'^api/products/$',APIProductList.as_view()),
+	url(r'^api/products-by-category/$',APIProductListByCategory.as_view()),
 	url(r'^api/product/(?P<id>\d+)',QueryProductView.as_view(),name='api_query_product'),
 	# account
 	url(r'^api/paginated-profiles/$',APIPaginatedProfilesView.as_view()),
 	url(r'^api/profiles/$',APIProfileView.as_view()),
 	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
 	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
-
+	# dashboard
+	url(r'^api/dashboard/stats/$',APIDashboardStats.as_view()),
 	# test 
 	url(r'^api/test/$',APITest.as_view()),
-
+	# organizations
+	url(r'^api/organizations/types/$',APIOrganizationTypes.as_view()),
+	url(r'^api/organizations/$',APIOrganizationsList.as_view()),
+	url(r'^api/organizations/(?P<id>\d+)$',APIOrganizationById.as_view()),
+	url(r'^api/organizations/(?P<id>\d+)/contacts$',APIOrganizationsContacts.as_view()),
+	# contact
+	url(r'^api/contacts/$',APIContactsList.as_view()),
+	url(r'^api/contacts/types/$',APIContactTypes.as_view()),
+	url(r'^api/contacts/create/$',APIContactsCreate.as_view()),
 )
 
 if settings.DEBUG:

@@ -55,7 +55,7 @@
 	}
 
 	getProducts(){
-		this.opts.store.products.show().then((products) => {
+		this.opts.store.products.showByCategory().then((products) => {
 			this.products = products 
 		}).fail((e) => {console.log(e)})
 	}
