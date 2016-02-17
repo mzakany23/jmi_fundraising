@@ -64,7 +64,10 @@
     </div>
 </div>
 
-<!-- results -->
+<!-- ################### -->
+<!-- contacts -->
+<!-- ################### -->
+
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-9">
@@ -112,12 +115,13 @@
 	var self = this
 	this.additions = {}
 
+	// looks for contacts within an organization
 	updateOrg(){
 		data = {
 			id:this.organizationSelect.value,
 			title:opts.title
 		}
-	
+		
 		opts.store.organizations.orgContacts(parseInt(data.id)).then((contacts) => {
 			self.areResults = true
 			if (contacts[0] === undefined) {	
@@ -125,6 +129,7 @@
 				self.contacts = false
 			}else{
 				self.organization = contacts[0].organization.name
+				// array
 				self.contacts = contacts
 			}
 			self.update()	
@@ -134,27 +139,35 @@
 	
 	// actions
 
+	// add button
 	addContacts(){
 		opts.bus.trigger('resetContacts',this.additions)
+		this.resetSearchBox()
+	}
+
+	resetSearchBox(){
+		this.additions = {}
 		this.organizationSelect.value = 'none'
 		$(this.organizationSelect).value = 'none'
 		$('.searchRadio').prop('checked',false)
 		self.areResults = false
+		this.currentlySelected = null
 		opts.bus.trigger('shutCreateContactModal')
 	}
 
+	// contacts array
 	tallyCheckboxes(e){
 		currentContact = e.item
+		// this.additions is {}
 
-		if (this.additions[currentContact.i]) {
-			delete this.additions[currentContact.i]
-		}else{
+		if (!this.additions[currentContact.i]) {
 			this.additions[currentContact.i] = currentContact	
 		}
 	}
 
+	// checkboxes
 	updateCheckbox(e){
-		currentlySelected = e.target.value
+		this.currentlySelected = e.target.value
 		
 		first = this.firstName
 		last  = this.lastName
@@ -163,14 +176,16 @@
 
 		for (var key in arr){
 			foundValue = arr[key]
-			if (currentlySelected !== foundValue.value){
+			if (this.currentlySelected !== foundValue.value){
 				$(foundValue).prop('checked',false)
 			}
 		}
 		
 	}
 
-
+	opts.bus.on('closeContactModal',function(){
+		self.resetSearchBox()
+	})
 </script>
 
 </search-contact-form>

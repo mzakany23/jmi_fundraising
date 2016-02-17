@@ -14,7 +14,7 @@ class Address(models.Model):
 	state      = models.CharField(choices=STATES,max_length=40,null=True)
 	zip_code   = models.CharField(max_length=40,null=True)
 	country    = models.CharField(choices=COUNTRIES,max_length=40,null=True,blank=True)
-
+	
 	def __unicode__(self):
 		return str(self.street)
 

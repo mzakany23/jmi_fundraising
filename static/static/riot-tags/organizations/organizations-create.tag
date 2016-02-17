@@ -15,15 +15,17 @@
     <div class="panel-body">
 
  		<create-contact-modal contactTypes={ opts.contactTypes} organizations={ opts.organizations } store={ opts.store } bus={ opts.bus }></create-contact-modal>
+    <br>
+    <address-create-modal></address-create-modal>
 
-   	
-  <div class="table-responsive" style='margin-top: 25px;'>
+  <div class="row">
+  <div class="col-md-6 table-responsive" style='margin-top: 25px;'>
     <table id="user" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Field Name</th>
                 <th>Field Value</th>
-                <th>Description</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -34,9 +36,7 @@
             <td>
             	<textfield-component bus={ opts.bus } placeholder='Organization Name' defaultval="Name"></textfield-component>
             </td>
-            <td>
-            	<span class="text-muted">Enter Organization Name</span>
-            </td>
+            
           </tr>
 
           <!-- type -->
@@ -63,7 +63,7 @@
 
 	          	</div>
 	          </td>
-	          <td>Enter the type of Organization it is i.e. Industry or however you want to classify it.</td>
+	          
           </tr>
 
           <tr>
@@ -77,9 +77,7 @@
                   <option>1000+ employees</option>
               </select>
             </td>
-            <td>
-            	<span class="text-muted">Enter approximate employee count</span>
-            </td>
+            
           </tr>
 
           <tr if={ contacts }>
@@ -89,9 +87,33 @@
             			<li each={ contact in contacts }>{ contact.first_name } { contact.last_name } | { contact.organization.name } <a onclick={ removeContact } value={ contact } href=""><i class="fa fa-times-circle"></i></a></li>
               </ul>
             </td>
+            
+          </tr>
+
+          <tr if={ !contacts }>
+            <td>Contacts</td>
             <td>
-            	<span class="text-muted">Contacts within the organization</span>
+              <p>No Contacts, Add Some!</p>
             </td>
+           
+          </tr>
+
+          <tr if={ addresses }>
+            <td>Addresses</td>
+            <td>
+              <ul>
+                  <li>some address</li>
+              </ul>
+            </td>
+            
+          </tr>
+
+          <tr if={ !addresses }>
+            <td>Address</td>
+            <td>
+              <p>No Addresses, Add Some!</p>
+            </td>
+           
           </tr>
 
           <tr>
@@ -103,20 +125,16 @@
                   
               </select>
             </td>
-            <td>
-            	<span class="text-muted">Is this the main Parent Organization?</span>
-            </td>
+           
           </tr>
 
       
           <tr>
             <td>Children Organizations</td>
             <td>
-            	<dropdown-component title='children' options={ organizations } bus={ opts.bus } ></dropdown-component>
+            	<dropdown-component title='children' options={ opts.organizations } bus={ opts.bus } ></dropdown-component>
             </td>
-            <td>
-            	<span class="text-muted">Companies or divisions within the the Parent company</span>
-            </td>
+            
           </tr>
 
           <tr>
@@ -124,17 +142,29 @@
             <td>
             	<dropdown-component title="siblings" bus={ opts.bus } options={ opts.organizations }></dropdown-component>
             </td>
-            <td>
-            	<span class="text-muted">Companies that are related to company</span>
-            </td>
+            
           </tr>
 
           <!-- endbody -->
         </tbody>
     </table>
     </div>
-        <button onclick={ saveOrganization } class='btn btn-danger'>Add Organization</button>
+    
+    <!-- right div -->
+     <div class="col-md-6">
+
+     </div>   
+
     </div>
+    
+    <div class="row">
+      <div class="col-md-4">
+        <button onclick={ saveOrganization } class='btn btn-danger'>Add Organization</button>
+      </div>
+    </div>
+</div>
+
+
 </div>
 
 
@@ -142,35 +172,16 @@
 
 <script>
 	var self = this
-
-	// mount 
-
-	// this.on('mount',function(){
-	// 	this.initOrgTypes()
-	// 	this.initOrganizations()
-	// })
-
-	// init
-	
-	// initOrgTypes(){
-	// 	this.opts.store.organizations.types().then((types) => {
-	// 		self.orgTypes = types
-	// 		self.update()
-	// 	}).fail((e) => {console.log(e)})
-	// }
-
-	// initOrganizations(){
-	// 	this.opts.store.organizations.show().then((organizations) => {
-	// 		self.organizations = organizations
-	// 		self.update()
-	// 	}).fail((e) => {console.log(e)})
-	// }
-
+  
   this.opts.bus.on('textBoxData',function(data){
     this.textBoxData = data
   })
 
 	// actions
+
+  // -----------------------------------------
+  // final save
+  // -----------------------------------------
   saveOrganization(){
     textBox = this.textBox
     orgType = this.dropDownSelect.value
@@ -199,16 +210,21 @@
     this.orgType = this.dropDownSelect.value
   }
 
+  // -----------------------------------------
+  // remove contact
+  // -----------------------------------------
+
   removeContact(e){
     id = e.item.contact.id
-    found = _.findWhere(self.contacts,{id:id})
-    index = self.contacts.indexOf(found)
-    
-    if (self.contacts.length === 1){
-      self.contacts = null
-    }else{
-      self.contacts = self.contacts.splice(index,1)
+    newArray = []
+    for (var key in self.contacts){
+      contact = self.contacts[key]
+      if (contact.id !== id){
+        newArray.push(contact)
+      }
     }
+
+    self.contacts = newArray
   }
 
 	activateOrgTypeForm(){
@@ -234,18 +250,26 @@
 	})
 
   this.opts.bus.on('appendContact',function(contact){
-    self.contacts.push(contact)
+    if (self.contacts){
+      self.contacts.push(contact)    
+    }else{
+      self.contacts = []
+      self.contacts.push(contact)  
+    }
+
+    self.update()
   })
 
 	this.opts.bus.on('resetContacts',function(contacts){
-		self.contacts = []
+    if (!self.contacts) {self.contacts = []}
+
 		for (var key in contacts){
 			contact = contacts[key].contact
 			self.contacts.push(contact)
 		}
+
 		self.update()
 	})
-
 
 
 	this.opts.bus.on('addType',function(type){
@@ -254,9 +278,6 @@
 		self.update()
 	})
 
-  this.opts.bus.on('createContact',function(contact){
-    self.contacts.push()
-  })
 </script>
 
 </organizations-create>

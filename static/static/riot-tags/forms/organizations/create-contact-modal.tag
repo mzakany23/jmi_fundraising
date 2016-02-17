@@ -20,7 +20,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<button onclick={ closeModal } type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h4 class='modal-title' if={ createContact }>Create Contact</h4>
 				<h4 class='modal-title' if={ searchContact }>Search Contact</h4>
 				<h4 class='modal-title' if={ !activated }>Add Contact</h4>
@@ -158,7 +158,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Submit</label>
             <div class="col-md-9">
-                <button type="submit" data-dismiss="modal" class="btn btn-sm btn-success">Create Contact</button>
+                <button type="submit"  class="btn btn-sm btn-success">Create Contact</button>
             </div>
         </div>
 
@@ -195,8 +195,12 @@ updateForm(){
 	}
 }
 
+closeModal(){
+    this.opts.bus.trigger('closeContactModal')
+}
+
 addContact(){
-  
+    
     data = {
         'typeField' : this.typeField.value,
         'firstNameField' : this.firstNameField.value,
@@ -217,12 +221,31 @@ addContact(){
         self.opts.bus.trigger('appendContact',contact)
     }).fail((e) => {console.log(e)})
     
+    $('#contact-create-modal').modal('hide');
+
+    this.resetCreateForm()
 
 }
 
 this.opts.bus.on('shutCreateContactModal',function(){
     $('#contact-create-modal').modal('hide');
 })
+
+resetCreateForm(){
+    this.typeField.value = 'none'
+    this.firstNameField.value = null
+    this.lastNameField.value = null
+    this.jobTitleField.value = null
+    this.ageField.value = null
+    this.phone1Field.value = null
+    this.phone2Field.value = null
+    this.phone3Field.value = null
+    this.email1Field.value = null
+    this.email2Field.value = null
+    this.email3Field.value = null
+    this.notesField.value = null
+}
+
 
 </script>
 
