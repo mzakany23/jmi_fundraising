@@ -124,7 +124,7 @@ class FundraiserTypeTitle(models.Model):
 class FundraiserForm(models.Model):
 	type = models.ForeignKey('FundraiserType',blank=True,null=True)
 	name = models.CharField(max_length=50)
-	url = models.FilePathField(path=DOCS_ROOT,null=True,blank=True)
+	url = models.FilePathField(path=DOCS_ROOT,max_length=125,null=True,blank=True)
 
 	def __unicode__(self):
 		return self.name

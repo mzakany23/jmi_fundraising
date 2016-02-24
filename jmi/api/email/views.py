@@ -13,6 +13,8 @@ class APISendEmail(APIView):
 	def post(self,request,format=None):
 		email = request.POST['email'] 
 		id = request.POST['id']
+		plan_title = request.POST['plan']
+
 		try:
 			fundraiser_type = FundraiserType.objects.get(id=id)
 		except:
@@ -26,10 +28,15 @@ class APISendEmail(APIView):
 		except:
 			email = None
 		
+		try:
+			fundraiser_forms = fundraiser_type.fundraiserform_set.all()
+		except:
+			fundraiser_forms = None
 
-		if fundraiser_type and email and email != 'user@email.com':
+		if fundraiser_type and email and email != 'user@email.com' and fundraiser_forms:
 			data = {
-				'type' : fundraiser_type
+				'option' : fundraiser_type.title,
+				'plan' : plan_title
 			}
 
 			template_name  = EMAIL_TEMPLATE_DIR + 'email_forms.txt'
@@ -43,12 +50,11 @@ class APISendEmail(APIView):
 			message.set_subject('Jose Madrid Salsa Fundraising Forms')
 			message.set_text(text_email)
 			message.set_from('Jose Madrid Salsa Fundraising <mike@josemadridsalsa.com>')
-			for form in fundraiser_type.fundraiserform_set.all():
-				print form.url
+			for form in fundraiser_forms:
 				message.add_attachment(form.url, open(form.url, 'rb'))
 			status, msg = sg.send(message)
-			return Response('Success')
-		return Response('Email is invalid')
+			return Response('Successfully Sending email to ')
+		return Response('Email is invalid to ')
 
 
 

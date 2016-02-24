@@ -124,3 +124,8 @@ ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
 STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
 ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
 STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+FATAL:  database "feb_2016" does not exist
+FATAL:  database "feb_2016.dump" does not exist
+FATAL:  database "jmi_main" does not exist
+FATAL:  database "mzakany" does not exist
+FATAL:  database "jmi_new" does not exist

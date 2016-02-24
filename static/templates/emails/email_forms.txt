@@ -1,8 +1,11 @@
 Attached are your Jose Madrid Salsa fundraising forms!
 
-Fundraising Option: {{ type }}
+Details:
 
-If you have any questions please call Mat
+{{ plan }}
+Fundraising Option: {{ option }}
+
+If you have any questions please call Matt at 740-521-4304
 
 To buy salsa for yourself visit:
 www.josemadridsalsa.com

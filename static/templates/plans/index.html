@@ -104,7 +104,7 @@
                           </div>
                             
                             <div style='margin-top: 55px;'>
-                                <download-button type="{{ option.id }}"></download-button>
+                                <download-button plan="{{ plan.name }}" type="{{ option.id }}"></download-button>
                                 {% if user.is_authenticated %}
                                 <a style='color: black;' class='btn btn-md btn-warning' href="{% url 'choose_profile_for_fundraiser' %}">Checkout Online</a>
                                 {% else %}
