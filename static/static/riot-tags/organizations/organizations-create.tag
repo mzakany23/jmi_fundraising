@@ -5,7 +5,7 @@
 	}
 </style>
   
-  <message-notification messages={ messages } title={ messageTitle } type='error'></message-notification>
+  <message-notification messages={ messages } title={ messageTitle } type={ messageType }></message-notification>
 
 	<h1>Create a new Organization</h1>
 	<div class="panel panel-inverse">
@@ -16,7 +16,7 @@
 
  		<create-contact-modal contactTypes={ opts.contactTypes} organizations={ opts.organizations } store={ opts.store } bus={ opts.bus }></create-contact-modal>
     <br>
-    <address-create-modal></address-create-modal>
+    <address-create-modal bus={ opts.bus }></address-create-modal>
 
   <div class="row">
   <div class="col-md-6 table-responsive" style='margin-top: 25px;'>
@@ -83,9 +83,7 @@
           <tr if={ contacts }>
             <td>Contacts</td>
             <td>
-            	<ul>
-            			<li each={ contact in contacts }>{ contact.first_name } { contact.last_name } | { contact.organization.name } <a onclick={ removeContact } value={ contact } href=""><i class="fa fa-times-circle"></i></a></li>
-              </ul>
+            	<p each={ contact in contacts }>{ contact.first_name } { contact.last_name } | { contact.organization.name } <a onclick={ removeContact } value={ contact } href=""><i class="fa fa-times-circle" style='margin-left: 5px;'></i></a></p>
             </td>
             
           </tr>
@@ -98,11 +96,13 @@
            
           </tr>
 
-          <tr if={ addresses }>
+          <tr if={ addresses } style='max-height: 450px; overflow: scroll;'>
             <td>Addresses</td>
             <td>
               <ul>
-                  <li>some address</li>
+              <li each={ address in addresses }>
+                <a>{ address.typeField } address: { address.streetField } { address.cityField } { address.stateSelect }, { address.zipField }</a>
+              </li>
               </ul>
             </td>
             
@@ -117,12 +117,19 @@
           </tr>
 
           <tr>
+            <td>Organization Info</td>
+            <td>
+              <textarea class="form-control" placeholder="Describe anything relevant about the Organization." rows="5" name='notesField' ></textarea> 
+            </td>
+           
+          </tr>
+
+          <tr>
             <td>Parent Organization?</td>
             <td>
             	<select class="form-control input-sm" name='parentSelect'>
-            			<option value='false'>No</option>
                   <option value='true'>Yes</option>
-                  
+            			<option value='false'>No</option>
               </select>
             </td>
            
@@ -168,6 +175,22 @@
 </div>
 
 
+<div class="modal" id="organization-create-confirmation" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal Without Animation</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -183,36 +206,98 @@
   // final save
   // -----------------------------------------
   saveOrganization(){
-    textBox = this.textBox
+    // type
     orgType = this.dropDownSelect.value
+    // name
+    textBox = this.textBox
+    // number_of_employees
     empCount = this.employees.value
-    parentCount = this.parentSelect.value 
+    // info
+    notesField = this.notesField.value
+    // is_parent_organization
+    parentOrg = this.parentSelect.value 
+    // child_organizations
     childrenOrg = this.childrenSelect
+    // sibling_organizations
     siblingOrg = this.siblingsSelect
-    contacts = this.contacts 
 
-    if (!textBox || orgType === 'None') {
+    contacts = this.contacts 
+    addresses = this.addresses
+
+    if (!textBox || orgType === 'None' || !self.contacts || !self.addresses) {
       this.messages = []
+      this.messageType = 'error'
       this.messageTitle = 'Errors'
+      scroll(0,0)
     }
 
     if (!textBox) {
-      this.messages.push('Organization needs a title')
+      this.messages.push('Organization needs a title!')
     }
 
     if (orgType === 'None') {
-      this.messages.push('Organization needs an Type')
+      this.messages.push('Organization needs a Type!')
     }
 
+    if (!self.contacts){
+      this.messages.push("There are no contacts added to this Organization!")
+    } 
+
+    if (!self.addresses){
+      this.messages.push('There are no addresses added to this Organization!')
+    } 
+
+    if (self.contacts && self.addresses && orgType && textBox) {
+
+      data = {
+        // organization
+        type: orgType,
+        name: textBox,
+        number_of_employees: empCount, 
+        info: notesField,
+
+        parentOrg: parentOrg,
+
+        child_organizations:childrenOrg || 'none',
+        sibling_organizations:siblingOrg || 'none',
+        // length contacts and address
+        contactsLength: contacts.length,
+        addressesLength: addresses.length,
+        // contacts and addresses
+        contacts: contacts,
+        addresses: addresses
+      }
+
+      this.opts.store.organizations.create(data).then((res) => {
+        console.log(res)
+        // self.resetOrgCreateForm()
+        // self.messages = null
+      }).fail((e) => {console.log(e)})
+    }
   }
 
   grabOrgTypeOption(){
     this.orgType = this.dropDownSelect.value
   }
 
+  resetOrgCreateForm(){
+    this.textBox = null
+    this.dropDownSelect.value = 'none'
+    this.employees.value = '0-50 employees'
+    this.notesField.value = null
+    this.parentSelect.value  = 'true'
+    this.childrenSelect = 'none'
+    this.siblingsSelect = null
+    this.contacts  = null
+    this.addresses = null
+  }
   // -----------------------------------------
   // remove contact
   // -----------------------------------------
+
+  showAddress(e){
+    $(e.item).pop
+  }
 
   removeContact(e){
     id = e.item.contact.id
@@ -277,6 +362,12 @@
 		self.orgTypeForm = false
 		self.update()
 	})
+
+  this.opts.bus.on('addAddress',function(address){
+    if (!self.addresses) {self.addresses = []}
+    self.addresses.push(address)
+    self.update()
+  })
 
 </script>
 

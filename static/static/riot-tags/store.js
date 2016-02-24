@@ -69,7 +69,8 @@ var ROUTING = (function(){
 					},
 					orgContacts(id){
 						return `${self.server}/api/organizations/${id}/contacts`
-					}
+					},
+					create: `${self.server}/api/organizations/create`
 				},
 				products: {
 					show(pageNum,results){
@@ -232,6 +233,12 @@ var ORGANIZATIONS = (function(router,helper){
 		contents = helper.packageData({})
 		url = router.routes.organizations.orgContacts(id)
 		return $.get(url,contents)
+	}
+
+	self.create = function(data){
+		contents = helper.packageData(data)
+		url = router.routes.organizations.create
+		return $.post(url,contents)	
 	}
 
 	return self;

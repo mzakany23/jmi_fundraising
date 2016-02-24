@@ -100,3 +100,27 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2016-02-15 22:15:30 EST
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/parcels/postgresql.conf": No such file or directory
+LOG:  database system was shut down at 2016-02-18 20:10:16 EST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 1 ORDER BY "fundraiser_fundraiserform"."id" ASC
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 1 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 1 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 1 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21
+ERROR:  column fundraiser_fundraiserform.type_id does not exist at character 42
+STATEMENT:  SELECT "fundraiser_fundraiserform"."id", "fundraiser_fundraiserform"."type_id", "fundraiser_fundraiserform"."name", "fundraiser_fundraiserform"."url" FROM "fundraiser_fundraiserform" WHERE "fundraiser_fundraiserform"."type_id" = 3 ORDER BY "fundraiser_fundraiserform"."id" ASC LIMIT 21

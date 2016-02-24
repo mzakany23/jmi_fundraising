@@ -121,6 +121,14 @@ class FundraiserTypeTitle(models.Model):
 	def __unicode__(self):
 		return self.title
 
+class FundraiserForm(models.Model):
+	type = models.ForeignKey('FundraiserType',blank=True,null=True)
+	name = models.CharField(max_length=50)
+	url = models.FilePathField(path=DOCS_ROOT,null=True,blank=True)
+
+	def __unicode__(self):
+		return self.name
+
 class FundraiserCategory(models.Model):
 	choices=(('paid','paid'),('unpaid','unpaid'),)
 	

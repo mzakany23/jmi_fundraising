@@ -17,7 +17,8 @@ from api.organization.views import (
 	APIOrganizationTypes,
 	APIOrganizationsList,
 	APIOrganizationById,
-	APIOrganizationsContacts
+	APIOrganizationsContacts,
+	APIOrganizationsCreate
 )
 
 # contacts 
@@ -40,6 +41,9 @@ from api.account.views import (
 from api.dashboard.views import(
 	APIDashboardStats
 )
+
+# email
+from api.email.views import APISendEmail
 
 # products
 from api.product.views import QueryProductView,APIProductListByCategory,APIProductList
@@ -155,12 +159,15 @@ urlpatterns += patterns('api.fundraiser.views',
 	# organizations
 	url(r'^api/organizations/types/$',APIOrganizationTypes.as_view()),
 	url(r'^api/organizations/$',APIOrganizationsList.as_view()),
+	url(r'^api/organizations/create$',APIOrganizationsCreate.as_view()),
 	url(r'^api/organizations/(?P<id>\d+)$',APIOrganizationById.as_view()),
 	url(r'^api/organizations/(?P<id>\d+)/contacts$',APIOrganizationsContacts.as_view()),
 	# contact
 	url(r'^api/contacts/$',APIContactsList.as_view()),
 	url(r'^api/contacts/types/$',APIContactTypes.as_view()),
 	url(r'^api/contacts/create/$',APIContactsCreate.as_view()),
+	# email
+	url(r'^api/send-email$',APISendEmail.as_view()),
 )
 
 if settings.DEBUG:

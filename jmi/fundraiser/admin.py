@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from models import Fundraiser,FundraiserCategory,FundraiserType, FundraiserTypeTitle
+from models import Fundraiser,FundraiserCategory,FundraiserType, FundraiserTypeTitle,FundraiserForm
 from shipment.models import Shipment
 from comment.models import UserComment
 
@@ -11,7 +11,8 @@ class FundraiserTypeTitleAdmin(admin.ModelAdmin):
 
 admin.site.register(FundraiserTypeTitle,FundraiserTypeTitleAdmin)
 
-
+class FundraiserFormInline(admin.TabularInline):
+	model = FundraiserForm
 
 class CommentInline(admin.TabularInline):
 	model = UserComment
@@ -54,6 +55,7 @@ class FundraiserTypeAdmin(admin.ModelAdmin):
 	readonly_fields = ['slug']
 	filter_horizontal = ['selections']
 	list_display = ['title','get_plan']
+	inlines = [FundraiserFormInline]
 	ordering = ['order']
 	class Meta:
 		model = FundraiserType
