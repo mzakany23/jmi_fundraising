@@ -14,7 +14,20 @@ class Organization(models.Model):
 
 	def __unicode__(self):
 		return str(self.name)
-	
+
+	def main_contact(self):
+		return (self.contact_set.first() or None)
+
+	def contacts(self):
+		return (self.contact_set.all() or None)
+
+	def addresses(self):
+		return (self.address_set.all() or None)
+
+	def fundraisers(self):
+		return (self.fundraisers_set.all() or None)
+
+
 class OrganizationType(models.Model):
 	name = models.CharField(max_length=40,null=True,blank=True)
 

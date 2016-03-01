@@ -10,10 +10,14 @@ from django.contrib.auth.models import User
 from product.models import Product
 from account.models import Profile
 from helper.number_format_helper import NumberFormat
+from organization.models import Organization
+
 from jmi.settings import DOCS_ROOT
+
 
 class Fundraiser(models.Model):
 	STATUS_CHOICES = (('paid','paid'),('unpaid','unpaid'))
+	organization = models.ForeignKey('Organization',blank=True,null=True)
 	title        = models.TextField(max_length=100,blank=True,null=True)
 	description  = models.TextField(max_length=500,blank=True,null=True)
 	plan         = models.ForeignKey('FundraiserCategory',blank=True,null=True)
@@ -30,6 +34,7 @@ class Fundraiser(models.Model):
 	discount     = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 	slug         = models.SlugField(max_length=400,blank=True,null=True)
 	receipt_email_sent = models.BooleanField(default=False)
+	
 
 	def __unicode__(self):
 		return "Fundraiser: " + str(self.title)

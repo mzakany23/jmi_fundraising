@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'organization',
     'payment',
     'product',
+    'sample_tracker',
     'shipment',
 )
 

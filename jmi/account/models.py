@@ -16,6 +16,7 @@ from stdimage.models import StdImageField
 from organization.models import Organization
 
 class Profile(models.Model):
+	main_contact = models.BooleanField(default=False)
 	organization = models.CharField(max_length=100,blank=True,null=True)
 	business     = models.ForeignKey(Organization,blank=True,null=True)
 	first_name   = models.CharField(max_length=20,null=True)

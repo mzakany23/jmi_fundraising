@@ -1,7 +1,7 @@
 <notification-panel>
 	<div class="row">
 				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
+				<div class="col-md-6 col-sm-6">
 					<div class="widget widget-stats bg-green">
 						<div class="stats-icon"><i class="fa fa-desktop"></i></div>
 						<div class="stats-info">
@@ -15,7 +15,7 @@
 				</div>
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
+				<!-- <div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats bg-blue">
 						<div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
 						<div class="stats-info">
@@ -26,10 +26,10 @@
 							<a href="#products">View Products <i class="fa fa-arrow-circle-o-right"></i></a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
+				<!-- <div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats bg-purple">
 						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
@@ -40,14 +40,14 @@
 							<a href="#plans">View Plans <i class="fa fa-arrow-circle-o-right"></i></a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
+				<div class="col-md-6 col-sm-6">
 					<div class="widget widget-stats bg-red">
 						<div class="stats-icon"><i class="fa fa-clock-o"></i></div>
 						<div class="stats-info">
-							<h4>CUSTOMERS</h4>
+							<h4>ORGANIZATIONS</h4>
 							<p>{ profileCount }</p>	
 						</div>
 						<div class="stats-link">

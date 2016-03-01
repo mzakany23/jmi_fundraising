@@ -19,6 +19,11 @@ from jmi.settings import DOCS_ROOT,SERVER
 # form
 from product.forms import ProductSearchForm
 
+def error(request):
+	context = {}
+	template = 'home/error.html'
+	return render(request,template,context)
+
 def home(request):
 	try:
 		featured = Product.objects.filter(featured=True)[:16]

@@ -23,7 +23,7 @@ class ShipmentInline(admin.TabularInline):
 class FundraiserAdmin(admin.ModelAdmin):
 
 	readonly_fields = ['created','updated','slug']
-	list_display = ['profile','finalized','receipt_email_sent','total_cost','title','account','selection_list']
+	list_display = ['profile','organization','finalized','receipt_email_sent','total_cost','title','account','selection_list']
 	# fieldsets = (
  #      ('Standard info', {
  #          'fields': ('title','description','type','finalized')

@@ -58,6 +58,7 @@ urlpatterns = patterns('',
 
 # home 
 urlpatterns += patterns('home.views',
+	# catchall route
 	url(r'^$', 'home', name='home'),
 	# plan types
 	url(r'^plan/(?P<id>\d+)/$','plan_type',name='plan_type'),
@@ -175,3 +176,7 @@ if settings.DEBUG:
 	urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
+
+urlpatterns += patterns('home.views',
+	url(r'^.*/$','error',name='error'),
+)
