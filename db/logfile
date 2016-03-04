@@ -130,3 +130,1232 @@ FATAL:  database "jmi_main" does not exist
 FATAL:  database "mzakany" does not exist
 FATAL:  database "jmi_new" does not exist
 FATAL:  database "jmi_new" does not exist
+ERROR:  column "fundraiser_id" of relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE "comment_usercomment" ADD COLUMN "fundraiser_id" integer NOT NULL
+ERROR:  column "fundraiser_id" of relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE "comment_usercomment" ADD COLUMN "fundraiser_id" integer NOT NULL
+ERROR:  column "fundraiser_id" of relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE "comment_usercomment" ADD COLUMN "fundraiser_id" integer NOT NULL
+FATAL:  database "mzakany" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  database "mzakany" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  database "mzakany" does not exist
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  relation "account_passwordreset" already exists
+STATEMENT:  CREATE TABLE account_passwordreset (
+	    id integer NOT NULL,
+	    key character varying(40),
+	    expired boolean NOT NULL,
+	    created_at timestamp with time zone NOT NULL,
+	    user_id integer NOT NULL
+	);
+ERROR:  relation "account_passwordreset_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE account_passwordreset_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "account_profile" already exists
+STATEMENT:  CREATE TABLE account_profile (
+	    id integer NOT NULL,
+	    organization character varying(100),
+	    first_name character varying(20),
+	    last_name character varying(20),
+	    phone_number character varying(40),
+	    email character varying(40),
+	    slug character varying(50),
+	    org_photo character varying(100),
+	    stripe_id character varying(100),
+	    account_id integer,
+	    address_id integer,
+	    business_id integer
+	);
+ERROR:  relation "account_profile_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE account_profile_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "address_address" already exists
+STATEMENT:  CREATE TABLE address_address (
+	    id integer NOT NULL,
+	    shipping boolean NOT NULL,
+	    billing boolean NOT NULL,
+	    title character varying(40),
+	    street character varying(40),
+	    line_2 character varying(40),
+	    city character varying(40),
+	    state character varying(40),
+	    zip_code character varying(40),
+	    country character varying(40),
+	    business_address boolean NOT NULL,
+	    organization_id integer
+	);
+ERROR:  relation "address_address_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE address_address_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_group" already exists
+STATEMENT:  CREATE TABLE auth_group (
+	    id integer NOT NULL,
+	    name character varying(80) NOT NULL
+	);
+ERROR:  relation "auth_group_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_group_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_group_permissions" already exists
+STATEMENT:  CREATE TABLE auth_group_permissions (
+	    id integer NOT NULL,
+	    group_id integer NOT NULL,
+	    permission_id integer NOT NULL
+	);
+ERROR:  relation "auth_group_permissions_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_group_permissions_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_permission" already exists
+STATEMENT:  CREATE TABLE auth_permission (
+	    id integer NOT NULL,
+	    name character varying(50) NOT NULL,
+	    content_type_id integer NOT NULL,
+	    codename character varying(100) NOT NULL
+	);
+ERROR:  relation "auth_permission_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_permission_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_user" already exists
+STATEMENT:  CREATE TABLE auth_user (
+	    id integer NOT NULL,
+	    password character varying(128) NOT NULL,
+	    last_login timestamp with time zone NOT NULL,
+	    is_superuser boolean NOT NULL,
+	    username character varying(30) NOT NULL,
+	    first_name character varying(30) NOT NULL,
+	    last_name character varying(30) NOT NULL,
+	    email character varying(75) NOT NULL,
+	    is_staff boolean NOT NULL,
+	    is_active boolean NOT NULL,
+	    date_joined timestamp with time zone NOT NULL
+	);
+ERROR:  relation "auth_user_groups" already exists
+STATEMENT:  CREATE TABLE auth_user_groups (
+	    id integer NOT NULL,
+	    user_id integer NOT NULL,
+	    group_id integer NOT NULL
+	);
+ERROR:  relation "auth_user_groups_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_user_groups_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_user_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_user_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "auth_user_user_permissions" already exists
+STATEMENT:  CREATE TABLE auth_user_user_permissions (
+	    id integer NOT NULL,
+	    user_id integer NOT NULL,
+	    permission_id integer NOT NULL
+	);
+ERROR:  relation "auth_user_user_permissions_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE auth_user_user_permissions_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "comment_fundraiserordercomment" already exists
+STATEMENT:  CREATE TABLE comment_fundraiserordercomment (
+	    id integer NOT NULL,
+	    comment text,
+	    fundraiser_id integer NOT NULL
+	);
+ERROR:  relation "comment_fundraiserordercomment_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE comment_fundraiserordercomment_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "comment_usercomment" already exists
+STATEMENT:  CREATE TABLE comment_usercomment (
+	    id integer NOT NULL,
+	    comment text,
+	    approved boolean NOT NULL,
+	    account_id integer,
+	    fundraiser_id integer NOT NULL
+	);
+ERROR:  relation "comment_usercomment_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE comment_usercomment_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "contact_contact" already exists
+STATEMENT:  CREATE TABLE contact_contact (
+	    id integer NOT NULL,
+	    first_name character varying(40),
+	    last_name character varying(40),
+	    phone1 character varying(40),
+	    phone2 character varying(40),
+	    phone3 character varying(40),
+	    email1 character varying(100),
+	    email2 character varying(100),
+	    email3 character varying(100),
+	    age character varying(3),
+	    job_title character varying(40),
+	    type_id integer,
+	    info text,
+	    organization_id integer,
+	    created date
+	);
+ERROR:  relation "contact_contact_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE contact_contact_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "contact_contacttype" already exists
+STATEMENT:  CREATE TABLE contact_contacttype (
+	    id integer NOT NULL,
+	    title character varying(40)
+	);
+ERROR:  relation "contact_contacttype_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE contact_contacttype_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "corsheaders_corsmodel" already exists
+STATEMENT:  CREATE TABLE corsheaders_corsmodel (
+	    id integer NOT NULL,
+	    cors character varying(255) NOT NULL
+	);
+ERROR:  relation "corsheaders_corsmodel_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE corsheaders_corsmodel_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "django_admin_log" already exists
+STATEMENT:  CREATE TABLE django_admin_log (
+	    id integer NOT NULL,
+	    action_time timestamp with time zone NOT NULL,
+	    object_id text,
+	    object_repr character varying(200) NOT NULL,
+	    action_flag smallint NOT NULL,
+	    change_message text NOT NULL,
+	    content_type_id integer,
+	    user_id integer NOT NULL,
+	    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+	);
+ERROR:  relation "django_admin_log_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE django_admin_log_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "django_content_type" already exists
+STATEMENT:  CREATE TABLE django_content_type (
+	    id integer NOT NULL,
+	    name character varying(100) NOT NULL,
+	    app_label character varying(100) NOT NULL,
+	    model character varying(100) NOT NULL
+	);
+ERROR:  relation "django_content_type_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE django_content_type_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "django_migrations" already exists
+STATEMENT:  CREATE TABLE django_migrations (
+	    id integer NOT NULL,
+	    app character varying(255) NOT NULL,
+	    name character varying(255) NOT NULL,
+	    applied timestamp with time zone NOT NULL
+	);
+ERROR:  relation "django_migrations_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE django_migrations_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "django_session" already exists
+STATEMENT:  CREATE TABLE django_session (
+	    session_key character varying(40) NOT NULL,
+	    session_data text NOT NULL,
+	    expire_date timestamp with time zone NOT NULL
+	);
+ERROR:  relation "fundraiser_fundraiser" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraiser (
+	    id integer NOT NULL,
+	    title text,
+	    description text,
+	    status character varying(40),
+	    finalized boolean NOT NULL,
+	    created timestamp with time zone NOT NULL,
+	    updated timestamp with time zone NOT NULL,
+	    discount numeric(10,2) NOT NULL,
+	    slug character varying(400),
+	    receipt_email_sent boolean NOT NULL,
+	    account_id integer,
+	    plan_id integer,
+	    profile_id integer,
+	    type_id integer
+	);
+ERROR:  relation "fundraiser_fundraiser_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraiser_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraisercategory" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraisercategory (
+	    id integer NOT NULL,
+	    name character varying(40),
+	    title text,
+	    description text,
+	    image character varying(100),
+	    show_top_sellers boolean NOT NULL,
+	    popular boolean NOT NULL,
+	    type_id integer
+	);
+ERROR:  relation "fundraiser_fundraisercategory_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraisercategory_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraisercategory_options" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraisercategory_options (
+	    id integer NOT NULL,
+	    fundraisercategory_id integer NOT NULL,
+	    fundraisertype_id integer NOT NULL
+	);
+ERROR:  relation "fundraiser_fundraisercategory_options_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraisercategory_options_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraiserform" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraiserform (
+	    id integer NOT NULL,
+	    name character varying(50) NOT NULL,
+	    url character varying(100),
+	    type_id integer
+	);
+ERROR:  relation "fundraiser_fundraiserform_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraiserform_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraisertype" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraisertype (
+	    id integer NOT NULL,
+	    jar_price numeric(10,2) NOT NULL,
+	    slug character varying(50),
+	    image character varying(100),
+	    title character varying(40) NOT NULL,
+	    forms character varying(100),
+	    "order" integer
+	);
+ERROR:  relation "fundraiser_fundraisertype_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraisertype_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraisertype_selections" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraisertype_selections (
+	    id integer NOT NULL,
+	    fundraisertype_id integer NOT NULL,
+	    product_id integer NOT NULL
+	);
+ERROR:  relation "fundraiser_fundraisertype_selections_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraisertype_selections_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "fundraiser_fundraisertypetitle" already exists
+STATEMENT:  CREATE TABLE fundraiser_fundraisertypetitle (
+	    id integer NOT NULL,
+	    title character varying(40)
+	);
+ERROR:  relation "fundraiser_fundraisertypetitle_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE fundraiser_fundraisertypetitle_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "marketing_emailnewsletter" already exists
+STATEMENT:  CREATE TABLE marketing_emailnewsletter (
+	    id integer NOT NULL,
+	    email character varying(40) NOT NULL
+	);
+ERROR:  relation "marketing_emailnewsletter_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE marketing_emailnewsletter_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "marketing_genericdiscount" already exists
+STATEMENT:  CREATE TABLE marketing_genericdiscount (
+	    id integer NOT NULL,
+	    title character varying(40) NOT NULL,
+	    special_code character varying(40),
+	    active boolean NOT NULL,
+	    expires_after integer NOT NULL,
+	    used integer NOT NULL,
+	    percent numeric(10,2) NOT NULL,
+	    dollars numeric(10,2) NOT NULL
+	);
+ERROR:  relation "marketing_genericdiscount_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE marketing_genericdiscount_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "marketing_singlediscount" already exists
+STATEMENT:  CREATE TABLE marketing_singlediscount (
+	    id integer NOT NULL,
+	    title character varying(40) NOT NULL,
+	    special_code character varying(40),
+	    active boolean NOT NULL,
+	    expires_after integer NOT NULL,
+	    used integer NOT NULL,
+	    percent numeric(10,2) NOT NULL,
+	    dollars numeric(10,2) NOT NULL,
+	    fundraiser_id integer
+	);
+ERROR:  relation "marketing_singlediscount_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE marketing_singlediscount_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "notes_note" already exists
+STATEMENT:  CREATE TABLE notes_note (
+	    id integer NOT NULL,
+	    content text,
+	    organization_id integer,
+	    contact_id integer,
+	    fundraiser_id integer,
+	    address_id integer
+	);
+ERROR:  relation "notes_note_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE notes_note_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "organization_industry" already exists
+STATEMENT:  CREATE TABLE organization_industry (
+	    id integer NOT NULL,
+	    name character varying(40)
+	);
+ERROR:  relation "organization_industry_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE organization_industry_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "organization_organization" already exists
+STATEMENT:  CREATE TABLE organization_organization (
+	    id integer NOT NULL,
+	    name character varying(40),
+	    type_id integer,
+	    number_of_employees integer,
+	    info text,
+	    created timestamp with time zone,
+	    parent_organization_id integer,
+	    is_parent_organization boolean NOT NULL
+	);
+ERROR:  relation "organization_organization_child_organizations" already exists
+STATEMENT:  CREATE TABLE organization_organization_child_organizations (
+	    id integer NOT NULL,
+	    from_organization_id integer NOT NULL,
+	    to_organization_id integer NOT NULL
+	);
+ERROR:  relation "organization_organization_child_organizations_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE organization_organization_child_organizations_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "organization_organization_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE organization_organization_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "organization_organization_sibling_organizations" already exists
+STATEMENT:  CREATE TABLE organization_organization_sibling_organizations (
+	    id integer NOT NULL,
+	    from_organization_id integer NOT NULL,
+	    to_organization_id integer NOT NULL
+	);
+ERROR:  relation "organization_organization_sibling_organizations_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE organization_organization_sibling_organizations_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "organization_organizationtype" already exists
+STATEMENT:  CREATE TABLE organization_organizationtype (
+	    id integer NOT NULL,
+	    name character varying(40)
+	);
+ERROR:  relation "organization_organizationtype_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE organization_organizationtype_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "payment_payment" already exists
+STATEMENT:  CREATE TABLE payment_payment (
+	    id integer NOT NULL,
+	    type character varying(40),
+	    stripe_id character varying(40),
+	    last_4 character varying(4),
+	    card_type character varying(10),
+	    fundraiser_id integer
+	);
+ERROR:  relation "payment_payment_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE payment_payment_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "product_category" already exists
+STATEMENT:  CREATE TABLE product_category (
+	    id integer NOT NULL,
+	    title character varying(40),
+	    "order" integer,
+	    slug character varying(40)
+	);
+ERROR:  relation "product_category_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE product_category_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "product_product" already exists
+STATEMENT:  CREATE TABLE product_product (
+	    id integer NOT NULL,
+	    product_code character varying(100),
+	    slug character varying(50),
+	    title character varying(40) NOT NULL,
+	    description text,
+	    price numeric(10,2) NOT NULL,
+	    created timestamp with time zone NOT NULL,
+	    updated timestamp with time zone NOT NULL,
+	    image character varying(100),
+	    featured boolean NOT NULL,
+	    best_seller boolean NOT NULL
+	);
+ERROR:  relation "product_product_category" already exists
+STATEMENT:  CREATE TABLE product_product_category (
+	    id integer NOT NULL,
+	    product_id integer NOT NULL,
+	    category_id integer NOT NULL
+	);
+ERROR:  relation "product_product_category_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE product_product_category_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "product_product_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE product_product_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "product_productimage" already exists
+STATEMENT:  CREATE TABLE product_productimage (
+	    id integer NOT NULL,
+	    "default" boolean NOT NULL,
+	    image character varying(100) NOT NULL,
+	    zoom_image boolean NOT NULL,
+	    product_id integer
+	);
+ERROR:  relation "product_productimage_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE product_productimage_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "shipment_selection" already exists
+STATEMENT:  CREATE TABLE shipment_selection (
+	    id integer NOT NULL,
+	    quantity integer NOT NULL,
+	    product_id integer NOT NULL,
+	    shipment_id integer NOT NULL
+	);
+ERROR:  relation "shipment_selection_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE shipment_selection_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  relation "shipment_shipment" already exists
+STATEMENT:  CREATE TABLE shipment_shipment (
+	    id integer NOT NULL,
+	    created timestamp with time zone NOT NULL,
+	    updated timestamp with time zone NOT NULL,
+	    address_id integer,
+	    comment_id integer,
+	    fundraiser_id integer NOT NULL
+	);
+ERROR:  relation "shipment_shipment_id_seq" already exists
+STATEMENT:  CREATE SEQUENCE shipment_shipment_id_seq
+	    START WITH 1
+	    INCREMENT BY 1
+	    NO MINVALUE
+	    NO MAXVALUE
+	    CACHE 1;
+ERROR:  null value in column "main_contact" violates not-null constraint
+DETAIL:  Failing row contains (55, null, Marine City Middle School PTO, Maryann, May, 5866650167, triplemmm37@yahoo.com, profile-55, , , null, 34, null).
+CONTEXT:  COPY account_profile, line 1: "55	Marine City Middle School PTO	Maryann	May	5866650167	triplemmm37@yahoo.com	profile-55			\N	34	\N"
+STATEMENT:  COPY account_profile (id, organization, first_name, last_name, phone_number, email, slug, org_photo, stripe_id, account_id, address_id, business_id) FROM stdin;
+ERROR:  duplicate key value violates unique constraint "auth_permission_pkey"
+DETAIL:  Key (id)=(1) already exists.
+CONTEXT:  COPY auth_permission, line 1
+STATEMENT:  COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+ERROR:  duplicate key value violates unique constraint "auth_user_pkey"
+DETAIL:  Key (id)=(1) already exists.
+CONTEXT:  COPY auth_user, line 3
+STATEMENT:  COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+ERROR:  insert or update on table "comment_fundraiserordercomment" violates foreign key constraint "comm_fundraiser_id_6de9bd7c778477c9_fk_fundraiser_fundraiser_id"
+DETAIL:  Key (fundraiser_id)=(66) is not present in table "fundraiser_fundraiser".
+STATEMENT:  COPY comment_fundraiserordercomment (id, comment, fundraiser_id) FROM stdin;
+ERROR:  insert or update on table "contact_contact" violates foreign key constraint "D51b89f199dbae22bd5d2ddbc25ead48"
+DETAIL:  Key (organization_id)=(1) is not present in table "organization_organization".
+STATEMENT:  COPY contact_contact (id, first_name, last_name, phone1, phone2, phone3, email1, email2, email3, age, job_title, type_id, info, organization_id, created) FROM stdin;
+ERROR:  insert or update on table "django_admin_log" violates foreign key constraint "django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id"
+DETAIL:  Key (user_id)=(4) is not present in table "auth_user".
+STATEMENT:  COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+ERROR:  duplicate key value violates unique constraint "django_content_type_pkey"
+DETAIL:  Key (id)=(1) already exists.
+CONTEXT:  COPY django_content_type, line 1
+STATEMENT:  COPY django_content_type (id, name, app_label, model) FROM stdin;
+ERROR:  duplicate key value violates unique constraint "django_migrations_pkey"
+DETAIL:  Key (id)=(1) already exists.
+CONTEXT:  COPY django_migrations, line 1
+STATEMENT:  COPY django_migrations (id, app, name, applied) FROM stdin;
+ERROR:  insert or update on table "fundraiser_fundraiser" violates foreign key constraint "fu_plan_id_37f6e10644b23347_fk_fundraiser_fundraisercategory_id"
+DETAIL:  Key (plan_id)=(13) is not present in table "fundraiser_fundraisercategory".
+STATEMENT:  COPY fundraiser_fundraiser (id, title, description, status, finalized, created, updated, discount, slug, receipt_email_sent, account_id, plan_id, profile_id, type_id) FROM stdin;
+ERROR:  insert or update on table "fundraiser_fundraisercategory" violates foreign key constraint "f_type_id_21312afde8b934c6_fk_fundraiser_fundraisertypetitle_id"
+DETAIL:  Key (type_id)=(1) is not present in table "fundraiser_fundraisertypetitle".
+STATEMENT:  COPY fundraiser_fundraisercategory (id, name, title, description, image, show_top_sellers, popular, type_id) FROM stdin;
+ERROR:  insert or update on table "fundraiser_fundraisercategory_options" violates foreign key constraint "D3e8e3f7f022e1c2c93d1a8b0c096ed6"
+DETAIL:  Key (fundraisercategory_id)=(13) is not present in table "fundraiser_fundraisercategory".
+STATEMENT:  COPY fundraiser_fundraisercategory_options (id, fundraisercategory_id, fundraisertype_id) FROM stdin;
+ERROR:  insert or update on table "fundraiser_fundraiserform" violates foreign key constraint "fundra_type_id_6c54857908dfaa9c_fk_fundraiser_fundraisertype_id"
+DETAIL:  Key (type_id)=(1) is not present in table "fundraiser_fundraisertype".
+STATEMENT:  COPY fundraiser_fundraiserform (id, name, url, type_id) FROM stdin;
+ERROR:  insert or update on table "fundraiser_fundraisertype_selections" violates foreign key constraint "fundraiser_fu_product_id_495de7888bf4783f_fk_product_product_id"
+DETAIL:  Key (product_id)=(1) is not present in table "product_product".
+STATEMENT:  COPY fundraiser_fundraisertype_selections (id, fundraisertype_id, product_id) FROM stdin;
+ERROR:  insert or update on table "organization_organization" violates foreign key constraint "or_type_id_1b7b46b6d980e56a_fk_organization_organizationtype_id"
+DETAIL:  Key (type_id)=(2) is not present in table "organization_organizationtype".
+STATEMENT:  COPY organization_organization (id, name, type_id, number_of_employees, info, created, parent_organization_id, is_parent_organization) FROM stdin;
+ERROR:  insert or update on table "payment_payment" violates foreign key constraint "paym_fundraiser_id_550cdc97538c8e5f_fk_fundraiser_fundraiser_id"
+DETAIL:  Key (fundraiser_id)=(66) is not present in table "fundraiser_fundraiser".
+STATEMENT:  COPY payment_payment (id, type, stripe_id, last_4, card_type, fundraiser_id) FROM stdin;
+ERROR:  insert or update on table "shipment_selection" violates foreign key constraint "shipment_s_shipment_id_45e9ee1368ddd5ff_fk_shipment_shipment_id"
+DETAIL:  Key (shipment_id)=(66) is not present in table "shipment_shipment".
+STATEMENT:  COPY shipment_selection (id, quantity, product_id, shipment_id) FROM stdin;
+ERROR:  insert or update on table "shipment_shipment" violates foreign key constraint "ship_fundraiser_id_5c5cb6a913e48e85_fk_fundraiser_fundraiser_id"
+DETAIL:  Key (fundraiser_id)=(12) is not present in table "fundraiser_fundraiser".
+STATEMENT:  COPY shipment_shipment (id, created, updated, address_id, comment_id, fundraiser_id) FROM stdin;
+ERROR:  multiple primary keys for table "account_passwordreset" are not allowed
+STATEMENT:  ALTER TABLE ONLY account_passwordreset
+	    ADD CONSTRAINT account_passwordreset_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "account_profile" are not allowed
+STATEMENT:  ALTER TABLE ONLY account_profile
+	    ADD CONSTRAINT account_profile_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "address_address" are not allowed
+STATEMENT:  ALTER TABLE ONLY address_address
+	    ADD CONSTRAINT address_address_pkey PRIMARY KEY (id);
+ERROR:  relation "auth_group_name_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_group
+	    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+ERROR:  relation "auth_group_permissions_group_id_permission_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_group_permissions
+	    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+ERROR:  multiple primary keys for table "auth_group_permissions" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_group_permissions
+	    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "auth_group" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_group
+	    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+ERROR:  relation "auth_permission_content_type_id_codename_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_permission
+	    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+ERROR:  multiple primary keys for table "auth_permission" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_permission
+	    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "auth_user_groups" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_user_groups
+	    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+ERROR:  relation "auth_user_groups_user_id_group_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_groups
+	    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+ERROR:  multiple primary keys for table "auth_user" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_user
+	    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "auth_user_user_permissions" are not allowed
+STATEMENT:  ALTER TABLE ONLY auth_user_user_permissions
+	    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+ERROR:  relation "auth_user_user_permissions_user_id_permission_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_user_permissions
+	    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+ERROR:  relation "auth_user_username_key" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user
+	    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+ERROR:  multiple primary keys for table "comment_fundraiserordercomment" are not allowed
+STATEMENT:  ALTER TABLE ONLY comment_fundraiserordercomment
+	    ADD CONSTRAINT comment_fundraiserordercomment_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "comment_usercomment" are not allowed
+STATEMENT:  ALTER TABLE ONLY comment_usercomment
+	    ADD CONSTRAINT comment_usercomment_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "contact_contact" are not allowed
+STATEMENT:  ALTER TABLE ONLY contact_contact
+	    ADD CONSTRAINT contact_contact_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "contact_contacttype" are not allowed
+STATEMENT:  ALTER TABLE ONLY contact_contacttype
+	    ADD CONSTRAINT contact_contacttype_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "corsheaders_corsmodel" are not allowed
+STATEMENT:  ALTER TABLE ONLY corsheaders_corsmodel
+	    ADD CONSTRAINT corsheaders_corsmodel_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "django_admin_log" are not allowed
+STATEMENT:  ALTER TABLE ONLY django_admin_log
+	    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+ERROR:  relation "django_content_type_app_label_45f3b1d93ec8c61c_uniq" already exists
+STATEMENT:  ALTER TABLE ONLY django_content_type
+	    ADD CONSTRAINT django_content_type_app_label_45f3b1d93ec8c61c_uniq UNIQUE (app_label, model);
+ERROR:  multiple primary keys for table "django_content_type" are not allowed
+STATEMENT:  ALTER TABLE ONLY django_content_type
+	    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "django_migrations" are not allowed
+STATEMENT:  ALTER TABLE ONLY django_migrations
+	    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "django_session" are not allowed
+STATEMENT:  ALTER TABLE ONLY django_session
+	    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+ERROR:  multiple primary keys for table "fundraiser_fundraiser" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiser
+	    ADD CONSTRAINT fundraiser_fundraiser_pkey PRIMARY KEY (id);
+ERROR:  relation "fundraiser_fundraisercategory_fundraisercategory_id_fundrai_key" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory_options
+	    ADD CONSTRAINT fundraiser_fundraisercategory_fundraisercategory_id_fundrai_key UNIQUE (fundraisercategory_id, fundraisertype_id);
+ERROR:  multiple primary keys for table "fundraiser_fundraisercategory_options" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory_options
+	    ADD CONSTRAINT fundraiser_fundraisercategory_options_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "fundraiser_fundraisercategory" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory
+	    ADD CONSTRAINT fundraiser_fundraisercategory_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "fundraiser_fundraiserform" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiserform
+	    ADD CONSTRAINT fundraiser_fundraiserform_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "fundraiser_fundraisertype" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertype
+	    ADD CONSTRAINT fundraiser_fundraisertype_pkey PRIMARY KEY (id);
+ERROR:  relation "fundraiser_fundraisertype_sele_fundraisertype_id_product_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertype_selections
+	    ADD CONSTRAINT fundraiser_fundraisertype_sele_fundraisertype_id_product_id_key UNIQUE (fundraisertype_id, product_id);
+ERROR:  multiple primary keys for table "fundraiser_fundraisertype_selections" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertype_selections
+	    ADD CONSTRAINT fundraiser_fundraisertype_selections_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "fundraiser_fundraisertypetitle" are not allowed
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertypetitle
+	    ADD CONSTRAINT fundraiser_fundraisertypetitle_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "marketing_emailnewsletter" are not allowed
+STATEMENT:  ALTER TABLE ONLY marketing_emailnewsletter
+	    ADD CONSTRAINT marketing_emailnewsletter_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "marketing_genericdiscount" are not allowed
+STATEMENT:  ALTER TABLE ONLY marketing_genericdiscount
+	    ADD CONSTRAINT marketing_genericdiscount_pkey PRIMARY KEY (id);
+ERROR:  relation "marketing_singlediscount_fundraiser_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY marketing_singlediscount
+	    ADD CONSTRAINT marketing_singlediscount_fundraiser_id_key UNIQUE (fundraiser_id);
+ERROR:  multiple primary keys for table "marketing_singlediscount" are not allowed
+STATEMENT:  ALTER TABLE ONLY marketing_singlediscount
+	    ADD CONSTRAINT marketing_singlediscount_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "notes_note" are not allowed
+STATEMENT:  ALTER TABLE ONLY notes_note
+	    ADD CONSTRAINT notes_note_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "organization_industry" are not allowed
+STATEMENT:  ALTER TABLE ONLY organization_industry
+	    ADD CONSTRAINT organization_industry_pkey PRIMARY KEY (id);
+ERROR:  relation "organization_organization_chi_from_organization_id_to_organ_key" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_child_organizations
+	    ADD CONSTRAINT organization_organization_chi_from_organization_id_to_organ_key UNIQUE (from_organization_id, to_organization_id);
+ERROR:  multiple primary keys for table "organization_organization_child_organizations" are not allowed
+STATEMENT:  ALTER TABLE ONLY organization_organization_child_organizations
+	    ADD CONSTRAINT organization_organization_child_organizations_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "organization_organization" are not allowed
+STATEMENT:  ALTER TABLE ONLY organization_organization
+	    ADD CONSTRAINT organization_organization_pkey PRIMARY KEY (id);
+ERROR:  relation "organization_organization_sib_from_organization_id_to_organ_key" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_sibling_organizations
+	    ADD CONSTRAINT organization_organization_sib_from_organization_id_to_organ_key UNIQUE (from_organization_id, to_organization_id);
+ERROR:  multiple primary keys for table "organization_organization_sibling_organizations" are not allowed
+STATEMENT:  ALTER TABLE ONLY organization_organization_sibling_organizations
+	    ADD CONSTRAINT organization_organization_sibling_organizations_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "organization_organizationtype" are not allowed
+STATEMENT:  ALTER TABLE ONLY organization_organizationtype
+	    ADD CONSTRAINT organization_organizationtype_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "payment_payment" are not allowed
+STATEMENT:  ALTER TABLE ONLY payment_payment
+	    ADD CONSTRAINT payment_payment_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "product_category" are not allowed
+STATEMENT:  ALTER TABLE ONLY product_category
+	    ADD CONSTRAINT product_category_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "product_product_category" are not allowed
+STATEMENT:  ALTER TABLE ONLY product_product_category
+	    ADD CONSTRAINT product_product_category_pkey PRIMARY KEY (id);
+ERROR:  relation "product_product_category_product_id_category_id_key" already exists
+STATEMENT:  ALTER TABLE ONLY product_product_category
+	    ADD CONSTRAINT product_product_category_product_id_category_id_key UNIQUE (product_id, category_id);
+ERROR:  multiple primary keys for table "product_product" are not allowed
+STATEMENT:  ALTER TABLE ONLY product_product
+	    ADD CONSTRAINT product_product_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "product_productimage" are not allowed
+STATEMENT:  ALTER TABLE ONLY product_productimage
+	    ADD CONSTRAINT product_productimage_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "shipment_selection" are not allowed
+STATEMENT:  ALTER TABLE ONLY shipment_selection
+	    ADD CONSTRAINT shipment_selection_pkey PRIMARY KEY (id);
+ERROR:  multiple primary keys for table "shipment_shipment" are not allowed
+STATEMENT:  ALTER TABLE ONLY shipment_shipment
+	    ADD CONSTRAINT shipment_shipment_pkey PRIMARY KEY (id);
+ERROR:  relation "account_passwordreset_e8701ad4" already exists
+STATEMENT:  CREATE INDEX account_passwordreset_e8701ad4 ON account_passwordreset USING btree (user_id);
+ERROR:  relation "account_profile_2dbcba41" already exists
+STATEMENT:  CREATE INDEX account_profile_2dbcba41 ON account_profile USING btree (slug);
+ERROR:  relation "account_profile_2f4e4ac4" already exists
+STATEMENT:  CREATE INDEX account_profile_2f4e4ac4 ON account_profile USING btree (business_id);
+ERROR:  relation "account_profile_8a089c2a" already exists
+STATEMENT:  CREATE INDEX account_profile_8a089c2a ON account_profile USING btree (account_id);
+ERROR:  relation "account_profile_ea8e5d12" already exists
+STATEMENT:  CREATE INDEX account_profile_ea8e5d12 ON account_profile USING btree (address_id);
+ERROR:  relation "account_profile_slug_11b7c9d43838e85c_like" already exists
+STATEMENT:  CREATE INDEX account_profile_slug_11b7c9d43838e85c_like ON account_profile USING btree (slug varchar_pattern_ops);
+ERROR:  relation "address_address_26b2345e" already exists
+STATEMENT:  CREATE INDEX address_address_26b2345e ON address_address USING btree (organization_id);
+ERROR:  relation "auth_group_name_253ae2a6331666e8_like" already exists
+STATEMENT:  CREATE INDEX auth_group_name_253ae2a6331666e8_like ON auth_group USING btree (name varchar_pattern_ops);
+ERROR:  relation "auth_group_permissions_0e939a4f" already exists
+STATEMENT:  CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+ERROR:  relation "auth_group_permissions_8373b171" already exists
+STATEMENT:  CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+ERROR:  relation "auth_permission_417f1b1c" already exists
+STATEMENT:  CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+ERROR:  relation "auth_user_groups_0e939a4f" already exists
+STATEMENT:  CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+ERROR:  relation "auth_user_groups_e8701ad4" already exists
+STATEMENT:  CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+ERROR:  relation "auth_user_user_permissions_8373b171" already exists
+STATEMENT:  CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+ERROR:  relation "auth_user_user_permissions_e8701ad4" already exists
+STATEMENT:  CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+ERROR:  relation "auth_user_username_51b3b110094b8aae_like" already exists
+STATEMENT:  CREATE INDEX auth_user_username_51b3b110094b8aae_like ON auth_user USING btree (username varchar_pattern_ops);
+ERROR:  relation "comment_fundraiserordercomment_3287b1bc" already exists
+STATEMENT:  CREATE INDEX comment_fundraiserordercomment_3287b1bc ON comment_fundraiserordercomment USING btree (fundraiser_id);
+ERROR:  relation "comment_usercomment_3287b1bc" already exists
+STATEMENT:  CREATE INDEX comment_usercomment_3287b1bc ON comment_usercomment USING btree (fundraiser_id);
+ERROR:  relation "comment_usercomment_8a089c2a" already exists
+STATEMENT:  CREATE INDEX comment_usercomment_8a089c2a ON comment_usercomment USING btree (account_id);
+ERROR:  relation "contact_contact_26b2345e" already exists
+STATEMENT:  CREATE INDEX contact_contact_26b2345e ON contact_contact USING btree (organization_id);
+ERROR:  relation "contact_contact_94757cae" already exists
+STATEMENT:  CREATE INDEX contact_contact_94757cae ON contact_contact USING btree (type_id);
+ERROR:  relation "django_admin_log_417f1b1c" already exists
+STATEMENT:  CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+ERROR:  relation "django_admin_log_e8701ad4" already exists
+STATEMENT:  CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+ERROR:  relation "django_session_de54fa62" already exists
+STATEMENT:  CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+ERROR:  relation "django_session_session_key_461cfeaa630ca218_like" already exists
+STATEMENT:  CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
+ERROR:  relation "fundraiser_fundraiser_2dbcba41" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_2dbcba41 ON fundraiser_fundraiser USING btree (slug);
+ERROR:  relation "fundraiser_fundraiser_60fb6a05" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_60fb6a05 ON fundraiser_fundraiser USING btree (plan_id);
+ERROR:  relation "fundraiser_fundraiser_83a0eb3f" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_83a0eb3f ON fundraiser_fundraiser USING btree (profile_id);
+ERROR:  relation "fundraiser_fundraiser_8a089c2a" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_8a089c2a ON fundraiser_fundraiser USING btree (account_id);
+ERROR:  relation "fundraiser_fundraiser_94757cae" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_94757cae ON fundraiser_fundraiser USING btree (type_id);
+ERROR:  relation "fundraiser_fundraiser_slug_15ebde81d7fa514c_like" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiser_slug_15ebde81d7fa514c_like ON fundraiser_fundraiser USING btree (slug varchar_pattern_ops);
+ERROR:  relation "fundraiser_fundraisercategory_94757cae" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisercategory_94757cae ON fundraiser_fundraisercategory USING btree (type_id);
+ERROR:  relation "fundraiser_fundraisercategory_options_e5391087" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisercategory_options_e5391087 ON fundraiser_fundraisercategory_options USING btree (fundraisercategory_id);
+ERROR:  relation "fundraiser_fundraisercategory_options_f830d4d2" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisercategory_options_f830d4d2 ON fundraiser_fundraisercategory_options USING btree (fundraisertype_id);
+ERROR:  relation "fundraiser_fundraiserform_94757cae" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraiserform_94757cae ON fundraiser_fundraiserform USING btree (type_id);
+ERROR:  relation "fundraiser_fundraisertype_2dbcba41" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisertype_2dbcba41 ON fundraiser_fundraisertype USING btree (slug);
+ERROR:  relation "fundraiser_fundraisertype_selections_9bea82de" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisertype_selections_9bea82de ON fundraiser_fundraisertype_selections USING btree (product_id);
+ERROR:  relation "fundraiser_fundraisertype_selections_f830d4d2" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisertype_selections_f830d4d2 ON fundraiser_fundraisertype_selections USING btree (fundraisertype_id);
+ERROR:  relation "fundraiser_fundraisertype_slug_2c8bfe64c5d27240_like" already exists
+STATEMENT:  CREATE INDEX fundraiser_fundraisertype_slug_2c8bfe64c5d27240_like ON fundraiser_fundraisertype USING btree (slug varchar_pattern_ops);
+ERROR:  relation "notes_note_26b2345e" already exists
+STATEMENT:  CREATE INDEX notes_note_26b2345e ON notes_note USING btree (organization_id);
+ERROR:  relation "notes_note_3287b1bc" already exists
+STATEMENT:  CREATE INDEX notes_note_3287b1bc ON notes_note USING btree (fundraiser_id);
+ERROR:  relation "notes_note_6d82f13d" already exists
+STATEMENT:  CREATE INDEX notes_note_6d82f13d ON notes_note USING btree (contact_id);
+ERROR:  relation "notes_note_ea8e5d12" already exists
+STATEMENT:  CREATE INDEX notes_note_ea8e5d12 ON notes_note USING btree (address_id);
+ERROR:  relation "organization_organization_3693957f" already exists
+STATEMENT:  CREATE INDEX organization_organization_3693957f ON organization_organization USING btree (parent_organization_id);
+ERROR:  relation "organization_organization_94757cae" already exists
+STATEMENT:  CREATE INDEX organization_organization_94757cae ON organization_organization USING btree (type_id);
+ERROR:  relation "organization_organization_child_organizations_31c06696" already exists
+STATEMENT:  CREATE INDEX organization_organization_child_organizations_31c06696 ON organization_organization_child_organizations USING btree (to_organization_id);
+ERROR:  relation "organization_organization_child_organizations_e47c344b" already exists
+STATEMENT:  CREATE INDEX organization_organization_child_organizations_e47c344b ON organization_organization_child_organizations USING btree (from_organization_id);
+ERROR:  relation "organization_organization_sibling_organizations_31c06696" already exists
+STATEMENT:  CREATE INDEX organization_organization_sibling_organizations_31c06696 ON organization_organization_sibling_organizations USING btree (to_organization_id);
+ERROR:  relation "organization_organization_sibling_organizations_e47c344b" already exists
+STATEMENT:  CREATE INDEX organization_organization_sibling_organizations_e47c344b ON organization_organization_sibling_organizations USING btree (from_organization_id);
+ERROR:  relation "payment_payment_3287b1bc" already exists
+STATEMENT:  CREATE INDEX payment_payment_3287b1bc ON payment_payment USING btree (fundraiser_id);
+ERROR:  relation "product_product_2dbcba41" already exists
+STATEMENT:  CREATE INDEX product_product_2dbcba41 ON product_product USING btree (slug);
+ERROR:  relation "product_product_category_9bea82de" already exists
+STATEMENT:  CREATE INDEX product_product_category_9bea82de ON product_product_category USING btree (product_id);
+ERROR:  relation "product_product_category_b583a629" already exists
+STATEMENT:  CREATE INDEX product_product_category_b583a629 ON product_product_category USING btree (category_id);
+ERROR:  relation "product_product_slug_3bce276f4cb8468a_like" already exists
+STATEMENT:  CREATE INDEX product_product_slug_3bce276f4cb8468a_like ON product_product USING btree (slug varchar_pattern_ops);
+ERROR:  relation "product_productimage_9bea82de" already exists
+STATEMENT:  CREATE INDEX product_productimage_9bea82de ON product_productimage USING btree (product_id);
+ERROR:  relation "shipment_selection_9bea82de" already exists
+STATEMENT:  CREATE INDEX shipment_selection_9bea82de ON shipment_selection USING btree (product_id);
+ERROR:  relation "shipment_selection_c77cffaa" already exists
+STATEMENT:  CREATE INDEX shipment_selection_c77cffaa ON shipment_selection USING btree (shipment_id);
+ERROR:  relation "shipment_shipment_3287b1bc" already exists
+STATEMENT:  CREATE INDEX shipment_shipment_3287b1bc ON shipment_shipment USING btree (fundraiser_id);
+ERROR:  relation "shipment_shipment_69b97d17" already exists
+STATEMENT:  CREATE INDEX shipment_shipment_69b97d17 ON shipment_shipment USING btree (comment_id);
+ERROR:  relation "shipment_shipment_ea8e5d12" already exists
+STATEMENT:  CREATE INDEX shipment_shipment_ea8e5d12 ON shipment_shipment USING btree (address_id);
+ERROR:  constraint "D237fdda53a3087421d80963b5e1e2f0" for relation "organization_organization_child_organizations" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_child_organizations
+	    ADD CONSTRAINT "D237fdda53a3087421d80963b5e1e2f0" FOREIGN KEY (from_organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D24f22fe41e754656d50d77133a9a888" for relation "organization_organization_sibling_organizations" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_sibling_organizations
+	    ADD CONSTRAINT "D24f22fe41e754656d50d77133a9a888" FOREIGN KEY (to_organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D3e8e3f7f022e1c2c93d1a8b0c096ed6" for relation "fundraiser_fundraisercategory_options" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory_options
+	    ADD CONSTRAINT "D3e8e3f7f022e1c2c93d1a8b0c096ed6" FOREIGN KEY (fundraisercategory_id) REFERENCES fundraiser_fundraisercategory(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D3f8fef7f868bd8b55b4611973921d2f" for relation "organization_organization" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization
+	    ADD CONSTRAINT "D3f8fef7f868bd8b55b4611973921d2f" FOREIGN KEY (parent_organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D3fca1d559f43d92b76d3a7031f08245" for relation "address_address" already exists
+STATEMENT:  ALTER TABLE ONLY address_address
+	    ADD CONSTRAINT "D3fca1d559f43d92b76d3a7031f08245" FOREIGN KEY (organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D51b89f199dbae22bd5d2ddbc25ead48" for relation "contact_contact" already exists
+STATEMENT:  ALTER TABLE ONLY contact_contact
+	    ADD CONSTRAINT "D51b89f199dbae22bd5d2ddbc25ead48" FOREIGN KEY (organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D7a139bbfd0df3b1c9ab3d0d5a867570" for relation "organization_organization_sibling_organizations" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_sibling_organizations
+	    ADD CONSTRAINT "D7a139bbfd0df3b1c9ab3d0d5a867570" FOREIGN KEY (from_organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D8d4da3719bbf9ee668068f769680e05" for relation "shipment_shipment" already exists
+STATEMENT:  ALTER TABLE ONLY shipment_shipment
+	    ADD CONSTRAINT "D8d4da3719bbf9ee668068f769680e05" FOREIGN KEY (comment_id) REFERENCES comment_fundraiserordercomment(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "D98b0850ed90291bf48765b3e02192b5" for relation "notes_note" already exists
+STATEMENT:  ALTER TABLE ONLY notes_note
+	    ADD CONSTRAINT "D98b0850ed90291bf48765b3e02192b5" FOREIGN KEY (organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "a2d8149f76c62889a9a93d8bd7b9dd99" for relation "organization_organization_child_organizations" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization_child_organizations
+	    ADD CONSTRAINT a2d8149f76c62889a9a93d8bd7b9dd99 FOREIGN KEY (to_organization_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "ac_business_id_21bfaf1759fca9ac_fk_organization_organization_id" for relation "account_profile" already exists
+STATEMENT:  ALTER TABLE ONLY account_profile
+	    ADD CONSTRAINT ac_business_id_21bfaf1759fca9ac_fk_organization_organization_id FOREIGN KEY (business_id) REFERENCES organization_organization(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "account_passwordreset_user_id_e553a6d2ad0efa_fk_auth_user_id" for relation "account_passwordreset" already exists
+STATEMENT:  ALTER TABLE ONLY account_passwordreset
+	    ADD CONSTRAINT account_passwordreset_user_id_e553a6d2ad0efa_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "account_profil_address_id_3b1db7596234aab_fk_address_address_id" for relation "account_profile" already exists
+STATEMENT:  ALTER TABLE ONLY account_profile
+	    ADD CONSTRAINT account_profil_address_id_3b1db7596234aab_fk_address_address_id FOREIGN KEY (address_id) REFERENCES address_address(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "account_profile_account_id_1ca06866a78ee894_fk_auth_user_id" for relation "account_profile" already exists
+STATEMENT:  ALTER TABLE ONLY account_profile
+	    ADD CONSTRAINT account_profile_account_id_1ca06866a78ee894_fk_auth_user_id FOREIGN KEY (account_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_content_type_id_508cf46651277a81_fk_django_content_type_id" for relation "auth_permission" already exists
+STATEMENT:  ALTER TABLE ONLY auth_permission
+	    ADD CONSTRAINT auth_content_type_id_508cf46651277a81_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id" for relation "auth_group_permissions" already exists
+STATEMENT:  ALTER TABLE ONLY auth_group_permissions
+	    ADD CONSTRAINT auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id" for relation "auth_group_permissions" already exists
+STATEMENT:  ALTER TABLE ONLY auth_group_permissions
+	    ADD CONSTRAINT auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id" for relation "auth_user_user_permissions" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_user_permissions
+	    ADD CONSTRAINT auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id" for relation "auth_user_groups" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_groups
+	    ADD CONSTRAINT auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id" for relation "auth_user_groups" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_groups
+	    ADD CONSTRAINT auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id" for relation "auth_user_user_permissions" already exists
+STATEMENT:  ALTER TABLE ONLY auth_user_user_permissions
+	    ADD CONSTRAINT auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "comm_fundraiser_id_3fc1edff9b82c9aa_fk_fundraiser_fundraiser_id" for relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE ONLY comment_usercomment
+	    ADD CONSTRAINT comm_fundraiser_id_3fc1edff9b82c9aa_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "comm_fundraiser_id_6de9bd7c778477c9_fk_fundraiser_fundraiser_id" for relation "comment_fundraiserordercomment" already exists
+STATEMENT:  ALTER TABLE ONLY comment_fundraiserordercomment
+	    ADD CONSTRAINT comm_fundraiser_id_6de9bd7c778477c9_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "comment_userco_account_id_9637cbd8ecf2fdb_fk_account_profile_id" for relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE ONLY comment_usercomment
+	    ADD CONSTRAINT comment_userco_account_id_9637cbd8ecf2fdb_fk_account_profile_id FOREIGN KEY (account_id) REFERENCES account_profile(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "contact_cont_type_id_306b49bb7f72f918_fk_contact_contacttype_id" for relation "contact_contact" already exists
+STATEMENT:  ALTER TABLE ONLY contact_contact
+	    ADD CONSTRAINT contact_cont_type_id_306b49bb7f72f918_fk_contact_contacttype_id FOREIGN KEY (type_id) REFERENCES contact_contacttype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "da8b100a8da6bfd1acf3b8f818f3c691" for relation "fundraiser_fundraisertype_selections" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertype_selections
+	    ADD CONSTRAINT da8b100a8da6bfd1acf3b8f818f3c691 FOREIGN KEY (fundraisertype_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "djan_content_type_id_697914295151027a_fk_django_content_type_id" for relation "django_admin_log" already exists
+STATEMENT:  ALTER TABLE ONLY django_admin_log
+	    ADD CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id" for relation "django_admin_log" already exists
+STATEMENT:  ALTER TABLE ONLY django_admin_log
+	    ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "e63994d2909d64619afb0145725372c8" for relation "fundraiser_fundraisercategory_options" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory_options
+	    ADD CONSTRAINT e63994d2909d64619afb0145725372c8 FOREIGN KEY (fundraisertype_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "f_type_id_21312afde8b934c6_fk_fundraiser_fundraisertypetitle_id" for relation "fundraiser_fundraisercategory" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisercategory
+	    ADD CONSTRAINT f_type_id_21312afde8b934c6_fk_fundraiser_fundraisertypetitle_id FOREIGN KEY (type_id) REFERENCES fundraiser_fundraisertypetitle(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fu_plan_id_37f6e10644b23347_fk_fundraiser_fundraisercategory_id" for relation "fundraiser_fundraiser" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiser
+	    ADD CONSTRAINT fu_plan_id_37f6e10644b23347_fk_fundraiser_fundraisercategory_id FOREIGN KEY (plan_id) REFERENCES fundraiser_fundraisercategory(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fundra_type_id_1afa219fa4ee9582_fk_fundraiser_fundraisertype_id" for relation "fundraiser_fundraiser" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiser
+	    ADD CONSTRAINT fundra_type_id_1afa219fa4ee9582_fk_fundraiser_fundraisertype_id FOREIGN KEY (type_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fundra_type_id_6c54857908dfaa9c_fk_fundraiser_fundraisertype_id" for relation "fundraiser_fundraiserform" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiserform
+	    ADD CONSTRAINT fundra_type_id_6c54857908dfaa9c_fk_fundraiser_fundraisertype_id FOREIGN KEY (type_id) REFERENCES fundraiser_fundraisertype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fundraiser_fu_product_id_495de7888bf4783f_fk_product_product_id" for relation "fundraiser_fundraisertype_selections" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraisertype_selections
+	    ADD CONSTRAINT fundraiser_fu_product_id_495de7888bf4783f_fk_product_product_id FOREIGN KEY (product_id) REFERENCES product_product(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fundraiser_fun_profile_id_546fed6304f6122_fk_account_profile_id" for relation "fundraiser_fundraiser" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiser
+	    ADD CONSTRAINT fundraiser_fun_profile_id_546fed6304f6122_fk_account_profile_id FOREIGN KEY (profile_id) REFERENCES account_profile(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "fundraiser_fundraise_account_id_6f5865fa1d36e84_fk_auth_user_id" for relation "fundraiser_fundraiser" already exists
+STATEMENT:  ALTER TABLE ONLY fundraiser_fundraiser
+	    ADD CONSTRAINT fundraiser_fundraise_account_id_6f5865fa1d36e84_fk_auth_user_id FOREIGN KEY (account_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "mark_fundraiser_id_2fde88e8cfd0103b_fk_fundraiser_fundraiser_id" for relation "marketing_singlediscount" already exists
+STATEMENT:  ALTER TABLE ONLY marketing_singlediscount
+	    ADD CONSTRAINT mark_fundraiser_id_2fde88e8cfd0103b_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "note_fundraiser_id_479b832dcf8a6359_fk_fundraiser_fundraiser_id" for relation "notes_note" already exists
+STATEMENT:  ALTER TABLE ONLY notes_note
+	    ADD CONSTRAINT note_fundraiser_id_479b832dcf8a6359_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "notes_note_address_id_17d17b2f89e2401_fk_address_address_id" for relation "notes_note" already exists
+STATEMENT:  ALTER TABLE ONLY notes_note
+	    ADD CONSTRAINT notes_note_address_id_17d17b2f89e2401_fk_address_address_id FOREIGN KEY (address_id) REFERENCES address_address(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "notes_note_contact_id_53b380aa5fbfbe5b_fk_contact_contact_id" for relation "notes_note" already exists
+STATEMENT:  ALTER TABLE ONLY notes_note
+	    ADD CONSTRAINT notes_note_contact_id_53b380aa5fbfbe5b_fk_contact_contact_id FOREIGN KEY (contact_id) REFERENCES contact_contact(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "or_type_id_1b7b46b6d980e56a_fk_organization_organizationtype_id" for relation "organization_organization" already exists
+STATEMENT:  ALTER TABLE ONLY organization_organization
+	    ADD CONSTRAINT or_type_id_1b7b46b6d980e56a_fk_organization_organizationtype_id FOREIGN KEY (type_id) REFERENCES organization_organizationtype(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "paym_fundraiser_id_550cdc97538c8e5f_fk_fundraiser_fundraiser_id" for relation "payment_payment" already exists
+STATEMENT:  ALTER TABLE ONLY payment_payment
+	    ADD CONSTRAINT paym_fundraiser_id_550cdc97538c8e5f_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "product_pro_category_id_24d7d3c58f45ff8e_fk_product_category_id" for relation "product_product_category" already exists
+STATEMENT:  ALTER TABLE ONLY product_product_category
+	    ADD CONSTRAINT product_pro_category_id_24d7d3c58f45ff8e_fk_product_category_id FOREIGN KEY (category_id) REFERENCES product_category(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "product_produ_product_id_2131f596384ebb2c_fk_product_product_id" for relation "product_productimage" already exists
+STATEMENT:  ALTER TABLE ONLY product_productimage
+	    ADD CONSTRAINT product_produ_product_id_2131f596384ebb2c_fk_product_product_id FOREIGN KEY (product_id) REFERENCES product_product(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "product_produ_product_id_2d2f8af02a489764_fk_product_product_id" for relation "product_product_category" already exists
+STATEMENT:  ALTER TABLE ONLY product_product_category
+	    ADD CONSTRAINT product_produ_product_id_2d2f8af02a489764_fk_product_product_id FOREIGN KEY (product_id) REFERENCES product_product(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "ship_fundraiser_id_5c5cb6a913e48e85_fk_fundraiser_fundraiser_id" for relation "shipment_shipment" already exists
+STATEMENT:  ALTER TABLE ONLY shipment_shipment
+	    ADD CONSTRAINT ship_fundraiser_id_5c5cb6a913e48e85_fk_fundraiser_fundraiser_id FOREIGN KEY (fundraiser_id) REFERENCES fundraiser_fundraiser(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "shipment_s_shipment_id_45e9ee1368ddd5ff_fk_shipment_shipment_id" for relation "shipment_selection" already exists
+STATEMENT:  ALTER TABLE ONLY shipment_selection
+	    ADD CONSTRAINT shipment_s_shipment_id_45e9ee1368ddd5ff_fk_shipment_shipment_id FOREIGN KEY (shipment_id) REFERENCES shipment_shipment(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "shipment_sele_product_id_2545a88f0d11ac69_fk_product_product_id" for relation "shipment_selection" already exists
+STATEMENT:  ALTER TABLE ONLY shipment_selection
+	    ADD CONSTRAINT shipment_sele_product_id_2545a88f0d11ac69_fk_product_product_id FOREIGN KEY (product_id) REFERENCES product_product(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  constraint "shipment_ship_address_id_526ad17226b4fc95_fk_address_address_id" for relation "shipment_shipment" already exists
+STATEMENT:  ALTER TABLE ONLY shipment_shipment
+	    ADD CONSTRAINT shipment_ship_address_id_526ad17226b4fc95_fk_address_address_id FOREIGN KEY (address_id) REFERENCES address_address(id) DEFERRABLE INITIALLY DEFERRED;
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+FATAL:  database "jmi_test" does not exist
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column "fundraiser_id" of relation "comment_usercomment" already exists
+STATEMENT:  ALTER TABLE "comment_usercomment" ADD COLUMN "fundraiser_id" integer NOT NULL
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+LOG:  could not send data to client: Broken pipe
+STATEMENT:  DROP DATABASE jmi_test;
+	
+FATAL:  connection to client lost
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column account_profile.main_contact does not exist at character 32
+STATEMENT:  SELECT "account_profile"."id", "account_profile"."main_contact", "account_profile"."organization", "account_profile"."business_id", "account_profile"."first_name", "account_profile"."last_name", "account_profile"."phone_number", "account_profile"."email", "account_profile"."slug", "account_profile"."org_photo", "account_profile"."address_id", "account_profile"."stripe_id", "account_profile"."account_id" FROM "account_profile" WHERE "account_profile"."id" = 82 LIMIT 21
+ERROR:  column "spclocation" does not exist at character 32
+STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace
+ERROR:  column "main_contact" of relation "account_profile" does not exist
+STATEMENT:  ALTER TABLE "account_profile" DROP COLUMN "main_contact" CASCADE
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 4 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+LOG:  could not send data to client: Broken pipe
+STATEMENT:  DROP DATABASE jmi_test;
+	
+FATAL:  connection to client lost
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+LOG:  could not send data to client: Broken pipe
+STATEMENT:  DROP DATABASE jmi_test;
+	
+FATAL:  connection to client lost
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+ERROR:  database "jmi_test" is being accessed by other users
+DETAIL:  There are 3 other sessions using the database.
+STATEMENT:  DROP DATABASE jmi_test;
+	
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/jmi_test/postgresql.conf": No such file or directory
+postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/jmi_test/postgresql.conf": No such file or directory

@@ -1,4 +1,3 @@
-# django
 from django.shortcuts import render,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.core.urlresolvers import reverse
@@ -53,14 +52,13 @@ def auth_logout(request):
 
 def auth_create_account(request):
 	register_form = RegisterUserForm(request.POST or None)
-	
 	if register_form.is_valid():
 		rf = register_form.cleaned_data
 		username = rf['username']
 		organization = rf['organization']
 		first_name = rf['first_name']
 		last_name = rf['last_name']
-		email = rf['email']
+		email = request.POST['email']
 		password = rf['password']
 
 		try:
@@ -296,14 +294,20 @@ def profile_detail(request,slug):
 
 @login_required(login_url='/account/login')
 def profile_fundraiser_detail(request,id):
+	template = 'account/profile/fundraiser_detail.html'
 
 	try:
 		fundraiser = Fundraiser.objects.get(id=id)
 	except:
 		fundraiser = None
 
-	context = {'fundraiser' : fundraiser}
-	template = 'account/profile/fundraiser_detail.html'
-	return render(request,template,context)
+	if fundraiser:
+		if fundraiser.profile.account == request.user:	
+			context = {'fundraiser' : fundraiser}
+			
+			return render(request,template,context)
+		else:
+			return render(request,template,{'fundraiser': None})
+	return render(request,template,{'fundraiser': None})
 
 

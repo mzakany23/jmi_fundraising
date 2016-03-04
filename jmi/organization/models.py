@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete, pre_save, pre_delete
+from address.helper.form_helper import STATES, COUNTRIES
 
 class Organization(models.Model):
 	type = models.ForeignKey('OrganizationType',blank=True,null=True)
@@ -11,6 +12,7 @@ class Organization(models.Model):
 	parent_organization = models.ForeignKey('Organization',blank=True,null=True,related_name='parent')
 	child_organizations = models.ManyToManyField('Organization',blank=True,null=True,related_name='children')
 	sibling_organizations = models.ManyToManyField('Organization',blank=True,null=True,related_name='sibling')
+	
 
 	def __unicode__(self):
 		return str(self.name)
@@ -25,7 +27,7 @@ class Organization(models.Model):
 		return (self.address_set.all() or None)
 
 	def fundraisers(self):
-		return (self.fundraisers_set.all() or None)
+		return (self.fundraiser_set.all() or None)
 
 
 class OrganizationType(models.Model):

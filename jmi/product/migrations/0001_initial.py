@@ -14,8 +14,9 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=40)),
-                ('gender', models.CharField(blank=True, max_length=40, null=True, choices=[(b'Male', b'Male'), (b'Female', b'Female'), (b'Unisex', b'Unisex')])),
+                ('title', models.CharField(max_length=40, null=True, blank=True)),
+                ('order', models.IntegerField(default=0, null=True, blank=True)),
+                ('slug', models.CharField(max_length=40, null=True, blank=True)),
             ],
             options={
             },
@@ -26,12 +27,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('product_code', models.CharField(max_length=100, null=True, blank=True)),
+                ('image', models.ImageField(null=True, upload_to=b'product_images', blank=True)),
                 ('slug', models.SlugField(null=True, blank=True)),
                 ('title', models.CharField(max_length=40)),
                 ('description', models.TextField(max_length=1000, null=True, blank=True)),
-                ('price', models.DecimalField(default=0.0, max_digits=10, decimal_places=2)),
+                ('price', models.DecimalField(default=3.0, max_digits=10, decimal_places=2)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
+                ('featured', models.BooleanField(default=False)),
+                ('best_seller', models.BooleanField(default=False)),
                 ('category', models.ManyToManyField(to='product.Category', null=True, blank=True)),
             ],
             options={

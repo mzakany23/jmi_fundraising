@@ -2,13 +2,11 @@ from django.test import TestCase, Client
 from organization.models import Organization,OrganizationType
 from contact.models import Contact 
 from address.models import Address
-from fundraiser.models import Fundraiser
+from account.models import Profile
+from fundraiser.models import Fundraiser,FundraiserType,FundraiserCategory
 
 class OrganizationTest(TestCase):
 	def setUp(self):
-		pass
-
-	def test_create_organizatio(self):
 		organization,created = Organization.objects.get_or_create(
 			type=OrganizationType.objects.first(),
 			name='Key West Soccer Team',
@@ -25,6 +23,15 @@ class OrganizationTest(TestCase):
 			zip_code='44118'
 		)
 
+		address,created = Address.objects.get_or_create(
+			organization=organization,
+			shipping=True,
+			street='2641 Shaker Rd.',
+			city='Cleveland Hieghts',
+			state='OH',
+			zip_code='44118'
+		)
+
 		contact,created = Contact.objects.get_or_create(
 			organization=organization,
 			first_name='Mike',
@@ -35,14 +42,29 @@ class OrganizationTest(TestCase):
 			email1='mzakany@gmail.com'
 		)
 
-		# fundraiser,created = Fundraiser.objects.get_or_create(
+		contact,created = Contact.objects.get_or_create(
+			organization=organization,
+			first_name='Joanna',
+			last_name='Zakany',
+			age='31',
+			job_title='Employee',
+			phone1='216-548-6738',
+			email1='mzakany@gmail.com'
+		)
 
-		# )
+		fundraiser,created = Fundraiser.objects.get_or_create(
+			organizations=organization, 
+			title='mikes test fundraiser',
+			description='raise money for some team',
+			type=FundraiserType.objects.first(),
+			plan=FundraiserCategory.objects.first(),
+			status='unpaid'
+		)
 
-		print organization.fundraisers()
+		self.organization = organization
 
-
-		
+	def test_create_org(self):
+		assert self.organization.contacts()
 
 		
 		

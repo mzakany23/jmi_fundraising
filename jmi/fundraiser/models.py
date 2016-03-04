@@ -16,8 +16,8 @@ from jmi.settings import DOCS_ROOT
 
 
 class Fundraiser(models.Model):
+	organizations = models.ForeignKey(Organization,blank=True,null=True)
 	STATUS_CHOICES = (('paid','paid'),('unpaid','unpaid'))
-	organization = models.ForeignKey('Organization',blank=True,null=True)
 	title        = models.TextField(max_length=100,blank=True,null=True)
 	description  = models.TextField(max_length=500,blank=True,null=True)
 	plan         = models.ForeignKey('FundraiserCategory',blank=True,null=True)
@@ -85,7 +85,11 @@ class Fundraiser(models.Model):
 			
 
 	def organization(self):
-		return self.profile.organization
+		try:
+			organization = self.profile.organization
+		except:
+			organization = None
+		return organization
 
 	def shipment(self):
 		try:

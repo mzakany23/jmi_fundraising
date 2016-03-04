@@ -109,7 +109,7 @@ class FundraiserProcessView(APIView):
 				payment.save()
 				session_fundraiser.save()
 
-				response = Response('Success', status=status.HTTP_200_OK)
+				return Response('Success', status=status.HTTP_200_OK)
 		elif credit:
 			
 			stripe.api_key = STRIPE_API_KEY['key']
@@ -128,14 +128,14 @@ class FundraiserProcessView(APIView):
 					source=token,
 					description=description
 			  	)
+
 			  	transaction_succeeded = True
 
 			except stripe.error.CardError, e:
-
-			  	pass
+				return Response(e,status=status.HTTP_404_NOT_FOUND)
 
 			# if session fundraiser exists and payment was successful:
-			# then create a payment and set the fundraise blah blah blah
+			# then create a payment and set the fundraiser
 			if session_fundraiser and transaction_succeeded:
 				payment = Payment.objects.create(type='credit')
 				payment.fundraiser = session_fundraiser
@@ -148,12 +148,11 @@ class FundraiserProcessView(APIView):
 				payment.stripe_id = charge['balance_transaction']
 				payment.save()
 				session_fundraiser.save()
-				response = Response('Success', status=status.HTTP_200_OK)
-		else:
-			response = Response('Error', status=status.HTTP_200_OK)
-
+				return Response('Success', status=status.HTTP_200_OK)
 		
-		return response
+		return Response('failure is not credit or check',status=status.HTTP_404_NOT_FOUND)
+		
+		
 
 
 

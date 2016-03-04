@@ -1,7 +1,11 @@
 from django.db import models
 from organization.models import Organization
+from address.models import Address 
+from django.contrib.auth.models import User 
 
 class Contact(models.Model):
+	account = models.ForeignKey(User,null=True,blank=True)
+	address = models.ForeignKey(Address,blank=True,null=True)
 	type = models.ForeignKey('ContactType',blank=True,null=True)
 	organization = models.ForeignKey(Organization,blank=True,null=True)
 	first_name = models.CharField(max_length=40,blank=True,null=True)

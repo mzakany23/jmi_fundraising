@@ -209,6 +209,7 @@
 </script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
 $(function(){
   
   var state;
@@ -293,6 +294,11 @@ $(function(){
       success: function(data){
         window.location = "{% url 'process_checkout' %}";
       },
+      error: function(e){
+        console.log(e)
+        alertify.set({ delay: 15000 });
+        alertify.log('Failure! There was an error with processing the credit card. Please call us at 740-521-4304.');
+      }
     });
     return false;
   }
