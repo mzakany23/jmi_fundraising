@@ -234,27 +234,6 @@ def choose_salsas(request):
 	session_fundraiser.discount = 0
 	session_fundraiser.save()
 	
-	# salsas = ChooseSalsasFundraiser(request)
-	
-	# if salsas.form_is_valid():
-	# 	salsas.set_product_and_qty_selection()
-	# 	if salsas.theres_no_selections_made():
-	# 		title = 'Please make at least one selection!'
-	# 		messages.error(request,title)
-	# 		return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
-	# 	else:
-	# 		if session_shipment.has_selections():
-	# 			session_shipment.remove_selections()
-	# 		if session_shipment:
-	# 			try:
-	# 				salsas.save_selections()
-	# 			except:
-	# 				title = 'There was an error. Make sure you use only numbers in quantities!'
-	# 				messages.error(request,title)
-	# 				return HttpResponseRedirect(reverse('chosen_fundraiser_type'))
-
-	# 		return HttpResponseRedirect(reverse('create_shipment'))
-
 	context = {}
 	template = 'fundraiser/shipment.html'
 	return render(request,template,context)

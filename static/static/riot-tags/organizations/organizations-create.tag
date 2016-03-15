@@ -34,7 +34,7 @@
           <tr>
             <td>Name</td>
             <td>
-            	<textfield-component bus={ opts.bus } placeholder='Organization Name' defaultval="Name"></textfield-component>
+            	<textfield-component bus={ opts.bus } placeholder={ namePlaceHolder } defaultval={ defaultName }></textfield-component>
             </td>
             
           </tr>
@@ -122,37 +122,8 @@
               <textarea class="form-control" placeholder="Describe anything relevant about the Organization." rows="5" name='notesField' ></textarea> 
             </td>
            
-          </tr>
-
-          <tr>
-            <td>Parent Organization?</td>
-            <td>
-            	<select class="form-control input-sm" name='parentSelect'>
-                  <option value='true'>Yes</option>
-            			<option value='false'>No</option>
-              </select>
-            </td>
-           
-          </tr>
-
-      
-          <tr>
-            <td>Children Organizations</td>
-            <td>
-            	<dropdown-component title='children' options={ opts.organizations } bus={ opts.bus } ></dropdown-component>
-            </td>
-            
-          </tr>
-
-          <tr>
-            <td>Sibling Organizations</td>
-            <td>
-            	<dropdown-component title="siblings" bus={ opts.bus } options={ opts.organizations }></dropdown-component>
-            </td>
-            
-          </tr>
-
-          <!-- endbody -->
+          </tr>    
+      <!-- endbody -->
         </tbody>
     </table>
     </div>
@@ -195,7 +166,9 @@
 
 <script>
 	var self = this
-  
+  this.namePlaceHolder = 'Organization Name'
+  this.defaultName = 'Name'
+
   this.opts.bus.on('textBoxData',function(data){
     this.textBoxData = data
   })
@@ -214,12 +187,6 @@
     empCount = this.employees.value
     // info
     notesField = this.notesField.value
-    // is_parent_organization
-    parentOrg = this.parentSelect.value 
-    // child_organizations
-    childrenOrg = this.childrenSelect
-    // sibling_organizations
-    siblingOrg = this.siblingsSelect
 
     contacts = this.contacts 
     addresses = this.addresses
@@ -250,29 +217,22 @@
     if (self.contacts && self.addresses && orgType && textBox) {
 
       data = {
-        // organization
         type: orgType,
         name: textBox,
         number_of_employees: empCount, 
         info: notesField,
-
-        parentOrg: parentOrg,
-
-        child_organizations:childrenOrg || 'none',
-        sibling_organizations:siblingOrg || 'none',
-        // length contacts and address
         contactsLength: contacts.length,
         addressesLength: addresses.length,
-        // contacts and addresses
         contacts: contacts,
         addresses: addresses
       }
 
       this.opts.store.organizations.create(data).then((res) => {
-        console.log(res)
-        // self.resetOrgCreateForm()
-        // self.messages = null
-      }).fail((e) => {console.log(e)})
+        self.resetOrgCreateForm()
+        alertify.success(res)
+      }).fail((e) => {
+        alertify.error(e)
+      })
     }
   }
 
@@ -281,15 +241,16 @@
   }
 
   resetOrgCreateForm(){
+    this.messages = []
+    this.namePlaceHolder = 'Organization Name'
+    this.defaultName = 'Name'
     this.textBox = null
     this.dropDownSelect.value = 'none'
     this.employees.value = '0-50 employees'
     this.notesField.value = null
-    this.parentSelect.value  = 'true'
-    this.childrenSelect = 'none'
-    this.siblingsSelect = null
     this.contacts  = null
     this.addresses = null
+    this.update()
   }
   // -----------------------------------------
   // remove contact

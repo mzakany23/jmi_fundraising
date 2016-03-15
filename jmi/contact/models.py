@@ -22,7 +22,10 @@ class Contact(models.Model):
 	created = models.DateField(blank=True,null=True,auto_now_add=True)
 
 	def __unicode__(self):
-		return str(self.first_name)
+		return str(self.full_name())
+
+	def full_name(self):
+		return "%s %s" % (self.first_name,self.last_name)
 	
 class ContactType(models.Model):
 	title = models.CharField(max_length=40,blank=True,null=True)

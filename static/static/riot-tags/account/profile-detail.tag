@@ -1,5 +1,7 @@
 <profile-detail>
+
 <div class="profile-container">
+                
                 <!-- begin profile-section -->
                 <div class="profile-section">
                     <!-- begin profile-left -->
@@ -43,7 +45,10 @@
                                         <!-- profile -->
                                         <tr class="highlight">
                                             <td class="field">Organization</td>
-                                            <td>{ opts.profile.organization }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.organization }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.organization }" name='orgInput'>
+                                            </td>
                                         </tr>
                                            <tr class="divider">
                                             <td colspan="2"></td>
@@ -51,12 +56,18 @@
 
                                         <tr>
                                             <td class="field">Phone Number</td>
-                                            <td>{ opts.profile.phone_number }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.phone_number }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.phone_number }" name='phoneInput'>
+                                            </td>
                                         </tr>
                                         
                                          <tr>
                                             <td class="field">Email</td>
-                                            <td>{ opts.profile.email }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.email }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.email }" name='emailInput'>
+                                            </td>
                                         </tr>
                                             
                                         <!-- address -->
@@ -66,26 +77,44 @@
 
                                             <tr>
                                             <td class="field">Title</td>
-                                            <td>{ opts.profile.address.title }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.address.title }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.address.title }" name='titleInput'>
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td class="field">Street</td>
-                                            <td>{ opts.profile.address.street }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.address.street }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.address.street }" name='streetInput'>
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td class="field">City</td>
-                                            <td>{ opts.profile.address.city }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.address.city }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.address.city }" name='cityInput'>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="field">State</td>
-                                            <td>{ opts.profile.address.state }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.address.state }</td>
+                                            <td if={ showEditForm }>
+                                                <select class="form-control input-sm" name='stateInput'>
+                                                    <option>{ opts.profile.address.state }</option>
+                                                    <option each={ state in opts.states }>{ state }</option>
+                                                </select>
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td class="field">Zip</td>
-                                            <td>{ opts.profile.address.zip_code }</td>
+                                            <td if={ !showEditForm }>{ opts.profile.address.zip_code }</td>
+                                            <td if={ showEditForm }>
+                                                <input type="text" class="form-control" value="{ opts.profile.address.zip_code }" name='zip_codeInput'>
+                                            </td>
                                         </tr>
                                         
                                     </tbody>
@@ -110,6 +139,31 @@
                     </div>
                 </div>
 <script>
+    var self = this
+    editForm(){
+        this.showEditForm = true
+    }
+
+    saveForm(){
+        data = {
+            organization: this.orgInput.value,
+            firstName: opts.profile.first_name, 
+            lastName: opts.profile.last_name,
+            phoneNumber: this.phoneInput.value,
+            email: this.emailInput.value,
+            title: this.titleInput.value,
+            street: this.streetInput.value,
+            city: this.cityInput.value,
+            state: this.stateInput.value,
+            zip: this.zip_codeInput.value
+        }
+    
+        opts.store.profiles.update(opts.profile.id,data).then((res) => {
+            alertify.success('You successfully updated the profile')
+        }).fail((e) => {
+            alertify.error(e.responseText)
+        })
+    }
 
 </script>
 

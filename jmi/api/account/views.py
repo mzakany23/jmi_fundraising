@@ -29,15 +29,6 @@ from api.helper.model_helper import ModelHelper
 from api.helper.form_helper import FormHelper
 from api.helper.generics.api_manager import APIGenericGenerator
 
-# test 
-class APITest(APIView):
-	def get(self,request):
-		return Response('test get')
-
-	def post(self,request):
-		print request.FILES
-		return Response('test post')
-
 # list
 class APIProfileView(APIView):
 	authentication_classes = (SessionAuthentication,)
@@ -94,7 +85,7 @@ class APIProfileUpdateView(APIView):
 				'address_errors' : address_form.errors
 			},status=status.HTTP_404_NOT_FOUND)
 			
-		return Response('in progress')
+		return Response('there are errors')
 
 
 # create

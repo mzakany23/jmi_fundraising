@@ -14,7 +14,7 @@
 	
 	<link rel="shortcut icon" href="{% static 'jmi-images/jmi-tab-logo.ico' %}">
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="{% static 'assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'assets/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
@@ -25,6 +25,8 @@
 	<link href="{% static 'assets/css/theme/red.css' %}" rel="stylesheet">
 	<link href="{% static 'css/data-table.css' %}" rel='stylesheet' type='text/css'>
 	<link href="{% static 'assets/plugins/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
+	<link href="{% static 'css/alertify.core.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/alertify.default.css' %}" rel="stylesheet" type="text/css">
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -68,7 +70,7 @@
 	<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
 	<script src="{% static 'assets/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
 	<!-- ================== END BASE JS ================== -->
-	
+	<script src="{% static 'js/alertify.min.js' %}"></script>
 
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="{% static 'assets/js/apps.min.js' %}"></script>
@@ -114,6 +116,8 @@
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-shipment.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-selections.tag' %}"></script>
   <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/fundraiser-payment.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/email-fundraiser-confirm.tag' %}"></script>
+  <script type='riot/tag' src="{% static 'riot-tags/fundraisers/forms/payment-status.tag' %}"></script>
 
   <!-- profile -->
  	<script type='riot/tag' src="{% static 'riot-tags/account/profile-detail.tag' %}"></script>
@@ -142,6 +146,7 @@
   	
     var bus = riot.observable();
     token = Cookies.get('csrftoken')
+    // var store = new STORE('https://www.josemadridsalsafundraising.com',token)
     var store = new STORE('http://localhost:8000',token)
     var router = new Router()
 

@@ -46,10 +46,11 @@
                                             <th>Date Created</th>
                                             <th>Organization</th>
                                             <th>Payment</th>
-                                            <th>Type</th>
+                                            <!-- <th>Type</th>
                                             <th>Discount</th>
-                                            <th>Finalized</th>
+                                            <th>Finalized</th> -->
                                             <th>Net Total</th>
+                                            <th>Email Confirm</th>
                                             
                                         </tr>
                                     </thead>
@@ -60,16 +61,17 @@
                                     <tr each={ fundraiser in model.results } class="odd gradeX { status[fundraiser.status] }">
                                         <td>
                                             <img if={ fundraiser.profile.org_photo } width='45' height='45' src="{ fundraiser.profile.org_photo }">
-                                            <img if={ !fundraiser.profile.org_photo } width='45' height='45' src="http://placehold.it/45x45">
+                                            <img if={ !fundraiser.profile.org_photo } width='45' height='45' src="https://placehold.it/45x45">
                                         </td>
                                         <td><a onclick={ detail } href="">{ fundraiser.title }</a></td>
                                         <td>{ moment(fundraiser.created).format('MMMM Do YYYY, h:mm:ss a') }</td>
                                         <td>{ fundraiser.profile.organization }</td>
-                                        <td>{ fundraiser.status }</td>
-                                        <td>{ fundraiser.type }</td>
+                                        <td><payment-status fundraiser={ fundraiser }></payment-status></td>
+                                        <!-- <td>{ fundraiser.type }</td>
                                         <td>{ fundraiser.discount }</td>
-                                        <td>{ fundraiser.finalized }</td>
+                                        <td>{ fundraiser.finalized }</td> -->
                                         <td>${ fundraiser.order_details.net_total }</td>
+                                        <td><email-fundraiser-confirm fundraiser={ fundraiser } store={ store }></email-fundraiser-confirm></td>
                                     </tr>
                                 </form>
                                         
@@ -117,6 +119,7 @@
     }
 
     this.on('mount',function(){
+        this.store = this.opts.store
         this.initPage(this.opts.model)
     });
 

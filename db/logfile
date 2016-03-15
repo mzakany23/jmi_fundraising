@@ -1359,3 +1359,4 @@ LOG:  shutting down
 LOG:  database system is shut down
 postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/jmi_test/postgresql.conf": No such file or directory
 postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/jmi_test/postgresql.conf": No such file or directory
+postgres cannot access the server configuration file "/Users/mzakany/Desktop/jmi_fundraising/db/jmi_test/postgresql.conf": No such file or directory

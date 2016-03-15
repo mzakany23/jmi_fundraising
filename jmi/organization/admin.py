@@ -2,7 +2,6 @@ from django.contrib import admin
 from models import Organization,OrganizationType,Industry
 
 class OrganizationAdmin(admin.ModelAdmin): 
-	readonly_fields = ['is_parent_organization']
 	class Meta:
 		model = Organization
 

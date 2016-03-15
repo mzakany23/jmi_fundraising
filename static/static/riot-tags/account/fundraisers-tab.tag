@@ -92,6 +92,7 @@
               </div>
           </div>
 
+          
           <h3>Total Jars Selected: { totalJars }</h3>
           <h3>Total Shipping: ${ shippingCost }</h3>
           <h3>Total Cost: ${ totalCost-shippingCost }</h3>
@@ -110,7 +111,7 @@
 	this.totalJars = 0
 	this.totalCost = 0
 	this.shippingCost = 0
-  
+
 	this.status = {
 		'in-process': 'warning',
 		'paid': 'success',
@@ -124,6 +125,7 @@
   }
 
 	recalculateTotals(){
+    console.log(this.currentFundraiser)
 		for(var key in this.currentFundraiser.selections){
 			selection = this.currentFundraiser.selections[key]
 			jarCost = parseFloat(selection.product.price)

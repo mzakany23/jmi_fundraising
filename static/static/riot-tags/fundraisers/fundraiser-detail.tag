@@ -37,7 +37,7 @@
                         <div class="profile-image" id='imageArea'>
                             <img if={ profile.org_photo } src="{ profile.org_photo }" width='200' height='175' id='imageVal'>
                             
-                            <img if={ !profile.org_photo } src="http://placehold.it/200x175" id='imageVal'>
+                            <img if={ !profile.org_photo } src="https://placehold.it/200x175" id='imageVal'>
 
                             <i class="fa fa-user hide"></i>
                         </div>

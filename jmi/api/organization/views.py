@@ -43,51 +43,63 @@ class APIOrganizationsCreate(APIView):
 	def post(self,request):
 		form = request.POST
 
-		contacts_length = int(form['contactsLength'])
-		addresses_length = int(form['addressesLength'])
+		try:
 
-		# organization
-		print form['type']
-		print form['name']
-		print form['number_of_employees']
-		print form['info']
-		# print form['created']
+			contacts_length = int(form['contactsLength'])
+			addresses_length = int(form['addressesLength'])
 
-		print form['parentOrg']
-		print form['child_organizations']
-		print form['sibling_organizations']
+			# add organization detail to object
+			number_of_emp = form['number_of_employees']
+			info = form['info']
+			org_name = form['name']
+			org_type,created = OrganizationType.objects.get_or_create(name=form['type'])
+			
+			
+			organization,created = Organization.objects.get_or_create(
+				type=org_type,
+				name=org_name,
+				number_of_employees=number_of_emp,
+				info=info,
+			)
 
-		# # contact
-		# for i in range(0,contacts_length):
+			# add contacts to organization object
+			for contact_i in range(0,contacts_length):
+				try:
+					contact_id = form['contacts[0][id]']
+				except:
+					contact_id = None
+				if contact_id:
+					contact = Contact.objects.get(id=int(contact_id))
+					contact.organization = organization
+					contact.save()
 
-		# 	print form['contacts[%s][type]' % (i)]
-		# 	print form['contacts[%s][organization]' % (i)]
-		# 	print form['contacts[%s][first_name]' % (i)]
-		# 	print form['contacts[%s][last_name]' % (i)]
-		# 	print form['contacts[%s][age]' % (i)]
-		# 	print form['contacts[%s][job_title]' % (i)]
-		# 	print form['contacts[%s][phone1]' % (i)]
-		# 	print form['contacts[%s][phone2]' % (i)]
-		# 	print form['contacts[%s][phone3]' % (i)]
-		# 	print form['contacts[%s][email1]' % (i)]
-		# 	print form['contacts[%s][email2]' % (i)]
-		# 	print form['contacts[%s][email3]' % (i)]
-		# 	print form['contacts[%s][info]' % (i)]
-		# 	print form['contacts[%s][created]' % (i)]
+			# add addresses to organization object
+			for address_i in range(0,addresses_length):
+				type = form['addresses[%s][typeField]' % address_i]
+				if type == 'Shipping': 
+					shipping = True
+					billing = False
+				else:
+					shipping = False
+					billing = True
 
-		# for i in range(0,addresses_length):
-		# # addresses
-		# 	print form['addresses[%s][organization]' % (i)]
-		# 	print form['addresses[%s][business_address]' % (i)]
-		# 	print form['addresses[%s][shipping]' % (i)]
-		# 	print form['addresses[%s][billing]' % (i)]
-		# 	print form['addresses[%s][title]' % (i)]
-		# 	print form['addresses[%s][street]' % (i)]
-		# 	print form['addresses[%s][line_2]' % (i)]
-		# 	print form['addresses[%s][city]' % (i)]
-		# 	print form['addresses[%s][state]' % (i)]
-		# 	print form['addresses[%s][zip_code]' % (i)]
-		# 	print form['addresses[%s][country]' % (i)]
-		
+				address,created = Address.objects.get_or_create(
+					organization=organization,
+					business_address=True,
+					shipping=shipping,  
+					billing=billing,   
+					title=form['addresses[%s][titleField]'% address_i] ,     
+					street=form['addresses[%s][titleField]' % address_i],    
+					line_2=form['addresses[%s][line2Field]'% address_i] ,	  
+					city=form['addresses[%s][cityField]'% address_i] ,	  
+					state=form['addresses[%s][stateSelect]'% address_i] ,     
+					zip_code=form['addresses[%s][zipField]'% address_i] ,    
+				)
+				
 
-		return Response('ok test')
+			return Response('You have Successfully created an Organization')
+		except:
+			return Response('There was a problem creating the organization')
+
+
+

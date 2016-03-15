@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     'fundraiser',
     'home',
     'marketing',
-    'notes',
+    # 'notes',
     'notification',
     'organization',
     'payment',

@@ -6,6 +6,11 @@ var ROUTING = (function(){
 			self.csrftoken = csrftoken || {}
 		
 			self.routes = {
+				email: {
+					sendConfirmEmail(id,data){
+						return `${self.server}/api/send-confirm/${id}`
+					}
+				},
 				contacts: {
 					create: `${self.server}/api/contacts/create/`,
 					types: `${self.server}/api/contacts/types/`,
@@ -165,6 +170,18 @@ var UTIL = (function(router){
 	return self
 })(ROUTING);
 
+var EMAIL = (function(router,helper){
+	var self = {}
+
+	self.sendConfirmEmail = function(id,data){
+		contents = helper.packageData(data)
+		url = router.routes.email.sendConfirmEmail(id)
+		return $.post(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
 
 var CONTACTS = (function(router,helper){
 	var self = {}
@@ -297,6 +314,12 @@ var PROFILES = (function(router,helper){
 		return $.post(url,contents)
 	}
 
+	self.edit = function(id,data){
+		contents = helper.packageData(data)
+		url = router.routes.profiles.edit(id)
+		return $.post(url,contents)
+	}
+
 	return self;
 })(ROUTING,UTIL);
 
@@ -383,7 +406,8 @@ var STORE = (function(
 	products,
 	dashboard,
 	organizations,
-	contacts
+	contacts,
+	email
 	){
 	// private
 	var self = {};
@@ -403,6 +427,7 @@ var STORE = (function(
 		this.dashboard = dashboard
 		this.organizations = organizations
 		this.contacts = contacts
+		this.email = email
 
 		// modules
 		this.cache = cache
@@ -480,5 +505,6 @@ var STORE = (function(
 	PRODUCTS,
 	DASHBOARD,
 	ORGANIZATIONS,
-	CONTACTS
+	CONTACTS,
+	EMAIL
 )

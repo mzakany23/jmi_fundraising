@@ -50,7 +50,7 @@
           <!-- profile detail -->
           <div if={ currentProfile } class="row">
           	<div class="col-md-9">
-	          	<profile-detail profile={ currentProfile }></profile-detail>    
+	          	<profile-detail profile={ currentProfile } store={ store } states={ states }></profile-detail>    
             </div>
           </div>
 
@@ -224,7 +224,7 @@
 
 	getProfiles(){
     this.opts.store.profiles.show().then((profiles) => {
-      this.profiles = profiles
+      this.profiles = _.sortBy(profiles, 'organization');
       self.update()
     });
   }

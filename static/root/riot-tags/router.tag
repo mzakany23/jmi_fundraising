@@ -25,7 +25,7 @@
 			// create
 			if (id === 'create'){
 				mount('fundraiser-create',{bus:bus,store:store})
-			
+				
 			// query params
 			// page and results
 			}else if (q.page && q.results){
@@ -61,7 +61,7 @@
 			q = riot.route.query()
 			pageNum = q.page 
 			results = q.results
-			
+
 			if (id === 'create'){
 				store.organizations.types().then((orgTypes) => {
 					store.organizations.show().then((organizations) => {

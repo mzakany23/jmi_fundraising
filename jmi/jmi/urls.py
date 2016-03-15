@@ -9,7 +9,7 @@ from api.fundraiser.views import (
 	FundraisersViewSet,
 	FundraiserBySlugViewSet,
 	FundraiserTypesView,
-	APIAllFundraisers
+	APIAllFundraisers,
 )
 
 # organizations
@@ -34,7 +34,7 @@ from api.account.views import (
 	APIProfileCreateView,
 	APIProfileUpdateView,
 	APIPaginatedProfilesView,
-	APITest
+	
 )
 
 # dashboard
@@ -43,7 +43,7 @@ from api.dashboard.views import(
 )
 
 # email
-from api.email.views import APISendEmail
+from api.email.views import APISendEmail,APISendConfirmEmail
 
 # products
 from api.product.views import QueryProductView,APIProductListByCategory,APIProductList
@@ -144,6 +144,7 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/fundraisers/$',FundraisersViewSet.as_view()),
 	url(r'^api/fundraisers/all/$',APIAllFundraisers.as_view()),
 	url(r'^api/fundraisers/(?P<id>\d+)$',FundraiserBySlugViewSet.as_view()),
+
 	# product
 	url(r'^api/products/$',APIProductList.as_view()),
 	url(r'^api/products-by-category/$',APIProductListByCategory.as_view()),
@@ -153,10 +154,11 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/profiles/$',APIProfileView.as_view()),
 	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
 	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
+	
 	# dashboard
 	url(r'^api/dashboard/stats/$',APIDashboardStats.as_view()),
-	# test 
-	url(r'^api/test/$',APITest.as_view()),
+	
+	
 	# organizations
 	url(r'^api/organizations/types/$',APIOrganizationTypes.as_view()),
 	url(r'^api/organizations/$',APIOrganizationsList.as_view()),
@@ -169,6 +171,7 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/contacts/create/$',APIContactsCreate.as_view()),
 	# email
 	url(r'^api/send-email$',APISendEmail.as_view()),
+	url(r'^api/send-confirm/(?P<id>\d+)$',APISendConfirmEmail.as_view()),
 )
 
 if settings.DEBUG:
