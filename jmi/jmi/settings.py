@@ -1,4 +1,4 @@
-from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3, EASYPOST
+from env_var import DATABASE, CDN_SERVER, APP_SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3, EASYPOST
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -17,8 +17,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SERVER = SERVER
-APP_SERVER = 'http://localhost:8000'
+SERVER = CDN_SERVER
+APP_SERVER = APP_SERVER
 
 PLACEHOLDER_PIC = SERVER + '/media/product_images/placeholder.jpg'
 LOGO = SERVER + '/static/jmi-images/logo.png'
