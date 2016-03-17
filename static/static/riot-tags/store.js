@@ -11,6 +11,9 @@ var ROUTING = (function(){
 						return `${self.server}/api/send-confirm/${id}`
 					}
 				},
+				shipment: {
+					getRates: `${self.server}/api/shipment/rates`,
+				},
 				contacts: {
 					create: `${self.server}/api/contacts/create/`,
 					types: `${self.server}/api/contacts/types/`,
@@ -176,6 +179,18 @@ var EMAIL = (function(router,helper){
 	self.sendConfirmEmail = function(id,data){
 		contents = helper.packageData(data)
 		url = router.routes.email.sendConfirmEmail(id)
+		return $.post(url,contents)
+	}
+
+	return self;
+})(ROUTING,UTIL);
+
+var SHIPMENT = (function(router,helper){
+	var self = {}
+
+	self.getRates = function(addresses){
+		contents = helper.packageData(addresses)
+		url = router.routes.shipment.getRates
 		return $.post(url,contents)
 	}
 
@@ -407,7 +422,8 @@ var STORE = (function(
 	dashboard,
 	organizations,
 	contacts,
-	email
+	email,
+	shipment
 	){
 	// private
 	var self = {};
@@ -428,6 +444,7 @@ var STORE = (function(
 		this.organizations = organizations
 		this.contacts = contacts
 		this.email = email
+		this.shipment = shipment
 
 		// modules
 		this.cache = cache
@@ -506,5 +523,6 @@ var STORE = (function(
 	DASHBOARD,
 	ORGANIZATIONS,
 	CONTACTS,
-	EMAIL
+	EMAIL,
+	SHIPMENT
 )
