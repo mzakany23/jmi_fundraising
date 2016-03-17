@@ -4,10 +4,15 @@
 	<div class="col-md-12 ui-sortable">
     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
           <div class="panel-heading">
-              <h4 class="panel-title">Shipping Info</h4>
+            <h4><a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#shippingCollapse">
+                      <i class="fa fa-plus-circle pull-right"></i> 
+                    Shipping Info
+                  </a>
+              </h4>
+              <!-- <h4 class="panel-title">Shipping Info</h4> -->
           </div>
 
-          <div class="panel-body">
+          <div id='shippingCollapse' class="panel-body">
               <form class="form-horizontal">
                 <!-- title -->
                   <div class="form-group">

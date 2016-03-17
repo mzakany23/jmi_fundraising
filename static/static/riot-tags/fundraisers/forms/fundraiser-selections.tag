@@ -7,14 +7,21 @@
   }
 </style>
 
+
 <!-- selections -->
   <div class="row">
 	<div class="col-md-12 ui-sortable">
+
       <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
           <div class="panel-heading">
-              <h4 class="panel-title">Salsa Selections</h4>
+              <h4><a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#selectionsCollapse">
+                      <i class="fa fa-plus-circle pull-right"></i> 
+                    Salsa Selections
+                  </a>
+              </h4>
+              <!-- <h4 class="panel-title">Salsa Selections</h4> -->
           </div>
-          <div class="panel-body">
+          <div id='selectionsCollapse' class="panel-body">
 
           	<form class="form-horizontal">
               	<!-- shipment -->
@@ -41,12 +48,26 @@
 
                     <!-- product -->
                     <div class="col-md-4">
+                      
+    
                         <select onchange={ updateSelections } id="select{ selection.id }" class="form-control">   
                             <option>Select Salsa</option>
-                        		<option each={ salsa in originalRed } value={ salsa.id }>Original Red:  { salsa.title }</option>
-                            <option each={ salsa in verde } value={ salsa.id }>Verde:  { salsa.title }</option>
-                            <option each={ salsa in specialty } value={ salsa.id }>Specialty:  { salsa.title }</option>
-                            <option each={ salsa in fruit } value={ salsa.id }>Fruit:  { salsa.title }</option>
+                            
+                            <optgroup label="Original">
+                          		<option data-price="{ salsa.price }" each={ salsa in originalRed } value={ salsa.id }>Original Red:  { salsa.title } | ${ salsa.price }</option>
+                            </optgroup>
+
+                            <optgroup label="Verde">
+                              <option data-price="{ salsa.price }" each={ salsa in verde } value={ salsa.id }>Verde:  { salsa.title } | ${ salsa.price }</option>
+                            </optgroup>
+
+                            <optgroup label="Specialty">
+                              <option data-price="{ salsa.price }" each={ salsa in specialty } value={ salsa.id }>Specialty:  { salsa.title } | ${ salsa.price }</option>
+                            </optgroup>
+
+                            <optgroup label="Fruit">
+                              <option data-price="{ salsa.price }" each={ salsa in fruit } value={ salsa.id }>Fruit:  { salsa.title } | ${ salsa.price }</option>
+                            </optgroup>
                         </select>
                     </div>
 
@@ -148,10 +169,15 @@
     }
 
 		selection.active = false 
+    bus.trigger('getSelections',self.finalSelections)
 		this.update()
 	}
 
   updateJarCount(){
+    this.jarCount = this.getJarCount()
+  }
+
+  getJarCount(){
     count = 0
     
     for (var key in this.finalSelections){
@@ -159,7 +185,7 @@
       count += parseInt(sel.qty)
     }
     
-    this.jarCount = count 
+    return count 
   }
 
   updateSelections(e){
@@ -170,6 +196,9 @@
       // id 
       tag = `#select${sel.id}`
       id = $(tag).val()
+      
+      // price
+      price = $(tag).find('option:selected').data('price')
 
       // title
       tag = `#select${sel.id} option:selected`
@@ -179,11 +208,11 @@
       tag = `#quantity${sel.id}`
       qty = $(tag).val()
 
-      currentSelection = {id:id,selection: sel.id,qty:qty,title:title}
+      currentSelection = {id:id,selection: sel.id,qty:qty,title:title,price:price}
 
       this.finalSelections = this.updateCurrentSelection(currentSelection,this.finalSelections)
       
-
+      bus.trigger('getSelections',{selections:self.finalSelections,jarCount:self.getJarCount()})
     }
   }
 
@@ -206,7 +235,6 @@
     return arr
   }
 
-  
 </script>
 
 </fundraiser-selections-form>

@@ -7,18 +7,23 @@
                     <!-- begin profile-left -->
                     <div class="profile-left">
                         <!-- begin profile-image -->
+                        
+                        
+
                         <div class="profile-image">
-                            <img src="assets/img/profile-cover.jpg">
+                            <img src="{ opts.profile.org_photo || 'http://placehold.it/196x177' }" name='profileImage'>
                             <i class="fa fa-user hide"></i>
                         </div>
                         <!-- end profile-image -->
                         <div class="m-b-10">
-                            <a href="#" class="btn btn-warning btn-block btn-sm">Change Picture</a>
+                            
+                            <a onclick={ openImageBox } href="#" class="btn btn-warning btn-block btn-sm">Change Picture</a>
+
+                            <input onchange={ showImagePreview } type='file' style='opacity: 0;' name='fileUpload'>
+
                         </div>
                         <!-- begin profile-highlight -->
-                        <div class="profile-highlight">
-                            
-                        </div>
+                        
                         <!-- end profile-highlight -->
                     </div>
                     <!-- end profile-left -->
@@ -134,14 +139,47 @@
                 <!-- update profile -->
                 <div class="row">
                     <div class="col-md-4">
-                        <a onclick={ editForm } href="" class="btn btn-info">Edit Fields</a>
+                        <a if={ showEditForm } onclick={ closeForm } href="" class="btn btn-info">Hide Fields</a>
+                        <a if={ !showEditForm } onclick={ editForm } href="" class="btn btn-info">Edit Fields</a>
                         <a onclick={ saveForm } href="" class="btn btn-danger">Save Form</a>
                     </div>
                 </div>
 <script>
-    var self = this
+    var self = this 
+
+    showImagePreview(){
+        input = this.fileUpload
+        
+        if (input.files && input.files[0]) {
+            reader = new FileReader()
+            file = input.files[0]
+            preview = this.profileImage
+            this.file = file
+
+              reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                    preview.width = '200'
+                    preview.height = '175'
+
+                },false)
+        }
+
+         if (file) {
+            this.previewShown = true
+            reader.readAsDataURL(file);
+          }       
+    }
+
+    openImageBox(){
+        $(this.fileUpload).trigger('click')
+    }
+
     editForm(){
-        this.showEditForm = true
+        this.showEditForm = true 
+    }
+
+    closeForm(){
+        this.showEditForm = false
     }
 
     saveForm(){
@@ -158,13 +196,18 @@
             zip: this.zip_codeInput.value
         }
     
-        opts.store.profiles.update(opts.profile.id,data).then((res) => {
+        opts.store.profiles.update(opts.profile.id,data).then((profile) => {
+            opts.profile = profile
             alertify.success('You successfully updated the profile')
         }).fail((e) => {
             alertify.error(e.responseText)
         })
     }
 
+    // observable
+    opts.bus.on('createFundraiser',function(){
+        opts.bus.trigger('getProfile',{profile:opts.profile,file:self.file})
+    })
 </script>
 
 </profile-detail>

@@ -39,7 +39,7 @@ from api.account.views import (
 
 # dashboard
 from api.dashboard.views import(
-	APIDashboardStats
+	APIDashboardStats,
 )
 
 # email
@@ -47,7 +47,6 @@ from api.email.views import APISendEmail,APISendConfirmEmail
 
 # products
 from api.product.views import QueryProductView,APIProductListByCategory,APIProductList
-
 
 
 
@@ -157,7 +156,6 @@ urlpatterns += patterns('api.fundraiser.views',
 	
 	# dashboard
 	url(r'^api/dashboard/stats/$',APIDashboardStats.as_view()),
-	
 	
 	# organizations
 	url(r'^api/organizations/types/$',APIOrganizationTypes.as_view()),

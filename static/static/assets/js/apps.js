@@ -687,20 +687,20 @@ var handleLoadPage = function(hash) {
     Pace.restart();
     var targetUrl = hash.replace('#','');
     $('.jvectormap-label, .jvector-label, .AutoFill_border ,#gritter-notice-wrapper, .ui-autocomplete, .colorpicker, .FixedHeader_Header, .FixedHeader_Cloned .lightboxOverlay, .lightbox').remove();
-    $.ajax({
-        type: 'POST',
-        url: targetUrl,	//with the page number as a parameter
-        dataType: 'html',	//expect html to be returned
-        success: function(data) {
-            $('#ajax-content').html(data);
-            $('html, body').animate({
-                scrollTop: $("body").offset().top
-            }, 250);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            $('#ajax-content').html(default_content);
-        }
-    });
+    // $.ajax({
+    //     type: 'POST',
+    //     url: targetUrl,	//with the page number as a parameter
+    //     dataType: 'html',	//expect html to be returned
+    //     success: function(data) {
+    //         $('#ajax-content').html(data);
+    //         $('html, body').animate({
+    //             scrollTop: $("body").offset().top
+    //         }, 250);
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {
+    //         $('#ajax-content').html(default_content);
+    //     }
+    // });
 };
 
 

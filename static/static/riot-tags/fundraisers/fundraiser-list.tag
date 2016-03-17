@@ -60,8 +60,7 @@
                                 <form method='POST' action="">
                                     <tr each={ fundraiser in model.results } class="odd gradeX { status[fundraiser.status] }">
                                         <td>
-                                            <img if={ fundraiser.profile.org_photo } width='45' height='45' src="{ fundraiser.profile.org_photo }">
-                                            <img if={ !fundraiser.profile.org_photo } width='45' height='45' src="https://placehold.it/45x45">
+                                            <img width='45' height='45' src="{ fundraiser.profile.org_photo || 'http://placehold.it/45x45' }">
                                         </td>
                                         <td><a onclick={ detail } href="">{ fundraiser.title }</a></td>
                                         <td>{ moment(fundraiser.created).format('MMMM Do YYYY, h:mm:ss a') }</td>

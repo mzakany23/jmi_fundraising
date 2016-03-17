@@ -1,4 +1,4 @@
-from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3
+from env_var import DATABASE, SERVER, STRIPE_API_KEY, EMAIL, AMAZON_S3, EASYPOST
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))

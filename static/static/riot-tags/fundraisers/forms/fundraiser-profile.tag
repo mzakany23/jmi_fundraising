@@ -21,14 +21,20 @@
 		}
 
 	</style>	
-
-
+	
   <div class="row">
 	<div class="col-md-12 ui-sortable">
       <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
           <div class="panel-heading">
-              <h4 class="panel-title">Select or Create Profile for Fundraiser</h4>
+          	<h4><a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#profileCollapse">
+                      <i class="fa fa-plus-circle pull-right"></i> 
+                    Select or Create Profile for Fundraiser
+                  </a>
+              </h4>
+              <!-- <h4 class="panel-title">Select or Create Profile for Fundraiser</h4> -->
           </div>
+
+          <div id='profileCollapse'>
           <div class="panel-body">
           	<!-- account -->
           	<form class="form-horizontal">
@@ -50,10 +56,10 @@
           <!-- profile detail -->
           <div if={ currentProfile } class="row">
           	<div class="col-md-9">
-	          	<profile-detail profile={ currentProfile } store={ store } states={ states }></profile-detail>    
+	          	<profile-detail profile={ currentProfile } store={ store } states={ states } bus={ opts.bus }></profile-detail>    
             </div>
           </div>
-
+          </div>
       </div>
 
       <!-- end panel -->
@@ -289,13 +295,12 @@
 		});
   }
 
- 
-  
   getProfile(e){
   	title = this.profileSelect.value
   	store.profiles.getByTitle(title).then((profile) => {
   		this.currentProfile = profile
   		bus.trigger('currentAddress',profile.address)
+  		bus.trigger('getProfile', profile)
   		self.update()
   	}).fail((e) => {console.log(e)})
   }
