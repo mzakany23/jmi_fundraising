@@ -20,7 +20,9 @@ from account.form import DashboardLoginForm
 from helper.fundraiser_process_helper import AuthUserHelper,SessionVariable
 from helper.dashboard_helper import DashboardHelper
 from helper.email_helper import EmailHelper
-from helper.export_helper import CSVExporter
+# from helper.export_helper import CSVExporter
+
+from jmi.settings import APP_SERVER
 
 def dashboard_index(request):
 	session = SessionVariable(request)
@@ -31,6 +33,7 @@ def dashboard_index(request):
 		context = {
 			'dashboard' : dashboard,
 			'session' : session,
+			'server' : APP_SERVER
 		}
 
 		template = "dashboard/fundraisers/index.html"

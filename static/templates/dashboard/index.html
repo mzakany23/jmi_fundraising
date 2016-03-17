@@ -162,7 +162,7 @@
     var bus = riot.observable();
     token = Cookies.get('csrftoken')
     // var store = new STORE('https://www.josemadridsalsafundraising.com',token)
-    var store = new STORE('http://localhost:8000',token)
+    var store = new STORE('{{ server }}',token)
     var router = new Router()
 
     riot.route.stop()
