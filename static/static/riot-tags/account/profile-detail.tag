@@ -167,7 +167,9 @@
          if (file) {
             this.previewShown = true
             reader.readAsDataURL(file);
-          }       
+          }   
+
+        opts.bus.trigger('getProfile',{profile:opts.profile,file:self.file})    
     }
 
     openImageBox(){
@@ -205,7 +207,7 @@
     }
 
     // observable
-    opts.bus.on('createFundraiser',function(){
+    opts.bus.on('getProfileDetail',function(){
         opts.bus.trigger('getProfile',{profile:opts.profile,file:self.file})
     })
 </script>

@@ -232,7 +232,10 @@
 	</virtual>
 	
 
-	<!-- review fundraiser modal -->
+	<!-- ################################################################# -->
+  <!-- review -->
+  <!-- ################################################################# -->
+
 	<div class="modal" id="reviewFundraiserModal" style="display: none; padding-right: 15px;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -245,8 +248,6 @@
                 
                 <div class="invoice-header">
                 		
-                		<img src="" alt="" class="media-object rounded-corner">
-
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
@@ -334,6 +335,10 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- ################################################################# -->
+  <!-- review -->
+  <!-- ################################################################# -->
 
 <script>
 	var self = this
@@ -450,7 +455,6 @@
 	// currentSelections
 
 	createFundraiser(){
-		console.log(self.currentProfile)
 		$(this.reviewFundraiserModal).modal()
 	}
 
@@ -461,8 +465,8 @@
 	})
 
 	// get profile
-	this.bus.on('getProfile',function(profile){
-		self.currentProfile = profile
+	this.bus.on('getProfile',function(data){
+		self.currentProfile = data.profile
 		self.update()
 	})
 
