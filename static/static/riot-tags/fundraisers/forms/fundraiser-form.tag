@@ -85,7 +85,7 @@
       textAreaInput: self.textAreaInput.value,
       selectPlanInput: self.selectPlanInput.value,
       // selectStatusInput: self.selectStatusInput.value,
-      discountInput: self.discountInput.value,
+      // discountInput: self.discountInput.value,
     }
 
     bus.trigger('fundraiserDetails',data)

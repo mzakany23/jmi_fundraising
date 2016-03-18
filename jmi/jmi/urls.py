@@ -42,6 +42,9 @@ from api.dashboard.views import(
 	APIDashboardStats,
 )
 
+# shipment
+from api.shipment.views import APIGetRates
+
 # email
 from api.email.views import APISendEmail,APISendConfirmEmail
 
@@ -170,6 +173,8 @@ urlpatterns += patterns('api.fundraiser.views',
 	# email
 	url(r'^api/send-email$',APISendEmail.as_view()),
 	url(r'^api/send-confirm/(?P<id>\d+)$',APISendConfirmEmail.as_view()),
+	# shipment
+	url(r'^api/shipment/rates$',APIGetRates.as_view()),
 )
 
 if settings.DEBUG:
