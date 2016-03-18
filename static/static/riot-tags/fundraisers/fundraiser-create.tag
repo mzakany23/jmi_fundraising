@@ -247,30 +247,24 @@
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
-                            <strong>Twitter, Inc.</strong><br>
-                            Street Address<br>
-                            City, Zip Code<br>
-                            Phone: (123) 456-7890<br>
-                            Fax: (123) 456-7890
+                            <strong>Jose Madrid Salsa, Inc</strong><br>
+                            123 Main St.<br>
+                            Zanesville, OH 43701<br>
+                            Phone: (740) 521-4304<br>
                         </address>
                     </div>
                     <div class="invoice-to">
                         <small>to</small>
                         <address class="m-t-5 m-b-5">
-                            <strong>Company Name</strong><br>
-                            Street Address<br>
-                            City, Zip Code<br>
-                            Phone: (123) 456-7890<br>
-                            Fax: (123) 456-7890
+                            <strong>{ currentProfile.organization }</strong><br>
+                            { currentProfile.address.street }<br>
+                            { currentProfile.address.city }, { currentProfile.address.state } { currentProfile.address.zip_code }<br>
+                            Phone: { currentProfile.phone_number }<br>
                         </address>
                     </div>
                     <div class="invoice-date">
-                        <small>Invoice / July period</small>
-                        <div class="date m-t-5">August 3,2012</div>
-                        <div class="invoice-detail">
-                            #0000123DSS<br>
-                            Services Product
-                        </div>
+                        <small>Date / period</small>
+                        <div class="date m-t-5">{ moment().format('dddd, MMMM Do YYYY') }</div>
                     </div>
                 </div>
                 <div class="invoice-content">
@@ -278,39 +272,18 @@
                         <table class="table table-invoice">
                             <thead>
                                 <tr>
-                                    <th>TASK DESCRIPTION</th>
-                                    <th>RATE</th>
-                                    <th>HOURS</th>
-                                    <th>LINE TOTAL</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>Qty</th>
+                                    <th>$/jar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr each={ salsa in currentSelections }>
                                     <td>
-                                        Website design &amp; development<br>
-                                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
+                                        { salsa.title }
                                     </td>
-                                    <td>$50.00</td>
-                                    <td>50</td>
-                                    <td>$2,500.00</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Branding<br>
-                                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                                    </td>
-                                    <td>$50.00</td>
-                                    <td>40</td>
-                                    <td>$2,000.00</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Redesign Service<br>
-                                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                                    </td>
-                                    <td>$50.00</td>
-                                    <td>50</td>
-                                    <td>$2,500.00</td>
+                                    <td>{ salsa.qty }</td>
+                                    <td>${ salsa.price }</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -320,42 +293,28 @@
                             <div class="invoice-price-row">
                                 <div class="sub-price">
                                     <small>SUBTOTAL</small>
-                                    $4,500.00
+                                    ${ totalCost }
                                 </div>
                                 <div class="sub-price">
                                     <i class="fa fa-plus"></i>
                                 </div>
                                 <div class="sub-price">
-                                    <small>PAYPAL FEE (5.4%)</small>
-                                    $108.00
+                                    <small>Shipping</small>
+                                    ${ shippingCost }
                                 </div>
                             </div>
                         </div>
                         <div class="invoice-price-right">
-                            <small>TOTAL</small> $4508.00
+                            <small>TOTAL</small> ${ totalCostWithShipping }
                         </div>
                     </div>
                 </div>
-                <div class="invoice-note">
-                    * Make all cheques payable to [Your Company Name]<br>
-                    * Payment is due within 30 days<br>
-                    * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
-                </div>
-                <div class="invoice-footer text-muted">
-                    <p class="text-center m-b-5">
-                        THANK YOU FOR YOUR BUSINESS
-                    </p>
-                    <p class="text-center">
-                        <span class="m-r-10"><i class="fa fa-globe"></i> matiasgallipoli.com</span>
-                        <span class="m-r-10"><i class="fa fa-phone"></i> T:016-18192302</span>
-                        <span class="m-r-10"><i class="fa fa-envelope"></i> rtiemps@gmail.com</span>
-                    </p>
-                </div>
+               	
             </div>
 				</div>
 				<div class="modal-footer">
 					<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					<a href="javascript:;" class="btn btn-sm btn-success">Create Fundraiser</a>
+					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success">Create Fundraiser</a>
 				</div>
 			</div>
 		</div>
@@ -376,7 +335,10 @@
 		self.update()
 	})
 
-
+	confirmCreateFundraiser(){
+		
+	}
+	
 	getShippingCost(){
 		self.waiting = true
 		
@@ -473,7 +435,7 @@
 	// currentSelections
 
 	createFundraiser(){
-		this.bus.trigger('createFundraiser')
+		// this.bus.trigger('createFundraiser')
 		$(this.reviewFundraiserModal).modal()
 	}
 
