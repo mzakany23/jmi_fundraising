@@ -169,7 +169,7 @@
     }
 
 		selection.active = false 
-    bus.trigger('getSelections',self.finalSelections)
+    bus.trigger('getSelections',{selections:self.finalSelections,jarCount:self.getJarCount()})
 		this.update()
 	}
 
