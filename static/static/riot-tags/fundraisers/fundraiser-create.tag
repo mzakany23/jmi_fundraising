@@ -244,6 +244,9 @@
 					<div class="invoice">
                 
                 <div class="invoice-header">
+                		
+                		<img src="" alt="" class="media-object rounded-corner">
+
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
@@ -267,6 +270,18 @@
                         <div class="date m-t-5">{ moment().format('dddd, MMMM Do YYYY') }</div>
                     </div>
                 </div>
+
+                <div class="invoice-header">
+                    <div class="invoice-from">
+                        <small>Details</small>
+                        <address class="m-t-5 m-b-5">
+                            <strong>{ fundraiserDetails.title }</strong> <br>
+                            { fundraiserDetails.description } <br>
+                            { fundraiserDetails.plan } <br>
+                        </address>
+                    </div>
+                </div>
+
                 <div class="invoice-content">
                     <div class="table-responsive">
                         <table class="table table-invoice">
@@ -336,9 +351,9 @@
 	})
 
 	confirmCreateFundraiser(){
-		
+
 	}
-	
+
 	getShippingCost(){
 		self.waiting = true
 		
@@ -435,7 +450,7 @@
 	// currentSelections
 
 	createFundraiser(){
-		// this.bus.trigger('createFundraiser')
+		console.log(self.currentProfile)
 		$(this.reviewFundraiserModal).modal()
 	}
 
