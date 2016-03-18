@@ -223,7 +223,6 @@
 	  </div>
 	  
 	 
-
 	  <!-- submit -->
 		<div class="row">
 	  	<div class="col-md-3">
@@ -232,6 +231,110 @@
 		</div>
 	</virtual>
 	
+
+	<!-- review fundraiser modal -->
+	<div class="modal" id="reviewFundraiserModal" style="display: none; padding-right: 15px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Review Fundraiser</h4>
+				</div>
+				<div class="modal-body">
+					<div class="invoice">
+                
+                <div class="invoice-header">
+                		
+                		<img src="" alt="" class="media-object rounded-corner">
+
+                    <div class="invoice-from">
+                        <small>from</small>
+                        <address class="m-t-5 m-b-5">
+                            <strong>Jose Madrid Salsa, Inc</strong><br>
+                            123 Main St.<br>
+                            Zanesville, OH 43701<br>
+                            Phone: (740) 521-4304<br>
+                        </address>
+                    </div>
+                    <div class="invoice-to">
+                        <small>to</small>
+                        <address class="m-t-5 m-b-5">
+                            <strong>{ currentProfile.organization }</strong><br>
+                            { currentProfile.address.street }<br>
+                            { currentProfile.address.city }, { currentProfile.address.state } { currentProfile.address.zip_code }<br>
+                            Phone: { currentProfile.phone_number }<br>
+                        </address>
+                    </div>
+                    <div class="invoice-date">
+                        <small>Date / period</small>
+                        <div class="date m-t-5">{ moment().format('dddd, MMMM Do YYYY') }</div>
+                    </div>
+                </div>
+
+                <div class="invoice-header">
+                    <div class="invoice-from">
+                        <small>Details</small>
+                        <address class="m-t-5 m-b-5">
+                            <strong>{ fundraiserDetails.title }</strong> <br>
+                            { fundraiserDetails.description } <br>
+                            { fundraiserDetails.plan } <br>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="invoice-content">
+                    <div class="table-responsive">
+                        <table class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th>DESCRIPTION</th>
+                                    <th>Qty</th>
+                                    <th>$/jar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr each={ salsa in currentSelections }>
+                                    <td>
+                                        { salsa.title }
+                                    </td>
+                                    <td>{ salsa.qty }</td>
+                                    <td>${ salsa.price }</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="invoice-price">
+                        <div class="invoice-price-left">
+                            <div class="invoice-price-row">
+                                <div class="sub-price">
+                                    <small>SUBTOTAL</small>
+                                    ${ totalCost }
+                                </div>
+                                <div class="sub-price">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                                <div class="sub-price">
+                                    <small>Shipping</small>
+                                    ${ shippingCost }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-price-right">
+                            <small>TOTAL</small> ${ totalCostWithShipping }
+                        </div>
+                    </div>
+                </div>
+               	
+            </div>
+				</div>
+				<div class="modal-footer">
+					<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success">Create Fundraiser</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <script>
 	var self = this
 
@@ -247,6 +350,9 @@
 		self.update()
 	})
 
+	confirmCreateFundraiser(){
+
+	}
 
 	getShippingCost(){
 		self.waiting = true
@@ -344,7 +450,8 @@
 	// currentSelections
 
 	createFundraiser(){
-		this.bus.trigger('createFundraiser')	
+		console.log(self.currentProfile)
+		$(this.reviewFundraiserModal).modal()
 	}
 
 	// get address
@@ -359,10 +466,10 @@
 		self.update()
 	})
 
-	
 	// get details
 	this.bus.on('fundraiserDetails',function(details){
-		this.fundraiserDetails = details
+		self.fundraiserDetails = details
+		self.update()
 	})
 
 	// get selections
@@ -382,6 +489,7 @@
 		}
 
 		self.update()
+
 	})
 	
 

@@ -20,7 +20,8 @@
                   </a>
               </h4>
           </div>
-          <div id='selectionsCollapse' class="panel-body">
+          <div id='selectionsCollapse'>
+          <div class="panel-body">
 
           	<form class="form-horizontal">
               	<!-- shipment -->
@@ -144,6 +145,7 @@
   </div>
 
 
+  </div>
 
 	
 <script>
