@@ -18,7 +18,7 @@
                   <div class="form-group">
                       <label class="col-md-3 control-label">Title</label>
                       <div class="col-md-6">
-                          <input type="text" class="form-control" placeholder="Default input" name='titleInput'>
+                          <input onchange={ sendDetails } type="text" class="form-control" placeholder="Default input" name='titleInput'>
                       </div>
                   </div>
 
@@ -26,7 +26,7 @@
                   <div class="form-group">
                       <label class="col-md-3 control-label">Description</label>
                       <div class="col-md-6">
-                          <textarea class="form-control" placeholder="Textarea" rows="5" name='textAreaInput'></textarea>
+                          <textarea onchange={ sendDetails } class="form-control" placeholder="Textarea" rows="5" name='textAreaInput'></textarea>
                       </div>
                   </div>
 
@@ -34,7 +34,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Plan</label>
                     <div class="col-md-6">
-                        <select class="form-control" name='selectPlanInput'>
+                        <select onchange={ sendDetails } class="form-control" name='selectPlanInput'>
                         		<option>None</option>
                             <option each={ plan in opts.plans }>{ plan.title }</option>
                         </select>
@@ -79,17 +79,17 @@
 <script>
   var self = this
 
-  bus.on('createFundraiser',function(){
+  sendDetails(){
     data = {
-      titleInput: self.titleInput.value,
-      textAreaInput: self.textAreaInput.value,
-      selectPlanInput: self.selectPlanInput.value,
+      title: self.titleInput.value,
+      description: self.textAreaInput.value,
+      plan: self.selectPlanInput.value,
       // selectStatusInput: self.selectStatusInput.value,
       // discountInput: self.discountInput.value,
     }
 
     bus.trigger('fundraiserDetails',data)
-  })
+  }
 
 </script>
 
