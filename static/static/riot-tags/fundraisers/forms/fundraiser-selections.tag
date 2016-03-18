@@ -19,7 +19,6 @@
                     Salsa Selections
                   </a>
               </h4>
-              <!-- <h4 class="panel-title">Salsa Selections</h4> -->
           </div>
           <div id='selectionsCollapse' class="panel-body">
 
@@ -29,8 +28,12 @@
                   <div class="form-group">
 
                     <div class="col-md-3 control-label">
-                    	<button onclick={ addSelection } href="" class="btn btn-sm btn-success" data-toggle="modal">Add Selection<i class="fa fa-plus-square" style='padding-left: 10px;'></i>
+
+                    	<button onclick={ addSelection } class="btn btn-sm btn-success">
+                        Add Selection
+                        <i class="fa fa-plus-square" style='padding-left: 10px;'></i>
                     	</button>	
+
                     </div>
                     
 	                </div>
@@ -50,7 +53,7 @@
                     <div class="col-md-4">
                       
     
-                        <select onchange={ updateSelections } id="select{ selection.id }" class="form-control">   
+                        <select id="select{ selection.id }" class="form-control">   
                             <option>Select Salsa</option>
                             
                             <optgroup label="Original">
@@ -75,14 +78,30 @@
                     	<label class="col-md-3 control-label">Quantity</label>
                     </div>
                     <div class="col-md-1">
-                    	<input id="quantity{ selection.id }" onfocusout={ updateSelections } type="text" class="form-control text-center" placeholder="0" name="selection-{selection}">
+                    	<input id="quantity{ selection.id }" type="text" class="form-control text-center" placeholder="0" name="selection-{selection}">
                     </div>
                     <a onclick={ removeSelection } href="" class="btn btn-sm btn-danger" data-toggle="modal"><i class="fa fa-minus-circle"></i></i></a>
 	                </div>
 
               </form>
+
               </virtual>
                 
+          </div>
+
+
+
+          <div class="row">
+              <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-4"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <button if={ hasSelections } onclick={ updateSelections } class='btn btn-sm btn-default'>
+                  Calculate
+                  <i class="fa fa-check-square" style='padding-left: 10px;'></i>
+                </button>
+              </div>
           </div>
 
     <div if={ selectionsActive } class="row">
@@ -132,7 +151,7 @@
   this.selectionsActive = false
 	this.selectionCount = 0
 	this.selections = []
-
+  
   this.on('mount',function(){
     this.fruit = this.opts.products.Fruit
     this.verde = this.opts.products.Verde
@@ -141,6 +160,7 @@
   })
 
 	addSelection(e){
+    this.hasSelections = true
 		this.selectionCount += 1
 		this.selections.push({id:this.selectionCount,active:true})
 		this.update()
@@ -166,6 +186,7 @@
     if (this.finalSelections.length == 0){
       this.selectionsActive = false
       this.selectionCount = 0
+      this.hasSelections = false
     }
 
 		selection.active = false 
