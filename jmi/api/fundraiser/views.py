@@ -1,6 +1,7 @@
 # python
 import stripe
 import math
+import json
 
 # djangorest
 from rest_framework.views import APIView
@@ -24,13 +25,57 @@ from serializers import FundraiserTypeSerializer
 from jmi.env_var import STRIPE_API_KEY
 from api.helper.model_helper import ModelHelper
 from django.core.paginator import Paginator
+from shipment.models import Shipment,Selection
 
 # helper
 from api.helper.generics.api_manager import APIGenericGenerator
 
 class APIFundrasierCreate(APIView):
 	def post(self,request):
-		print request.POST
+		data = request.POST
+		try:
+			# right now only has one address used in profile
+			profile = json.loads(data['profile'])
+
+			# multiple selections
+			selections = json.loads(data['selections'])
+
+			# plan,title,description, note
+			details = json.loads(data['details'])
+
+			# shipping notes
+			shippingNote = json.loads(data['shippingNotes'])
+
+		except:
+			profile = None
+			selections = None
+			details = None
+
+		if profile and selections and details:
+			# fudraiser,created = Fundraiser.objects.get_or_create()
+
+			# organizations = None
+			# title = None
+			# description = None
+			# plan = None
+			# type = None
+			# status = None
+			# finalized = None
+			# profile = None
+			# account = None
+			# created = None
+			# updated = None
+			# discount = None
+			# slug = None
+			# receipt_email_sent = None
+
+
+			# shipment = Shipment
+			# shippingNote
+			# print profile
+
+			return Response('ok works')
+
 		return Response('test')
 
 class FundraiserTypesView(APIView):

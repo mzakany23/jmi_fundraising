@@ -20,9 +20,10 @@ from rest_framework.views import APIView
 # models
 from address.models import Address 
 from account.models import Profile
+from django.contrib.auth.models import User
 
 # serializers
-from serializers import ProfileSerializer
+from serializers import ProfileSerializer,UserSerializer
 
 # helpers
 from api.helper.model_helper import ModelHelper
@@ -30,6 +31,19 @@ from api.helper.form_helper import FormHelper
 from api.helper.generics.api_manager import APIGenericGenerator
 
 # list
+class APIUserAccountList(APIView):
+	authentication_classes = (SessionAuthentication,)
+	permission_classes = (IsAuthenticated,)
+
+	def get(self,request):
+		try:
+			users = User.objects.all()
+		except:
+			users = None 
+		if users:
+			return Response(UserSerializer(users,many=True).data)
+		return Response('Not logged in.')
+
 class APIProfileView(APIView):
 	authentication_classes = (SessionAuthentication,)
 	permission_classes = (IsAuthenticated,)

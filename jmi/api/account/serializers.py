@@ -1,6 +1,11 @@
 from rest_framework import serializers, routers, viewsets,permissions
 from account.models import Profile
 from address.models import Address
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
 
 class AddressSerializer(serializers.ModelSerializer):
 	class Meta:

@@ -35,7 +35,7 @@ from api.account.views import (
 	APIProfileCreateView,
 	APIProfileUpdateView,
 	APIPaginatedProfilesView,
-	
+	APIUserAccountList
 )
 
 # dashboard
@@ -158,6 +158,7 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/profiles/$',APIProfileView.as_view()),
 	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
 	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
+	url(r'^api/user-accounts/$',APIUserAccountList.as_view()),
 	
 	# dashboard
 	url(r'^api/dashboard/stats/$',APIDashboardStats.as_view()),
