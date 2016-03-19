@@ -200,6 +200,7 @@
     
         opts.store.profiles.update(opts.profile.id,data).then((profile) => {
             opts.profile = profile
+            opts.bus.trigger('getProfile',{profile:opts.profile,file:self.file})
             alertify.success('You successfully updated the profile')
         }).fail((e) => {
             alertify.error(e.responseText)
