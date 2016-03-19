@@ -9,11 +9,32 @@
                     Fundraiser Details
                   </a>
               </h4>
-              <!-- <h4 class="panel-title">Fundraiser Details</h4> -->
           </div>
 
           <div id='detailsCollapse' class="panel-body">
+              <!-- account -->
+                <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">User Account</label>
+                  <div class="col-md-6">
+                      <select class="form-control" name='userSelect'>
+                        <option>None</option>
+                        <option each={ user in opts.useraccounts }>
+                          <virtual>
+                            { user.first_name } { user.last_name }  
+                            <virtual>| { user.is_staff ? 'Staff' : 'User'}</virtual>
+                            <virtual>| { Admin: user.is_superuser}</virtual>
+                          </virtual>
+                        </option>
+                      </select>
+                  </div>
+                  <a href="" data-target='#createUserAccount' class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus-square"></i></a>
+                </div>
+                </form>
+              </div>
+
               <form class="form-horizontal">
+              
               	<!-- title -->
                   <div class="form-group">
                       <label class="col-md-3 control-label">Title</label>
@@ -48,33 +69,6 @@
                           <textarea onchange={ sendDetails } class="form-control" placeholder="This will be seen by the Customer's order confirm" rows="5" name='textAreaNote'></textarea>
                       </div>
                   </div>
-
-	                <!-- status -->
-                  <!-- <div class="form-group">
-                    <label class="col-md-3 control-label">Status</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name='selectStatusInput'>
-                        		<option>None</option>
-                            <option>paid</option>
-                            <option>unpaid</option>
-                            <option>in-process</option>
-                        </select>
-                    </div>
-	                </div>
- -->
-
-	                <!-- discount -->
-	                <!-- <div class="form-group">
-                    <label class="col-md-3 control-label">Discount</label>
-                    <div class="col-md-6">
-                    		<div class="input-group">
-                        <span class="input-group-addon">%</span>
-	                    	<input type="text" class="form-control" placeholder='0' name='discountInput'>
-	                    	<span class="input-group-addon">%</span>
-	                    	</div>
-                    </div>
-	                </div> -->
-
               </form>
           </div>
 
@@ -84,17 +78,36 @@
   
   </div>
 
-<script>
-  var self = this
+  <!-- create account modal -->
+  <div class="modal" id="createUserAccount" style="display: none; padding-right: 15px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Create Account</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+        <a href="javascript:;" class="btn btn-sm btn-success">Action</a>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script>
+  this.on('mount',function(){
+    console.log(opts  )
+  })
+  var self = this
   sendDetails(){
     data = {
       title: self.titleInput.value,
       description: self.textAreaInput.value,
       plan: self.selectPlanInput.value,
       note: self.textAreaNote.value
-      // selectStatusInput: self.selectStatusInput.value,
-      // discountInput: self.discountInput.value,
     }
 
     bus.trigger('fundraiserDetails',data)

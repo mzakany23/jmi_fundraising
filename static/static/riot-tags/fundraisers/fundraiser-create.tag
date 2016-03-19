@@ -12,7 +12,9 @@
 	</div>
 
 
-	<!-- forms -->
+	<!-- ################################################################# -->
+  <!-- Forms -->
+  <!-- ################################################################# -->
 
 	<!-- profile -->
 	<fundraiser-profile-form store={ opts.store } profiles={ profiles } bus={ opts.bus }></fundraiser-profile-form>
@@ -21,14 +23,14 @@
 	<virtual if={ currentAddress }>
 
 		<!-- fundraiser -->
-		<fundraiser-form plans={ plans } bus={ opts.bus }></fundraiser-form>
+		<fundraiser-form plans={ plans } userAccounts={ userAccounts } bus={ opts.bus }></fundraiser-form>
 
 		<!-- selections -->
 		
 		<fundraiser-selections-form store={ store } bus={ opts.bus } products={ products }></fundraiser-selections-form>
 		
 		<!-- shipment -->
-		<fundraiser-shipment-form address={ currentAddress }></fundraiser-shipment-form>
+		<fundraiser-shipment-form address={ currentAddress } bus={ opts.bus }></fundraiser-shipment-form>
 
 		<!-- total -->
 		<div class="row">
@@ -233,7 +235,10 @@
 	</virtual>
 	
 
-	<!-- review fundraiser modal -->
+	<!-- ################################################################# -->
+  <!-- final review of fundraiser -->
+  <!-- ################################################################# -->
+
 	<div class="modal" id="reviewFundraiserModal" style="display: none; padding-right: 15px;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -242,12 +247,11 @@
 					<h4 class="modal-title">Review Fundraiser</h4>
 				</div>
 				<div class="modal-body">
-					<div class="invoice">
-                
-                <div class="invoice-header">
-                		
-                		<img src="" alt="" class="media-object rounded-corner">
 
+					<div class="invoice">
+          	
+                <div class="invoice-header">
+                		<small class='text-success'>SHIPPING ADDRESSES</small>
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
@@ -273,8 +277,17 @@
                 </div>
 
                 <div class="invoice-header">
+                	<small class='text-success'>SHIPPING NOTES</small>
                     <div class="invoice-from">
-                        <small>Details</small>
+                        <virtual if={ shippingNote }>{ shippingNote.notes }</virtual>
+                        <virtual if={ !shippingNote }>There are no shipping notes</virtual>
+                    </div>
+                </div>
+
+                
+                <div class="invoice-header">
+                	<small class='text-success'>FUNDRAISER NOTES</small>
+                    <div class="invoice-from">
                         <address class="m-t-5 m-b-5">
                             <strong>{ fundraiserDetails.title }</strong> <br>
                             { fundraiserDetails.description } <br>
@@ -283,7 +296,9 @@
                     </div>
                 </div>
 
+                
                 <div class="invoice-content">
+                	<small class='text-success'>SALSA SELECTIONS</small>
                     <div class="table-responsive">
                         <table class="table table-invoice">
                             <thead>
@@ -330,7 +345,7 @@
 				</div>
 				<div class="modal-footer">
 					<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Create Fundraiser</a>
+					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success" >Create Fundraiser</a>
 				</div>
 			</div>
 		</div>
@@ -358,10 +373,15 @@
 		this.getPlans()
 		this.getProducts()
 		self.getProfiles()
+		self.getUserAccounts()
 		self.update()
-
 	})
 
+	getUserAccounts(){
+		this.opts.store.profiles.getUserAccounts().then((accounts) => {
+			this.userAccounts = accounts
+		}).fail((e) => {console.log(e.responseText)})
+	}
 
 	getProfiles(){
 		this.opts.store.profiles.show().then((profiles) => {
@@ -401,7 +421,8 @@
 			address:JSON.stringify(self.currentAddress),
 			profile:JSON.stringify(self.currentProfile),
 			details:JSON.stringify(self.fundraiserDetails),
-			selections:JSON.stringify(self.currentSelections)
+			selections:JSON.stringify(self.currentSelections),
+			shippingNotes: JSON.stringify(self.shippingNote)
 		}
 		
 		this.opts.store.fundraisers.create(data).then((res) => {
@@ -414,10 +435,18 @@
 		this.totalWeight = (parseFloat(this.currentJarWeight) * parseFloat(this.jarCount))
 	}
 	
+	
+	// -------------------------------------
 	// -------------------------------------
 	// actions
 	// -------------------------------------
+	// -------------------------------------
 
+
+	// -------------------------------------
+	// actions-shipping
+	// -------------------------------------
+	
 	getShippingCost(){	
 		self.waiting = true
 		
@@ -522,6 +551,12 @@
 		}
 
 		self.update()
+
+	})
+
+	// get shipment
+	this.bus.on('updateShipment',function(data){
+		self.shippingNote = data 
 	})
 
 	// get selections

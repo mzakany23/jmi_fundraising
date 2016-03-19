@@ -64,6 +64,14 @@
                   </div>
                   
 
+                   <!-- description -->
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">Fundraiser Note</label>
+                      <div class="col-md-6">
+                          <textarea onchange={ sendShipmentNote } class="form-control" placeholder="Relevant info about the address" rows="5" name='noteInfo'></textarea>
+                      </div>
+                  </div>
+
               </form>
           </div>
 
@@ -77,6 +85,15 @@
   </div>
 	
 <script>
+  sendShipmentNote(){
+    notes = this.noteInfo.value
+    
+    data = {
+      notes: notes
+    }
+
+    opts.bus.trigger('updateShipment',data)
+  }
 
 </script>
 

@@ -99,7 +99,8 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-1"></div>
                 <button if={ hasSelections } onclick={ updateSelections } class='btn btn-inverse m-r-5 m-b-5'>
-                  Calculate
+                  <virtual if={ !selectionsActive }>Calculate</virtual>
+                  <virtual if={ selectionsActive }>Recalculate</virtual>
                   <i class="fa fa-check-square" style='padding-left: 10px;'></i>
                 </button>
               </div>

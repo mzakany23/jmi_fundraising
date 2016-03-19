@@ -50,6 +50,7 @@ var ROUTING = (function(){
 					types: `${self.server}/api/fundraisers/types/`,
 				},
 				profiles: {
+					getUserAccounts:`${self.server}/api/user-accounts/`,
 					show: `${self.server}/api/profiles/`,
 					showPaginated(pageNum,results){
 						if (pageNum && results){
@@ -298,6 +299,12 @@ var PRODUCTS = (function(router,helper){
 
 var PROFILES = (function(router,helper){
 	var self = {}
+
+	self.getUserAccounts = function(){
+		contents = helper.packageData({})
+		url = router.routes.profiles.getUserAccounts
+		return $.get(url,contents)
+	}
 
 	self.show = function(){
 		contents = helper.packageData({})
