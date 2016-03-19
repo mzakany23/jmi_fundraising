@@ -339,12 +339,20 @@
 <script>
 	var self = this
 
+	// -------------------------------------
+	// variables
+	// -------------------------------------
+
   this.bus = this.opts.bus
 	this.store = this.opts.store 
 	this.freeShipping = false
 	this.currentJarWeight = 2
 	this.waiting = false 
 	this.canChooseSelections = false
+	
+	// -------------------------------------
+	// initialize
+	// -------------------------------------
 
 	this.on('mount',function(){
 		this.getPlans()
@@ -354,18 +362,6 @@
 
 	})
 
-	confirmCreateFundraiser(){
-		data = {
-			address:self.currentAddress,
-			profile:self.currentProfile,
-			details:self.fundraiserDetails,
-			selections:self.currentSelections
-		}
-
-		this.opts.store.fundraisers.create(data).then((res) => {
-			console.log(res)
-		}).fail((e) => {console.log(e)})
-	}
 
 	getProfiles(){
 		this.opts.store.profiles.show().then((profiles) => {
@@ -373,6 +369,54 @@
       self.update()
     });
 	}
+
+	getPlans(){
+		this.opts.store.fundraiserTypes.getTypes().then((plans) => {
+			this.plans = plans
+		});
+	}
+
+	getProducts(){
+		this.opts.store.products.showByCategory().then((products) => {
+			this.products = products 
+		}).fail((e) => {console.log(e)})
+	}
+
+	// -------------------------------------
+	// actions from forms
+	// -------------------------------------
+
+	// first create
+	createFundraiser(){
+		if (self.canChooseSelections){
+			$(this.reviewFundraiserModal).modal()
+		}else{
+			alertify.error('make sure to enter fundraiser details!')
+		}
+	}
+
+	// final create
+	confirmCreateFundraiser(){
+		data = {
+			address:JSON.stringify(self.currentAddress),
+			profile:JSON.stringify(self.currentProfile),
+			details:JSON.stringify(self.fundraiserDetails),
+			selections:JSON.stringify(self.currentSelections)
+		}
+		
+		this.opts.store.fundraisers.create(data).then((res) => {
+			console.log(res)
+		}).fail((e) => {console.log(e)})
+	}
+
+	showPreciseShippingForm(){
+		this.currentJarWeight = this.jarWeight.value
+		this.totalWeight = (parseFloat(this.currentJarWeight) * parseFloat(this.jarCount))
+	}
+	
+	// -------------------------------------
+	// actions
+	// -------------------------------------
 
 	getShippingCost(){	
 		self.waiting = true
@@ -413,6 +457,7 @@
 		this.update()
 	}
 
+	
 	getParcelSpecs(){
 		return {
 			weight: this.jarWeight.value || '1',
@@ -422,26 +467,10 @@
 		}
 	}
 
-	showPreciseShippingForm(){
-		this.currentJarWeight = this.jarWeight.value
-		this.totalWeight = (parseFloat(this.currentJarWeight) * parseFloat(this.jarCount))
-	}
 
 	updateJarWeight(){
 		this.currentJarWeight = this.jarWeight.value
 		this.totalWeight = (parseFloat(this.currentJarWeight) * parseFloat(this.jarCount))
-	}
-
-	getPlans(){
-		this.opts.store.fundraiserTypes.getTypes().then((plans) => {
-			this.plans = plans
-		});
-	}
-
-	getProducts(){
-		this.opts.store.products.showByCategory().then((products) => {
-			this.products = products 
-		}).fail((e) => {console.log(e)})
 	}
 
 	calculateQtyandCost(selections){
@@ -468,14 +497,6 @@
 	// currentProfile
 	// fundraiserDetails
 	// currentSelections
-
-	createFundraiser(){
-		if (self.canChooseSelections){
-			$(this.reviewFundraiserModal).modal()
-		}else{
-			alertify.error('make sure to enter fundraiser details!')
-		}
-	}
 
 	// get address
 	this.bus.on('currentAddress',function(address){
