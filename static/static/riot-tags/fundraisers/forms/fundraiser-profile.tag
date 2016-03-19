@@ -39,7 +39,7 @@
           	<!-- account -->
           	<form class="form-horizontal">
             <div class="form-group">
-              <label class="col-md-3 control-label">Account</label>
+              <label class="col-md-3 control-label">Organization</label>
               <div class="col-md-6">
                   <select class="form-control" onchange={ getProfile } name='profileSelect'>
                   	<div id="search-results"></div>

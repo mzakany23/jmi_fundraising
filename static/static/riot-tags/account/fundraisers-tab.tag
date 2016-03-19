@@ -96,7 +96,11 @@
           <h3>Total Jars Selected: { totalJars }</h3>
           <h3>Total Shipping: ${ shippingCost }</h3>
           <h3>Total Cost: ${ totalCost-shippingCost }</h3>
-          <button class='btn btn-danger'><h3>Total w/Shipping: ${ totalCost }</h3></button>
+          
+          <div class="alert alert-info m-b-0" style='margin-bottom: 25px;'>
+            <h3>Total w/Shipping: ${ totalCost }</h3>
+          </div>
+          
           </virtual>
 
           
