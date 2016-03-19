@@ -28,6 +28,10 @@ from django.core.paginator import Paginator
 # helper
 from api.helper.generics.api_manager import APIGenericGenerator
 
+class APIFundrasierCreate(APIView):
+	def post(self,request):
+		print request.POST
+		return Response('test')
 
 class FundraiserTypesView(APIView):
 	def get(self,request):

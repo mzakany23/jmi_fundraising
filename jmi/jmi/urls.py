@@ -10,6 +10,7 @@ from api.fundraiser.views import (
 	FundraiserBySlugViewSet,
 	FundraiserTypesView,
 	APIAllFundraisers,
+	APIFundrasierCreate
 )
 
 # organizations
@@ -145,6 +146,7 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 	url(r'^api/fundraisers/$',FundraisersViewSet.as_view()),
 	url(r'^api/fundraisers/all/$',APIAllFundraisers.as_view()),
+	url(r'^api/fundraisers/create/$',APIFundrasierCreate.as_view()),
 	url(r'^api/fundraisers/(?P<id>\d+)$',FundraiserBySlugViewSet.as_view()),
 
 	# product
