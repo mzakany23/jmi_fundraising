@@ -81,7 +81,7 @@
                                         </tr>
 
                                             <tr>
-                                            <td class="field">Title</td>
+                                            <td class="field">Address Title</td>
                                             <td if={ !showEditForm }>{ opts.profile.address.title }</td>
                                             <td if={ showEditForm }>
                                                 <input type="text" class="form-control" value="{ opts.profile.address.title }" name='titleInput'>
@@ -183,7 +183,7 @@
     closeForm(){
         this.showEditForm = false
     }
-
+    
     saveForm(){
         data = {
             organization: this.orgInput.value,
@@ -205,6 +205,7 @@
         }).fail((e) => {
             alertify.error(e.responseText)
         })
+
     }
 
     

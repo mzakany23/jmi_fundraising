@@ -15,7 +15,7 @@
 	<!-- forms -->
 
 	<!-- profile -->
-	<fundraiser-profile-form store={ opts.store } bus={ opts.bus }></fundraiser-profile-form>
+	<fundraiser-profile-form store={ opts.store } profiles={ profiles } bus={ opts.bus }></fundraiser-profile-form>
 
 	<!-- has address -->
 	<virtual if={ currentAddress }>
@@ -349,7 +349,9 @@
 	this.on('mount',function(){
 		this.getPlans()
 		this.getProducts()
+		self.getProfiles()
 		self.update()
+
 	})
 
 	confirmCreateFundraiser(){
@@ -359,14 +361,21 @@
 		// currentSelections
 	}
 
-	getShippingCost(){
+	getProfiles(){
+		this.opts.store.profiles.show().then((profiles) => {
+      this.profiles = _.sortBy(profiles, 'organization');
+      self.update()
+    });
+	}
+
+	getShippingCost(){	
 		self.waiting = true
 		
 		data = {
 			address: self.currentAddress,
 			parcel: self.getParcelSpecs()
 		}
-		
+
 		this.opts.store.shipment.getRates(data).then((shipment) => {
 			self.currentShipment = shipment
 			self.preciseShippingRate = parseFloat(shipment.list_rate)
@@ -477,7 +486,7 @@
 	// get details
 	this.bus.on('fundraiserDetails',function(details){
 		self.fundraiserDetails = details
-		checkPlan = details.plan === 'None'
+		checkPlan = details.plan !== 'None'
 		checkTitle = details.title
 		checkDesc = details.description
 		

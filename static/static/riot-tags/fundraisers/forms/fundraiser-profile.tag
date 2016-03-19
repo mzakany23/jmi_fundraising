@@ -45,7 +45,7 @@
                   	<div id="search-results"></div>
                 		<option if={ !currentProfile }>None</option>
                 		<option if={ currentProfile } selected>{ currentProfile.organization }</option>
-                    <option each={ profile in profiles }>{ profile.organization }</option>
+                    <option each={ profile in opts.profiles }>{ profile.organization }</option>
                   </select>
               </div>
               <a onclick={ resetForms } href="" data-target='#account-create-modal' class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus-square"></i></a>
@@ -55,9 +55,11 @@
 
           <!-- profile detail -->
           <div if={ currentProfile } class="row">
+          	
           	<div class="col-md-9">
 	          	<profile-detail profile={ currentProfile } store={ store } states={ states } bus={ opts.bus }></profile-detail>    
             </div>
+
           </div>
           </div>
       </div>
@@ -224,21 +226,8 @@
 	this.formsValid = false
 	this.expanded = false
 
-	this.on('mount',function(){
-		this.getProfiles()
-	})
-
-	getProfiles(){
-    this.opts.store.profiles.show().then((profiles) => {
-      this.profiles = _.sortBy(profiles, 'organization');
-      self.update()
-    });
-  }
-
-  // actions
+ 	// actions
   resetForms(){
-  	// $('#profilePil').addClass('active')
-  	// $('#addressPil').removeClass('active')
   	this.successProfileCount = 0
 		this.successAddressCount = 0
   	this.clearProfileForm()
@@ -425,6 +414,11 @@
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 	}
+
+	opts.bus.on('getProfile',function(data){
+		self.currentProfile = data.profile 
+		self.update()
+	})
 
 
 </script>
