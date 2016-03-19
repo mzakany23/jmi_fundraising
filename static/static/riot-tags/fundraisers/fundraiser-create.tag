@@ -24,8 +24,9 @@
 		<fundraiser-form plans={ plans } bus={ opts.bus }></fundraiser-form>
 
 		<!-- selections -->
+		
 		<fundraiser-selections-form store={ store } bus={ opts.bus } products={ products }></fundraiser-selections-form>
-
+		
 		<!-- shipment -->
 		<fundraiser-shipment-form address={ currentAddress }></fundraiser-shipment-form>
 
@@ -232,10 +233,7 @@
 	</virtual>
 	
 
-	<!-- ################################################################# -->
-  <!-- review -->
-  <!-- ################################################################# -->
-
+	<!-- review fundraiser modal -->
 	<div class="modal" id="reviewFundraiserModal" style="display: none; padding-right: 15px;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -248,6 +246,8 @@
                 
                 <div class="invoice-header">
                 		
+                		<img src="" alt="" class="media-object rounded-corner">
+
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
@@ -330,15 +330,11 @@
 				</div>
 				<div class="modal-footer">
 					<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success">Create Fundraiser</a>
+					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Create Fundraiser</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- ################################################################# -->
-  <!-- review -->
-  <!-- ################################################################# -->
 
 <script>
 	var self = this
@@ -348,6 +344,7 @@
 	this.freeShipping = false
 	this.currentJarWeight = 2
 	this.waiting = false 
+	this.canChooseSelections = false
 
 	this.on('mount',function(){
 		this.getPlans()
@@ -455,7 +452,11 @@
 	// currentSelections
 
 	createFundraiser(){
-		$(this.reviewFundraiserModal).modal()
+		if (self.canChooseSelections){
+			$(this.reviewFundraiserModal).modal()
+		}else{
+			alertify.error('make sure to enter fundraiser details!')
+		}
 	}
 
 	// get address
@@ -473,6 +474,14 @@
 	// get details
 	this.bus.on('fundraiserDetails',function(details){
 		self.fundraiserDetails = details
+		checkPlan = details.plan === 'None'
+		checkTitle = details.title
+		checkDesc = details.description
+		
+		if (checkPlan && checkTitle && checkDesc){
+			self.canChooseSelections = true
+		}
+
 		self.update()
 	})
 

@@ -300,7 +300,7 @@
   	store.profiles.getByTitle(title).then((profile) => {
   		this.currentProfile = profile
   		bus.trigger('currentAddress',profile.address)
-  		bus.trigger('getProfile', profile)
+  		bus.trigger('getProfile', {profile:profile,file:null})
   		self.update()
   	}).fail((e) => {console.log(e)})
   }

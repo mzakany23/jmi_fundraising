@@ -98,7 +98,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-1"></div>
                 <div class="col-md-1"></div>
-                <button if={ hasSelections } onclick={ updateSelections } class='btn btn-sm btn-default'>
+                <button if={ hasSelections } onclick={ updateSelections } class='btn btn-inverse m-r-5 m-b-5'>
                   Calculate
                   <i class="fa fa-check-square" style='padding-left: 10px;'></i>
                 </button>
