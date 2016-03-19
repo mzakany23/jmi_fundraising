@@ -26,7 +26,7 @@
                   <div class="form-group">
                       <label class="col-md-3 control-label">Description</label>
                       <div class="col-md-6">
-                          <textarea onchange={ sendDetails } class="form-control" placeholder="Textarea" rows="5" name='textAreaInput'></textarea>
+                          <textarea onchange={ sendDetails } class="form-control" placeholder="Description" rows="5" name='textAreaInput'></textarea>
                       </div>
                   </div>
 
@@ -40,6 +40,14 @@
                         </select>
                     </div>
 	                </div>
+
+                   <!-- description -->
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">Fundraiser Note</label>
+                      <div class="col-md-6">
+                          <textarea onchange={ sendDetails } class="form-control" placeholder="This will be seen by the Customer's order confirm" rows="5" name='textAreaNote'></textarea>
+                      </div>
+                  </div>
 
 	                <!-- status -->
                   <!-- <div class="form-group">
@@ -84,6 +92,7 @@
       title: self.titleInput.value,
       description: self.textAreaInput.value,
       plan: self.selectPlanInput.value,
+      note: self.textAreaNote.value
       // selectStatusInput: self.selectStatusInput.value,
       // discountInput: self.discountInput.value,
     }
