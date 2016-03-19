@@ -71,9 +71,9 @@
 							  </h3>
 
 							
-							  <button class="btn btn-danger" style='margin-bottom: 25px;'>
+							  <div class="alert alert-info m-b-0" style='margin-bottom: 25px;'>
 							  	<h3>Total w/Shipping: ${ totalCostWithShipping }</h3>
-							  </button>
+							  </div>
 						  </div>
 
 
@@ -353,7 +353,10 @@
 	})
 
 	confirmCreateFundraiser(){
-
+		// currentAddress
+		// currentProfile
+		// fundraiserDetails
+		// currentSelections
 	}
 
 	getShippingCost(){
