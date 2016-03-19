@@ -304,9 +304,9 @@ var FUNDRAISER = (function(router,helper){
 	var self = {}
 	
 	// crud
-		self.create = function(fundraiser_id,data){
+		self.create = function(data){
 			contents = helper.packageData(data)
-			url = router.routes.fundraisers.create(fundraiser_id)
+			url = router.routes.fundraisers.create
 			return $.post(url,contents)
 		}
 

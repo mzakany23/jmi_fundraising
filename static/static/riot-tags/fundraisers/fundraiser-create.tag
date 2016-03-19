@@ -355,10 +355,16 @@
 	})
 
 	confirmCreateFundraiser(){
-		// currentAddress
-		// currentProfile
-		// fundraiserDetails
-		// currentSelections
+		data = {
+			address:self.currentAddress,
+			profile:self.currentProfile,
+			details:self.fundraiserDetails,
+			selections:self.currentSelections
+		}
+
+		this.opts.store.fundraisers.create(data).then((res) => {
+			console.log(res)
+		}).fail((e) => {console.log(e)})
 	}
 
 	getProfiles(){
