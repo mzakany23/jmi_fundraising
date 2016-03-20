@@ -260,23 +260,23 @@ $(document).ready(function() {
 	);
 	
 	//GOOGLE MAP
-	var myLatlng = new google.maps.LatLng(40.710968,-74.0084713);
-	var mapOptions = {
-	  zoom: 17,
-	  center: myLatlng,
-	  navigationControl: false,
-	  mapTypeControl: false,
-	  scaleControl: false,
-	  draggable: true,
-	  scrollwheel: false
-	}
+// 	var myLatlng = new google.maps.LatLng(40.710968,-74.0084713);
+// 	var mapOptions = {
+// 	  zoom: 17,
+// 	  center: myLatlng,
+// 	  navigationControl: false,
+// 	  mapTypeControl: false,
+// 	  scaleControl: false,
+// 	  draggable: true,
+// 	  scrollwheel: false
+// 	}
 
-	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+// 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-	var marker = new google.maps.Marker({
-		position: myLatlng,
-		map: map,
-		title:"Your Marker!"
-	});
+// 	var marker = new google.maps.Marker({
+// 		position: myLatlng,
+// 		map: map,
+// 		title:"Your Marker!"
+// 	});
 		
 });
