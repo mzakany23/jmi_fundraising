@@ -30,6 +30,15 @@ from api.helper.model_helper import ModelHelper
 from api.helper.form_helper import FormHelper
 from api.helper.generics.api_manager import APIGenericGenerator
 
+# create
+class APIUserAccountCreate(APIView):
+	authentication_classes = (SessionAuthentication,)
+	permission_classes = (IsAuthenticated,)
+
+	def post(self,request):
+		print request.POST
+		return Response('test')
+
 # list
 class APIUserAccountList(APIView):
 	authentication_classes = (SessionAuthentication,)

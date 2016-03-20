@@ -6,6 +6,18 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
+		fields = [
+			"is_superuser", 
+	        "username",
+	        "first_name",
+	        "last_name",
+	        "email",
+	        "is_staff",
+	        "is_active",
+	        "date_joined",
+	        "groups",
+	        "user_permissions",
+		]
 
 class AddressSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -13,6 +25,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
 	address = AddressSerializer()
+	account = UserSerializer()
+
 	title = serializers.SerializerMethodField('make_title')
 
 	def make_title(self,profile):

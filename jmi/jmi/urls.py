@@ -9,6 +9,8 @@ from api.fundraiser.views import (
 	FundraisersViewSet,
 	FundraiserBySlugViewSet,
 	FundraiserTypesView,
+	FundraiserTypesView,
+	FundraiserPlansView,
 	APIAllFundraisers,
 	APIFundrasierCreate
 )
@@ -35,7 +37,8 @@ from api.account.views import (
 	APIProfileCreateView,
 	APIProfileUpdateView,
 	APIPaginatedProfilesView,
-	APIUserAccountList
+	APIUserAccountList,
+	APIUserAccountCreate
 )
 
 # dashboard
@@ -142,6 +145,7 @@ urlpatterns += patterns('dashboard.views',
 urlpatterns += patterns('api.fundraiser.views',
 	# fundraiserTypes
 	url(r'^api/fundraisers/types/',FundraiserTypesView.as_view()),
+	url(r'^api/fundraisers/plans/',FundraiserPlansView.as_view()),
 	# fundraiser
 	url(r'^api/process-fundraiser/',FundraiserProcessView.as_view(),name='process_fundraiser'),
 	url(r'^api/fundraisers/$',FundraisersViewSet.as_view()),
@@ -159,6 +163,7 @@ urlpatterns += patterns('api.fundraiser.views',
 	url(r'^api/profiles/create/$',APIProfileCreateView.as_view()),
 	url(r'^api/profiles/(?P<id>\d+)/edit/$',APIProfileUpdateView.as_view()),
 	url(r'^api/user-accounts/$',APIUserAccountList.as_view()),
+	url(r'^api/users/create/$',APIUserAccountCreate.as_view()),
 	
 	# dashboard
 	url(r'^api/dashboard/stats/$',APIDashboardStats.as_view()),

@@ -22,6 +22,7 @@ var ROUTING = (function(){
 					stats: `${self.server}/api/dashboard/stats/`,
 				},
 				fundraisers: {
+					getPlans: `${self.server}/api/fundraisers/plans/`,
 					create: `${self.server}/api/fundraisers/create/`,
 					all: `${self.server}/api/fundraisers/all/`,
 					show(pageNum,results){
@@ -50,6 +51,7 @@ var ROUTING = (function(){
 					types: `${self.server}/api/fundraisers/types/`,
 				},
 				profiles: {
+					createUserAccount: `${self.server}/api/users/create/`,
 					getUserAccounts:`${self.server}/api/user-accounts/`,
 					show: `${self.server}/api/profiles/`,
 					showPaginated(pageNum,results){
@@ -300,6 +302,12 @@ var PRODUCTS = (function(router,helper){
 var PROFILES = (function(router,helper){
 	var self = {}
 
+	self.createUserAccount = function(data){
+		contents = helper.packageData(data)
+		url = router.routes.profiles.createUserAccount
+		return $.get(url,contents)
+	}
+
 	self.getUserAccounts = function(){
 		contents = helper.packageData({})
 		url = router.routes.profiles.getUserAccounts
@@ -349,6 +357,13 @@ var FUNDRAISER = (function(router,helper){
 	var self = {}
 	
 	// crud
+
+		self.getPlans = function(){
+			contents = helper.packageData({})
+			url = router.routes.fundraisers.getPlans
+			return $.get(url,contents)
+		}
+
 		self.create = function(data){
 			contents = helper.packageData(data)
 			url = router.routes.fundraisers.create

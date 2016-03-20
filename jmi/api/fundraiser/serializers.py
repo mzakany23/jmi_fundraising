@@ -61,29 +61,16 @@ class ProfileSerializer(serializers.ModelSerializer):
 		]
 
 
-# this is the options field in fundraiser serializer
 class FundraiserCategorySerializer(serializers.ModelSerializer):
-	selections = SelectionsSerializer(many=True)
-
-	class Meta:
-		model = FundraiserType
-		fields = [
-			'jar_price',
-			'image',
-			'title',
-			'selections',
-			'order'
-		]
-
-
-class FundraiserCategorySerializer(serializers.ModelSerializer):
-	# options = FundraiserCategorySerializer(many=True)
+	options = FundraiserTypeSerializer(many=True)
 	
 	class Meta:
 		model = FundraiserCategory
 		fields = [
+			'id',
 			'name',
 			'title',
+			'options'
 		]
 
 class ShipmentSerializer(serializers.ModelSerializer):

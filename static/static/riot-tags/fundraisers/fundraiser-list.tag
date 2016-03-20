@@ -179,6 +179,12 @@
         }
     }
 
+    // observable
+    this.opts.bus.on('fundraiserSuccessfullyCreated',function(fundraiser){
+        self.model.results.push(fundraiser)
+        self.update()
+    })
+
 </script>
 
 

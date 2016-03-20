@@ -15,23 +15,24 @@
               <!-- account -->
                 <form class="form-horizontal">
                 <div class="form-group">
+                  
                   <label class="col-md-3 control-label">User Account</label>
-                  <div class="col-md-6">
-                      <select class="form-control" name='userSelect'>
-                        <option>None</option>
-                        <option each={ user in opts.useraccounts }>
-                          <virtual>
-                            { user.first_name } { user.last_name }  
-                            <virtual>| { user.is_staff ? 'Staff' : 'User'}</virtual>
-                            <virtual>| { Admin: user.is_superuser}</virtual>
-                          </virtual>
-                        </option>
-                      </select>
+                  
+                  <div class="col-md-6" style='margin-top: 7px;'>
+                      
+                      <virtual if={ !opts.profile.account }>
+
+                        No account
+
+                      </virtual>
+
+                      <virtual if={ opts.profile.account }>{ opts.profile.account.username }</virtual>
+
                   </div>
-                  <a href="" data-target='#createUserAccount' class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus-square"></i></a>
+
                 </div>
                 </form>
-              </div>
+              
 
               <form class="form-horizontal">
               
@@ -55,10 +56,30 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Plan</label>
                     <div class="col-md-6">
-                        <select onchange={ sendDetails } class="form-control" name='selectPlanInput'>
-                        		<option>None</option>
-                            <option each={ plan in opts.plans }>{ plan.title }</option>
+                        <select onchange={ grabPlanSelect } class="form-control" name='selectPlanInput'>
+                            <option>None</option>
+                            <option each={ plan in opts.plans } value={ plan.id }>{ plan.name } | { plan.title }</option>
                         </select>
+                    </div>
+                  </div>
+
+                  <!-- type -->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Choose Option</label>
+                    <div class="col-md-6">
+                        <virtual if={ !planOptions }>
+                          <select class="form-control" disabled>
+                            <option>None</option>
+                            <option each={ type in planOptions } value={ type.id }>{ type.title }</option>
+                        </select>
+                        </virtual>
+
+                        <virtual if={ planOptions }>
+                          <select class="form-control" onchange={ grabTypeSelect } name='selectTypeInput'>
+                            <option>None</option>
+                            <option each={ type in planOptions } value={ type.id }>{ type.title }</option>
+                          </select>
+                        </virtual>
                     </div>
 	                </div>
 
@@ -70,48 +91,63 @@
                       </div>
                   </div>
               </form>
-          </div>
 
+          </div>
       </div>
       <!-- end panel -->
   </div>
   
   </div>
 
-  <!-- create account modal -->
-  <div class="modal" id="createUserAccount" style="display: none; padding-right: 15px;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Create Account</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-        <a href="javascript:;" class="btn btn-sm btn-success">Action</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
-  this.on('mount',function(){
-    console.log(opts  )
-  })
+  
   var self = this
+  this.currentPlan = null
+  this.currentType = null
+
+  sendAccount(){
+    data = {
+      accountId: self.userSelect.value
+    }
+
+    console.log(data)
+  }
+
+  showCreateModal(){
+    $(this.createUserAccount).modal()
+  }
+
+  grabPlanSelect(){
+    id = this.selectPlanInput.value
+    self.currentPlan = _.find(opts.plans, function(plan){ return plan.id.toString() === id });
+    this.planOptions = self.currentPlan.options
+    this.sendDetails()
+  }
+
+  grabTypeSelect(){
+    id = this.selectTypeInput.value
+    self.currentType = _.find(self.planOptions, function(type){ return type.id.toString() === id });
+    this.sendDetails()
+  }
+
   sendDetails(){
     data = {
+      account: opts.profile.account || 'None',
       title: self.titleInput.value,
       description: self.textAreaInput.value,
-      plan: self.selectPlanInput.value,
+      type: self.currentType,
+      plan: self.currentPlan,
       note: self.textAreaNote.value
     }
 
     bus.trigger('fundraiserDetails',data)
   }
+
+  // observables
+  this.opts.bus.on('getUserAccount',function(data){
+    self.accountId = data.accountId
+  })
 
 </script>
 

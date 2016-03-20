@@ -40,8 +40,12 @@ class Fundraiser(models.Model):
 		return "Fundraiser: " + str(self.title)
 
 	def selection_list(self):
-		return [("product: %s qty: %s") % (str(sel.product.title),str(sel.quantity))  for sel in self.selections()]
-
+		try:
+			selections = [("product: %s qty: %s") % (str(sel.product.title),str(sel.quantity))  for sel in self.selections()]
+		except:
+			selections = None 
+		return selections
+		
 	def selections_str(self):
 		output_str = ""
 		for sel in self.selections():

@@ -4,6 +4,10 @@
 			margin-top: 15px;
 			margin-bottom: 15px;
 		}
+
+		.space-bottom{
+			margin-bottom: 15px;
+		}
 	</style>
 
 
@@ -15,7 +19,7 @@
 	<!-- ################################################################# -->
   <!-- Forms -->
   <!-- ################################################################# -->
-
+  
 	<!-- profile -->
 	<fundraiser-profile-form store={ opts.store } profiles={ profiles } bus={ opts.bus }></fundraiser-profile-form>
 
@@ -23,14 +27,14 @@
 	<virtual if={ currentAddress }>
 
 		<!-- fundraiser -->
-		<fundraiser-form plans={ plans } userAccounts={ userAccounts } bus={ opts.bus }></fundraiser-form>
+		<fundraiser-form store={ opts.store } plans={ plans } profile={ currentProfile } bus={ opts.bus }></fundraiser-form>
 
 		<!-- selections -->
 		
 		<fundraiser-selections-form store={ store } bus={ opts.bus } products={ products }></fundraiser-selections-form>
 		
 		<!-- shipment -->
-		<fundraiser-shipment-form address={ currentAddress } bus={ opts.bus }></fundraiser-shipment-form>
+		<fundraiser-shipment-form address={ currentProfile.address } bus={ opts.bus }></fundraiser-shipment-form>
 
 		<!-- total -->
 		<div class="row">
@@ -252,6 +256,7 @@
           	
                 <div class="invoice-header">
                 		<small class='text-success'>SHIPPING ADDRESSES</small>
+                		<hr class='space-bottom'>
                     <div class="invoice-from">
                         <small>from</small>
                         <address class="m-t-5 m-b-5">
@@ -278,6 +283,7 @@
 
                 <div class="invoice-header">
                 	<small class='text-success'>SHIPPING NOTES</small>
+                	<hr class='space-bottom'>
                     <div class="invoice-from">
                         <virtual if={ shippingNote }>{ shippingNote.notes }</virtual>
                         <virtual if={ !shippingNote }>There are no shipping notes</virtual>
@@ -286,12 +292,21 @@
 
                 
                 <div class="invoice-header">
-                	<small class='text-success'>FUNDRAISER NOTES</small>
+                	<small class='text-success'>FUNDRAISER DETAILS</small>
+                	<hr class='space-bottom'>
                     <div class="invoice-from">
                         <address class="m-t-5 m-b-5">
-                            <strong>{ fundraiserDetails.title }</strong> <br>
+                        		<small>Title: </small><br>
+                        		<strong>{ fundraiserDetails.title }</strong> <br>
+                            <small>Plan:</small><br>
+                            { fundraiserDetails.plan.name } | { fundraiserDetails.plan.title } <br>
+                            <small>Type:</small><br>
+                            { fundraiserDetails.type.title } <br>
+                            <small>Description:</small><br>
                             { fundraiserDetails.description } <br>
-                            { fundraiserDetails.plan } <br>
+                            <small>Note:</small><br>
+                            { fundraiserDetails.note } <br>
+                            
                         </address>
                     </div>
                 </div>
@@ -299,6 +314,7 @@
                 
                 <div class="invoice-content">
                 	<small class='text-success'>SALSA SELECTIONS</small>
+                	<hr class='space-bottom'>	
                     <div class="table-responsive">
                         <table class="table table-invoice">
                             <thead>
@@ -345,7 +361,7 @@
 				</div>
 				<div class="modal-footer">
 					<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success" >Create Fundraiser</a>
+					<a onclick={ confirmCreateFundraiser } href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Create Fundraiser</a>
 				</div>
 			</div>
 		</div>
@@ -391,7 +407,7 @@
 	}
 
 	getPlans(){
-		this.opts.store.fundraiserTypes.getTypes().then((plans) => {
+		this.opts.store.fundraisers.getPlans().then((plans) => {
 			this.plans = plans
 		});
 	}
@@ -422,12 +438,17 @@
 			profile:JSON.stringify(self.currentProfile),
 			details:JSON.stringify(self.fundraiserDetails),
 			selections:JSON.stringify(self.currentSelections),
-			shippingNotes: JSON.stringify(self.shippingNote)
+			shippingNotes: JSON.stringify(self.shippingNote) || 'None'
 		}
 		
-		this.opts.store.fundraisers.create(data).then((res) => {
-			console.log(res)
-		}).fail((e) => {console.log(e)})
+		this.opts.store.fundraisers.create(data).then((fundraiser) => {
+			self.opts.bus.trigger('fundraiserSuccessfullyCreated',fundraiser)
+			riot.route('/fundraisers/?page=1')	
+			alertify.success("Fundraiser Succesfully Created")
+		}).fail((e) => {
+			console.log(e.responseText)
+			alertify.error("Failure")
+		})
 	}
 
 	showPreciseShippingForm(){
@@ -536,17 +557,20 @@
 	// get profile
 	this.bus.on('getProfile',function(data){
 		self.currentProfile = data.profile
+		self.fundraiserImage = data.file
 		self.update()
 	})
 
 	// get details
 	this.bus.on('fundraiserDetails',function(details){
 		self.fundraiserDetails = details
-		checkPlan = details.plan !== 'None'
-		checkTitle = details.title
-		checkDesc = details.description
-		
-		if (checkPlan && checkTitle && checkDesc){
+		checkType = details.type !== 'None' || details.type !== '' 
+		checkPlan = details.plans !== 'None' || details.plans !== '' 
+		checkTitle = details.title !== ''
+		checkDesc = details.description !== ''
+			
+
+		if (checkPlan && checkTitle && checkDesc && checkPlan){
 			self.canChooseSelections = true
 		}
 

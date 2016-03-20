@@ -17,15 +17,20 @@ from django.shortcuts import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from helper.initialize_helper import SessionVariable
 
+# serializers
+from serializers import FundraiserTypeSerializer,FundraiserCategorySerializer
+
 # app
-from fundraiser.models import Fundraiser
+from fundraiser.models import Fundraiser, FundraiserCategory,FundraiserType
 from payment.models import Payment
 from comment.models import FundraiserOrderComment
-from serializers import FundraiserTypeSerializer
 from jmi.env_var import STRIPE_API_KEY
 from api.helper.model_helper import ModelHelper
 from django.core.paginator import Paginator
-from shipment.models import Shipment,Selection
+from shipment.models import Shipment,Selection,FundraiserOrderComment
+from account.models import Profile
+from address.models import Address
+from product.models import Product
 
 # helper
 from api.helper.generics.api_manager import APIGenericGenerator
@@ -33,50 +38,118 @@ from api.helper.generics.api_manager import APIGenericGenerator
 class APIFundrasierCreate(APIView):
 	def post(self,request):
 		data = request.POST
+
+		try:
+			# shipping notes
+			serializedShippingNote = json.loads(data['shippingNotes'])
+		except:
+			serializedShippingNote = None
+
 		try:
 			# right now only has one address used in profile
-			profile = json.loads(data['profile'])
+			serializedProfile = json.loads(data['profile'])
 
 			# multiple selections
-			selections = json.loads(data['selections'])
+			serializedSelections = json.loads(data['selections'])
 
 			# plan,title,description, note
-			details = json.loads(data['details'])
+			serializedDetails = json.loads(data['details'])
 
-			# shipping notes
-			shippingNote = json.loads(data['shippingNotes'])
+
+			serializedAddress = json.loads(data['address'])
 
 		except:
-			profile = None
-			selections = None
-			details = None
+			serializedProfile = None
+			serializedSelections = None
+			serializedDetails = None
+			serializedAddress = None
 
-		if profile and selections and details:
-			# fudraiser,created = Fundraiser.objects.get_or_create()
+		if serializedProfile and serializedSelections and serializedDetails:
 
-			# organizations = None
-			# title = None
-			# description = None
-			# plan = None
-			# type = None
-			# status = None
-			# finalized = None
-			# profile = None
-			# account = None
-			# created = None
-			# updated = None
-			# discount = None
-			# slug = None
-			# receipt_email_sent = None
+			try:
+				id = int(serializedProfile['id'])
+				profile = Profile.objects.get(id=id)
+			except:
+				profile = None 
 
+			try:
+				id = int(serializedDetails['plan']['id'])
+				plan = FundraiserCategory.objects.get(id=id)
+			except:
+				plan = None 
 
-			# shipment = Shipment
-			# shippingNote
-			# print profile
+			try:
+				id = int(serializedDetails['type']['id'])
+				type = FundraiserType.objects.get(id=id)
+			except:
+				type = None 
 
-			return Response('ok works')
+			try:
+				id = int(serializedAddress['id'])
+				address = Address.objects.get(id=id)
+			except:
+				type = None 
+			
+
+			# create the fundraiser
+			fundraiser,created = Fundraiser.objects.get_or_create(
+				title = serializedDetails['title'],
+				description = serializedDetails['description'],
+				plan = plan,
+				type = type,
+				status = 'unpaid',
+				finalized = True,
+				profile = profile,
+				account = profile.account
+			)
+
+			# create fundraiser note
+			if serializedDetails['note']:
+				scomment,created = FundraiserOrderComment.objects.get_or_create(
+					fundraiser=fundraiser,
+					comment=serializedDetails['note']
+				)
+			
+			# the shipment is added when fundraiser is saved
+			# so just grab that shipment
+			shipment = fundraiser.shipment()
+			shipment.fundraiser = fundraiser
+			shipment.address = address
+			shipment.comment = scomment
+			shipment.save()
+			
+			# create selections and add to shipment
+			for product in serializedSelections:
+
+				try:
+					id = int(product['id'])
+					foundProduct = Product.objects.get(id=id)
+				except:
+					foundProduct = None
+
+				
+				try:
+					qty = int(product['qty'])
+				except:
+					qty = 0
+
+				selection,created = Selection.objects.get_or_create(
+					shipment = shipment,
+					product = foundProduct,
+					quantity = qty
+				)
+
+			return Response(FundraisersSerializer(fundraiser).data)
 
 		return Response('test')
+
+class FundraiserPlansView(APIView):
+	def get(self,request):
+		try:
+			plans = FundraiserCategory.objects.all()
+		except:
+			plans = None 
+		return Response(FundraiserCategorySerializer(plans,many=True).data)
 
 class FundraiserTypesView(APIView):
 	def get(self,request):
@@ -128,7 +201,6 @@ class FundraisersViewSet(APIView):
 
 class TrackEmailOrder(APIView):
 	def get(self,request,format=None):
-		print request.GET['token']
 		return Response('Success',status=status.HTTP_200_OK)
 
 class FundraiserProcessView(APIView):

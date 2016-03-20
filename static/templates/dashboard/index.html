@@ -107,6 +107,8 @@
 	<!-- forms -->
 	<script type='riot/tag' src="{% static 'riot-tags/forms/textfield.tag' %}"></script>
 	<script type='riot/tag' src="{% static 'riot-tags/forms/select.tag' %}"></script>
+	<script type='riot/tag' src="{% static 'riot-tags/forms/account-select.tag' %}"></script>
+	
 	<!-- formas:organizationType -->
 	<script type='riot/tag' src="{% static 'riot-tags/forms/organizations/type-create-button.tag' %}"></script>
 	<script type='riot/tag' src="{% static 'riot-tags/forms/organizations/create-contact-modal.tag' %}"></script>
@@ -137,6 +139,7 @@
   <!-- profile -->
  	<script type='riot/tag' src="{% static 'riot-tags/account/profile-detail.tag' %}"></script>
  	<script type='riot/tag' src="{% static 'riot-tags/account/fundraisers-tab.tag' %}"></script>
+ 	<script type='riot/tag' src="{% static 'riot-tags/account/create-account.tag' %}"></script>
 
   <!-- dashboard -->
   <script type='riot/tag' src="{% static 'riot-tags/dashboard/notification-panel.tag' %}"></script>
@@ -151,6 +154,9 @@
 	<!-- products -->
 	<script type='riot/tag' src="{% static 'riot-tags/products/product-list.tag' %}"></script>  
 	
+	<!-- strip payments -->
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+
 
 	<!-- 
 	<script data-main="{% static 'riot-tags/main' %}" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js"></script>
