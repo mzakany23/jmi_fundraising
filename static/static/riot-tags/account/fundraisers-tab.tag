@@ -81,7 +81,7 @@
 
                           	<th>
                               <p id="loading{i}">loading...</p>
-                              <img value={ i } onload={ turnOffSpinner } src="http://localhost:8000{ selection.product.image }" height='50' width='100'>
+                              <img value={ i } onload={ turnOffSpinner } src="{ opts.store.server }{ selection.product.image }" height='50' width='100'>
                             </th>
                           	<th>{ selection.product.title }</th>
                           	<th>{ selection.product.price }</th>
@@ -129,7 +129,6 @@
   }
 
 	recalculateTotals(){
-    console.log(this.currentFundraiser)
 		for(var key in this.currentFundraiser.selections){
 			selection = this.currentFundraiser.selections[key]
 			jarCost = parseFloat(selection.product.price)

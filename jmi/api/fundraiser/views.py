@@ -104,6 +104,7 @@ class APIFundrasierCreate(APIView):
 			)
 
 			# create fundraiser note
+
 			if serializedDetails['note']:
 				scomment,created = FundraiserOrderComment.objects.get_or_create(
 					fundraiser=fundraiser,
@@ -115,7 +116,8 @@ class APIFundrasierCreate(APIView):
 			shipment = fundraiser.shipment()
 			shipment.fundraiser = fundraiser
 			shipment.address = address
-			shipment.comment = scomment
+			if serializedDetails['note']:
+				shipment.comment = scomment
 			shipment.save()
 			
 			# create selections and add to shipment

@@ -442,13 +442,14 @@
 		}
 		
 		this.opts.store.fundraisers.create(data).then((fundraiser) => {
-			self.opts.bus.trigger('fundraiserSuccessfullyCreated',fundraiser)
-			riot.route('/fundraisers/?page=1')	
+            scroll(0,0)
+            riot.route('/fundraisers/?page=1')  
 			alertify.success("Fundraiser Succesfully Created")
 		}).fail((e) => {
 			console.log(e.responseText)
 			alertify.error("Failure")
 		})
+
 	}
 
 	showPreciseShippingForm(){

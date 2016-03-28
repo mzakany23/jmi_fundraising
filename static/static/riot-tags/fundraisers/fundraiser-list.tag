@@ -70,7 +70,12 @@
                                         <td>{ fundraiser.discount }</td>
                                         <td>{ fundraiser.finalized }</td> -->
                                         <td>${ fundraiser.order_details.net_total }</td>
-                                        <td><email-fundraiser-confirm fundraiser={ fundraiser } store={ store }></email-fundraiser-confirm></td>
+                                        <td>
+                                            <email-fundraiser-confirm 
+                                                fundraiser={ fundraiser } 
+                                                store={ store }/>
+                                            </email-fundraiser-confirm>
+                                        </td>
                                     </tr>
                                 </form>
                                         
@@ -112,9 +117,9 @@
 <script>
     self = this;
     this.status = {
-        'in-process': 'warning',
+        'in-process': 'danger',
         'paid': 'success',
-        'unpaid': 'danger'
+        'unpaid': 'warning'
     }
 
     this.on('mount',function(){
@@ -179,12 +184,7 @@
         }
     }
 
-    // observable
-    this.opts.bus.on('fundraiserSuccessfullyCreated',function(fundraiser){
-        self.model.results.push(fundraiser)
-        self.update()
-    })
-
+    
 </script>
 
 

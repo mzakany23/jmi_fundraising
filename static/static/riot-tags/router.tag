@@ -36,13 +36,18 @@
 	     // just page
 			}else if (q.page) {
 				store.fundraisers.show(q.page).then((fundraisers) => {
-        	mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})
+					try{
+						mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})	
+					}catch(e){
+						mount('fundraiser-list',{bus:bus,store:store,model:fundraisers})	
+					}
+        	
       }).fail((e) => {console.log(e)})
 
 			// detail
 			}else if (id) {
 				if (!this.currentTag){
-					$.get('http://localhost:8000/api/fundraisers/' + id).then((fundraiser) => {
+					$.get('/api/fundraisers/' + id).then((fundraiser) => {
 						mount('fundraiser-detail',{bus:bus,store:store,fundraiser:fundraiser})
 					})
 				}else {
