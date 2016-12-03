@@ -4,13 +4,14 @@
 This module contains a base type which provides list-style mutations
 without specific data storage methods.
 
-See also http://www.aryehleib.com/MutableLists.html
+See also http://static.aryehleib.com/oldsite/MutableLists.html
 
 Author: Aryeh Leib Taurog.
 """
-from django.utils.functional import total_ordering
+from functools import total_ordering
+
 from django.utils import six
-from django.utils.six.moves import xrange
+from django.utils.six.moves import range
 
 
 @total_ordering
@@ -54,16 +55,12 @@ class ListMixin(object):
 
     type or tuple _allowed:
         A type or tuple of allowed item types [Optional]
-
-    class _IndexError:
-        The type of exception to be raise on invalid index [Optional]
     """
 
     _minlength = 0
     _maxlength = None
-    _IndexError = IndexError
 
-    ### Python initialization and special list interface methods ###
+    # ### Python initialization and special list interface methods ###
 
     def __init__(self, *args, **kwargs):
         if not hasattr(self, '_get_single_internal'):
@@ -78,7 +75,7 @@ class ListMixin(object):
     def __getitem__(self, index):
         "Get the item(s) at the specified index/slice."
         if isinstance(index, slice):
-            return [self._get_single_external(i) for i in xrange(*index.indices(len(self)))]
+            return [self._get_single_external(i) for i in range(*index.indices(len(self)))]
         else:
             index = self._checkindex(index)
             return self._get_single_external(index)
@@ -98,7 +95,7 @@ class ListMixin(object):
 
         newLen = origLen - len(indexRange)
         newItems = (self._get_single_internal(i)
-                    for i in xrange(origLen)
+                    for i in range(origLen)
                     if i not in indexRange)
 
         self._rebuild(newLen, newItems)
@@ -112,12 +109,7 @@ class ListMixin(object):
             self._check_allowed((val,))
             self._set_single(index, val)
 
-    def __iter__(self):
-        "Iterate over the items in the list"
-        for i in xrange(len(self)):
-            yield self[i]
-
-    ### Special methods for arithmetic operations ###
+    # ### Special methods for arithmetic operations ###
     def __add__(self, other):
         'add another list-like object'
         return self.__class__(list(self) + list(other))
@@ -154,7 +146,7 @@ class ListMixin(object):
         for i in range(olen):
             try:
                 c = self[i] == other[i]
-            except self._IndexError:
+            except IndexError:
                 # self must be shorter
                 return False
             if not c:
@@ -166,7 +158,7 @@ class ListMixin(object):
         for i in range(olen):
             try:
                 c = self[i] < other[i]
-            except self._IndexError:
+            except IndexError:
                 # self must be shorter
                 return True
             if c:
@@ -175,8 +167,8 @@ class ListMixin(object):
                 return False
         return len(self) < olen
 
-    ### Public list interface Methods ###
-    ## Non-mutating ##
+    # ### Public list interface Methods ###
+    # ## Non-mutating ##
     def count(self, val):
         "Standard list count method"
         count = 0
@@ -187,12 +179,12 @@ class ListMixin(object):
 
     def index(self, val):
         "Standard list index method"
-        for i in xrange(0, len(self)):
+        for i in range(0, len(self)):
             if self[i] == val:
                 return i
         raise ValueError('%s not found in object' % str(val))
 
-    ## Mutating ##
+    # ## Mutating ##
     def append(self, val):
         "Standard list append method"
         self[len(self):] = [val]
@@ -235,9 +227,9 @@ class ListMixin(object):
                 temp.sort(reverse=reverse)
             self[:] = temp
 
-    ### Private routines ###
+    # ### Private routines ###
     def _rebuild(self, newLen, newItems):
-        if newLen < self._minlength:
+        if newLen and newLen < self._minlength:
             raise ValueError('Must have at least %d items' % self._minlength)
         if self._maxlength is not None and newLen > self._maxlength:
             raise ValueError('Cannot have more than %d items' % self._maxlength)
@@ -253,7 +245,7 @@ class ListMixin(object):
             return index
         if correct and -length <= index < 0:
             return index + length
-        raise self._IndexError('invalid index: %s' % str(index))
+        raise IndexError('invalid index: %s' % str(index))
 
     def _check_allowed(self, items):
         if hasattr(self, '_allowed'):
@@ -294,7 +286,7 @@ class ListMixin(object):
         newVals = dict(zip(indexList, valueList))
 
         def newItems():
-            for i in xrange(newLen):
+            for i in range(newLen):
                 if i in newVals:
                     yield newVals[i]
                 else:
@@ -321,7 +313,7 @@ class ListMixin(object):
         newLen = origLen - stop + start + len(valueList)
 
         def newItems():
-            for i in xrange(origLen + 1):
+            for i in range(origLen + 1):
                 if i == start:
                     for val in valueList:
                         yield val

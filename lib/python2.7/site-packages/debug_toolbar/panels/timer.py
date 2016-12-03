@@ -1,13 +1,16 @@
 from __future__ import absolute_import, unicode_literals
 
+import time
+
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
+
+from debug_toolbar.panels import Panel
+
 try:
     import resource     # Not available on Win32 systems
 except ImportError:
     resource = None
-import time
-from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
-from debug_toolbar.panels import Panel
 
 
 class TimerPanel(Panel):
@@ -52,7 +55,7 @@ class TimerPanel(Panel):
         if self.has_content:
             self._start_rusage = resource.getrusage(resource.RUSAGE_SELF)
 
-    def process_response(self, request, response):
+    def generate_stats(self, request, response):
         stats = {}
         if hasattr(self, '_start_time'):
             stats['total_time'] = (time.time() - self._start_time) * 1000

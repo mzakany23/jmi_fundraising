@@ -2,8 +2,7 @@
 weakref_backports is a partial backport of the weakref module for python
 versions below 3.4.
 
-Copyright (C) 2013 Python Software Foundation, see license.python.txt for
-details.
+Copyright (C) 2013 Python Software Foundation, see LICENSE.python for details.
 
 The following changes were made to the original sources during backporting:
 
@@ -66,4 +65,3 @@ class WeakMethod(ref):
         return True
 
     __hash__ = ref.__hash__
-

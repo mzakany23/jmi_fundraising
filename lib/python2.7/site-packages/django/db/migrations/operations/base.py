@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+
 from django.db import router
 
 
@@ -28,6 +29,9 @@ class Operation(object):
     # Should this operation be forced as atomic even on backends with no
     # DDL transaction support (i.e., does it have no DDL, like RunPython)
     atomic = False
+
+    # Should this operation be considered safe to elide and optimize across?
+    elidable = False
 
     serialization_expand_args = []
 
@@ -98,17 +102,29 @@ class Operation(object):
         """
         return self.references_model(model_name, app_label)
 
-    def allowed_to_migrate(self, connection_alias, model):
+    def allow_migrate_model(self, connection_alias, model):
         """
-        Returns if we're allowed to migrate the model. Checks the router,
-        if it's a proxy, if it's managed, and if it's swapped out.
+        Returns if we're allowed to migrate the model.
+
+        This is a thin wrapper around router.allow_migrate_model() that
+        preemptively rejects any proxy, swapped out, or unmanaged model.
         """
-        return (
-            not model._meta.proxy and
-            not model._meta.swapped and
-            model._meta.managed and
-            router.allow_migrate(connection_alias, model)
-        )
+        if not model._meta.can_migrate(connection_alias):
+            return False
+
+        return router.allow_migrate_model(connection_alias, model)
+
+    def reduce(self, operation, in_between, app_label=None):
+        """
+        Return either a list of operations the actual operation should be
+        replaced with or a boolean that indicates whether or not the specified
+        operation can be optimized across.
+        """
+        if self.elidable:
+            return [operation]
+        elif operation.elidable:
+            return [self]
+        return False
 
     def __repr__(self):
         return "<%s %s%s>" % (
@@ -116,9 +132,3 @@ class Operation(object):
             ", ".join(map(repr, self._constructor_args[0])),
             ",".join(" %s=%r" % x for x in self._constructor_args[1].items()),
         )
-
-    def __eq__(self, other):
-        return (self.__class__ == other.__class__) and (self.deconstruct() == other.deconstruct())
-
-    def __ne__(self, other):
-        return not (self == other)

@@ -8,9 +8,11 @@ import random
 import tempfile
 import time
 import zlib
-from django.core.cache.backends.base import BaseCache, DEFAULT_TIMEOUT
+
+from django.core.cache.backends.base import DEFAULT_TIMEOUT, BaseCache
 from django.core.files.move import file_move_safe
 from django.utils.encoding import force_bytes
+
 try:
     from django.utils.six.moves import cPickle as pickle
 except ImportError:
@@ -52,8 +54,8 @@ class FileBasedCache(BaseCache):
         try:
             with io.open(fd, 'wb') as f:
                 expiry = self.get_backend_timeout(timeout)
-                f.write(pickle.dumps(expiry, -1))
-                f.write(zlib.compress(pickle.dumps(value), -1))
+                f.write(pickle.dumps(expiry, pickle.HIGHEST_PROTOCOL))
+                f.write(zlib.compress(pickle.dumps(value, pickle.HIGHEST_PROTOCOL)))
             file_move_safe(tmp_path, fname, allow_overwrite=True)
             renamed = True
         finally:
@@ -150,8 +152,3 @@ class FileBasedCache(BaseCache):
         filelist = [os.path.join(self._dir, fname) for fname
                     in glob.glob1(self._dir, '*%s' % self.cache_suffix)]
         return filelist
-
-
-# For backwards compatibility
-class CacheClass(FileBasedCache):
-    pass

@@ -1,14 +1,13 @@
 from datetime import datetime, tzinfo
 
+from django.template import Library, Node, TemplateSyntaxError
+from django.utils import six, timezone
+
 try:
     import pytz
 except ImportError:
     pytz = None
 
-from django.template import Node
-from django.template import TemplateSyntaxError, Library
-from django.utils import six
-from django.utils import timezone
 
 register = Library()
 
@@ -137,7 +136,6 @@ def localtime_tag(parser, token):
     Sample usage::
 
         {% localtime off %}{{ value_in_utc }}{% endlocaltime %}
-
     """
     bits = token.split_contents()
     if len(bits) == 1:
@@ -166,7 +164,6 @@ def timezone_tag(parser, token):
         {% timezone "Europe/Paris" %}
             It is {{ now }} in Paris.
         {% endtimezone %}
-
     """
     bits = token.split_contents()
     if len(bits) != 2:

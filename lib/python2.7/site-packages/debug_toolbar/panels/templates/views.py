@@ -3,9 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import TemplateDoesNotExist
+from django.template.engine import Engine
 from django.utils.safestring import mark_safe
-
-from debug_toolbar.compat import get_template_loaders
 
 
 def template_source(request):
@@ -18,7 +17,7 @@ def template_source(request):
         return HttpResponseBadRequest('"template" key is required')
 
     final_loaders = []
-    loaders = get_template_loaders()
+    loaders = Engine.get_default().template_loaders
 
     for loader in loaders:
         if loader is not None:
